@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9CAF52B0-F49C-4999-80E4-4107F5E41737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Domain", "src\Rucula.Domain\Rucula.Domain.csproj", "{FD2FCECD-6E86-43B2-9D17-EB2031B77085}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Infra", "src\Rucula.Infra\Rucula.Infra.csproj", "{5468A9BA-3890-4735-A1BA-90B03868183C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.ConsoleUi", "src\Rucula.ConsoleUi\Rucula.ConsoleUi.csproj", "{C0D0F377-3B66-44B9-B897-935EBA3E5272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Infra.Ioc", "src\Rucula.Infra.Ioc\Rucula.Infra.Ioc.csproj", "{6668C94F-D8A5-446C-BEF2-6BC9214C44AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Aplication", "src\Rucula.Aplication\Rucula.Aplication.csproj", "{F3455FAC-CEA6-484E-96C8-433D8E743874}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD2FCECD-6E86-43B2-9D17-EB2031B77085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2FCECD-6E86-43B2-9D17-EB2031B77085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2FCECD-6E86-43B2-9D17-EB2031B77085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2FCECD-6E86-43B2-9D17-EB2031B77085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5468A9BA-3890-4735-A1BA-90B03868183C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5468A9BA-3890-4735-A1BA-90B03868183C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5468A9BA-3890-4735-A1BA-90B03868183C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5468A9BA-3890-4735-A1BA-90B03868183C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D0F377-3B66-44B9-B897-935EBA3E5272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D0F377-3B66-44B9-B897-935EBA3E5272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D0F377-3B66-44B9-B897-935EBA3E5272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D0F377-3B66-44B9-B897-935EBA3E5272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6668C94F-D8A5-446C-BEF2-6BC9214C44AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6668C94F-D8A5-446C-BEF2-6BC9214C44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6668C94F-D8A5-446C-BEF2-6BC9214C44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6668C94F-D8A5-446C-BEF2-6BC9214C44AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3455FAC-CEA6-484E-96C8-433D8E743874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3455FAC-CEA6-484E-96C8-433D8E743874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3455FAC-CEA6-484E-96C8-433D8E743874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3455FAC-CEA6-484E-96C8-433D8E743874}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FD2FCECD-6E86-43B2-9D17-EB2031B77085} = {9CAF52B0-F49C-4999-80E4-4107F5E41737}
+		{5468A9BA-3890-4735-A1BA-90B03868183C} = {9CAF52B0-F49C-4999-80E4-4107F5E41737}
+		{C0D0F377-3B66-44B9-B897-935EBA3E5272} = {9CAF52B0-F49C-4999-80E4-4107F5E41737}
+		{6668C94F-D8A5-446C-BEF2-6BC9214C44AF} = {9CAF52B0-F49C-4999-80E4-4107F5E41737}
+		{F3455FAC-CEA6-484E-96C8-433D8E743874} = {9CAF52B0-F49C-4999-80E4-4107F5E41737}
+	EndGlobalSection
+EndGlobal
