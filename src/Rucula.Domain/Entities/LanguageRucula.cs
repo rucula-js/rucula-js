@@ -20,6 +20,7 @@ public sealed class LanguageRucula
     private void ValidateProperts(string sintax, string description)
     {
         ValidationPropert.ValidPropert(String.IsNullOrEmpty(sintax),"Sintax is Invalid");
+        ValidationPropert.ValidPropert(sintax.Length > 100,"Character overflow, max 100");
         ValidationPropert.ValidPropert(description.Length > 200,"Character overflow, max 200");
         this.Sintax = sintax;
         this.Description = description;

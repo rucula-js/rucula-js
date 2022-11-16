@@ -14,7 +14,7 @@ public class LanguageService: ILanguageService
     }
     public  async Task<IEnumerable<LanguageDTO>> GetLanguageAsync()
     {
-        var languages = _languageRepository.GetLanguageAsync();
+        var languages = await _languageRepository.GetLanguageAsync();
         return _mapper.Map<IEnumerable<LanguageDTO>>(languages);
     }
     public async  Task<LanguageDTO> GetLanguageByIdAsync(int? id)

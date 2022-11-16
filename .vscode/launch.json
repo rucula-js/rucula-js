@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/Rucula.ConsoleUi/bin/Debug/net6.0/Rucula.ConsoleUi.dll",
+            "program": "${workspaceFolder}/test/Rucula.Application.Test/bin/Debug/net6.0/Rucula.Application.Test.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Rucula.ConsoleUi",
+            "cwd": "${workspaceFolder}/test/Rucula.Application.Test",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
