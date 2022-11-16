@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using Rucula.Domain;
+using Rucula.Aplication;
 
 namespace Rucula.Infra.Ioc;
 public static class StartupDependenci
@@ -13,5 +14,9 @@ public static class StartupDependenci
             b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName))
         );
         services.AddScoped<ILanguageRepository,LanguageRepositorie>();
+        services.AddScoped<IKeyWordRepository,KeyWordRepositorie>();
+        
+        services.AddScoped<ILanguageService,LanguageService>();
+        services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
     }
 } 
