@@ -10,15 +10,7 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.HasKey(k => k.Id);
         builder
         .Property(p => p.Name)
-        .HasMaxLength(30);
-        
-        
-        builder.HasData(new Language(1,"C#"));
-        builder.HasData(new Language(2,"Adonix"));
-        builder.HasData(new Language(3,"Java"));
-        builder.HasData(new Language(4,"JavaScript"));
-        builder.HasData(new Language(5,"TypScript"));
-        builder.HasData(new Language(6,"C"));
-        builder.HasData(new Language(7,"C++"));
+        .HasMaxLength(30)
+        .IsRequired();
     }
 }

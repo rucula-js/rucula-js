@@ -3,11 +3,9 @@ public sealed class LanguageRucula
 {
     public LanguageRucula(int id, string sintax, string description)
     {
-        ValidationsPropert.ValidPropert(id < 1,"Id is Invalid");
-        ValidateProperts(sintax, description);
+        ValidationPropert.ValidPropert(id < 1,"Id is Invalid");
         this.Id = id;
-        this.Sintax = sintax;
-        this.Description = description;
+        ValidateProperts(sintax, description);
     }
     public LanguageRucula(string sintax, string description)
     {
@@ -21,7 +19,9 @@ public sealed class LanguageRucula
 
     private void ValidateProperts(string sintax, string description)
     {
-        ValidationsPropert.ValidPropert(String.IsNullOrEmpty(sintax),"Sintax is Invalid");
-        ValidationsPropert.ValidPropert(description.Length > 200,"Description is Invalid");
+        ValidationPropert.ValidPropert(String.IsNullOrEmpty(sintax),"Sintax is Invalid");
+        ValidationPropert.ValidPropert(description.Length > 200,"Character overflow, max 200");
+        this.Sintax = sintax;
+        this.Description = description;
     }
 }

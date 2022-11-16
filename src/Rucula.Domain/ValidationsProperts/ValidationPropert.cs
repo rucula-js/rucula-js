@@ -1,4 +1,4 @@
-public sealed class ValidationsPropert
+public sealed class ValidationPropert
 {
     public static void ValidPropert(bool condition, string message)
     {
