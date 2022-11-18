@@ -1,11 +1,13 @@
 ﻿namespace Rucula.Aplication;
 using System.ComponentModel.DataAnnotations;
-public class LanguageDTO
+public class LanguageRuculaDTO
 {
 
         [Required]
         public int Id { get; set; }
         [Required]
-        public string? Name { get; set; }
+        public string? Sintax { get;set; }
+        public string? Description { get;set; }
+        
 }
  

@@ -1,5 +1,5 @@
 namespace Rucula.Domain;
-public sealed class LanguageRucula
+public class LanguageRucula
 {
     public LanguageRucula(int id, string sintax, string description)
     {

@@ -14,9 +14,11 @@ public static class StartupDependenci
             b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName))
         );
         services.AddScoped<ILanguageRepository,LanguageRepositorie>();
+        services.AddScoped<ILanguageRuculaRepository,LanguageRuculaRepositorie>();
         services.AddScoped<IKeyWordRepository,KeyWordRepositorie>();
         
         services.AddScoped<ILanguageService,LanguageService>();
+        services.AddScoped<ILanguageRuculaService,LanguageRuculaService>();
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
     }
 } 

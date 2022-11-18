@@ -22,7 +22,7 @@ public class LanguageService: ILanguageService
         var languages = await _languageRepository.GetLanguageByIdAsync(id);
         return _mapper.Map<LanguageDTO>(languages);
     }
-    public async  Task SaveAsync(LanguageDTO Language)
+    public async Task SaveAsync(LanguageDTO Language)
     {
         var languagesEntity =  _mapper.Map<Language>(Language);
         await _languageRepository.SaveAsync(languagesEntity);

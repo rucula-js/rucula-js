@@ -1,7 +1,6 @@
 ﻿namespace Rucula.Domain;
 public class Language 
 {
-
     public Language (int id, string name){
         ValidationPropert.ValidPropert(id < 1,"Id is Invalid");
         this.Id = id;
