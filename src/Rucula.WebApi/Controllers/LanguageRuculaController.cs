@@ -16,7 +16,7 @@ public class LanguageRuculaController : ControllerBase
       _logger = logger;
    }
    [HttpGet("GetAll")]
-   public async Task<IEnumerable<LanguageRuculaDTO>> GetAsync()
+   public async Task<IEnumerable<LanguageRuculaDTO>> GetAllAsync()
    {
       return await _languageService.GetAllAsync();
    }

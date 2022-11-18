@@ -6,11 +6,11 @@ public class LanguageRuculaConfiguration : IEntityTypeConfiguration<LanguageRucu
 {
     public void Configure(EntityTypeBuilder<LanguageRucula> builder)
     {
+        builder.HasKey(k => k.Code).HasName("PrimaryKey_LAnguageRuculaCode");
+        builder.Property(p => p.Description)
+            .HasMaxLength(200);
 
-        builder.HasKey(k => k.Id).HasName("PrimaryKey_KeyWordId");
-        builder
-        .Property(p => p.Sintax)
-        .HasMaxLength(200)
-        .IsRequired();
+        builder.Property(p => p.Description2)
+            .HasMaxLength(200);
     }
 }

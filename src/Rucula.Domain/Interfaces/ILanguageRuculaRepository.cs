@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
 namespace Rucula.Domain;
 public interface ILanguageRuculaRepository
 {    

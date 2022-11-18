@@ -12,11 +12,11 @@ public class KeyWordRepositorie : IKeyWordRepository
         this._KeyWordContext.Remove(KeyWord);
         await _KeyWordContext.SaveChangesAsync();
     }    
-    public async Task<IEnumerable<KeyWord>> GetKeyWordAsync()
+    public async Task<IEnumerable<KeyWord>> GetAllAsync()
     {
         return await _KeyWordContext.KeyWords!.ToListAsync();
     }
-    public async Task<KeyWord> GetKeyWordByIdAsync(int? id)
+    public async Task<KeyWord> GetByIdAsync(int? id)
     {
         return await this._KeyWordContext.KeyWords.FindAsync(id);       
     }
