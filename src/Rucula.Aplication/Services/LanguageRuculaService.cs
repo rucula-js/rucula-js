@@ -5,11 +5,11 @@ using Rucula.Domain;
 namespace Rucula.Aplication;
 public class LanguageRuculaService: ILanguageRuculaService
 {
-    private ILanguageRuculaRepository _languageRuculaRepository;
+    private readonly ILanguageRuculaRepository _languageRuculaRepository;
     private  readonly IMapper _mapper;
     public LanguageRuculaService(ILanguageRuculaRepository languageRuculaRepository, IMapper mapper)
     {
-        _languageRuculaRepository = _languageRuculaRepository;
+        _languageRuculaRepository = languageRuculaRepository;
         _mapper = mapper;
     }
     public  async Task<IEnumerable<LanguageRuculaDTO>> GetAllAsync()
