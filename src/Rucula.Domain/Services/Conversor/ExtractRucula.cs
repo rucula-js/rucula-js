@@ -4,6 +4,10 @@ namespace Rucula.Domain.Services.Conversor;
 public class ExtractRucula : IConvertRucula
  {
     private string _sintaxRucula;
+    public ExtractRucula()
+    {
+        
+    }
     public ExtractRucula(string sintaxRucula)
     {
         this._sintaxRucula = sintaxRucula; 
