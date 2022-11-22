@@ -6,8 +6,8 @@ public class AtributesHTML
         ValidateProperts(code, description, isAtributeClass);
     }
     public string Code { get; private set; }
-    public string? Description { get; private set; }
-    public bool? IsAtributeClass { get; private set;}
+    public string Description { get; private set; }
+    public bool IsAtributeClass { get; private set;}
 
     private void ValidateProperts(string code, string description, bool isAtributeClass)
     {

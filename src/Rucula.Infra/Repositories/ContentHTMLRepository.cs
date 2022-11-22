@@ -18,7 +18,7 @@ public class ContentHTMLRepository : IContentHTMLRepository
         return await _LanguageContext.ContentHTML!.ToListAsync();
     }
 
-    public async Task<ContentHTML> GetByIdAsync(string? id)
+    public async Task<ContentHTML> GetByIdAsync(string id)
     {
         return await this._LanguageContext.ContentHTML.FindAsync(id);       
     }

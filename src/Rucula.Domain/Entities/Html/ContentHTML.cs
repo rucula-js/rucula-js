@@ -7,9 +7,9 @@ public class ContentHTML
         ValidateProperts(guuid, content, dateCreation, datelastUpdate);
     }
     public string Guuid { get; private set; }
-    public string? Content { get; private set; }
-    public DateTime? DateCreation { get; private set; }
-    public DateTime? DateLastUpdate { get; private set; }
+    public string Content { get; private set; }
+    public DateTime DateCreation { get; private set; }
+    public DateTime DateLastUpdate { get; private set; }
     public ICollection<TagMetaHTML> TagMetaHTML{ get; set; }
     public ContentEstruture ContentEstruture{ get; set; }
 

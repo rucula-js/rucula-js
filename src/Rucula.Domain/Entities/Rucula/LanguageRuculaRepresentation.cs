@@ -7,8 +7,8 @@ public class LanguageRuculaRepresentation
     public LanguageRuculaRepresentation (){
     }
     public string Code { get; private set; }
-    public string? Description { get; private set; }
-    public string? CodeRuculaForeKey { get; set;}
+    public string Description { get; private set; }
+    public string CodeRuculaForeKey { get; set;}
     public LanguageRucula LanguageRucula {get;set;}
 
     private void ValidateProperts(string code, string description,string codeRuculaForeKey)

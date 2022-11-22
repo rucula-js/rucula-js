@@ -10,7 +10,7 @@ public class Language
         ValidateProperts(name);
     }
     public int Id { get; private set; }
-    public string? Name { get; private set; }
+    public string Name { get; private set; }
     public List<KeyWord> KeyWords { get; set; }
 
     private void ValidateProperts(string name)

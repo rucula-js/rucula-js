@@ -5,9 +5,9 @@ public class LanguageRucula
     {
         ValidateProperts(code, description,description);
     }
-    public string? Code { get; private set; }
-    public string? Description { get; private set; }
-    public string? Description2 { get; private set; }
+    public string Code { get; private set; }
+    public string Description { get; private set; }
+    public string Description2 { get; private set; }
     public LanguageRuculaRepresentation LanguageRuculaRepresentation {get;set;}
 
     private void ValidateProperts(string code, string description, string description2)

@@ -12,9 +12,9 @@ public class ContentHTMLService: IContentHTMLService
         _contentHTMLRepository = contentHTMLRepository;
         _mapper = mapper;
     }
-    public async  Task<ContentHTMLDTO> GetByIdAsync(string? id)
+    public async  Task<ContentHTMLDTO> GetByIdAsync(string id)
     {
-        var languages = await _contentHTMLRepository.GetByIdAsync(id);
+        var languages = await _contentHTMLRepository.GetByIdAsync(id!);
         return _mapper.Map<ContentHTMLDTO>(languages);
     }
     public async Task DeleteAsync(ContentHTMLDTO Language)

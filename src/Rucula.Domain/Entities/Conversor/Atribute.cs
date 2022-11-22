@@ -1,6 +1,6 @@
-namespace Rucula.Domain.Services.Conversor;
+namespace Rucula.Domain.Services;
 public sealed class Atribute
 {
-    public string? AtributosHTML {get;set;}
-    public string? AtributoClass {get;set;}
+    public string AtributosHTML {get;set;}
+    public string AtributoClass {get;set;}
 }

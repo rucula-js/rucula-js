@@ -14,9 +14,9 @@ public class KeyWord
         ValidateProperts(name);
     }
     public int Id { get; private set; }
-    public string? Name { get; private set; }
-    public int? LanguageId { get; set; }
-    public Language? Language { get; set; }
+    public string Name { get; private set; }
+    public int LanguageId { get; set; }
+    public Language Language { get; set; }
 
     private void ValidateProperts(string name)
     {
