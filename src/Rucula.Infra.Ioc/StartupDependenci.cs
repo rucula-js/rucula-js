@@ -23,7 +23,10 @@ public static class StartupDependenci
         services.AddScoped<ILanguageRuculaService,LanguageRuculaService>();
         services.AddScoped<ILanguageRuculaRepresentationService,LanguageRuculaRepresentationService>();
         services.AddScoped<IContentHTMLService,ContentHTMLService>();
+        services.AddScoped<IExtractRuculaService,ExtractRuculaService>();
 
+        services.AddScoped<IExtractRucula,ExtractRucula>();
+        
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
     }
 } 

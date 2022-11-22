@@ -1,5 +1,5 @@
-namespace Rucula.Domain.Services.Conversor;
-public interface IConvertRucula
+namespace Rucula.Domain;
+public interface IExtractRucula
 {
-     void ConvertSintaxRucula();            
+     string ConvertSintaxRucula(string sintaxRucula);            
 }

@@ -1,4 +1,4 @@
-namespace Rucula.Domain.Services;
+namespace Rucula.Domain;
 public sealed class Atribute
 {
     public string AtributosHTML {get;set;}

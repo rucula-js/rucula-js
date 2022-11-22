@@ -1,7 +1,6 @@
 using FluentAssertions;
 using System.Text.RegularExpressions;
 using Rucula.Domain;
-using Rucula.Domain.Services.Conversor;
 
 namespace Rucula.Application.Domain.Test;
 
