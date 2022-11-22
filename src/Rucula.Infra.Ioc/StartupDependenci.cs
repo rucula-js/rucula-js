@@ -17,10 +17,12 @@ public static class StartupDependenci
         services.AddScoped<ILanguageRepository,LanguageRepositorie>();
         services.AddScoped<ILanguageRuculaRepository,LanguageRuculaRepositorie>();
         services.AddScoped<ILanguageRuculaRepresentationRepository,LanguageRuculaRepresentationRepository>();
+        services.AddScoped<IContentHTMLRepository,ContentHTMLRepository>();
         
         services.AddScoped<ILanguageService,LanguageService>();
         services.AddScoped<ILanguageRuculaService,LanguageRuculaService>();
         services.AddScoped<ILanguageRuculaRepresentationService,LanguageRuculaRepresentationService>();
+        services.AddScoped<IContentHTMLService,ContentHTMLService>();
 
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
     }

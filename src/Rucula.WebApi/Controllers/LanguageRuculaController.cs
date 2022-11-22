@@ -27,19 +27,19 @@ public class LanguageRuculaController : ControllerBase
       return await _languageService.GetByIdAsync(id);
    }
    [HttpPost]
-   public async Task SaveAsync([FromBody] LanguageRuculaDTO language)
+   public async Task Post([FromBody] LanguageRuculaDTO language)
    {
       await _languageService.SaveAsync(language);
    }
 
    [HttpPut]
-   public async Task UpdateAsync([FromBody] LanguageRuculaDTO language)
+   public async Task Put([FromBody] LanguageRuculaDTO language)
    {
       await _languageService.UpdateAsync(language);
    }
 
    [HttpDelete]
-   public async Task DeleteAsync([FromBody] LanguageRuculaDTO language)
+   public async Task Deletsse([FromBody] LanguageRuculaDTO language)
    {
       await _languageService.DeleteAsync(language);
    }
