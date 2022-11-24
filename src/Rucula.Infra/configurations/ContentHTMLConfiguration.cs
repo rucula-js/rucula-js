@@ -6,11 +6,12 @@ public class ContentHTMLConfiguration : IEntityTypeConfiguration<ContentHTML>
 {
     public void Configure(EntityTypeBuilder<ContentHTML> builder)
     {
+         builder.Property(p => p.Guuid)
+            .IsRequired()
+            .HasMaxLength(36);
         builder
-        .HasKey(k => k.Guuid)
-        .HasName("PrimaryKey_ContentHTMLGuuid")
-        .HasAnnotation("MaxLength",36);
-        
+            .HasKey(k => k.Guuid)
+            .HasName("PrimaryKey_ContentHTMLGuuid");        
         builder
             .Property( p => p.Content)
             .IsRequired()
@@ -18,5 +19,6 @@ public class ContentHTMLConfiguration : IEntityTypeConfiguration<ContentHTML>
         builder
             .Property( p => p.DateCreation)
             .IsRequired();
+
     }
 }

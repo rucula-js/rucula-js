@@ -6,11 +6,12 @@ public class ContentEstrutureConfiguration : IEntityTypeConfiguration<ContentEst
 {
     public void Configure(EntityTypeBuilder<ContentEstruture> builder)
     {
+        builder.Property(p => p.Guuid)
+            .IsRequired()
+            .HasMaxLength(36);
         builder
-        .HasKey(k => k.Guuid)
-        .HasName("PrimaryKey_ContentEstrutureGuuid")
-        .HasAnnotation("MaxLength",36);
-
+            .HasKey(k => k.Guuid)
+            .HasName("PrimaryKey_ContentEstrutureGuuid");
         builder
             .Property(p => p.Next)
             .HasMaxLength(150);
@@ -23,7 +24,6 @@ public class ContentEstrutureConfiguration : IEntityTypeConfiguration<ContentEst
             .HasOne(h => h.ContentHTML)
             .WithOne(p => p.ContentEstruture)
             .HasForeignKey<ContentEstruture>(fk => fk.ContentFk);
-
         
     }
 }

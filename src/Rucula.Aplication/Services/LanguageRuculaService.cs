@@ -17,9 +17,9 @@ public class LanguageRuculaService: ILanguageRuculaService
         var languages = await _languageRuculaRepository.GetAllAsync();
         return _mapper.Map<IEnumerable<LanguageRuculaDTO>>(languages);
     }
-    public async  Task<LanguageRuculaDTO> GetByIdAsync(int? id)
+    public async  Task<LanguageRuculaDTO> GetByIdAsync(string code)
     {
-        var languages = await _languageRuculaRepository.GetByIdAsync(id);
+        var languages = await _languageRuculaRepository.GetByIdAsync(code);
         return _mapper.Map<LanguageRuculaDTO>(languages);
     }
     public async Task SaveAsync(LanguageRuculaDTO Language)

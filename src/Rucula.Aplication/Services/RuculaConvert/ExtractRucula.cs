@@ -1,16 +1,17 @@
 using System.Text.RegularExpressions;
+using Rucula.Domain;
 
-namespace Rucula.Domain;
+namespace Rucula.Aplication;
 public class ExtractRucula : IExtractRucula
  {
     private string _sintaxRucula;
-    private readonly ILanguageRuculaRepresentationRepository _languageRuculaRepresentationRepository;
+    private readonly ILanguageRuculaRepository _languageRuculaRepository;
     public ExtractRucula()
     {   
     }
-    public ExtractRucula(ILanguageRuculaRepresentationRepository languageRuculaRepresentationRepository)
+    public ExtractRucula(ILanguageRuculaRepository languageRuculaRepository)
     {
-        _languageRuculaRepresentationRepository = languageRuculaRepresentationRepository;
+        _languageRuculaRepository = languageRuculaRepository;
     }
     public string ConvertSintaxRucula(string sintaxRucula){
         this._sintaxRucula = sintaxRucula; 
@@ -152,14 +153,15 @@ public class ExtractRucula : IExtractRucula
     }
     public  ModeloHTML GetLanguageRepresentation(string identificador)
     {
-        var LanguageRucula = _languageRuculaRepresentationRepository.GetByCodeAsync(identificador);
-
+        var LanguageRucula = _languageRuculaRepository.GetByIdAsync(identificador);
+        LanguageRucula.Wait();
         if (LanguageRucula.IsCompletedSuccessfully)
         {
             return new ModeloHTML 
             {
-                TagHtml  = LanguageRucula.Result.Code,
-                AtributosDefaut = LanguageRucula.Result.AtributosDefaut
+                TagHtml  = LanguageRucula.Result.LanguageRuculaRepresentation.Code,
+                AtributosDefaut = null
+                //AtributosDefaut = LanguageRucula.Result.AtributosDefaut
             };
         }
         return null;

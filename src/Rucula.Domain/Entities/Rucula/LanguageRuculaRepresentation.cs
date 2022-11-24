@@ -8,8 +8,6 @@ public class LanguageRuculaRepresentation
     }
     public string Code { get; private set; }
     public string Description { get; private set; }
-    public string[] AtributosDefaut { get; private set; }
-
     public string CodeRuculaForeKey { get; set;}
     public LanguageRucula LanguageRucula {get;set;}
 

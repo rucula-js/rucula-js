@@ -18,7 +18,8 @@ public class LanguageRuculaRepresentationRepository  : ILanguageRuculaRepresenta
     }
     public async Task<LanguageRuculaRepresentation> GetByCodeAsync(string? code)
     {
-        return await this._context.LanguageRuculaRepresentation.FindAsync(code);       
+        var entity = await this._context.LanguageRuculaRepresentation.FindAsync(code); 
+        return  entity!;    
     }
     public async Task SaveAsync(LanguageRuculaRepresentation languageRucula)
     {

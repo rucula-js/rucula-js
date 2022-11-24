@@ -16,9 +16,9 @@ public class LanguageRuculaRepositorie  : ILanguageRuculaRepository
     {
         return await _context.LanguagesRucula!.ToListAsync();
     }
-    public async Task<LanguageRucula> GetByIdAsync(int? id)
+    public async Task<LanguageRucula> GetByIdAsync(string id)
     {
-        return await this._context.LanguagesRucula.FindAsync(id);       
+        return await this._context.LanguagesRucula.Include( lr => lr.LanguageRuculaRepresentation).Where( p => p.Code == id).FirstAsync();       
     }
     public async Task SaveAsync(LanguageRucula languageRucula)
     {

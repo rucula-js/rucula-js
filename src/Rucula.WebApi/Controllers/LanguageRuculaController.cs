@@ -22,9 +22,9 @@ public class LanguageRuculaController : ControllerBase
    }
    
    [HttpGet("GetById")]
-   public async Task<LanguageRuculaDTO> GetByIdAsync(int id)
+   public async Task<LanguageRuculaDTO> GetByIdAsync(string code)
    {
-      return await _languageService.GetByIdAsync(id);
+      return await _languageService.GetByIdAsync(code);
    }
    [HttpPost]
    public async Task Post([FromBody] LanguageRuculaDTO language)
