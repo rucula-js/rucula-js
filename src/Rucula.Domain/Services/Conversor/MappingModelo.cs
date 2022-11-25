@@ -2,7 +2,7 @@
 public class ModeloHTML{
     public string Code {get;set;}
     public string TagHtml {get;set;}
-    public  string[] AtributosDefaut  { get;set;}   
+    public  string AtributosDefaut  { get;set;}   
  }
 public class ModeloAtributo{
     public string AtributCode {get;set;}

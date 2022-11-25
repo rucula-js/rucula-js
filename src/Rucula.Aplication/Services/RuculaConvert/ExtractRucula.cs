@@ -8,7 +8,7 @@ public class ExtractRucula : IExtractRucula
     private readonly ILanguageRuculaRepository _languageRuculaRepository;
     private readonly ILanguageRuculaParameterRepository _languageRuculaParameterRepository;
 
-    private List<ModeloHTML> ListModeloHTML;
+    private List<LanguageRucula> ListLanguageRucula;
     private List<ModeloAtributo> ListModeloAtributo;
     public ExtractRucula()
     {   
@@ -18,7 +18,9 @@ public class ExtractRucula : IExtractRucula
         _languageRuculaRepository = languageRuculaRepository;
         _languageRuculaParameterRepository = languageRuculaParameterRepository;
     }
-    public string ConvertSintaxRucula(string sintaxRucula){
+    public string ConvertSintaxRucula(string sintaxRucula)
+    {
+        this.ListLanguageRucula = new List<LanguageRucula>();
         this._sintaxRucula = sintaxRucula; 
         PrepareMatchGroups();
         return this._sintaxRucula;
@@ -48,7 +50,7 @@ public class ExtractRucula : IExtractRucula
         PrepareMatchGroups();
     }
     public void  PrepareHTML(GroupCollection groups, ref string text){
-        ModeloHTML mappingModelo =  GetLanguageRepresentation(groups[1].Value); // Buscar Identificador no banco de dados
+        LanguageRucula mappingModelo =  GetLanguageRepresentation(groups[1].Value); // Buscar Identificador no banco de dados
  
         if (mappingModelo is null)
         {
@@ -58,12 +60,12 @@ public class ExtractRucula : IExtractRucula
         string atributos = "";
         string HTML = "";
 
-        atributos = PreparaAtributos(groups[3].Value!,mappingModelo.AtributosDefaut!);
+        atributos = PreparaAtributos(groups[3].Value!,mappingModelo.AtributesDefaut?.Split(","));
 
         if(atributos != "")
-            HTML = $"<{mappingModelo?.TagHtml}{atributos}>{groups[4].Value}</{mappingModelo?.TagHtml}>";
+            HTML = $"<{mappingModelo?.LanguageRuculaRepresentation.Code}{atributos}>{groups[4].Value}</{mappingModelo?.LanguageRuculaRepresentation.Code}>";
         if(atributos == "")
-            HTML = $"<{mappingModelo?.TagHtml}>{groups[4].Value}</{mappingModelo?.TagHtml}>";
+            HTML = $"<{mappingModelo?.LanguageRuculaRepresentation.Code}>{groups[4].Value}</{mappingModelo?.LanguageRuculaRepresentation.Code}>";
 
         ReplaceModelo(groups[0].Value,HTML,ref text);   
    }
@@ -153,14 +155,20 @@ public class ExtractRucula : IExtractRucula
         }
         return new Atribute {AtributosHTML = AtributosHTML, AtributoClass = AtributoClass};
     }
-    private  ModeloHTML GetLanguageRepresentation(string identificador)
-    {        
-        
-        ModeloHTML modeloHTML  = GetLanguageRepresentationDataBase(identificador);
-        
-        return modeloHTML;
-            
+    private  LanguageRucula GetLanguageRepresentation(string identificador)
+    {   
+        LanguageRucula langRucula = this.ListLanguageRucula.Find(l => l.Code == identificador);
+        if (langRucula is null)
+        {
+            langRucula = GetLanguageRepresentationDataBase(identificador);
+            if (langRucula is not null)
+            {
+                this.ListLanguageRucula.Add(langRucula);
+                return langRucula;
+            } 
         }
+        return langRucula;
+    }
     private  ModeloAtributo GetAtributeRepresentation(string atributo){
         
         var Atribute =  this._languageRuculaParameterRepository.GetByIdAsync(atributo);
@@ -172,16 +180,11 @@ public class ExtractRucula : IExtractRucula
             IsClass= Atribute.Result.IsCSSClass
         };
     }
-
-    private ModeloHTML GetLanguageRepresentationDataBase(string identificador)
+    private LanguageRucula GetLanguageRepresentationDataBase(string identificador)
     {
-        var LanguageRuculaDataBase =_languageRuculaRepository.GetByIdAsync(identificador);
-        return new ModeloHTML 
-        {
-            TagHtml = LanguageRuculaDataBase.Result.LanguageRuculaRepresentation.Code,
-            AtributosDefaut = null
-            //AtributosDefaut = LanguageRuculaDataBase.Result.AtributosDefaut
-        };
+        Task<LanguageRucula> lr = _languageRuculaRepository.GetByIdAsync(identificador);
+        lr.Wait();
+        return lr.Result;
     }
 
  }
