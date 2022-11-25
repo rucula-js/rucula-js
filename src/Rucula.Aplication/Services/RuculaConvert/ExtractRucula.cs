@@ -134,22 +134,20 @@ public class ExtractRucula : IExtractRucula
             {
                 identificador = atributo;
             }
-
-            ModeloAtributo atributoHTML =  GetAtributeRepresentation(identificador);
-
-            if (atributoHTML is not null)
+            LanguageRuculaParameter ruculaParameter =  GetAtributeRepresentation(identificador);
+            if (ruculaParameter is not null)
             {
-                if (atributoHTML.IsClass)
+                if (ruculaParameter.IsCSSClass)
                 {
-                    AtributoClass += $"{atributoHTML.AtributCode} ";    
+                    AtributoClass += $"{ruculaParameter.Representation} ";    
                 }
-                if (!atributoHTML.IsClass && conteudo == "")
+                if (!ruculaParameter.IsCSSClass && conteudo == "")
                 {
-                    AtributosHTML+= $" {atributoHTML.AtributeRepresentation}";
+                    AtributosHTML+= $" {ruculaParameter.Representation}";
                 }
-                if (!atributoHTML.IsClass && conteudo != "")
+                if (!ruculaParameter.IsCSSClass && conteudo != "")
                 {
-                    AtributosHTML+= $" {atributoHTML.AtributeRepresentation}=\"{conteudo}\""; 
+                    AtributosHTML+= $" {ruculaParameter.Representation}=\"{conteudo}\""; 
                 }        
             }
         }
@@ -169,16 +167,11 @@ public class ExtractRucula : IExtractRucula
         }
         return langRucula;
     }
-    private  ModeloAtributo GetAtributeRepresentation(string atributo){
+    private  LanguageRuculaParameter GetAtributeRepresentation(string atributo){
         
-        var Atribute =  this._languageRuculaParameterRepository.GetByIdAsync(atributo);
-
-        return new ModeloAtributo
-        {
-            AtributCode = Atribute.Result.Code,
-            AtributeRepresentation = Atribute.Result.Representation,
-            IsClass= Atribute.Result.IsCSSClass
-        };
+        Task<LanguageRuculaParameter> ruculaParameter = this._languageRuculaParameterRepository.GetByIdAsync(atributo);
+        ruculaParameter.Wait();
+        return ruculaParameter.Result;
     }
     private LanguageRucula GetLanguageRepresentationDataBase(string identificador)
     {
