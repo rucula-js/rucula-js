@@ -147,24 +147,18 @@ public class ExtractRucula : IExtractRucula
                     AtributosHTML+= $" {atributoHTML.AtributoHtml}=\"{conteudo}\""; 
                 }        
             }
-            
         }
         return new Atribute {AtributosHTML = AtributosHTML, AtributoClass = AtributoClass};
     }
     public  ModeloHTML GetLanguageRepresentation(string identificador)
-    {
-        var LanguageRucula = _languageRuculaRepository.GetByIdAsync(identificador);
-        LanguageRucula.Wait();
-        if (LanguageRucula.IsCompletedSuccessfully)
+    {        
+        var LanguageRucula =_languageRuculaRepository.GetByIdAsync(identificador);
+        return new ModeloHTML 
         {
-            return new ModeloHTML 
-            {
-                TagHtml  = LanguageRucula.Result.LanguageRuculaRepresentation.Code,
-                AtributosDefaut = null
-                //AtributosDefaut = LanguageRucula.Result.AtributosDefaut
-            };
-        }
-        return null;
+            TagHtml = LanguageRucula.Result.LanguageRuculaRepresentation.Code,
+            AtributosDefaut = null
+            //AtributosDefaut = LanguageRucula.Result.AtributosDefaut
+        };
     }
     public ModeloAtributo GetAtributeRepresentation(string atributo){
         // Buscar no banco de dados;

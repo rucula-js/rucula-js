@@ -12,5 +12,8 @@ public class LanguageRuculaConfiguration : IEntityTypeConfiguration<LanguageRucu
 
         builder.Property(p => p.Description2)
             .HasMaxLength(200);
+        
+        builder.Property(p => p.AtributesDefaut)
+            .HasMaxLength(350);
     }
 }

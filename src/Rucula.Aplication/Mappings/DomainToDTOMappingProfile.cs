@@ -9,6 +9,7 @@ public class DomainToDTOMappingProfile : Profile
         CreateMap<Language,LanguageDTO>().ReverseMap();
         CreateMap<LanguageRucula,LanguageRuculaDTO>().ReverseMap();        
         CreateMap<LanguageRuculaRepresentation,LanguageRuculaRepresentationDTO>().ReverseMap();   
+        CreateMap<LanguageRuculaParameter,LanguageRuculaParameterDTO>().ReverseMap();   
         CreateMap<ContentHTML,ContentHTMLDTO>().ReverseMap();   
     }
 

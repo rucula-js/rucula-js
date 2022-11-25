@@ -12,7 +12,8 @@ public class LanguageRuculaRepresentationConfiguration : IEntityTypeConfiguratio
         builder
         .HasOne(lr => lr.LanguageRucula)
         .WithOne(lrr => lrr.LanguageRuculaRepresentation)
-        .HasForeignKey<LanguageRuculaRepresentation>(b => b.CodeRuculaForeKey);
+        .HasForeignKey<LanguageRuculaRepresentation>(b => b.CodeRuculaForeKey)
+        .IsRequired();
         
-    }
+}
 }   

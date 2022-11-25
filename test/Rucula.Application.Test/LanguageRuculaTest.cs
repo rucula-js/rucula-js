@@ -8,7 +8,7 @@ public class LanguageRuculaTest
     [TestMethod]
     public void  LanguageRuculaTest_Code_ExceptionInSintaxIsNullOrEmpty()
     { 
-        Action act = () => new LanguageRucula("","","");
+        Action act = () => new LanguageRucula("","","","");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("code is Invalid");
@@ -19,7 +19,7 @@ public class LanguageRuculaTest
         var code = "";
         for (int i = 0; i < 101; i++){ code+="S";}
 
-        Action act = () => new LanguageRucula(code,"","");
+        Action act = () => new LanguageRucula(code,"","","");
         act.Should().Throw<RuculaExeption>()
             .WithMessage("Character overflow, max 100");
     }
@@ -29,7 +29,7 @@ public class LanguageRuculaTest
         var descrition = "";
         // Criando uma  string de 210 caracteres
         for (int i = 0; i < 210; i++){ descrition+="S";}
-        Action act = () => new LanguageRucula("T",descrition,"");
+        Action act = () => new LanguageRucula("T",descrition,"","");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("Character overflow, max 200");
@@ -39,9 +39,19 @@ public class LanguageRuculaTest
         var descrition2 = "";
         // Criando uma  string de 210 caracteres
         for (int i = 0; i < 210; i++){ descrition2+="S";}
-        Action act = () => new LanguageRucula("T","",descrition2);
+        Action act = () => new LanguageRucula("T","",descrition2,"");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("Character overflow, max 200");
+    }
+     public void  LanguageRuculaTest_AtributesDefaut_ExceptionMaxLength200()
+    { 
+        var atributesDefaut = "";
+        // Criando uma  string de 210 caracteres
+        for (int i = 0; i < 360; i++){ atributesDefaut+="S";}
+        Action act = () => new LanguageRucula("T","","",atributesDefaut);
+        act
+            .Should().Throw<RuculaExeption>()
+            .WithMessage("Character overflow, max 300");
     }
 }
