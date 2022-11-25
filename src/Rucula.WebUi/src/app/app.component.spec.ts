@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Rucula.WebUi'`, () => {
+  it(`should have as title 'doc-documentation'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Rucula.WebUi');
+    expect(app.title).toEqual('doc-documentation');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('Rucula.WebUi app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('doc-documentation app is running!');
   });
 });

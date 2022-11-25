@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto+Mono:wght@100;300&display=swap');
+
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+main {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+main img {
+    max-width: 100%;
+}
+ul {
+    border-left: 2px solid #383838;;
+}
+.toc ul li{
+    margin-top: 2px;
+    padding: 8px;
+}
+.toc ul li:hover{
+    background-color: rgb(149, 211, 177);
+
+}
+.toc ul li a {
+    text-decoration: none;
+    color: #383838;
+}
+
