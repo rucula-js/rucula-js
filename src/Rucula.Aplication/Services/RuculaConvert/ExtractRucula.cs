@@ -6,16 +6,21 @@ public class ExtractRucula : IExtractRucula
  {
     private string _sintaxRucula;
     private readonly ILanguageRuculaRepository _languageRuculaRepository;
+    private readonly ILanguageRuculaParameterRepository _languageRuculaParameterRepository;
+
+    private List<ModeloHTML> ListModeloHTML;
+    private List<ModeloAtributo> ListModeloAtributo;
     public ExtractRucula()
     {   
     }
-    public ExtractRucula(ILanguageRuculaRepository languageRuculaRepository)
+    public ExtractRucula(ILanguageRuculaRepository languageRuculaRepository,ILanguageRuculaParameterRepository languageRuculaParameterRepository)
     {
         _languageRuculaRepository = languageRuculaRepository;
+        _languageRuculaParameterRepository = languageRuculaParameterRepository;
     }
     public string ConvertSintaxRucula(string sintaxRucula){
         this._sintaxRucula = sintaxRucula; 
-        PreparaMatchGroups();
+        PrepareMatchGroups();
         return this._sintaxRucula;
     }
     public MatchCollection GetMatchCollection(ref string sintaxRucula)
@@ -23,7 +28,7 @@ public class ExtractRucula : IExtractRucula
         Regex rx = new Regex($@"{RegexSintaxRucula.RegularExpressionSyntaxRucula}", RegexOptions.Compiled);
         return rx.Matches(sintaxRucula);
     }
-    public void PreparaMatchGroups()
+    public void PrepareMatchGroups()
     {  
         MatchCollection matches = GetMatchCollection(ref this._sintaxRucula); // Gets all valid Rucula syntaxes
         if(matches.Count  < 1)
@@ -34,21 +39,21 @@ public class ExtractRucula : IExtractRucula
         {
             foreach (Match match in matches)
             {
-                PreparaHTML(match.Groups,ref this._sintaxRucula); 
+                PrepareHTML(match.Groups,ref this._sintaxRucula); 
             }
         }
         /*  The innermost syntax breaks the outermost syntaxes, 
             after converting the innermost rucula syntax, the polymorph works on the outermost syntaxes.
         */
-        PreparaMatchGroups();
+        PrepareMatchGroups();
     }
-    public string  PreparaHTML(GroupCollection groups, ref string text){
+    public void  PrepareHTML(GroupCollection groups, ref string text){
         ModeloHTML mappingModelo =  GetLanguageRepresentation(groups[1].Value); // Buscar Identificador no banco de dados
  
         if (mappingModelo is null)
         {
             ReplaceModelo(groups[0].Value,AddNonexistentIndicator(groups[0].Value),ref text);
-            return "";
+            return;
         }
         string atributos = "";
         string HTML = "";
@@ -56,14 +61,12 @@ public class ExtractRucula : IExtractRucula
         atributos = PreparaAtributos(groups[3].Value!,mappingModelo.AtributosDefaut!);
 
         if(atributos != "")
-            HTML = $"<{mappingModelo?.TagHtml} {atributos}>{groups[4].Value}</{mappingModelo?.TagHtml}>";
+            HTML = $"<{mappingModelo?.TagHtml}{atributos}>{groups[4].Value}</{mappingModelo?.TagHtml}>";
         if(atributos == "")
             HTML = $"<{mappingModelo?.TagHtml}>{groups[4].Value}</{mappingModelo?.TagHtml}>";
 
         ReplaceModelo(groups[0].Value,HTML,ref text);   
-        
-        return "";   
-    }
+   }
     public void ReplaceModelo(string Mathfuncao,string html,ref string modelo){
         modelo = modelo.Replace(Mathfuncao,html);
     }
@@ -136,33 +139,49 @@ public class ExtractRucula : IExtractRucula
             {
                 if (atributoHTML.IsClass)
                 {
-                    AtributoClass += $"{atributoHTML.Identificador} ";    
+                    AtributoClass += $"{atributoHTML.AtributCode} ";    
                 }
                 if (!atributoHTML.IsClass && conteudo == "")
                 {
-                    AtributosHTML+= $" {atributoHTML.AtributoHtml}";
+                    AtributosHTML+= $" {atributoHTML.AtributeRepresentation}";
                 }
                 if (!atributoHTML.IsClass && conteudo != "")
                 {
-                    AtributosHTML+= $" {atributoHTML.AtributoHtml}=\"{conteudo}\""; 
+                    AtributosHTML+= $" {atributoHTML.AtributeRepresentation}=\"{conteudo}\""; 
                 }        
             }
         }
         return new Atribute {AtributosHTML = AtributosHTML, AtributoClass = AtributoClass};
     }
-    public  ModeloHTML GetLanguageRepresentation(string identificador)
+    private  ModeloHTML GetLanguageRepresentation(string identificador)
     {        
-        var LanguageRucula =_languageRuculaRepository.GetByIdAsync(identificador);
-        return new ModeloHTML 
+        
+        ModeloHTML modeloHTML  = GetLanguageRepresentationDataBase(identificador);
+        
+        return modeloHTML;
+            
+        }
+    private  ModeloAtributo GetAtributeRepresentation(string atributo){
+        
+        var Atribute =  this._languageRuculaParameterRepository.GetByIdAsync(atributo);
+
+        return new ModeloAtributo
         {
-            TagHtml = LanguageRucula.Result.LanguageRuculaRepresentation.Code,
-            AtributosDefaut = null
-            //AtributosDefaut = LanguageRucula.Result.AtributosDefaut
+            AtributCode = Atribute.Result.Code,
+            AtributeRepresentation = Atribute.Result.Representation,
+            IsClass= Atribute.Result.IsCSSClass
         };
     }
-    public ModeloAtributo GetAtributeRepresentation(string atributo){
-        // Buscar no banco de dados;
-        return null;
+
+    private ModeloHTML GetLanguageRepresentationDataBase(string identificador)
+    {
+        var LanguageRuculaDataBase =_languageRuculaRepository.GetByIdAsync(identificador);
+        return new ModeloHTML 
+        {
+            TagHtml = LanguageRuculaDataBase.Result.LanguageRuculaRepresentation.Code,
+            AtributosDefaut = null
+            //AtributosDefaut = LanguageRuculaDataBase.Result.AtributosDefaut
+        };
     }
 
  }

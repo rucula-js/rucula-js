@@ -18,7 +18,7 @@ public class LanguageRucula
         ValidationPropert.ValidPropert(code.Length > 100,"Character overflow, max 100");
         ValidationPropert.ValidPropert(description.Length > 200,"Character overflow, max 200");
         ValidationPropert.ValidPropert(description2.Length > 200,"Character overflow, max 200");
-        ValidationPropert.ValidPropert(atributesDefaut.Length > 300,"Character overflow, max 300");
+        ValidationPropert.ValidPropert(atributesDefaut?.Length > 300,"Character overflow, max 300");
         this.Code = code;
         this.Description = description;
         this.Description2 = description2;
