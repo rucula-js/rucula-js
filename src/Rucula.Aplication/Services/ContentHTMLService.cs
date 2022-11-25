@@ -22,5 +22,10 @@ public class ContentHTMLService: IContentHTMLService
         var languagesEntity =  _mapper.Map<ContentHTML>(Language);
         await _contentHTMLRepository.DeleteAsync(languagesEntity);
     }
+    public async Task SaveAsync(ContentHTMLDTO contentHTML)
+    {
+        var languagesEntity =  _mapper.Map<ContentHTML>(contentHTML);
+        await _contentHTMLRepository.SaveAsync(languagesEntity);
+    }
 }
  

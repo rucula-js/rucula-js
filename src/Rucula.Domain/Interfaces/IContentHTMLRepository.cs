@@ -5,4 +5,5 @@ public interface IContentHTMLRepository
 {    
     Task<ContentHTML> GetByIdAsync(string id);
     Task DeleteAsync (ContentHTML contentHTML);
+    Task SaveAsync (ContentHTML contentHTML);
 }

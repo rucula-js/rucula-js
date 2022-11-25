@@ -19,6 +19,9 @@ public class ContentHTMLConfiguration : IEntityTypeConfiguration<ContentHTML>
         builder
             .Property( p => p.DateCreation)
             .IsRequired();
-
+         builder
+            .Property( p => p.ContentLanguageRucula)
+            .HasMaxLength(3000)
+            .IsRequired();
     }
 }

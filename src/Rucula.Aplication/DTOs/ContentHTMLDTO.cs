@@ -7,4 +7,5 @@ public class ContentHTMLDTO
         public string Content { get;  set; }
         public DateTime DateCreation { get;  set; }
         public DateTime DateLastUpdate { get;  set; }
+        public string ContentLanguageRucula { get;  set; }
 }
