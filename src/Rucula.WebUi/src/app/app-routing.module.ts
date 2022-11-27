@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageComponent } from './docs/page/page.component';
+import { RuculaSintaxeComponent } from './rucula/sintaxe/rucula-sintaxe.component';
 
 
 const routes: Routes = [
+  { path: 'rucula',component:RuculaSintaxeComponent},
   { path: 'docs/sagex3/:page', component: PageComponent }
 ];
 
