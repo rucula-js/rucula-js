@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,Validators } from '@angular/forms';
 import { RuculaService } from './rucula.service';
 import { RuculaSintax } from './RuculaSintax';
 
@@ -23,6 +23,9 @@ export class RuculaSintaxeComponent{
       description: ['', Validators.required],
       description2: ['', Validators.required],
       atributesDefaut: ['', Validators.required],
+      ruculaRepresentation: this.fb.group({
+        code: ['', Validators.required],
+        description: ['', Validators.required]
+      })
    });
-
 }

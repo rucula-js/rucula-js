@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto+Mono:wght@100;300&display=swap');
 
+:root{
+    --color-green-rucula:#388729;
+}
 body{
     margin: 0;
     font-family: 'Poppins', sans-serif;

@@ -14,4 +14,10 @@
 }
 .form-group-input{
     padding: 4px;
+    outline: none;
+}
+
+
+.form-group-input:focus{
+    border: 2px solid var(--color-green-rucula);
 }
