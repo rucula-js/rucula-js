@@ -1,6 +1,6 @@
 export interface RuculaSintax {
-    Code:String;
-    Description:string;
-    Description2:string;
-    AtributesDefaut:string;
+    code:String;
+    description:string;
+    description2:string;
+    astributesDefaut:string;
 }

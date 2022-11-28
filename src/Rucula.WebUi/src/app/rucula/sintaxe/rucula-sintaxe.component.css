@@ -1,0 +1,17 @@
+.form-group{
+    margin-bottom: 10px;
+}
+.form-group-item{
+    display: inline-block;
+    margin-right: 5px;
+}
+.form-group-label,.form-group-input{
+    display: block;
+}
+.form-group-label{
+    display: block;
+    font-size: 0.9rem;;
+}
+.form-group-input{
+    padding: 4px;
+}

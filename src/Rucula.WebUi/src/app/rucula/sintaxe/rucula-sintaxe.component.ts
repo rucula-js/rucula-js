@@ -15,11 +15,9 @@ export class RuculaSintaxeComponent{
   }
   ngOnInit(){
     this.rs.GetAllRuculaSintax()
-    .subscribe(resp =>  this.Rucula = resp )
+    .subscribe(resp =>  console.log(resp) )
   }
-
-  Rucula:RuculaSintax[]= [];
-
+  Rucula:RuculaSintax[] = [];
   ruculaSintaxe = this.fb.group({
       code: ['', Validators.required],
       description: ['', Validators.required],
