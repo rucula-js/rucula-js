@@ -14,11 +14,11 @@ public class LanguageRuculaRepositorie  : ILanguageRuculaRepository
     }
     public async Task<IEnumerable<LanguageRucula>> GetAllAsync()
     {
-        return await _context.LanguagesRucula!.ToListAsync();
+        return await _context.LanguagesRucula!.Include( lr => lr.LanguageRuculaRepresentation).ToListAsync();   
     }
     public async Task<LanguageRucula> GetByIdAsync(string id)
     {
-        return await this._context.LanguagesRucula.Include( lr => lr.LanguageRuculaRepresentation).Where( p => p.Code == id).FirstAsync();       
+        return await this._context.LanguagesRucula!.Include( lr => lr.LanguageRuculaRepresentation).Where( p => p.Code == id).FirstAsync();       
     }
     public async Task SaveAsync(LanguageRucula languageRucula)
     {

@@ -7,6 +7,7 @@ public class LanguageRuculaDTO
         public string Description { get;set; }
         public string Description2 { get;set; }
         public string AtributesDefaut { get;set; }
+        public LanguageRuculaRepresentationDTO LanguageRuculaRepresentationDTO { get;set; }
         
 }
 

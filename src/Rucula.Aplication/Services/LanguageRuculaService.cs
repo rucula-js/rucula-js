@@ -20,16 +20,20 @@ public class LanguageRuculaService: ILanguageRuculaService
     public async  Task<LanguageRuculaDTO> GetByIdAsync(string code)
     {
         var languages = await _languageRuculaRepository.GetByIdAsync(code);
+
+
         return _mapper.Map<LanguageRuculaDTO>(languages);
     }
     public async Task SaveAsync(LanguageRuculaDTO Language)
     {
         var languagesEntity =  _mapper.Map<LanguageRucula>(Language);
+        languagesEntity.LanguageRuculaRepresentation = _mapper.Map<LanguageRuculaRepresentation>(Language.LanguageRuculaRepresentationDTO);
         await _languageRuculaRepository.SaveAsync(languagesEntity);
     }
     public async  Task UpdateAsync(LanguageRuculaDTO Language)
     {
         var languagesEntity =  _mapper.Map<LanguageRucula>(Language);
+        languagesEntity.LanguageRuculaRepresentation = _mapper.Map<LanguageRuculaRepresentation>(Language.LanguageRuculaRepresentationDTO);
         await _languageRuculaRepository.UpdateAsync(languagesEntity);
     }
     public async Task DeleteAsync(LanguageRuculaDTO Language)
