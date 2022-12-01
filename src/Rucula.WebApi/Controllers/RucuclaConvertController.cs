@@ -14,8 +14,15 @@ public class RucuclaConvertController : ControllerBase
       _extractRuculaService = extractRuculaService; 
    }
    [HttpPost]
-   public string Post([FromBody] string contentRucula)
+   public ActionResult Post([FromBody] string contentRucula)
    {
-      return  _extractRuculaService.ConvertSintaxRucula(contentRucula); 
+      try
+      {
+         return Ok( _extractRuculaService.ConvertSintaxRucula(contentRucula));
+      }
+      catch(Exception ex)
+      {
+         return this.Problem(ex.Message);
+      }
    }
 }

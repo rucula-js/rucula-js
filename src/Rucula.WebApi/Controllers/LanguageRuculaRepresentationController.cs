@@ -30,7 +30,6 @@ public class LanguageRuculaRepresentationController : ControllerBase
    {
       await _languageServiceRepresentation.SaveAsync(languageRepresentation);
    }
-
    [HttpPut]
    public async Task UpdateAsync([FromBody] LanguageRuculaRepresentationDTO  languageRepresentation)
    {
