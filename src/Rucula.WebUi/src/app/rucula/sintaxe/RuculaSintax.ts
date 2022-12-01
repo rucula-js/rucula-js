@@ -1,6 +1,12 @@
+import { RuculaRepresentation } from "./RuculaRepresentation";
+
 export interface RuculaSintax {
-    code:String;
+    code:string;
     description:string;
     description2:string;
-    astributesDefaut:string;
+    atributesDefaut:string;
+    languageRuculaRepresentationDTO: RuculaRepresentation
 }
+
+
+

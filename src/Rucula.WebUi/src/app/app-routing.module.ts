@@ -5,7 +5,10 @@ import { RuculaSintaxeComponent } from './rucula/sintaxe/rucula-sintaxe.componen
 
 
 const routes: Routes = [
-  { path: 'rucula',component:RuculaSintaxeComponent},
+  { path: 'bloco',component:RuculaSintaxeComponent,
+    children:[
+      { path: 'rucula',component:RuculaSintaxeComponent}
+    ]},
   { path: 'docs/sagex3/:page', component: PageComponent }
 ];
 

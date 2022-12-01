@@ -1,0 +1,17 @@
+.action-defaut {
+    margin-top: 50px;
+    display: grid;
+  }
+  .btn-crud {
+    margin-bottom: 5px;
+    width: 45px;
+    height: 45px;
+    max-width: 100px;
+    border: 0;
+    font-size: 1.4rem;
+  }
+  .btn-crud:hover,
+  .btn-crud:focus {
+    background-color: #286ad3;
+    color: var(--branco);
+  }

@@ -1,4 +1,5 @@
 export interface RuculaRepresentation {
-    code:String;
+    code:string;
     description:string;
+    codeRuculaForeKey:string;
 }

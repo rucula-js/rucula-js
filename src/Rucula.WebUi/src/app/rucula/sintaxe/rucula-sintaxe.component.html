@@ -1,33 +1,40 @@
-<form [formGroup]="ruculaSintaxe">
-    <div class="form-group">
-        <h2>Sintax</h2>
-        <div class="form-group-item">
-            <label for="code" class="form-group-label">Code: </label>
-            <input id="code" type="text" formControlName="code" class="form-group-input" FlexibleWidth="38">
-        </div>
-        <div class="form-group-item">
-            <label for="description" class="form-group-label">Description: </label>
-            <input id="description" type="text" formControlName="description" class="form-group-input">
-        </div>
-        <div class="form-group-item">
-            <label for="description2" class="form-group-label">description 2: </label>
-            <input id="description2" type="text" formControlName="description2" class="form-group-input">
-        </div>
-        <div class="form-group-item">
-            <label for="atributesDefaut" class="form-group-label">AtributesDefaut: </label>
-            <input id="atributesDefaut" type="text" formControlName="atributesDefaut" class="form-group-input">
-        </div>
+<div style="display: flex; margin-top: 100px;">
+    <left-list [header]="this.GetHeaderLeftList" [details]="GetDetailsLeftList"></left-list>
+    <div style="max-width:400px;">
+        <form [formGroup]="ruculaSintaxe" autocomplete="off">
+            <div class="form-group">
+                <h2>Sintax</h2>
+                <div class="form-group-item">
+                    <label for="code" class="form-group-label">Code: </label>
+                    <input id="code" type="text" formControlName="code" class="form-group-input" FlexibleWidth="38">
+                </div>
+                <div class="form-group-item">
+                    <label for="description" class="form-group-label">Description: </label>
+                    <input id="description" type="text" formControlName="description" class="form-group-input" FlexibleWidth="100">
+                </div>
+                <div class="form-group-item">
+                    <label for="description2" class="form-group-label">description 2: </label>
+                    <input id="description2" type="text" formControlName="description2" class="form-group-input">
+                </div>
+                <div class="form-group-item">
+                    <label for="atributesDefaut" class="form-group-label">AtributesDefaut: </label>
+                    <input id="atributesDefaut" type="text" formControlName="atributesDefaut" class="form-group-input" FlexibleWidth="100">
+                </div>
+            </div>
+            <div class="form-group" formGroupName="languageRuculaRepresentationDTO">
+                <h2>Representation </h2>
+                <div class="form-group-item">
+                    <label for="code" class="form-group-label">Code: </label>
+                    <input id="code" type="text" formControlName="code" class="form-group-input" FlexibleWidth="38">
+                </div>
+                <div class="form-group-item">
+                    <label for="description" class="form-group-label">Description: </label>
+                    <input id="description" type="text" formControlName="description" class="form-group-input" FlexibleWidth="100">
+                </div>
+                <button (click)="Save()">Save</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group" formGroupName="ruculaRepresentation">
-        <h2>Representation </h2>
-        <div class="form-group-item">
-            <label for="code" class="form-group-label">Code: </label>
-            <input id="code" type="text" formControlName="code" class="form-group-input">
-        </div>
-        <div class="form-group-item">
-            <label for="description" class="form-group-label">Description: </label>
-            <input id="description" type="text" formControlName="description" class="form-group-input">
-        </div>
-    </div>
-  </form>
+    <crud></crud>
+</div>
   

@@ -7,6 +7,7 @@ import { DocsComponent } from './docs/docs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { RuculaSintaxeComponent } from './rucula/sintaxe/rucula-sintaxe.component';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { RuculaSintaxeComponent } from './rucula/sintaxe/rucula-sintaxe.componen
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

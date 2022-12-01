@@ -1,0 +1,10 @@
+<div class="left-list">
+    <table>
+        <tr>
+            <th *ngFor="let column of header" >{{column}}</th>
+        </tr>
+        <tr *ngFor="let rows of details">
+            <td *ngFor="let item of rows.split(';;')">{{item}}</td>
+        </tr>
+    </table>
+</div>
