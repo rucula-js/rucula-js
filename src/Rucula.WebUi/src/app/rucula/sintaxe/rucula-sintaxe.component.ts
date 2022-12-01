@@ -15,35 +15,24 @@ export class RuculaSintaxeComponent implements OnInit {
   }
 
   private HeaderLeftList:string [] = ["code","descripition","Representation"] 
-  private DetailsLeftList:string[] = [];
   RuculaList:RuculaSintax[] = [];
   Rucula!:RuculaSintax;
-  
   ngOnInit(){
     this.rs.GetAll()
       .subscribe(resp => {
-          this.PrepareDetailsLeftList(resp as RuculaSintax[])  
+        this.RuculaList = (resp as RuculaSintax[])  
       })
   }
-  
-  private PrepareDetailsLeftList(ruculaList:RuculaSintax[]){
-
-    ruculaList.forEach((r:RuculaSintax, index:number) => 
-    {
-        this.DetailsLeftList[index] = 
-          r.code.concat(";;")
-          .concat(r.description).concat(";;")
-          .concat(r.languageRuculaRepresentationDTO?.code) 
-    })
-  }  
+  PrepareForm(rucula:RuculaSintax){
+    this.ruculaSintaxe.setValue(rucula)
+  }
+  ClearForm(){
+    this.ruculaSintaxe.reset();
+  }
 
   public get GetHeaderLeftList(){
     return this.HeaderLeftList
   }
-  public get GetDetailsLeftList(){    
-    return this.DetailsLeftList
-  }
-
   ruculaSintaxe = this.fb.group({
       code: ['', [Validators.required]],
       description: ['', [Validators.required]],

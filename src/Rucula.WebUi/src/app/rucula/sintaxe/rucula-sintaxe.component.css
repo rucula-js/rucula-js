@@ -2,17 +2,20 @@
     max-width: 2500px;
 }
 table{
-    border: 1px solid rgb(156, 156, 156);
+    border: 1px solid rgb(231, 231, 231);
 }
 td,th{
     text-align: left;
-    padding: 1px;
-    border-bottom: 1px solid #ddd;
+}
+td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 tr{
     cursor: pointer;
 }
-tr:nth-child(even) {background-color: #dfe9da;}
+tr:nth-child(even) {background-color: #529c8c8a;}
 
 .form-group{
     margin-bottom: 10px;
@@ -37,10 +40,12 @@ tr:nth-child(even) {background-color: #dfe9da;}
 }
 
 .action-defaut {
-    margin-top: 50px;
-    display: grid;
+    display: block;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   .btn-crud {
+    display: block;
     margin-bottom: 5px;
     width: 45px;
     height: 45px;
@@ -52,4 +57,10 @@ tr:nth-child(even) {background-color: #dfe9da;}
   .btn-crud:focus {
     background-color: #286ad3;
     color: var(--branco);
+  }
+
+
+  .block-form{
+    border: 1px solid rgb(231, 231, 231);
+    padding: 10px;
   }
