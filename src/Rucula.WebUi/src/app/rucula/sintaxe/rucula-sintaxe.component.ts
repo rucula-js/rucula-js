@@ -39,10 +39,11 @@ export class RuculaSintaxeComponent implements OnInit {
       description2: ['', Validators.required],
       atributesDefaut: ['', Validators.required],
       languageRuculaRepresentationDTO: this.fb.group({
+        codeRuculaForeKey:[''],
         code: ['', Validators.required],
         description: ['', Validators.required]
       })
-   });   
+  });   
    Save(){
       this.Rucula = this.ruculaSintaxe.value as RuculaSintax
       this.Rucula.languageRuculaRepresentationDTO.codeRuculaForeKey = this.Rucula.code ;
@@ -50,4 +51,19 @@ export class RuculaSintaxeComponent implements OnInit {
         resp => console.log(resp)
       );
    }
+   Update(){
+    this.Rucula = this.ruculaSintaxe.value as RuculaSintax
+    this.Rucula.languageRuculaRepresentationDTO.codeRuculaForeKey = this.Rucula.code ;
+    this.rs.Update(this.Rucula).subscribe(
+      resp => console.log(resp)
+    );
+  }
+
+  Delete(){
+    this.Rucula = this.ruculaSintaxe.value as RuculaSintax
+    this.Rucula.languageRuculaRepresentationDTO.codeRuculaForeKey = this.Rucula.code ;
+    this.rs.Delete(this.Rucula).subscribe(
+      resp => console.log(resp)
+    );
+  }
 }
