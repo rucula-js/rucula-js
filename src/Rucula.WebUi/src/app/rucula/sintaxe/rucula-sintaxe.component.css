@@ -1,3 +1,19 @@
+.left-list{
+    max-width: 2500px;
+}
+table{
+    border: 1px solid rgb(156, 156, 156);
+}
+td,th{
+    text-align: left;
+    padding: 1px;
+    border-bottom: 1px solid #ddd;
+}
+tr{
+    cursor: pointer;
+}
+tr:nth-child(even) {background-color: #dfe9da;}
+
 .form-group{
     margin-bottom: 10px;
 }
@@ -19,3 +35,21 @@
 .form-group-input:focus{
     border: 2px solid var(--color-green-rucula);
 }
+
+.action-defaut {
+    margin-top: 50px;
+    display: grid;
+  }
+  .btn-crud {
+    margin-bottom: 5px;
+    width: 45px;
+    height: 45px;
+    max-width: 100px;
+    border: 0;
+    font-size: 1.4rem;
+  }
+  .btn-crud:hover,
+  .btn-crud:focus {
+    background-color: #286ad3;
+    color: var(--branco);
+  }
