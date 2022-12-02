@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
-import { RuculaService } from './rucula.service';
+import { RuculaService } from './rucula-language.service';
 import { RuculaSintax } from './RuculaSintax';
 
 
 @Component({
-  selector: 'rucula-sintaxe',
-  templateUrl: './rucula-sintaxe.component.html',
-  styleUrls: ['./rucula-sintaxe.component.css']
+  selector: 'rucula-language',
+  templateUrl: './rucula-language.component.html',
+  styleUrls: ['./rucula-language.component.css']
 })
 export class RuculaSintaxeComponent implements OnInit {  
 

@@ -1,4 +1,4 @@
-<div style="display: flex; margin-top: 100px;">
+<div class="grid-crud">
     <div class="left-list">
         <table>
             <tr>
@@ -14,7 +14,7 @@
     <div style="margin-left: 10px;" class="block-form">
         <form [formGroup]="ruculaSintaxe" autocomplete="off">
             <div class="form-group">
-                <h2>Sintax</h2>
+                <h2>Sintax Rucula</h2>
                 <div class="form-group-item">
                     <label for="code" class="form-group-label">Code: </label>
                     <input id="code" type="text" formControlName="code" class="form-group-input" FlexibleWidth="38">
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="form-group" formGroupName="languageRuculaRepresentationDTO">
-                <h2>Representation </h2>
+                <h2>Representation HTML</h2>
                 <div class="form-group-item">
                     <label for="code" class="form-group-label">Code: </label>
                     <input id="code" type="text" formControlName="code" class="form-group-input" FlexibleWidth="38">

@@ -1,5 +1,16 @@
+
+
+
+.grid-crud{
+    display: flex; 
+    height: calc(100vh) ;
+}
 .left-list{
-    max-width: 2500px;
+    max-width: 700px;
+    min-width: 310px;
+    overflow:auto;
+    margin:auto;
+    height:100%;
 }
 table{
     border: 1px solid rgb(231, 231, 231);
@@ -14,9 +25,13 @@ td{
 }
 tr{
     cursor: pointer;
+    opacity: 90%;
 }
 tr:nth-child(even) {background-color: #529c8c8a;}
 
+tr:hover{
+    opacity: 100%;
+}
 .form-group{
     margin-bottom: 10px;
 }
