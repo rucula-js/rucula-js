@@ -1,3 +1,25 @@
-<div [contentEditable]="true">
-    teste
+<div class="container-content">
+    <form [formGroup]="ContentHTMLForm" autocomplete="off">
+        <div class="form-group">
+            <h2>Rucula Pages</h2>
+            <div class="form-group-item">
+                <label for="guuid" class="form-group-label">Code: </label>
+                <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38">
+            </div>
+            <div class="form-group-item">
+                <label for="dateCreation" class="form-group-label">Date Creation: </label>
+                <input id="dateCreation" type="date" formControlName="dateCreation" class="form-group-input" FlexibleWidth="20">
+            </div>
+            <div class="form-group-item">
+                <label for="dateLastUpdate" class="form-group-label">Date Last Update: </label>
+                <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
+            </div>
+            <div style="margin-top:50px">
+                <button data-rucula (click)="Rucula()">Rucula</button>
+                <button data-html (click)="PreviewContent()">Preview</button>
+                <div [contentEditable]="true" class="container-content-rucula" id="content-rucula" >
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

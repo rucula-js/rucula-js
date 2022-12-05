@@ -18,7 +18,9 @@ public class RucuclaConvertController : ControllerBase
    {
       try
       {
-         return Ok( _extractRuculaService.ConvertSintaxRucula(contentRucula));
+         return Ok( new {
+            content = _extractRuculaService.ConvertSintaxRucula(contentRucula)
+         });
       }
       catch(Exception ex)
       {

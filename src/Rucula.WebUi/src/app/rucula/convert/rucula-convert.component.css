@@ -1,81 +1,26 @@
-
-
-
-.grid-crud{
-    display: flex; 
-    height: calc(100vh) ;
-}
-.left-list{
-    max-width: 700px;
-    min-width: 310px;
-    overflow:auto;
-    margin:auto;
-    height:100%;
-}
-table{
-    border: 1px solid rgb(231, 231, 231);
-}
-td,th{
-    text-align: left;
-}
-td{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-tr{
-    cursor: pointer;
-    opacity: 90%;
-}
-tr:nth-child(even) {background-color: #529c8c8a;}
-
-tr:hover{
-    opacity: 100%;
-}
-.form-group{
-    margin-bottom: 10px;
-}
-.form-group-item{
-    display: inline-block;
-    margin-right: 5px;
-}
-.form-group-label,.form-group-input{
+.container-content{
     display: block;
-}
-.form-group-label{
-    display: block;
-    font-size: 0.9rem;;
-}
-.form-group-input{
-    padding: 4px;
-    outline: none;
-}
-.form-group-input:focus{
-    border: 2px solid var(--color-green-rucula);
-}
-
-.action-defaut {
-    display: block;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .btn-crud {
-    display: block;
-    margin-bottom: 5px;
-    width: 45px;
-    height: 45px;
-    max-width: 100px;
-    border: 0;
-    font-size: 1.4rem;
-  }
-  .btn-crud:hover,
-  .btn-crud:focus {
-    background-color: #286ad3;
-    color: var(--branco);
-  }
-
-
-  .block-form{
-    border: 1px solid rgb(231, 231, 231);
+    max-width: 1000px;
+    margin: auto;
+    height: calc(100vh);
+    border: 1px solid rgb(199, 199, 199);
     padding: 10px;
-  }
+}
+.container-content-rucula{
+    display: block;
+    padding: 10px;
+    height: calc(100% - 40px);
+    border: 1px solid rgb(199, 199, 199);
+    outline: none;
+    margin-top: 10px;
+    max-height: auto;
+    overflow-y: scroll;
+    max-height: 600px;
+}
+button{
+    padding: 10px;
+    border: 1px solid rgb(199, 199, 199);
+}
+button[data-html]{
+    margin-left: 10px;
+}

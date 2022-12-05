@@ -32,28 +32,6 @@ tr:nth-child(even) {background-color: #529c8c8a;}
 tr:hover{
     opacity: 100%;
 }
-.form-group{
-    margin-bottom: 10px;
-}
-.form-group-item{
-    display: inline-block;
-    margin-right: 5px;
-}
-.form-group-label,.form-group-input{
-    display: block;
-}
-.form-group-label{
-    display: block;
-    font-size: 0.9rem;;
-}
-.form-group-input{
-    padding: 4px;
-    outline: none;
-}
-.form-group-input:focus{
-    border: 2px solid var(--color-green-rucula);
-}
-
 .action-defaut {
     display: block;
     margin-left: 5px;

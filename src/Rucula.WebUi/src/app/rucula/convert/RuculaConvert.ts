@@ -1,5 +1,7 @@
-export interface RuculaRepresentation {
-    code:string;
-    description:string;
-    codeRuculaForeKey:string;
+export interface ContentHTML {
+    guuid?:string,
+    content?: string,
+    dateCreation?:Date,
+    dateLastUpdate?: Date
+    contentLanguageRucula?:string
 }
