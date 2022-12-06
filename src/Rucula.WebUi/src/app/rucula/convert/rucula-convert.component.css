@@ -1,29 +1,19 @@
-
 .container-content,.container-content-preview{
     margin: auto;
     height: 100vh;
-    border: 1px solid rgb(199, 199, 199);
-}
-.container-content{
-    display: block;
-    max-width: 1000px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: #fff;
+    border: 1px solid var(--border-color-cinza);
 }
 .container-content-preview{
     display: none;
     position: fixed;
     min-width: 100vw;
-    background-color: #fff;
+    background-color: var(--color-branco);;
 }
-
 .container-content-preview-rucula{
     max-width: 1000px;
     height: inherit;
     margin: auto;
-    border: 1px solid rgb(199, 199, 199);
-
+    border: 1px solid var(--border-color-cinza);
 }
 .container-content-preview-rucula-btn{
     display: flex;
@@ -33,28 +23,42 @@
     overflow-y: scroll;
     max-height: 100vh;
 }
-.container-content-rucula{
+.btn-close-preview{
+    background-color: rgb(207, 26, 26);
+    border: none;
+    font-weight:bold;
+}
+.container-content{
     display: block;
-    padding: 10px;
-    height: calc(100% - 40px);
-    border: 1px solid rgb(199, 199, 199);
-    outline: none;
-    margin-top: 10px;
-    max-height: auto;
-    overflow-y: scroll;
-    max-height: 600px;
+    max-width: 1000px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: var(--color-branco);
 }
 
 button{
     padding: 10px;
-    border: 1px solid rgb(199, 199, 199);
+    border: none;
     cursor: pointer;
 }
-button[data-html]{
+button[data-preview]{
     margin-left: 10px;
+    background-color: #000000;
+    color: var(--color-branco);
+}
+button[data-save]{
+    background-color: #00a73b;
+    color: var(--color-branco);
 }
 
-.btn-close-preview{
-    background-color: rgb(207, 26, 26);
-    border: none;
+.container-content-rucula{
+    display: block;
+    padding: 10px;
+    height: calc(100% - 40px);
+    border: 1px solid var(--border-color-cinza);
+    outline: none;
+    max-height: auto;
+    overflow-y: scroll;
+    max-height: 600px;
+    
 }
