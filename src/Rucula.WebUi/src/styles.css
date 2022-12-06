@@ -5,6 +5,8 @@
 }
 :root{
     --color-green-rucula:#388729;
+    --border-color-cinza:#c7c7c7;;
+    --color-branco:#fff;
 }
 body{
     margin: 0;

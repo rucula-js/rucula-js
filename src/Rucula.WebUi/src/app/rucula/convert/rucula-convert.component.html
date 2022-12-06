@@ -24,8 +24,8 @@
                 <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
             </div>
             <div style="margin-top:50px">
-                <button data-rucula (click)="Save()">Save</button>
-                <button data-html (click)="PreviewContent()">Preview</button>
+                <button data-save (click)="Save()">Save <i class="bi bi-code-slash"></i></button>
+                <button data-preview (click)="PreviewContent()">Preview <i class="bi bi-fire"></i></button>
                 <div [contentEditable]="true" class="container-content-rucula" id="content-rucula" >
                 </div>
             </div>
