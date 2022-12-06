@@ -25,7 +25,7 @@ export class RuculaConvertComponent  {
       contentLanguageRucula:['']
   })
   
-  Rucula(){
+  Save(){
       document.getElementById('content-rucula')!.textContent = this.ContentRuculaCache  
   }
   PreviewContent(){
