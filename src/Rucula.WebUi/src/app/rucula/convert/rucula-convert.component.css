@@ -1,10 +1,37 @@
+
+.container-content,.container-content-preview{
+    margin: auto;
+    height: 100vh;
+    border: 1px solid rgb(199, 199, 199);
+}
 .container-content{
     display: block;
     max-width: 1000px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #fff;
+}
+.container-content-preview{
+    position: fixed;
+    min-width: 100vw;
+    background-color: #fff;
+    
+}
+
+.container-content-preview-rucula{
+    max-width: 1000px;
+    height: inherit;
     margin: auto;
-    height: calc(100vh);
     border: 1px solid rgb(199, 199, 199);
-    padding: 10px;
+
+}
+.container-content-preview-rucula-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+#content-rucula-preview{
+    overflow-y: scroll;
+    max-height: 100vh;
 }
 .container-content-rucula{
     display: block;
@@ -17,10 +44,17 @@
     overflow-y: scroll;
     max-height: 600px;
 }
+
 button{
     padding: 10px;
     border: 1px solid rgb(199, 199, 199);
+    cursor: pointer;
 }
 button[data-html]{
     margin-left: 10px;
+}
+
+.btn-close-preview{
+    background-color: rgb(207, 26, 26);
+    border: none;
 }

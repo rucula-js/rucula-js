@@ -17,7 +17,12 @@ public class RucuclaConvertController : ControllerBase
    public ActionResult Post([FromBody] string contentRucula)
    {
       try
-      {
+      {  
+         if(contentRucula.Length == 0)
+            return Ok( new {
+               content = ""
+            });
+            
          return Ok( new {
             content = _extractRuculaService.ConvertSintaxRucula(contentRucula)
          });

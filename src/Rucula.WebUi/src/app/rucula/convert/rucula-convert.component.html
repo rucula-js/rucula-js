@@ -1,3 +1,12 @@
+<div class="container-content-preview" id="container-preview">
+    <div class="container-content-preview-rucula" >
+        <div class="container-content-preview-rucula-btn">
+            <button class="btn-close-preview" (click)="closePreview()"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div id="content-rucula-preview" style="margin: 10px;" >  
+        </div>
+    </div>
+</div>
 <div class="container-content">
     <form [formGroup]="ContentHTMLForm" autocomplete="off">
         <div class="form-group">
@@ -23,3 +32,4 @@
         </div>
     </form>
 </div>
+

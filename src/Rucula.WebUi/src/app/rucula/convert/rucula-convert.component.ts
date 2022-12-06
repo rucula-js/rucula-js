@@ -29,12 +29,16 @@ export class RuculaConvertComponent  {
       document.getElementById('content-rucula')!.textContent = this.ContentRuculaCache  
   }
   PreviewContent(){
+    document.getElementById('container-preview')!.style.display = "block"
     this.ContentHTML = this.ContentHTMLForm as ContentHTML
     this.ContentRuculaCache = document.getElementById('content-rucula')?.textContent!;
     this.ContentHTML.contentLanguageRucula = this.ContentRuculaCache; 
     this.rc.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
       (resp:any)=> {
-        document.getElementById('content-rucula')!.innerHTML =  resp["content"]
+        document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
       })
+  }
+  closePreview(){
+      document.getElementById('container-preview')!.style.display = "none"
   }
 }
