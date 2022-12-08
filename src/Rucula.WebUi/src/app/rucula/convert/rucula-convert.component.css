@@ -45,7 +45,7 @@ button{
 }
 button[data-preview]{
     margin-left: 10px;
-    background-color: #000000;
+    background-color: var(--color-black);
     color: var(--color-branco);
 }
 button[data-save]{
@@ -57,7 +57,8 @@ button[data-save]{
     display: block;
     padding: 10px;
     height: calc(100% - 40px);
-    border: 1px solid var(--border-color-cinza);
+    border: 3px solid var(--color-black);
+    border-radius: 2px;
     outline: none;
     max-height: auto;
     overflow-y: scroll;
