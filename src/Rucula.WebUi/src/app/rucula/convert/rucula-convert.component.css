@@ -40,6 +40,8 @@ button{
     padding: 10px;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
+    font-weight: bold;
 }
 button[data-preview]{
     margin-left: 10px;
@@ -60,5 +62,6 @@ button[data-save]{
     max-height: auto;
     overflow-y: scroll;
     max-height: 600px;
+    margin-top: 10px;
     
 }

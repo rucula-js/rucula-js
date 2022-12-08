@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { RuculaContentService } from './rucula-convert.service';
 import { ContentHTML } from './RuculaConvert';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'rucula-language',
@@ -18,7 +19,7 @@ export class RuculaConvertComponent  {
 
   ContentHTML!:ContentHTML;
   ContentHTMLForm = this.fb.group({
-      guuid: [''],
+      guuid: [Guid.create(),Validators.required],
       content: [''],
       dateCreation:[''],
       dateLastUpdate: [''],
