@@ -23,8 +23,8 @@ H(C=red){
 <h1 color="red;">Introdução ao docwrite<\h1>
 ```
 ## Pendências
-[] tela cadastro sintaxe rula
-[] tela cadastro atributos
-[] Tela conversor
-[] Tela usuário
-[] Tela login
+- [X] rotina cadastro sintaxe rula
+- [ ] rotina cadastro atributos
+- [X] rotina conversor
+- [ ] Tela usuário
+- [ ] Tela login
