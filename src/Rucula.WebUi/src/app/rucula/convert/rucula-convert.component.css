@@ -26,6 +26,8 @@
 #content-rucula-preview{
     overflow-y: scroll;
     max-height: 100vh;
+    word-wrap: break-word;      
+
 }
 .btn-close-preview{
     background-color: rgb(207, 26, 26);
