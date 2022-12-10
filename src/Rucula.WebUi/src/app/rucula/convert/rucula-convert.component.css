@@ -3,6 +3,10 @@
     height: 100vh;
     border: 1px solid var(--border-color-cinza);
 }
+.container-content{
+    overflow-y: scroll;
+    scroll-margin-top: 0;
+}
 .container-content-preview{
     display: none;
     position: fixed;
@@ -58,11 +62,23 @@ button[data-save]{
     padding: 10px;
     height: calc(100% - 40px);
     border: 3px solid var(--color-black);
-    border-radius: 2px;
+    border-radius: 5px;
     outline: none;
     max-height: auto;
     overflow-y: scroll;
     max-height: 600px;
-    margin-top: 10px;
-    
+    margin-top: 10px;    
+}
+.container-content-rucula ~ div {
+    border:  3px solid red;
+}
+.container-content-rucula::-webkit-scrollbar {
+    width: 8px;
+} 
+.container-content-rucula::-webkit-scrollbar-track {
+    background:  var(--color-black);
+}  
+.container-content-rucula::-webkit-scrollbar-thumb {
+    background-color:#00a73b;
+    border-radius: 20px;    
 }

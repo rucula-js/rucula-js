@@ -10,26 +10,67 @@
 <div class="container-content">
     <form [formGroup]="ContentHTMLForm" autocomplete="off">
         <div class="form-group">
-            <h2>Rucula Pages</h2>
+            <h2>HTML Header</h2>
             <div class="form-group-item">
-                <label for="guuid" class="form-group-label">Code: </label>
-                <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38">
+                <label for="metacharset" class="form-group-label">Charset: </label>
+                <input id="metacharset" type="text" formControlName="metacharset" class="form-group-input" FlexibleWidth="10" readonly>
             </div>
             <div class="form-group-item">
-                <label for="dateCreation" class="form-group-label">Date Creation: </label>
-                <input id="dateCreation" type="date" formControlName="dateCreation" class="form-group-input" FlexibleWidth="20">
+                <label for="metaviewport" class="form-group-label">Viewport: </label>
+                <input id="metaviewport" type="text" formControlName="metaviewport" class="form-group-input" FlexibleWidth="30" readonly>
             </div>
             <div class="form-group-item">
-                <label for="dateLastUpdate" class="form-group-label">Date Last Update: </label>
-                <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
+                <label for="metadescription" class="form-group-label">Description: </label>
+                <input id="metadescription" type="text" formControlName="metadescription" class="form-group-input" FlexibleWidth="60">
             </div>
-            <div style="margin-top:50px">
+            <div class="form-group-item">
+                <label for="metakeywords" class="form-group-label">Keywords: </label>
+                <input id="metakeywords" type="text" formControlName="metakeywords" class="form-group-input" FlexibleWidth="30">
+            </div>
+            <div class="form-group-item">
+                <label for="metaauthor" class="form-group-label">Author: </label>
+                <input id="metaauthor" type="text" formControlName="metaauthor" class="form-group-input" FlexibleWidth="60">
+            </div>
+            <div class="form-group-item">
+                <label for="metatitle" class="form-group-label">Title: </label>
+                <input id="metatitle" type="text" formControlName="metatitle" class="form-group-input" FlexibleWidth="60">
+            </div>
+        </div>
+        <div class="form-group" formGroupName="contentEstruture">
+            <h2>HTML Page</h2>
+            <div class="form-group-item">
+                <label for="description" class="form-group-label">Description: </label>
+                <input id="description" type="text" formControlName="description" class="form-group-input" FlexibleWidth="60">
+            </div>
+            <div class="form-group-item">
+                <label for="next" class="form-group-label">Next Page: </label>
+                <input id="next" type="text" formControlName="next" class="form-group-input" FlexibleWidth="80">
+            </div>
+            <div class="form-group-item">
+                <label for="previous" class="form-group-label">Previous Page: </label>
+                <input id="previous" type="text" formControlName="previous" class="form-group-input" FlexibleWidth="80">
+            </div>
+        </div>
+        <div class="form-group" formGroupName="sintaxeRucula">
+            <h2>Rucula Sintax</h2>
+                <div class="form-group-item">
+                    <label for="guuid" class="form-group-label">Code: </label>
+                    <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38" readonly>
+                </div>
+                <div class="form-group-item">
+                    <label for="dateCreation" class="form-group-label">Date Creation: </label>
+                    <input id="dateCreation" type="date" formControlName="dateCreation" class="form-group-input" FlexibleWidth="20">
+                </div>
+                <div class="form-group-item">
+                    <label for="dateLastUpdate" class="form-group-label">Date Last Update: </label>
+                    <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
+                </div>
+        </div>
+        <div style="margin-top:50px">
                 <button data-save (click)="Save()">Save <i class="bi bi-code-slash"></i></button>
                 <button data-preview (click)="PreviewContent()">Preview <i class="bi bi-fire"></i></button>
                 <div [contentEditable]="true" class="container-content-rucula" id="content-rucula" >
                 </div>
-            </div>
         </div>
     </form>
 </div>
-

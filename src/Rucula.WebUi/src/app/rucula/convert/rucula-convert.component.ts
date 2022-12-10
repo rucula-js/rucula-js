@@ -1,31 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, OnInit , } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RuculaContentService } from './rucula-convert.service';
-import { ContentHTML } from './RuculaConvert';
+import { ContentHTML } from './ContentHTML';
 import { Guid } from 'guid-typescript';
+import { TagMetaHTML } from './TagMetaHTML';
 
 @Component({
   selector: 'rucula-language',
   templateUrl: './rucula-convert.component.html',
   styleUrls: ['./rucula-convert.component.css']
 })
-export class RuculaConvertComponent  {  
+export class RuculaConvertComponent  implements OnInit {  
 
   constructor(private fb: FormBuilder, private rc:RuculaContentService) { 
+
+  }
+  ngOnInit(){
+    this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.setValue(Guid.create().toString())
   }
 
+  TagMetaHTML!:TagMetaHTML[]; 
   ContentRuculaCache:any;
   ContentHTMLCache:any;
 
   ContentHTML!:ContentHTML;
   ContentHTMLForm = this.fb.group({
-      guuid: [Guid.create(),Validators.required],
-      content: [''],
-      dateCreation:[''],
-      dateLastUpdate: [''],
-      contentLanguageRucula:['']
+    metacharset:['UTF-8'],
+    metaviewport:['width=device-width, initial-scale=1.0'],
+    metadescription:[''],
+    metakeywords:[''],
+    metaauthor:[''],
+    metatitle:[''],
+    sintaxeRucula: this.fb.group({
+        guuid: ['',Validators.required],
+        content: [''],
+        dateCreation:[''],
+        dateLastUpdate: [''],
+        contentLanguageRucula:['']
+    }),
+    contentEstruture : this.fb.group({
+      description:[] ,
+      next:[] ,
+      previous:[]
+    })
   })
+
   
+  CreateListTagMetaHTML(){
+    this.TagMetaHTML.push({         
+        guuid:Guid.create().toString(),
+        name:"meta",
+        propert:"charset",
+        content:this.ContentHTMLForm.get('metacharset')!.value as string,
+        description:'',
+        contentHTMLFk:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value!}
+    )
+
+    this.TagMetaHTML.push({         
+      guuid:Guid.create().toString(),
+      name:"meta",
+      propert:"viewport",
+      content:this.ContentHTMLForm.get('metaviewport')!.value as string,
+      description:'',
+      contentHTMLFk:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value!}
+  )
+  }
+
   Save(){
       document.getElementById('content-rucula')!.textContent = this.ContentRuculaCache  
   }
