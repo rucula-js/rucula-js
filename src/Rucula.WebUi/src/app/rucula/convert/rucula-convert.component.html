@@ -1,76 +1,119 @@
 <div class="container-content-preview" id="container-preview">
     <div class="container-content-preview-rucula" >
         <div class="container-content-preview-rucula-btn">
-            <button class="btn-close-preview" (click)="closePreview()"><i class="bi bi-x-lg"></i></button>
+            <button class="btn-close" (click)="closePreview()"><i class="bi bi-x-lg"></i></button>
         </div>
         <div id="content-rucula-preview" style="margin: 10px;" >  
         </div>
     </div>
 </div>
-<div class="container-content">
-    <form [formGroup]="ContentHTMLForm" autocomplete="off">
-        <div class="form-group">
-            <h2>HTML Header</h2>
-            <div class="form-group-item">
-                <label for="metacharset" class="form-group-label">Charset: </label>
-                <input id="metacharset" type="text" formControlName="metacharset" class="form-group-input" FlexibleWidth="10" readonly>
+<div class="pop-nav-left" id="pop-nav-left">
+    <div class="container-nav-left">
+        <button class="btn-close" (click)="CloseNavLeft()"><i class="bi bi-x-lg"></i></button>
+        <form [formGroup]="NavLeft" autocomplete="off">
+            <div class="form-group">
+                <h2>Nav Left Properties</h2>
+                <div class=".form-group-item-block">
+                    <label for="summary" class="form-group-label">Summary: </label>
+                    <input id="summary" type="text" formControlName="summary" class="form-group-input" FlexibleWidth="100" >
+                </div>
+                <div class="form-group-item-block">
+                    <label for="tituleSubTitule" class="form-group-label">Titule or Sub Titule: </label>
+                    <input id="tituleSubTitule" type="text" formControlName="tituleSubTitule" class="form-group-input" FlexibleWidth="100">
+                </div>
+                <div class="form-group-item-block">
+                    <label for="url" class="form-group-label">Url: </label>
+                    <input id="url" type="text" formControlName="url" class="form-group-input" FlexibleWidth="100" >
+                </div>
+                <div class="form-group-item-block">
+                    <button data-nav-ok>Ok <i class="bi bi-joystick"></i></button>
+                </div>
             </div>
-            <div class="form-group-item">
-                <label for="metaviewport" class="form-group-label">Viewport: </label>
-                <input id="metaviewport" type="text" formControlName="metaviewport" class="form-group-input" FlexibleWidth="30" readonly>
-            </div>
-            <div class="form-group-item">
-                <label for="metadescription" class="form-group-label">Description: </label>
-                <input id="metadescription" type="text" formControlName="metadescription" class="form-group-input" FlexibleWidth="60">
-            </div>
-            <div class="form-group-item">
-                <label for="metakeywords" class="form-group-label">Keywords: </label>
-                <input id="metakeywords" type="text" formControlName="metakeywords" class="form-group-input" FlexibleWidth="30">
-            </div>
-            <div class="form-group-item">
-                <label for="metaauthor" class="form-group-label">Author: </label>
-                <input id="metaauthor" type="text" formControlName="metaauthor" class="form-group-input" FlexibleWidth="60">
-            </div>
-            <div class="form-group-item">
-                <label for="metatitle" class="form-group-label">Title: </label>
-                <input id="metatitle" type="text" formControlName="metatitle" class="form-group-input" FlexibleWidth="60">
-            </div>
+        </form>
+    </div>
+</div>
+<div class="box-content" >
+    <div class="nav-left">
+        <button data-list (click)="OpenNavLeft()">New List <i class="bi bi-list"></i></button>
+        <div id="nav">
+
         </div>
-        <div class="form-group" formGroupName="contentEstruture">
-            <h2>HTML Page</h2>
-            <div class="form-group-item">
-                <label for="description" class="form-group-label">Description: </label>
-                <input id="description" type="text" formControlName="description" class="form-group-input" FlexibleWidth="60">
-            </div>
-            <div class="form-group-item">
-                <label for="next" class="form-group-label">Next Page: </label>
-                <input id="next" type="text" formControlName="next" class="form-group-input" FlexibleWidth="80">
-            </div>
-            <div class="form-group-item">
-                <label for="previous" class="form-group-label">Previous Page: </label>
-                <input id="previous" type="text" formControlName="previous" class="form-group-input" FlexibleWidth="80">
-            </div>
-        </div>
-        <div class="form-group" formGroupName="sintaxeRucula">
-            <h2>Rucula Sintax</h2>
+    </div>
+    <div class="container-content">
+        <form [formGroup]="ContentHTMLForm" autocomplete="off">
+            <div class="form-group">
+                <h2>HTML Header</h2>
                 <div class="form-group-item">
-                    <label for="guuid" class="form-group-label">Code: </label>
-                    <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38" readonly>
+                    <label for="metacharset" class="form-group-label">Charset: </label>
+                    <input id="metacharset" type="text" formControlName="metacharset" class="form-group-input" FlexibleWidth="10" readonly>
                 </div>
                 <div class="form-group-item">
-                    <label for="dateCreation" class="form-group-label">Date Creation: </label>
-                    <input id="dateCreation" type="date" formControlName="dateCreation" class="form-group-input" FlexibleWidth="20">
+                    <label for="metaviewport" class="form-group-label">Viewport: </label>
+                    <input id="metaviewport" type="text" formControlName="metaviewport" class="form-group-input" FlexibleWidth="30" readonly>
                 </div>
                 <div class="form-group-item">
-                    <label for="dateLastUpdate" class="form-group-label">Date Last Update: </label>
-                    <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
+                    <label for="metadescription" class="form-group-label">Description: </label>
+                    <input id="metadescription" type="text" formControlName="metadescription" class="form-group-input" FlexibleWidth="60">
                 </div>
-        </div>
-        <div style="margin-top:50px">
-                <button data-save (click)="Save()">Save <i class="bi bi-code-slash"></i></button>
-                <button data-preview (click)="PreviewContent()">Preview <i class="bi bi-fire"></i></button>
-                <div [contentEditable]="true" class="container-content-rucula" id="content-rucula" >
+                <div class="form-group-item">
+                    <label for="metakeywords" class="form-group-label">Keywords: </label>
+                    <input id="metakeywords" type="text" formControlName="metakeywords" class="form-group-input" FlexibleWidth="30">
                 </div>
-        </div>
-    </form>
+                <div class="form-group-item">
+                    <label for="metaauthor" class="form-group-label">Author: </label>
+                    <input id="metaauthor" type="text" formControlName="metaauthor" class="form-group-input" FlexibleWidth="60">
+                </div>
+                <div class="form-group-item">
+                    <label for="metatitle" class="form-group-label">Title: </label>
+                    <input id="metatitle" type="text" formControlName="metatitle" class="form-group-input" FlexibleWidth="60">
+                </div>
+            </div>
+            <div class="form-group" formGroupName="contentEstruture">
+                <h2>HTML Page</h2>
+                <div class="form-group-item">
+                    <label for="description" class="form-group-label">Description: </label>
+                    <input id="description" type="text" formControlName="description" class="form-group-input" FlexibleWidth="60">
+                </div>
+                <div class="form-group-item">
+                    <label for="next" class="form-group-label">Next Page: </label>
+                    <input id="next" type="text" formControlName="next" class="form-group-input" FlexibleWidth="80">
+                </div>
+                <div class="form-group-item">
+                    <label for="previous" class="form-group-label">Previous Page: </label>
+                    <input id="previous" type="text" formControlName="previous" class="form-group-input" FlexibleWidth="80">
+                </div>
+            </div>
+            <div class="form-group" formGroupName="sintaxeRucula">
+                <h2>Rucula Sintax</h2>
+                    <div class="form-group-item">
+                        <label for="guuid" class="form-group-label">Code: </label>
+                        <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38" readonly>
+                    </div>
+                    <div class="form-group-item">
+                        <label for="dateCreation" class="form-group-label">Date Creation: </label>
+                        <input id="dateCreation" type="date" formControlName="dateCreation" class="form-group-input" FlexibleWidth="20">
+                    </div>
+                    <div class="form-group-item">
+                        <label for="dateLastUpdate" class="form-group-label">Date Last Update: </label>
+                        <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
+                    </div>
+            </div>
+            <div style="margin-top:50px">
+                    <button data-save (click)="Save()">Save <i class="bi bi-code-slash"></i></button>
+                    <button data-preview (click)="PreviewContent()">Preview <i class="bi bi-fire"></i></button>
+                    <div [contentEditable]="true" class="container-content-rucula" id="content-rucula" >
+                    </div>
+            </div>
+        </form>
+    </div>
+    <div class="this-content">
+        <ol>
+            <li>cccsddd</li>
+            <li>xaxa</li>
+            <li>xaxa</li>
+            <li>xaxa</li>
+        </ol>
+
+    </div>
+
 </div>

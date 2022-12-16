@@ -1,0 +1,35 @@
+{
+    "menu":"Sage X3",
+    "guuid":"",
+    "nav":[
+        {
+            "summary":"Introdução",
+            "content":[
+            {
+                "url":"Abrindo Tabelas",
+                "path":"",
+                "page":"",
+                "summary":"",
+                "content":[]
+             },
+             {
+                "url":"Abrindo Tabelas",
+                "path":"",
+                "page":"",
+                "summary":"Introdução",
+                "content":[
+                    {
+                        "url":"Abrindo Tabelas",
+                        "path":"",
+                        "page":"",
+                        "summary":"",
+                        "content":[]
+                    }
+                ]
+             }
+          ]
+       }
+    ],
+    "version":"",
+    "versions":["","","",""]
+ }

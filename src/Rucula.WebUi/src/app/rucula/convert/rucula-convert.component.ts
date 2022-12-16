@@ -4,6 +4,8 @@ import { RuculaContentService } from './rucula-convert.service';
 import { ContentHTML } from './ContentHTML';
 import { Guid } from 'guid-typescript';
 import { TagMetaHTML } from './TagMetaHTML';
+import  nav from './nav.json';
+import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'rucula-language',
@@ -16,12 +18,19 @@ export class RuculaConvertComponent  implements OnInit {
 
   }
   ngOnInit(){
+    console.log(nav)
     this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.setValue(Guid.create().toString())
   }
 
   TagMetaHTML!:TagMetaHTML[]; 
   ContentRuculaCache:any;
   ContentHTMLCache:any;
+
+  NavLeft = this.fb.group({
+    summary:[''],
+    tituleSubTitule:[''],
+    url:[]
+  });
 
   ContentHTML!:ContentHTML;
   ContentHTMLForm = this.fb.group({
@@ -82,4 +91,13 @@ export class RuculaConvertComponent  implements OnInit {
   closePreview(){
       document.getElementById('container-preview')!.style.display = "none"
   }
-}
+  
+  
+  CloseNavLeft(){
+    document.getElementById("pop-nav-left")!.style.display = "none";
+  }
+  OpenNavLeft(){
+    document.getElementById("pop-nav-left")!.style.display = "block";
+  }
+
+} 

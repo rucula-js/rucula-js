@@ -1,5 +1,7 @@
+.box-content{
+    display: flex;
+}
 .container-content,.container-content-preview{
-    margin: auto;
     height: 100vh;
     border: 1px solid var(--border-color-cinza);
 }
@@ -26,10 +28,10 @@
 #content-rucula-preview{
     overflow-y: scroll;
     max-height: 100vh;
-    word-wrap: break-word;      
+    word-wrap: brweak-word;      
 
 }
-.btn-close-preview{
+.btn-close{
     background-color: rgb(207, 26, 26);
     border: none;
     font-weight:bold;
@@ -54,8 +56,13 @@ button[data-preview]{
     background-color: var(--color-black);
     color: var(--color-branco);
 }
-button[data-save]{
+button[data-save],button[data-nav-ok]{
     background-color: #00a73b;
+    color: var(--color-branco);
+}
+
+button[data-list]{
+    background-color:  var(--color-black);
     color: var(--color-branco);
 }
 
@@ -83,4 +90,22 @@ button[data-save]{
 .container-content-rucula::-webkit-scrollbar-thumb {
     background-color:#00a73b;
     border-radius: 20px;    
+}
+
+.nav-left{
+    min-width: 300px;
+}
+.container-nav-left {
+    max-width: auto;
+    margin-left: 50px;
+}
+.pop-nav-left{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-branco);
+}
+
+.this-content{
+    max-width: 250px;
 }

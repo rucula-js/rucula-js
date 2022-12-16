@@ -46,6 +46,10 @@ ul {
     display: inline-block;
     margin-right: 5px;
 }
+.form-group-item-block{
+    display: block;
+    margin-right: 5px;
+}
 .form-group-label,.form-group-input{
     display: block;
 }
