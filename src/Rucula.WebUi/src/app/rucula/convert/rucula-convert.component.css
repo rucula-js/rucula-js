@@ -60,7 +60,9 @@ button[data-save],button[data-nav-ok]{
     background-color: #00a73b;
     color: var(--color-branco);
 }
-
+button[data-nav-ok]{
+    margin-top: 10px;
+}
 button[data-list]{
     background-color:  var(--color-black);
     color: var(--color-branco);
@@ -96,14 +98,19 @@ button[data-list]{
     min-width: 300px;
 }
 .container-nav-left {
-    max-width: auto;
+    display: inline-block;
+    background-color: var(--color-branco);
+    border: 3px solid var(--color-black);
+    border-radius: 10px;
+    padding: 20px;
     margin-left: 50px;
 }
 .pop-nav-left{
     position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: var(--color-branco);
+    display: none;
+
 }
 
 .this-content{
