@@ -29,7 +29,6 @@
     overflow-y: scroll;
     max-height: 100vh;
     word-wrap: brweak-word;      
-
 }
 .btn-close{
     background-color: rgb(207, 26, 26);
@@ -43,7 +42,6 @@
     padding-right: 10px;
     background-color: var(--color-branco);
 }
-
 button{
     padding: 10px;
     border: none;
@@ -110,9 +108,32 @@ button[data-list]{
     width: 100vw;
     height: 100vh;
     display: none;
-
 }
 
 .this-content{
     max-width: 250px;
+}
+
+#new-item-nav{
+    position: fixed;
+    display: none;
+    font-weight: bold;
+    background-color: var(--color-branco);
+}
+
+button[data-nav-add-item]{
+    background-color: #00a73b;
+    margin-right: 5px;
+}
+button[data-nav-alter-item]{
+    background-color: #0062a7;
+    margin-right: 5px;
+}
+button[data-nav-newchield-item]{
+    background-color: #5700a7;
+    margin-right: 5px;
+}
+
+button[data-nav-remove-item]{
+    background-color: #a70000;
 }

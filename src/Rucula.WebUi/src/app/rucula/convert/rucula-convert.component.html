@@ -10,7 +10,7 @@
 <div class="pop-nav-left" id="pop-nav-left">
     <div class="container-nav-left">
         <button class="btn-close" (click)="CloseNavLeft()"><i class="bi bi-x-lg"></i></button>
-        <form [formGroup]="NavLeft" autocomplete="off">
+        <form [formGroup]="NavLeftForm" autocomplete="off">
             <div class="form-group">
                 <h2>Nav Left Properties</h2>
                 <div class=".form-group-item-block">
@@ -26,17 +26,31 @@
                     <input id="url" type="text" formControlName="url" class="form-group-input" FlexibleWidth="80" >
                 </div>
                 <div class="form-group-item-block">
-                    <button data-nav-ok>Ok <i class="bi bi-joystick"></i></button>
+                    <button data-nav-ok (click)="AddNavLeftItem()">Ok <i class="bi bi-joystick"></i></button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<div id="new-item-nav">
+    <button data-nav-add-item (click)="AddNewItemNavLeft()"><i class="bi bi-plus-lg"></i></button>
+    <button data-nav-alter-item (click)="AlterItemNav()"><i class="bi bi-pencil"></i></button>
+    <button data-nav-newchield-item (click)="AddChieldItemNav()"><i class="bi bi-arrow-return-right"></i></button>
+    <button data-nav-remove-item (click)="RemoveItemNav()"><i class="bi bi-trash"></i></button>
+</div>
 <div class="box-content" >
     <div class="nav-left">
         <button data-list (click)="OpenNavLeft()">New List <i class="bi bi-list"></i></button>
-        <div id="nav">
-
+        <div>
+          <ol id="nav-left">
+                <details>
+                    <summary>teste</summary>
+                    <li> <a href="./convert">A</a></li>
+                    <li> <a href="./convert">B ao html</a></li>
+                    <li> <a href="./convert">C</a></li>
+                    <li> <a href="./convert">D</a></li>
+                </details>
+          </ol>
         </div>
     </div>
     <div class="container-content">
