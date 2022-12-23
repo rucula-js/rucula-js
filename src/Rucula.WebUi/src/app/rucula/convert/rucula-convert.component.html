@@ -40,16 +40,9 @@
 </div>
 <div class="box-content" >
     <div class="nav-left">
-        <button data-list (click)="OpenNavLeft()">New List <i class="bi bi-list"></i></button>
+        <button id="btn-first-nav-left" data-nav-add-item (click)="OpenNavLeft()"><i class="bi bi-plus-lg"></i></button>
         <div>
           <ol id="nav-left">
-                <details>
-                    <summary>teste</summary>
-                    <li> <a href="./convert">A</a></li>
-                    <li> <a href="./convert">B ao html</a></li>
-                    <li> <a href="./convert">C</a></li>
-                    <li> <a href="./convert">D</a></li>
-                </details>
           </ol>
         </div>
     </div>

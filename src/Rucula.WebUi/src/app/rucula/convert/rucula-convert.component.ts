@@ -4,6 +4,7 @@ import { RuculaContentService } from './rucula-convert.service';
 import { ContentHTML } from './ContentHTML';
 import { Guid } from 'guid-typescript';
 import { TagMetaHTML } from './TagMetaHTML';
+import { NavLeftService } from './nav-left.service';
 
 @Component({
   selector: 'rucula-language',
@@ -12,7 +13,7 @@ import { TagMetaHTML } from './TagMetaHTML';
 })
 export class RuculaConvertComponent  implements OnInit {  
 
-  constructor(private fb: FormBuilder, private rc:RuculaContentService ) { 
+  constructor(private fb: FormBuilder, private rc:RuculaContentService, private nl:NavLeftService  ) { 
   }
   ngOnInit(){
     this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.setValue(Guid.create().toString())
@@ -20,6 +21,7 @@ export class RuculaConvertComponent  implements OnInit {
     this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
     this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
     this.NavLeft.addEventListener('mouseover',(event) => this.AddButtonsActionItens(event))
+    this.CloseButonFistItemNavLeftItem()
   }
 
   TagMetaHTML!:TagMetaHTML[]; 
@@ -51,7 +53,6 @@ export class RuculaConvertComponent  implements OnInit {
   NavLeft!:HTMLElement;  //  É o elemento principal da lista esqueda
   PopNavLeft!:HTMLElement // Popup que ocorre quando há persistência de itens na NavLeft
   BtnActionitem!:HTMLElement // é o quando de botões crud para os itens da  NavLeft
-  LastItemWithFocusInNavLeft!:HTMLElement // guarda o último elemento em foco  da NavLeft
 
   ActionIndicatorNavLeftButtons:Number = 0;
 
@@ -95,6 +96,14 @@ export class RuculaConvertComponent  implements OnInit {
       })
   }
 
+  AddButtonsActionItens(e:Event){
+    const element = e.target as HTMLElement;
+    if (element.nodeName == "A"){
+      this.BtnActionitem.style.display = "inline";
+      element.after(this.BtnActionitem);
+      this.nl.LastItemWithFocusInNavLeft = element;
+    }      
+  }
   closePreview(){
       document.getElementById('container-preview')!.style.display = "none"
   }
@@ -106,15 +115,53 @@ export class RuculaConvertComponent  implements OnInit {
   }
   AddNavLeftItem(){  
     switch (this.ActionIndicatorNavLeftButtons) {
+      case NavLeftButtonActionInFocus.InitNav:
+        this.SetFistItemNavLeftItem()
+        break;
       case NavLeftButtonActionInFocus.Create:
         this.SetValueCreateNavLeftItem()
-        break;    
+        break;
+      case NavLeftButtonActionInFocus.Update:
+          this.UpdateValueNavLeftItem()
+          break;    
+      case NavLeftButtonActionInFocus.CreateNewChield:
+          this.SetValueChieldCreateNavLeftItem()
+          break;    
     }
-    
     this.CloseNavLeft()
   }
+  InitFirstItemNavLeft(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.InitNav;
+    this.OpenNavLeft()
+  }
+  AddNewItemNavLeft(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Create;
+    this.OpenNavLeft()
+  }
+  AlterItemNav(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Update;
+    this.OpenNavLeft()
+  }
+  AddChieldItemNav(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.CreateNewChield;
+    this.OpenNavLeft() 
+  }
+  RemoveItemNav(){
+    var LI = this.nl.LastItemWithFocusInNavLeft.parentNode?.parentNode!.removeChild(this.nl.LastItemWithFocusInNavLeft.parentNode)
+    this.BtnActionitem.style.display = "none";
+  }
 
-  SetValueCreateNavLeftItem(){
+  CloseButonFistItemNavLeftItem(){
+    var nav = document.getElementById('nav-left')
+    if(nav!.childNodes.length > 0){
+      const bnt = document.getElementById('btn-first-nav-left')
+      bnt!.style.display = "none";
+    } 
+  }
+  SetFistItemNavLeftItem(){
+    var nav = document.getElementById('nav-left')
+    if(nav!.childNodes.length > 0) return;
+
     const summary = document.createElement('summary');
     const li = document.createElement('li');
     const anchor = document.createElement('a');
@@ -122,62 +169,46 @@ export class RuculaConvertComponent  implements OnInit {
     anchor.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
     anchor.href = String(this.NavLeftForm.get('url')?.value)
     li.appendChild(anchor);
-
-    summary.textContent = String(this.NavLeftForm.get('summary')?.value);
-    
-    console.log(this.LastItemWithFocusInNavLeft)
     if(summary){
-      this.LastItemWithFocusInNavLeft.parentNode?.insertBefore(summary,this.LastItemWithFocusInNavLeft.nextSibling)
+      summary.textContent = String(this.NavLeftForm.get('summary')?.value);
+      summary.appendChild(li);
+      nav?.appendChild(summary)
     } 
     else{
-      console.log(this.LastItemWithFocusInNavLeft.parentNode)
-      this.LastItemWithFocusInNavLeft.parentNode?.insertBefore(li,this.LastItemWithFocusInNavLeft.nextSibling)
-
+      nav?.appendChild(li)
     }
   }
-  
+  SetValueCreateNavLeftItem(){
+    const resume = document.createElement('resume');
+    const summary = document.createElement('summary');
+    const li = document.createElement('li');
+    const anchor = document.createElement('a');
 
- 
-  AddButtonsActionItens(e:Event){
-    const element = e.target as HTMLElement;
-    if (element.nodeName == "A"){
-      this.BtnActionitem.style.display = "inline";
-      element.after(this.BtnActionitem);
-      this.LastItemWithFocusInNavLeft = element;
-    }      
+    anchor.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
+    anchor.href = String(this.NavLeftForm.get('url')?.value)
+    li.appendChild(anchor);
+    if(summary){
+      summary.textContent = String(this.NavLeftForm.get('summary')?.value);
+      summary.appendChild(li);
+      resume.appendChild(summary)
+      this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(resume,this.nl.LastItemWithFocusInNavLeft.nextSibling)
+    } 
+    else{
+      this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(li,this.nl.LastItemWithFocusInNavLeft.nextSibling)
+    }
   }
+  UpdateValueNavLeftItem(){
+    this.nl.LastItemWithFocusInNavLeft.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
+    this.nl.LastItemWithFocusInNavLeft.removeAttribute('href');
+    this.nl.LastItemWithFocusInNavLeft.setAttribute('href',String(this.NavLeftForm.get('url')?.value));
+  }
+  SetValueChieldCreateNavLeftItem(){
 
-  AddNewItemNavLeft(){
-    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Create;
-    this.OpenNavLeft()
-  }
-
-
-  AlterItemNav(){
-    this.OpenNavLeft()
-    this.InsertValueNavLeftForm()
-  }
-  RemoveItemNav(){
-    var LI = this.LastItemWithFocusInNavLeft.parentNode?.parentNode!.removeChild(this.LastItemWithFocusInNavLeft.parentNode)
-    this.BtnActionitem.style.display = "none";
-  }
-  AddChieldItemNav(){
-    const ol = document.createElement("ol");
-    var li = document.createElement("li");
-    ol.appendChild(li);
-    var li = document.createElement("li");
-    li.innerText ="axmmxalxmakxankjaxnaxkjanxjkaxnkjaxnaxjk"
-    this.LastItemWithFocusInNavLeft.parentNode?.insertBefore(li,this.LastItemWithFocusInNavLeft.nextSibling)
-  }
-
-  InsertValueNavLeftForm(){
-    this.NavLeftForm.get('summary')!.setValue("xaaxax"); 
-    this.NavLeftForm.get('tituleSubTitule')!.setValue("xaax"); 
-    this.NavLeftForm.get('url')!.setValue("xaaxaxax"); 
-  }
-} 
+  } 
+}
 
 enum NavLeftButtonActionInFocus {
+  InitNav = 0,
   Create = 1,
   Update = 2,
   CreateNewChield = 3,
