@@ -161,7 +161,7 @@ export class RuculaConvertComponent  implements OnInit {
   SetFistItemNavLeftItem(){
     var nav = document.getElementById('nav-left')
     if(nav!.childNodes.length > 0) return;
-
+    const details = document.createElement('details');
     const summary = document.createElement('summary');
     const li = document.createElement('li');
     const anchor = document.createElement('a');
@@ -171,15 +171,16 @@ export class RuculaConvertComponent  implements OnInit {
     li.appendChild(anchor);
     if(summary){
       summary.textContent = String(this.NavLeftForm.get('summary')?.value);
-      summary.appendChild(li);
-      nav?.appendChild(summary)
+      details.appendChild(summary)
+      details.appendChild(li);
+      nav?.appendChild(details)
     } 
     else{
       nav?.appendChild(li)
     }
   }
   SetValueCreateNavLeftItem(){
-    const resume = document.createElement('resume');
+    const details = document.createElement('details');
     const summary = document.createElement('summary');
     const li = document.createElement('li');
     const anchor = document.createElement('a');
@@ -187,11 +188,11 @@ export class RuculaConvertComponent  implements OnInit {
     anchor.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
     anchor.href = String(this.NavLeftForm.get('url')?.value)
     li.appendChild(anchor);
-    if(summary){
+    if(String(this.NavLeftForm.get('summary')?.value).length > 0){
       summary.textContent = String(this.NavLeftForm.get('summary')?.value);
-      summary.appendChild(li);
-      resume.appendChild(summary)
-      this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(resume,this.nl.LastItemWithFocusInNavLeft.nextSibling)
+      details.appendChild(summary)
+      details.appendChild(li);
+      this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(details,this.nl.LastItemWithFocusInNavLeft.nextSibling)
     } 
     else{
       this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(li,this.nl.LastItemWithFocusInNavLeft.nextSibling)
