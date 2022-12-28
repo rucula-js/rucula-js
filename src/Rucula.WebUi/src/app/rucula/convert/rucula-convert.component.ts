@@ -17,15 +17,7 @@ export class RuculaConvertComponent  implements OnInit {
   }
   ngOnInit(){
     this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.setValue(Guid.create().toString())
-    this.NavLeft = document.getElementById("nav-left") as HTMLElement
-    this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
-    this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
-    this.NavLeft.addEventListener('mouseover',(event) => this.AddButtonsActionItens(event))
-    this.CloseButonFistItemNavLeftItem()
-
-
-    this.NavLeft.addEventListener('click',(event) => this.OnClickNavLeft(event))
-  
+    this.PrepairNavLeft();
   }
 
   TagMetaHTML!:TagMetaHTML[]; 
@@ -57,6 +49,8 @@ export class RuculaConvertComponent  implements OnInit {
   NavLeft!:HTMLElement;  //  É o elemento principal da lista esqueda
   PopNavLeft!:HTMLElement // Popup que ocorre quando há persistência de itens na NavLeft
   BtnActionitem!:HTMLElement // é o quando de botões crud para os itens da  NavLeft
+  BtnNewLeftList!:HTMLElement 
+  BtnSaveLeftList!:HTMLElement
 
   ActionIndicatorNavLeftButtons:Number = 0;
 
@@ -66,7 +60,16 @@ export class RuculaConvertComponent  implements OnInit {
     url:['']
   });
 
-
+  PrepairNavLeft(){
+    this.NavLeft = document.getElementById("nav-left") as HTMLElement
+    this.NavLeft.addEventListener('mouseover',(event) => this.AddButtonsActionItens(event))
+    this.NavLeft.addEventListener('click',(event) => this.OnClickNavLeft(event))
+    this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
+    this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
+    this.BtnNewLeftList = document.getElementById('btn-first-nav-left') as HTMLButtonElement;
+    this.BtnSaveLeftList = document.getElementById('btn-save-nav-left') as HTMLButtonElement;
+    this.CloseButonFistItemNavLeftItem()
+  }
   CreateListTagMetaHTML(){
     this.TagMetaHTML.push({         
         guuid:Guid.create().toString(),
@@ -84,7 +87,7 @@ export class RuculaConvertComponent  implements OnInit {
       content:this.ContentHTMLForm.get('metaviewport')!.value as string,
       description:'',
       contentHTMLFk:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value!}
-  )
+    )
   }
   Save(){
       document.getElementById('content-rucula')!.textContent = this.ContentRuculaCache  
@@ -170,6 +173,9 @@ export class RuculaConvertComponent  implements OnInit {
     if(nav!.childNodes.length > 0){
       this.CloseFirtButtonNavList();
     } 
+    else{
+      this.CloseBtnSaveLeftList();
+    }
   }
   SetFistItemNavLeftItem(){
     var nav = document.getElementById('nav-left')
@@ -245,18 +251,22 @@ export class RuculaConvertComponent  implements OnInit {
     }
   } 
   CloseFirtButtonNavList(){
-    const bnt = document.getElementById('btn-first-nav-left')
-    bnt!.style.display = "none";
+    this.BtnNewLeftList!.style.display = "none";
   }
   OpenFirtButtonNavList(){
     var nav = document.getElementById('nav-left')
     if(nav!.childNodes.length == 0){
-      const bnt = document.getElementById('btn-first-nav-left')
-      bnt!.style.display = "block";
+      this.BtnNewLeftList!.style.display = "block";
     }
   }
   CloseButtonsItensNavList(){
     this.BtnActionitem.style.display ="none";
+  }
+  CloseBtnSaveLeftList(){
+    this.BtnSaveLeftList.style.display = "none"
+  }
+  SaveNavLeft(){
+
   }
 }
 

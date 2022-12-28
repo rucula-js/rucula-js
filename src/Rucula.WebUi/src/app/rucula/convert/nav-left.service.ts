@@ -8,6 +8,6 @@ export class NavLeftService {
     public LastItemWithFocusInNavLeft!:HTMLElement // guarda o último elemento em foco  da NavLeft
 
 
-    
+
 
 }
