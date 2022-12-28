@@ -22,6 +22,10 @@ export class RuculaConvertComponent  implements OnInit {
     this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
     this.NavLeft.addEventListener('mouseover',(event) => this.AddButtonsActionItens(event))
     this.CloseButonFistItemNavLeftItem()
+
+
+    this.NavLeft.addEventListener('click',(event) => this.OnClickNavLeft(event))
+  
   }
 
   TagMetaHTML!:TagMetaHTML[]; 
@@ -103,6 +107,11 @@ export class RuculaConvertComponent  implements OnInit {
       element.after(this.BtnActionitem);
       this.nl.LastItemWithFocusInNavLeft = element;
     }      
+  }
+  OnClickNavLeft(e:Event){
+    const element = e.target as HTMLElement;
+    if (element.nodeName == "A")
+    e.preventDefault();
   }
   closePreview(){
       document.getElementById('container-preview')!.style.display = "none"
