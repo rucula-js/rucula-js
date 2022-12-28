@@ -187,9 +187,11 @@ export class RuculaConvertComponent  implements OnInit {
 
     anchor.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
     anchor.href = String(this.NavLeftForm.get('url')?.value)
-    li.appendChild(anchor);
-    if(String(this.NavLeftForm.get('summary')?.value).length > 0){
-      summary.textContent = String(this.NavLeftForm.get('summary')?.value);
+    li.appendChild(anchor)
+    let summaryControl = this.NavLeftForm.get('summary')?.value; 
+    
+    if(String(summaryControl).length > 0){
+      summary.textContent = summaryControl as string;
       details.appendChild(summary)
       details.appendChild(li);
       this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(details,this.nl.LastItemWithFocusInNavLeft.nextSibling)
@@ -204,7 +206,29 @@ export class RuculaConvertComponent  implements OnInit {
     this.nl.LastItemWithFocusInNavLeft.setAttribute('href',String(this.NavLeftForm.get('url')?.value));
   }
   SetValueChieldCreateNavLeftItem(){
+    const ol = document.createElement('ol');
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    const li = document.createElement('li');
+    const anchor = document.createElement('a');
 
+    anchor.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
+    anchor.href = String(this.NavLeftForm.get('url')?.value)
+    li.appendChild(anchor)
+    let summaryControl = this.NavLeftForm.get('summary')?.value; 
+    
+    if(String(summaryControl).length > 0){
+      summary.textContent = summaryControl as string;
+      details.appendChild(summary)
+      details.appendChild(li);
+      ol.appendChild(details);
+      
+      this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(ol,this.nl.LastItemWithFocusInNavLeft.nextSibling)
+    } 
+    else{
+      ol.appendChild(li);
+      this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(ol,this.nl.LastItemWithFocusInNavLeft.nextSibling)
+    }
   } 
 }
 
