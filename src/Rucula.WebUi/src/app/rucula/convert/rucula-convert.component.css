@@ -97,7 +97,21 @@ button[data-list]{
 
 .nav-left{
     min-width: 300px;
+    max-width: 350px;
+    overflow-y:scroll;
+    height: 100Vh;
 }
+.nav-left ol {
+    list-style: none;
+}
+.nav-left ol li {
+    margin-bottom: 10px;
+}
+.nav-left ol a {
+    text-decoration: none;
+    color: rgb(107, 107, 107);
+}
+
 .container-nav-left {
     display: inline-block;
     background-color: var(--color-branco);
