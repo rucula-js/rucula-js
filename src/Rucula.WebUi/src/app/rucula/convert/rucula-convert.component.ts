@@ -132,23 +132,28 @@ export class RuculaConvertComponent  implements OnInit {
   }
   InitFirstItemNavLeft(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.InitNav;
+    this.CloseButtonsItensNavList();
     this.OpenNavLeft()
   }
   AddNewItemNavLeft(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Create;
+    this.CloseButtonsItensNavList();
     this.OpenNavLeft()
   }
   AlterItemNav(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Update;
+    this.CloseButtonsItensNavList();
     this.OpenNavLeft()
   }
   AddChieldItemNav(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.CreateNewChield;
+    this.CloseButtonsItensNavList();
     this.OpenNavLeft() 
   }
   RemoveItemNav(){
     var LI = this.nl.LastItemWithFocusInNavLeft.parentNode?.parentNode!.removeChild(this.nl.LastItemWithFocusInNavLeft.parentNode)
-    this.BtnActionitem.style.display = "none";
+    this.CloseButtonsItensNavList();
+    this.OpenFirtButtonNavList();
   }
 
   CloseButonFistItemNavLeftItem(){
@@ -233,6 +238,16 @@ export class RuculaConvertComponent  implements OnInit {
   CloseFirtButtonNavList(){
     const bnt = document.getElementById('btn-first-nav-left')
     bnt!.style.display = "none";
+  }
+  OpenFirtButtonNavList(){
+    var nav = document.getElementById('nav-left')
+    if(nav!.childNodes.length == 0){
+      const bnt = document.getElementById('btn-first-nav-left')
+      bnt!.style.display = "block";
+    }
+  }
+  CloseButtonsItensNavList(){
+    this.BtnActionitem.style.display ="none";
   }
 }
 

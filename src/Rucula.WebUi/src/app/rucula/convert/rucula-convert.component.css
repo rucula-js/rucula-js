@@ -106,6 +106,7 @@ button[data-list]{
 }
 .nav-left ol li {
     margin-bottom: 10px;
+    margin-left: 16px;
 }
 .nav-left ol a {
     text-decoration: none;
