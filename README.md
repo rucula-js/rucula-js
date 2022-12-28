@@ -1,3 +1,7 @@
+
+![rucula](https://user-images.githubusercontent.com/60780631/209857688-64dcd253-aeb6-44fc-bf75-82ce711343cd.jpeg)
+
+
 # O que é o Rucula? 
 Rucula é um sistema de gerenciamento de conteudo prático, que manipula a criação de conteudos para a web. Seu objetivo principal é mapear estruturas **HTML/CSS** à uma sintaxe de modelo em formato de função que juntos transformam um simples documento na sintaxe .ruc em páginas web padronizadas e formatadas.
 
