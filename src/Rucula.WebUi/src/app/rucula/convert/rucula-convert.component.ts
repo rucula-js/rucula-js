@@ -111,7 +111,7 @@ export class RuculaConvertComponent  implements OnInit {
     this.PopNavLeft!.style.display = "none";
   }
   OpenNavLeft(){
-    this.PopNavLeft!.style.display = "block";
+    this.PopNavLeft!.style.display = "flex";
   }
   AddNavLeftItem(){  
     switch (this.ActionIndicatorNavLeftButtons) {
@@ -154,8 +154,7 @@ export class RuculaConvertComponent  implements OnInit {
   CloseButonFistItemNavLeftItem(){
     var nav = document.getElementById('nav-left')
     if(nav!.childNodes.length > 0){
-      const bnt = document.getElementById('btn-first-nav-left')
-      bnt!.style.display = "none";
+      this.CloseFirtButtonNavList();
     } 
   }
   SetFistItemNavLeftItem(){
@@ -169,7 +168,7 @@ export class RuculaConvertComponent  implements OnInit {
     anchor.textContent = String(this.NavLeftForm.get('tituleSubTitule')?.value);
     anchor.href = String(this.NavLeftForm.get('url')?.value)
     li.appendChild(anchor);
-    if(summary){
+    if(String(this.NavLeftForm.get('summary')?.value).length > 0){
       summary.textContent = String(this.NavLeftForm.get('summary')?.value);
       details.appendChild(summary)
       details.appendChild(li);
@@ -178,6 +177,7 @@ export class RuculaConvertComponent  implements OnInit {
     else{
       nav?.appendChild(li)
     }
+    this.CloseFirtButtonNavList();
   }
   SetValueCreateNavLeftItem(){
     const details = document.createElement('details');
@@ -230,6 +230,10 @@ export class RuculaConvertComponent  implements OnInit {
       this.nl.LastItemWithFocusInNavLeft.parentNode?.insertBefore(ol,this.nl.LastItemWithFocusInNavLeft.nextSibling)
     }
   } 
+  CloseFirtButtonNavList(){
+    const bnt = document.getElementById('btn-first-nav-left')
+    bnt!.style.display = "none";
+  }
 }
 
 enum NavLeftButtonActionInFocus {
