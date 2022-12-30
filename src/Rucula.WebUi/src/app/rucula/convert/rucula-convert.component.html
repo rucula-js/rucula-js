@@ -10,7 +10,7 @@
 <div class="pop-nav-left" id="pop-nav-left">
     <div class="container-nav-left">
         <button class="btn-close" (click)="CloseNavLeft()"><i class="bi bi-x-lg"></i></button>
-        <form [formGroup]="NavLeftForm" autocomplete="off">
+        <form [formGroup]="PopupFormItemNavegationLeft" autocomplete="off">
             <div class="form-group">
                 <h2>Nav Left Properties</h2>
                 <div class=".form-group-item-block">
@@ -39,14 +39,15 @@
     <button data-nav-remove-item (click)="RemoveItemNav()"><i class="bi bi-trash"></i></button>
 </div>
 <div class="box-content" >
-    <div class="nav-left">
+    <nav class="nav-left">
         <button id="btn-first-nav-left" data-nav-add-item (click)="OpenNavLeft()">New List<i class="bi bi-plus-lg"></i></button>
         <button id="btn-save-nav-left" data-save-nav-item (click)="SaveNavLeft()">Save List<i class="bi bi-plus-lg"></i></button>
         <div>
           <ol id="nav-left">
+                
           </ol>
         </div>
-    </div>
+    </nav>
     <div class="container-content">
         <form [formGroup]="ContentHTMLForm" autocomplete="off">
             <div class="form-group">
