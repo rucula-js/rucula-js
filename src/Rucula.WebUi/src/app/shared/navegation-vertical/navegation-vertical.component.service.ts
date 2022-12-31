@@ -9,12 +9,13 @@ export class NavegationVerticalService {
   constructor(private fb: FormBuilder){}
   PopupFormItemNavegationLeft = this.fb.group({
     summary:[''],
-    tituleSubTitule:['', Validators.required],
+    tituleSubTitule:[''],
     url:['']
   });
   ActionIndicatorNavLeftButtons:Number = 0;
   LastItemInfocusInNavigationLeft!:HTMLElement // guarda o último elemento LI em foco da NavLeft
   LastItemAnchorfocusInNavigationLeft!:HTMLAnchorElement // guarda o último elemento LI em foco da NavLeft
+  LastItemSUMMARYfocusInNavigationLeft!:HTMLElement // guarda o último elemento LI em foco da NavLeft
   NavigationLeft!:HTMLElement;  //  Nabegação esquerda
   BtnActionitem!:HTMLElement // é o quando de botões crud para os itens da  NavLeft
   BtnNewLeftList!:HTMLElement 
@@ -42,8 +43,14 @@ export class NavegationVerticalService {
       this.BtnActionitem.style.display = "inline";
       element.after(this.BtnActionitem);
       this.LastItemInfocusInNavigationLeft = element.parentNode as HTMLElement;
-      this.LastItemAnchorfocusInNavigationLeft = element as HTMLAnchorElement;
+      this.LastItemAnchorfocusInNavigationLeft = element as HTMLAnchorElement;  
     }      
+    if(element.nodeName == "SUMMARY"){
+    this.BtnActionitem.style.display = "inline";
+    element.append(this.BtnActionitem);
+    this.LastItemInfocusInNavigationLeft = element as HTMLAnchorElement
+    this.LastItemSUMMARYfocusInNavigationLeft = element as HTMLAnchorElement
+    }
   }
   CloseButtonsCrudInItensNavLeft(){
     this.BtnActionitem.style.display ="none";
@@ -55,11 +62,6 @@ export class NavegationVerticalService {
   }
 
   AddNavLeftItem(){  
-    if(this.PopupFormItemNavegationLeft.invalid){
-        this.CloseNavLeft()
-        this.ResetFormItemNavegationLeft()
-        return;
-    }
     switch (this.ActionIndicatorNavLeftButtons) {
       case NavLeftButtonActionInFocus.InitNav:
         this.SetFistItemNavLeftItem()
@@ -121,9 +123,14 @@ export class NavegationVerticalService {
     }
   }
   UpdateValueNavLeftItem(){
-    this.LastItemAnchorfocusInNavigationLeft.textContent = String(this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.value);
-    this.LastItemAnchorfocusInNavigationLeft.removeAttribute('href');
-    this.LastItemAnchorfocusInNavigationLeft.setAttribute('href',String(this.PopupFormItemNavegationLeft.get('url')?.value));
+    if(this.LastItemInfocusInNavigationLeft.nodeName == "SUMMARY"){
+      this.LastItemSUMMARYfocusInNavigationLeft.textContent = String(this.PopupFormItemNavegationLeft.get('summary')?.value); 
+    }
+    if(this.LastItemInfocusInNavigationLeft.nodeName == "LI"){
+      this.LastItemAnchorfocusInNavigationLeft.textContent = String(this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.value);
+      this.LastItemAnchorfocusInNavigationLeft.removeAttribute('href');
+      this.LastItemAnchorfocusInNavigationLeft.setAttribute('href',String(this.PopupFormItemNavegationLeft.get('url')?.value));   
+    }
   }
   SetValueChieldCreateNavLeftItem(){
     const ol = document.createElement('ol');
@@ -199,9 +206,8 @@ export class NavegationVerticalService {
   }
   AlterItemNav(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Update;
-    this.CloseButtonsCrudInItensNavLeft();   
-    this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.setValue(this.LastItemAnchorfocusInNavigationLeft.textContent)
-    this.PopupFormItemNavegationLeft.get('url')?.setValue(new URL(this.LastItemAnchorfocusInNavigationLeft.href).pathname)
+    this.CloseButtonsCrudInItensNavLeft();  
+    this.PopupFormItemNavegationLeft.get('summary')?.setValue(this.LastItemSUMMARYfocusInNavigationLeft.textContent)
     this.OpenNavLeft()
   }
   AddChieldItemNav(){
