@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,9 @@ export class NavegationVerticalService {
   constructor(private fb: FormBuilder){}
   PopupFormItemNavegationLeft = this.fb.group({
     summary:[''],
-    tituleSubTitule:[''],
+    tituleSubTitule:['', Validators.required],
     url:['']
   });
-  
   ActionIndicatorNavLeftButtons:Number = 0;
   LastItemInfocusInNavigationLeft!:HTMLElement // guarda o último elemento em foco  da NavLeft
   NavigationLeft!:HTMLElement;  //  Nabegação esquerda
@@ -21,15 +20,21 @@ export class NavegationVerticalService {
   PopNavLeft!:HTMLElement // Popup que ocorre quando há persistência de itens na NavLeft
   BtnSaveLeftList!:HTMLElement
 
+  ResetFormItemNavegationLeft(){
+    this.PopupFormItemNavegationLeft.get('summary')?.setValue('')
+    this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.setValue('')
+    this.PopupFormItemNavegationLeft.get('url')?.setValue('')
+  }
   PrepareNavegationLeft(){
     this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
     this.BtnSaveLeftList = document.getElementById('btn-save-nav-left') as HTMLButtonElement;
-    this.CloseButonFistItemNavLeftItem()
     this.NavigationLeft = document.getElementById("nav-left") as HTMLElement
     this.NavigationLeft.addEventListener('mouseover',(event) => this.AddButtonsCrudInItensNavLeft(event))
     this.NavigationLeft.addEventListener('click',(event) => this.CancelEventClickAnchor(event)) 
     this.BtnNewLeftList = document.getElementById('btn-first-nav-left') as HTMLButtonElement;
     this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
+    this.CloseButonFistItemNavLeftItem()
+
   }
   AddButtonsCrudInItensNavLeft(e:Event){
     const element = e.target as HTMLElement;
@@ -49,6 +54,11 @@ export class NavegationVerticalService {
   }
 
   AddNavLeftItem(){  
+    if(this.PopupFormItemNavegationLeft.invalid){
+        this.CloseNavLeft()
+        this.ResetFormItemNavegationLeft()
+        return;
+    }
     switch (this.ActionIndicatorNavLeftButtons) {
       case NavLeftButtonActionInFocus.InitNav:
         this.SetFistItemNavLeftItem()
@@ -64,6 +74,7 @@ export class NavegationVerticalService {
           break;    
     }
     this.CloseNavLeft()
+    this.ResetFormItemNavegationLeft()
   }
   SetFistItemNavLeftItem(){
     var nav = document.getElementById('nav-left')
@@ -139,31 +150,42 @@ export class NavegationVerticalService {
     }
   } 
   RemoveItemNav(){
-    const li   = this.LastItemInfocusInNavigationLeft;
+    this.CloseButtonsCrudInItensNavLeft();
+    this.CheckAndRemoveItem(this.LastItemInfocusInNavigationLeft)
+  }
+  CheckAndRemoveItem(item:HTMLElement){
 
-    if ((li.parentNode as HTMLElement).id == "nav-left" && (li.parentNode as HTMLElement).nodeName == "OL"){
-        li.remove() // Entende que é o primeiro LI da lista e à remove.
+    let countChildsNode = 0;
+
+    countChildsNode = CountNumberChieldNodes(item.parentNode as HTMLElement);
+
+    if (item.parentNode?.nodeName == "OL" && (item.parentNode as HTMLElement).id == "nav-left" && countChildsNode == 1){
+      item.remove() // Entende que é o unico filho do OL principal e o remove
+      this.OpenFirtButtonNavList();
       return
     }
-    this.RemoveItemOfDetails(li);
-    this.CloseButtonsCrudInItensNavLeft();
-    this.OpenFirtButtonNavList();
-  }
-  RemoveItemOfDetails(li:HTMLElement){
-    let countChildLi = 0 ;
-    if ((li.parentNode as HTMLElement).nodeName == "DETAILS"){
-      (li.parentNode as HTMLElement).childNodes.forEach(
-        (item) => {
-          if (item.nodeName == "LI")
-            ++countChildLi; 
+    if (countChildsNode > 1){
+      item.remove(); // Caso o Pai tenha mais de um filho, o item em foco é removido na hora
+      return
+    } 
+    if (countChildsNode == 1)
+    {
+      this.CheckAndRemoveItem(item.parentNode as HTMLElement) 
+      /* 
+        Ao saber que o Pai tem apenas um filho, é feito a leitura dos pais mais superiores até encontrar saber o nó que deve ser removido
+        Nota: Esse procedimento remove OL's e DETAILS que poderiam ficar sem filhos na lista
+      */
+    }
+    function CountNumberChieldNodes(item:HTMLElement){
+      let countChilds = 0;
+      item?.childNodes.forEach((i) => {
+        if (i.nodeName == "OL" || i.nodeName == "LI" || i.nodeName == "DETAILS")
+        countChilds++;
       })
-      if (countChildLi > 1)
-        li.remove();
-      
-        if(countChildLi == 1)
-          (li.parentNode as HTMLElement).remove(); // Se existir apenas um LI dentro de DETAIS, então DETAIS deve ser removido 
+      return countChilds;
     }
   }
+
   InitFirstItemNavLeft(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.InitNav;
     this.CloseButtonsCrudInItensNavLeft();

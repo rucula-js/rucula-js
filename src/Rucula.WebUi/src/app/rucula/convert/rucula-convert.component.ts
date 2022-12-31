@@ -4,7 +4,6 @@ import { RuculaContentService } from './rucula-convert.service';
 import { ContentHTML } from './ContentHTML';
 import { Guid } from 'guid-typescript';
 import { TagMetaHTML } from './TagMetaHTML';
-import { NavLeftService } from './nav-left.service';
 
 @Component({
   selector: 'rucula-language',
@@ -13,12 +12,9 @@ import { NavLeftService } from './nav-left.service';
 })
 export class RuculaConvertComponent  implements OnInit {  
 
-  constructor(private fb: FormBuilder, private rc:RuculaContentService, private nl:NavLeftService) { 
-  }
+  constructor(private fb: FormBuilder, private rc:RuculaContentService) { }
   ngOnInit(){
     this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.setValue(Guid.create().toString())
-    this.PrepareNavegationLeft();
-    this.nl.PrepareNavegationLeft();
   }
 
   TagMetaHTML!:TagMetaHTML[]; 
@@ -47,12 +43,6 @@ export class RuculaConvertComponent  implements OnInit {
     })
   })
 
-
-  PopupFormItemNavegationLeft = this.nl.PopupFormItemNavegationLeft
-
-  PrepareNavegationLeft(){
-    
-  }
   CreateListTagMetaHTML(){
     this.TagMetaHTML.push({         
         guuid:Guid.create().toString(),
@@ -85,33 +75,7 @@ export class RuculaConvertComponent  implements OnInit {
         document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
       })
   }
-
-  OpenNavLeft(){
-    this.nl.OpenNavLeft();
-  }
-  CloseNavLeft(){
-    this.nl.CloseNavLeft();
-  }
   closePreview(){
       document.getElementById('container-preview')!.style.display = "none"
   }
-  AddNavLeftItem(){  
-    this.nl.AddNavLeftItem()
-  }
-  InitFirstItemNavLeft(){
-   this.nl.AddNavLeftItem()
-  }
-  AddNewItemNavLeft(){
-    this.nl.AddNewItemNavLeft() 
-  }
-  AlterItemNav(){
-    this.nl.AlterItemNav()
-  }
-  AddChieldItemNav(){
-    this.nl.AddChieldItemNav()
-  }
-  RemoveItemNav(){
-    this.nl.RemoveItemNav()
-  }
-  
 }
