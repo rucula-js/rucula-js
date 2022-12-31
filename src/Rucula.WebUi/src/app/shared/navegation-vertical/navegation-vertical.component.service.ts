@@ -13,7 +13,8 @@ export class NavegationVerticalService {
     url:['']
   });
   ActionIndicatorNavLeftButtons:Number = 0;
-  LastItemInfocusInNavigationLeft!:HTMLElement // guarda o último elemento em foco  da NavLeft
+  LastItemInfocusInNavigationLeft!:HTMLElement // guarda o último elemento LI em foco da NavLeft
+  LastItemAnchorfocusInNavigationLeft!:HTMLAnchorElement // guarda o último elemento LI em foco da NavLeft
   NavigationLeft!:HTMLElement;  //  Nabegação esquerda
   BtnActionitem!:HTMLElement // é o quando de botões crud para os itens da  NavLeft
   BtnNewLeftList!:HTMLElement 
@@ -34,7 +35,6 @@ export class NavegationVerticalService {
     this.BtnNewLeftList = document.getElementById('btn-first-nav-left') as HTMLButtonElement;
     this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
     this.CloseButonFistItemNavLeftItem()
-
   }
   AddButtonsCrudInItensNavLeft(e:Event){
     const element = e.target as HTMLElement;
@@ -42,6 +42,7 @@ export class NavegationVerticalService {
       this.BtnActionitem.style.display = "inline";
       element.after(this.BtnActionitem);
       this.LastItemInfocusInNavigationLeft = element.parentNode as HTMLElement;
+      this.LastItemAnchorfocusInNavigationLeft = element as HTMLAnchorElement;
     }      
   }
   CloseButtonsCrudInItensNavLeft(){
@@ -206,7 +207,6 @@ export class NavegationVerticalService {
     this.CloseButtonsCrudInItensNavLeft();
     this.OpenNavLeft() 
   }
-
   OpenNavLeft(){
     this.PopNavLeft!.style.display = "flex";
   }
