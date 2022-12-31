@@ -53,3 +53,9 @@ ATENCAO(){
 - [ ] login
 - [ ] e-mails
 - [ ] Menu
+
+
+Tecnologias
+- Angular
+- .NET 6
+- PostgreSQL
