@@ -102,7 +102,7 @@ export class RuculaConvertComponent  implements OnInit {
    this.nl.AddNavLeftItem()
   }
   AddNewItemNavLeft(){
-    this.nl.AddNewItemNavLeft()
+    this.nl.AddNewItemNavLeft() 
   }
   AlterItemNav(){
     this.nl.AlterItemNav()

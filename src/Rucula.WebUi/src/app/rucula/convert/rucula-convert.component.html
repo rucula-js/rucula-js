@@ -7,7 +7,10 @@
         </div>
     </div>
 </div>
-<div class="pop-nav-left" id="pop-nav-left">
+<!-- <navegation-vertical></navegation-vertical> -->
+
+<div class="box-content" >
+    <div class="pop-nav-left" id="pop-nav-left">
     <div class="container-nav-left">
         <button class="btn-close" (click)="CloseNavLeft()"><i class="bi bi-x-lg"></i></button>
         <form [formGroup]="PopupFormItemNavegationLeft" autocomplete="off">
@@ -38,7 +41,6 @@
     <button data-nav-newchield-item (click)="AddChieldItemNav()"><i class="bi bi-arrow-return-right"></i></button>
     <button data-nav-remove-item (click)="RemoveItemNav()"><i class="bi bi-trash"></i></button>
 </div>
-<div class="box-content" >
     <nav class="nav-left">
         <button id="btn-first-nav-left" data-nav-add-item (click)="OpenNavLeft()">New List<i class="bi bi-plus-lg"></i></button>
         <button id="btn-save-nav-left" data-save-nav-item >Save List<i class="bi bi-plus-lg"></i></button>

@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { RuculaSintaxeComponent } from './rucula/language/rucula-language.component';
 import { RuculaConvertComponent } from './rucula/convert/rucula-convert.component';
+import { NavegationVerticalComponent } from './shared/navegation-vertical/navegation-vertical.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { RuculaConvertComponent } from './rucula/convert/rucula-convert.componen
     AppComponent,
     DocsComponent,
     RuculaSintaxeComponent,
-    RuculaConvertComponent
+    RuculaConvertComponent,
+    NavegationVerticalComponent
   ],
   imports: [
     BrowserModule,
