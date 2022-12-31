@@ -64,3 +64,22 @@ ul {
 .form-group-input:focus{
     border: 2px solid var(--color-green-rucula);
 }
+
+
+.nav-left{
+    min-width: 300px;
+    max-width: 350px;
+    overflow-y:scroll;
+    height: 100Vh;
+}
+.nav-left ol {
+    list-style: none;
+}
+.nav-left ol li {
+    margin-bottom: 10px;
+    margin-left: 16px;
+}
+.nav-left ol a {
+    text-decoration: none;
+    color: rgb(107, 107, 107);
+}
