@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NavegationVerticalService } from './navegation-vertical.component.service';
 
 @Component({
@@ -7,9 +7,13 @@ import { NavegationVerticalService } from './navegation-vertical.component.servi
   templateUrl: './navegation-vertical.component.html',
   styleUrls: ['./navegation-vertical.component.css']
 })
-export class NavegationVerticalComponent {  
+export class NavegationVerticalComponent  implements OnInit {  
 
-  constructor(private fb: FormBuilder,private nl:NavegationVerticalService) { }
+  constructor(private nl:NavegationVerticalService) { }
+
+  ngOnInit(){
+    this.nl.PrepareNavegationLeft();
+  }
 
   PopupFormItemNavegationLeft: FormGroup = this.nl.PopupFormItemNavegationLeft
 

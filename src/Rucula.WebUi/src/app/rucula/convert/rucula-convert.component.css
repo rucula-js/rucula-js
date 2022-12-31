@@ -30,11 +30,6 @@
     max-height: 100vh;
     word-wrap: brweak-word;      
 }
-.btn-close{
-    background-color: rgb(207, 26, 26);
-    border: none;
-    font-weight:bold;
-}
 .container-content{
     display: block;
     max-width: 1000px;
@@ -94,67 +89,6 @@ button[data-list]{
     background-color:#00a73b;
     border-radius: 20px;    
 }
-
-.nav-left{
-    min-width: 300px;
-    max-width: 350px;
-    overflow-y:scroll;
-    height: 100Vh;
-}
-.nav-left ol {
-    list-style: none;
-}
-.nav-left ol li {
-    margin-bottom: 10px;
-    margin-left: 16px;
-}
-.nav-left ol a {
-    text-decoration: none;
-    color: rgb(107, 107, 107);
-}
-
-.container-nav-left {
-    display: inline-block;
-    background-color: var(--color-branco);
-    border: 3px solid var(--color-black);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 0px 11px rgb(107, 107, 107);
-}
-
-.pop-nav-left{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
 .this-content{
     max-width: 250px;
-}
-
-#new-item-nav{
-    position: fixed;
-    display: none;
-    font-weight: bold;
-    background-color: var(--color-branco);
-}
-
-button[data-nav-add-item]{
-    background-color: #00a73b;
-    margin-right: 5px;
-}
-button[data-nav-alter-item]{
-    background-color: #0062a7;
-    margin-right: 5px;
-}
-button[data-nav-newchield-item]{
-    background-color: #5700a7;
-    margin-right: 5px;
-}
-
-button[data-nav-remove-item]{
-    background-color: #a70000;
 }

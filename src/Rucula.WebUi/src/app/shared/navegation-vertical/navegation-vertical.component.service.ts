@@ -22,6 +22,7 @@ export class NavegationVerticalService {
   BtnSaveLeftList!:HTMLElement
 
   PrepareNavegationLeft(){
+    this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
     this.BtnSaveLeftList = document.getElementById('btn-save-nav-left') as HTMLButtonElement;
     this.CloseButonFistItemNavLeftItem()
     this.NavigationLeft = document.getElementById("nav-left") as HTMLElement
@@ -29,8 +30,6 @@ export class NavegationVerticalService {
     this.NavigationLeft.addEventListener('click',(event) => this.CancelEventClickAnchor(event)) 
     this.BtnNewLeftList = document.getElementById('btn-first-nav-left') as HTMLButtonElement;
     this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
-    this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
-
   }
   AddButtonsCrudInItensNavLeft(e:Event){
     const element = e.target as HTMLElement;
@@ -215,12 +214,10 @@ export class NavegationVerticalService {
   }
   
 }
-
-
 enum NavLeftButtonActionInFocus {
-InitNav = 0,
-Create = 1,
-Update = 2,
-CreateNewChield = 3,
-Delete = 4,
+  InitNav = 0,
+  Create = 1,
+  Update = 2,
+  CreateNewChield = 3,
+  Delete = 4,
 }

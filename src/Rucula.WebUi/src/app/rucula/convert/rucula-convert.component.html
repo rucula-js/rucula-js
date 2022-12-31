@@ -7,49 +7,8 @@
         </div>
     </div>
 </div>
-<!-- <navegation-vertical></navegation-vertical> -->
-
 <div class="box-content" >
-    <div class="pop-nav-left" id="pop-nav-left">
-    <div class="container-nav-left">
-        <button class="btn-close" (click)="CloseNavLeft()"><i class="bi bi-x-lg"></i></button>
-        <form [formGroup]="PopupFormItemNavegationLeft" autocomplete="off">
-            <div class="form-group">
-                <h2>Nav Left Properties</h2>
-                <div class=".form-group-item-block">
-                    <label for="summary" class="form-group-label">Summary: </label>
-                    <input id="summary" type="text" formControlName="summary" class="form-group-input" FlexibleWidth="80" >
-                </div>
-                <div class="form-group-item-block">
-                    <label for="tituleSubTitule" class="form-group-label">Titule or Sub Titule: </label>
-                    <input id="tituleSubTitule" type="text" formControlName="tituleSubTitule" class="form-group-input" FlexibleWidth="80">
-                </div>
-                <div class="form-group-item-block">
-                    <label for="url" class="form-group-label">Url: </label>
-                    <input id="url" type="text" formControlName="url" class="form-group-input" FlexibleWidth="80" >
-                </div>
-                <div class="form-group-item-block">
-                    <button data-nav-ok (click)="AddNavLeftItem()">Ok <i class="bi bi-joystick"></i></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<div id="new-item-nav">
-    <button data-nav-add-item (click)="AddNewItemNavLeft()"><i class="bi bi-plus-lg"></i></button>
-    <button data-nav-alter-item (click)="AlterItemNav()"><i class="bi bi-pencil"></i></button>
-    <button data-nav-newchield-item (click)="AddChieldItemNav()"><i class="bi bi-arrow-return-right"></i></button>
-    <button data-nav-remove-item (click)="RemoveItemNav()"><i class="bi bi-trash"></i></button>
-</div>
-    <nav class="nav-left">
-        <button id="btn-first-nav-left" data-nav-add-item (click)="OpenNavLeft()">New List<i class="bi bi-plus-lg"></i></button>
-        <button id="btn-save-nav-left" data-save-nav-item >Save List<i class="bi bi-plus-lg"></i></button>
-        <div>
-          <ol id="nav-left">
-                
-          </ol>
-        </div>
-    </nav>
+    <navegation-vertical></navegation-vertical>
     <div class="container-content">
         <form [formGroup]="ContentHTMLForm" autocomplete="off">
             <div class="form-group">
