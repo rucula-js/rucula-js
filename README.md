@@ -46,8 +46,9 @@ ATENCAO(){
 }
 ```
 ## Pendências
-- [X] rotina cadastro sintaxe rula
-- [ ] rotina cadastro atributos
+- [X] rotina  sintaxe Rucula
+- [ ] rotina  Atributos
 - [X] rotina conversor
-- [ ] Tela usuário
-- [ ] Tela login
+- [ ] usuários
+- [ ] login
+- [ ] e-mails
