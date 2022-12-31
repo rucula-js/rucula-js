@@ -121,9 +121,9 @@ export class NavegationVerticalService {
     }
   }
   UpdateValueNavLeftItem(){
-    this.LastItemInfocusInNavigationLeft.textContent = String(this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.value);
-    this.LastItemInfocusInNavigationLeft.removeAttribute('href');
-    this.LastItemInfocusInNavigationLeft.setAttribute('href',String(this.PopupFormItemNavegationLeft.get('url')?.value));
+    this.LastItemAnchorfocusInNavigationLeft.textContent = String(this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.value);
+    this.LastItemAnchorfocusInNavigationLeft.removeAttribute('href');
+    this.LastItemAnchorfocusInNavigationLeft.setAttribute('href',String(this.PopupFormItemNavegationLeft.get('url')?.value));
   }
   SetValueChieldCreateNavLeftItem(){
     const ol = document.createElement('ol');
@@ -199,7 +199,9 @@ export class NavegationVerticalService {
   }
   AlterItemNav(){
     this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Update;
-    this.CloseButtonsCrudInItensNavLeft();
+    this.CloseButtonsCrudInItensNavLeft();   
+    this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.setValue(this.LastItemAnchorfocusInNavigationLeft.textContent)
+    this.PopupFormItemNavegationLeft.get('url')?.setValue(new URL(this.LastItemAnchorfocusInNavigationLeft.href).pathname)
     this.OpenNavLeft()
   }
   AddChieldItemNav(){
