@@ -12,7 +12,7 @@ export class NavegationVerticalService {
     tituleSubTitule:[''],
     url:['']
   });
-  ActionIndicatorNavLeftButtons:Number = 0;
+  ActionIndicatorNavLeftButtons:Number = 0; // Indica qual dos botões está em foco
   LastItemInfocusInNavigationLeft!:HTMLElement // guarda o último elemento LI em foco da NavLeft
   LastItemAnchorfocusInNavigationLeft!:HTMLAnchorElement // guarda o último elemento LI em foco da NavLeft
   LastItemSUMMARYfocusInNavigationLeft!:HTMLElement // guarda o último elemento LI em foco da NavLeft
@@ -22,11 +22,6 @@ export class NavegationVerticalService {
   PopNavLeft!:HTMLElement // Popup que ocorre quando há persistência de itens na NavLeft
   BtnSaveLeftList!:HTMLElement
 
-  ResetFormItemNavegationLeft(){
-    this.PopupFormItemNavegationLeft.get('summary')?.setValue('')
-    this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.setValue('')
-    this.PopupFormItemNavegationLeft.get('url')?.setValue('')
-  }
   PrepareNavegationLeft(){
     this.PopNavLeft = document.getElementById("pop-nav-left") as HTMLElement
     this.BtnSaveLeftList = document.getElementById('btn-save-nav-left') as HTMLButtonElement;
@@ -37,30 +32,24 @@ export class NavegationVerticalService {
     this.BtnActionitem = document.getElementById("new-item-nav") as HTMLButtonElement;
     this.CloseButonFistItemNavLeftItem()
   }
-  AddButtonsCrudInItensNavLeft(e:Event){
-    const element = e.target as HTMLElement;
-    if (element.nodeName == "A"){
-      this.BtnActionitem.style.display = "inline";
-      element.after(this.BtnActionitem);
-      this.LastItemInfocusInNavigationLeft = element.parentNode as HTMLElement;
-      this.LastItemAnchorfocusInNavigationLeft = element as HTMLAnchorElement;  
-    }      
-    if(element.nodeName == "SUMMARY"){
-    this.BtnActionitem.style.display = "inline";
-    element.append(this.BtnActionitem);
-    this.LastItemInfocusInNavigationLeft = element as HTMLAnchorElement
-    this.LastItemSUMMARYfocusInNavigationLeft = element as HTMLAnchorElement
+  CloseButonFistItemNavLeftItem(){
+    var nav = document.getElementById('nav-left')
+    if(nav!.childNodes.length > 0){
+      this.CloseFirtButtonNavList();
+    } 
+    else{
+      this.CloseBtnSaveLeftList();
     }
   }
-  CloseButtonsCrudInItensNavLeft(){
-    this.BtnActionitem.style.display ="none";
+  CloseBtnSaveLeftList(){
+    this.BtnSaveLeftList.style.display = "none"
   }
-  CancelEventClickAnchor(e:Event){
-    const element = e.target as HTMLElement;
-    if (element.nodeName == "A")
-    e.preventDefault();
+  CloseFirtButtonNavList(){
+    this.BtnNewLeftList!.style.display = "none";
   }
-
+  CloseNavLeft(){
+    this.PopNavLeft!.style.display = "none";
+  }
   AddNavLeftItem(){  
     switch (this.ActionIndicatorNavLeftButtons) {
       case NavLeftButtonActionInFocus.InitNav:
@@ -78,6 +67,69 @@ export class NavegationVerticalService {
     }
     this.CloseNavLeft()
     this.ResetFormItemNavegationLeft()
+  }
+  AddFirstItemNavLeft(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.InitNav;
+    this.OpenNavLeft()
+  }
+  AddNewItemNavLeft(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Create;
+    this.CloseButtonsCrudInItensNavLeft();
+    this.OpenNavLeft()
+  }
+  AlterItemNav(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Update;
+    this.CloseButtonsCrudInItensNavLeft();
+
+    if (this.LastItemInfocusInNavigationLeft.nodeName == "SUMMARY"){
+      this.PopupFormItemNavegationLeft.get('summary')?.setValue(this.LastItemSUMMARYfocusInNavigationLeft.textContent)
+    }
+    if (this.LastItemInfocusInNavigationLeft.nodeName == "LI"){
+        let anchor = this.LastItemInfocusInNavigationLeft.children[0] as HTMLAnchorElement
+        this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.setValue(anchor.textContent)
+        this.PopupFormItemNavegationLeft.get('url')?.setValue(anchor.href)
+    }
+    this.OpenNavLeft()
+  }
+  AddChieldItemNav(){
+    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.CreateNewChield;
+    this.CloseButtonsCrudInItensNavLeft();
+    this.OpenNavLeft() 
+  }
+  RemoveItemNav(){
+    this.CloseButtonsCrudInItensNavLeft();
+    this.CheckAndRemoveItem(this.LastItemInfocusInNavigationLeft)
+  }
+  OpenNavLeft(){
+    this.PopNavLeft!.style.display = "flex";
+  }
+  CloseButtonsCrudInItensNavLeft(){
+    this.BtnActionitem.style.display ="none";
+  }
+  ResetFormItemNavegationLeft(){
+    this.PopupFormItemNavegationLeft.get('summary')?.setValue('')
+    this.PopupFormItemNavegationLeft.get('tituleSubTitule')?.setValue('')
+    this.PopupFormItemNavegationLeft.get('url')?.setValue('')
+  }
+  AddButtonsCrudInItensNavLeft(e:Event){
+    const element = e.target as HTMLElement;
+    if (element.nodeName == "A"){
+      this.BtnActionitem.style.display = "inline";
+      element.after(this.BtnActionitem);
+      this.LastItemInfocusInNavigationLeft = element.parentNode as HTMLElement; // Set parente LI
+      this.LastItemAnchorfocusInNavigationLeft = element as HTMLAnchorElement;  // Set ANCHOR
+    }      
+    if(element.nodeName == "SUMMARY"){
+      this.BtnActionitem.style.display = "inline";
+      element.append(this.BtnActionitem);
+      this.LastItemInfocusInNavigationLeft = element as HTMLAnchorElement // Set SUMMARY
+      this.LastItemSUMMARYfocusInNavigationLeft = element as HTMLAnchorElement // Set SUMMARY
+    }
+  }
+  CancelEventClickAnchor(e:Event){
+    const element = e.target as HTMLElement;
+    if (element.nodeName == "A")
+    e.preventDefault();
   }
   SetFistItemNavLeftItem(){
     var nav = document.getElementById('nav-left')
@@ -157,10 +209,6 @@ export class NavegationVerticalService {
       this.LastItemInfocusInNavigationLeft.parentNode?.insertBefore(ol,this.LastItemInfocusInNavigationLeft.nextSibling)
     }
   } 
-  RemoveItemNav(){
-    this.CloseButtonsCrudInItensNavLeft();
-    this.CheckAndRemoveItem(this.LastItemInfocusInNavigationLeft)
-  }
   CheckAndRemoveItem(item:HTMLElement){
 
     let countChildsNode = 0;
@@ -193,56 +241,12 @@ export class NavegationVerticalService {
       return countChilds;
     }
   }
-
-  InitFirstItemNavLeft(){
-    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.InitNav;
-    this.CloseButtonsCrudInItensNavLeft();
-    this.OpenNavLeft()
-  }
-  AddNewItemNavLeft(){
-    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Create;
-    this.CloseButtonsCrudInItensNavLeft();
-    this.OpenNavLeft()
-  }
-  AlterItemNav(){
-    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.Update;
-    this.CloseButtonsCrudInItensNavLeft();  
-    this.PopupFormItemNavegationLeft.get('summary')?.setValue(this.LastItemSUMMARYfocusInNavigationLeft.textContent)
-    this.OpenNavLeft()
-  }
-  AddChieldItemNav(){
-    this.ActionIndicatorNavLeftButtons = NavLeftButtonActionInFocus.CreateNewChield;
-    this.CloseButtonsCrudInItensNavLeft();
-    this.OpenNavLeft() 
-  }
-  OpenNavLeft(){
-    this.PopNavLeft!.style.display = "flex";
-  }
-  CloseNavLeft(){
-    this.PopNavLeft!.style.display = "none";
-  }
-  CloseFirtButtonNavList(){
-    this.BtnNewLeftList!.style.display = "none";
-  }
-  CloseButonFistItemNavLeftItem(){
-    var nav = document.getElementById('nav-left')
-    if(nav!.childNodes.length > 0){
-      this.CloseFirtButtonNavList();
-    } 
-    else{
-      this.CloseBtnSaveLeftList();
-    }
-  }
-  CloseBtnSaveLeftList(){
-    this.BtnSaveLeftList.style.display = "none"
-  }
   OpenFirtButtonNavList(){
     var nav = document.getElementById('nav-left')
     if(nav!.childNodes.length == 0){
       this.BtnNewLeftList!.style.display = "block";
     }
   }
-  
 }
 enum NavLeftButtonActionInFocus {
   InitNav = 0,

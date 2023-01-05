@@ -23,8 +23,8 @@ export class NavegationVerticalComponent  implements OnInit {
   AddNavLeftItem(){  
     this.nl.AddNavLeftItem()
   }
-  InitFirstItemNavLeft(){
-    this.nl.AddNavLeftItem()
+  AddFirstItemNavLeft(){
+    this.nl.AddFirstItemNavLeft()
    }
    AddNewItemNavLeft(){
      this.nl.AddNewItemNavLeft() 
