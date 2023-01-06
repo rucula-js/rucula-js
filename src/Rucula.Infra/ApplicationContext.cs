@@ -6,7 +6,7 @@ public class ApplicationContext : DbContext
     public DbSet<LanguageRucula>? LanguagesRucula { get; set; }
     public DbSet<LanguageRuculaRepresentation>? LanguageRuculaRepresentation { get; set; }
     public DbSet<LanguageRuculaParameter>? LanguageRuculaParameter { get; set; }
-    public DbSet<ContentHTML>? ContentHTML { get; set; }
+    public DbSet<ContentEstruture>? ContentEstruture { get; set; }
     public DbSet<KeyWord>? KeyWords { get; set; }
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options)

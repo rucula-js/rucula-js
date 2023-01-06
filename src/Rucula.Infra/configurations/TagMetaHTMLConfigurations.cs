@@ -11,12 +11,6 @@ public class TagMetaHTMLConfigurations : IEntityTypeConfiguration<TagMetaHTML>
         .HasName("PrimaryKey_TagMetaHTMLGuuid");
 
         builder
-            .HasOne( a => a.ContentHTML)
-            .WithMany(b => b.TagMetaHTML)
-            .HasForeignKey(a => a.ContentHTMLFk)
-            .HasPrincipalKey(b => b.Guuid);
-            
-        builder
             .Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(30);

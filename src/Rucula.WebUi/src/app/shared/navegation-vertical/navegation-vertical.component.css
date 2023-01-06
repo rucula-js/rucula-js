@@ -27,10 +27,14 @@ button{
     border: none;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 button[data-nav-add-item]{
     background-color: #00a73b;
     margin-right: 5px;
+    color: var(--color-branco);
 }
 button[data-nav-alter-item]{
     background-color: #0062a7;

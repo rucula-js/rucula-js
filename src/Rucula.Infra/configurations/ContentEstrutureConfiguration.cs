@@ -20,10 +20,11 @@ public class ContentEstrutureConfiguration : IEntityTypeConfiguration<ContentEst
             .Property(p => p.Previous)
             .HasMaxLength(150);
 
-        builder
-            .HasOne(h => h.ContentHTML)
-            .WithOne(p => p.ContentEstruture)
-            .HasForeignKey<ContentEstruture>(fk => fk.ContentFk);
-        
+        builder.HasOne( p => p.ContentHTMLFk)
+                .WithOne(b => b.ContentEstruture)
+                .HasForeignKey<ContentHTML>(b => b.ContentEstrutureForeignKey);
+
+
+
     }
 }

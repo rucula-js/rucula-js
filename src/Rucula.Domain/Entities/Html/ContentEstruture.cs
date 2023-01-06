@@ -9,8 +9,7 @@ public class ContentEstruture
     public string Guuid { get; private set; }
     public string Next { get; private set; }
     public string Previous { get; private set; }
-    public string ContentFk { get;  set; }
-    public ContentHTML ContentHTML { get; set; }
+    public ContentHTML ContentHTMLFk { get;  set; } // FK
     private void ValidateProperts(string guuid, string next,string previous)
     {
         ValidationPropert.ValidPropert(String.IsNullOrEmpty(guuid),"guuid is Invalid");

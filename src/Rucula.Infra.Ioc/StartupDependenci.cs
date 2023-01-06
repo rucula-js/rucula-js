@@ -25,7 +25,7 @@ public static class StartupDependenci
         services.AddScoped<ILanguageRuculaRepresentationService,LanguageRuculaRepresentationService>();
         services.AddScoped<ILanguageRuculaParameterService,LanguageRuculaParameterService>();
 
-        services.AddScoped<IContentHTMLService,ContentHTMLService>();
+        services.AddScoped<IContentEstrutureHTMLService,ContentHTMLService>();
 
         services.AddScoped<IExtractRuculaService,ExtractRuculaService>();
         

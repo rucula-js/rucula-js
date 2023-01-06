@@ -7,30 +7,22 @@ public class ContentHTMLRepository : IContentHTMLRepository
     public ContentHTMLRepository(ApplicationContext context){
         this._LanguageContext = context;
     }
-    public async Task DeleteAsync(ContentHTML contentHTML)
+    public async Task DeleteAsync(ContentEstruture contentHTML)
     {   
         this._LanguageContext.Remove(contentHTML);
         await _LanguageContext.SaveChangesAsync();
     }
-    
-    public async Task<IEnumerable<ContentHTML>> GetAllAsync()
+    public async Task<IEnumerable<ContentEstruture>> GetAllAsync()
     {
-        return await _LanguageContext.ContentHTML!.ToListAsync();
+        return await _LanguageContext.ContentEstruture!.ToListAsync();
     }
-
-    public async Task<ContentHTML> GetByIdAsync(string id)
+    public async Task<ContentEstruture> GetByIdAsync(string id)
     {
-        return await this._LanguageContext.ContentHTML.FindAsync(id);       
+        return await this._LanguageContext.ContentEstruture.FindAsync(id);       
     }
-
-    public async Task SaveAsync(ContentHTML contentHTML)
+    public async Task SaveAsync(ContentEstruture contentHTML)
     {
         this._LanguageContext.Add(contentHTML);
-        await this._LanguageContext.SaveChangesAsync();
-    }
-    public async Task UpdateAsync(ContentHTML contentHTML)
-    {
-        this._LanguageContext.Update(contentHTML);
         await this._LanguageContext.SaveChangesAsync();
     }
 }

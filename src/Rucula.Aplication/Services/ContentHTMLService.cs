@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Rucula.Domain;
 namespace Rucula.Aplication;
-public class ContentHTMLService: IContentHTMLService
+public class ContentHTMLService: IContentEstrutureHTMLService
 {
     private readonly IContentHTMLRepository _contentHTMLRepository;
     private  readonly IMapper _mapper;
@@ -12,19 +12,19 @@ public class ContentHTMLService: IContentHTMLService
         _contentHTMLRepository = contentHTMLRepository;
         _mapper = mapper;
     }
-    public async  Task<ContentHTMLDTO> GetByIdAsync(string id)
+    public async  Task<ContentEstrutureDTO> GetByIdAsync(string id)
     {
         var languages = await _contentHTMLRepository.GetByIdAsync(id!);
-        return _mapper.Map<ContentHTMLDTO>(languages);
+        return _mapper.Map<ContentEstrutureDTO>(languages);
     }
-    public async Task DeleteAsync(ContentHTMLDTO Language)
+    public async Task DeleteAsync(ContentEstrutureDTO Language)
     {
-        var languagesEntity =  _mapper.Map<ContentHTML>(Language);
+        var languagesEntity =  _mapper.Map<ContentEstruture>(Language);
         await _contentHTMLRepository.DeleteAsync(languagesEntity);
     }
-    public async Task SaveAsync(ContentHTMLDTO contentHTML)
+    public async Task SaveAsync(ContentEstrutureDTO contentHTML)
     {
-        var languagesEntity =  _mapper.Map<ContentHTML>(contentHTML);
+        var languagesEntity =  _mapper.Map<ContentEstruture>(contentHTML);
         await _contentHTMLRepository.SaveAsync(languagesEntity);
     }
 }

@@ -11,9 +11,12 @@ public class ContentHTML
     public DateTime DateCreation { get; private set; }
     public DateTime DateLastUpdate { get; private set; }
     public string ContentLanguageRucula { get; private set; }
-    public ICollection<TagMetaHTML> TagMetaHTML{ get; set; }
-    public ContentEstruture ContentEstruture{ get; set; }
-
+    #region relacionamento 1-1 (ContentEstruture)
+    public string ContentEstrutureForeignKey { get; private set; }
+    public ContentEstruture ContentEstruture { get; private set; }
+        
+    #endregion
+    
     private void ValidateProperts(string guuid, string content, DateTime dateCreation, DateTime datelastUpdate,string contentLanguaRucula)
     {
         ValidationPropert.ValidPropert(String.IsNullOrEmpty(guuid),"guuid is Invalid");
