@@ -8,7 +8,8 @@ public class ApplicationContext : DbContext
     public DbSet<LanguageRuculaParameter>? LanguageRuculaParameter { get; set; }
     public DbSet<ContentEstruture>? ContentEstruture { get; set; }
     public DbSet<KeyWord>? KeyWords { get; set; }
-
+    public DbSet<TagMetaHTML>? TagMetaHTML { get; set; }
+    
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)

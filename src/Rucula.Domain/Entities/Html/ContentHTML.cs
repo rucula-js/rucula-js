@@ -1,4 +1,5 @@
-﻿namespace Rucula.Domain;
+﻿using System.Collections.Generic;
+namespace Rucula.Domain;
 public class ContentHTML
 {
     public ContentHTML (){}
@@ -12,9 +13,10 @@ public class ContentHTML
     public DateTime DateLastUpdate { get; private set; }
     public string ContentLanguageRucula { get; private set; }
     // FK Content Estruture
-    public string ContentEstrutureForeignKey { get; private set; }
-    public ContentEstruture ContentEstruture { get; private set; }
-        
+    public string ContentEstrutureForeignKey { get;set; }
+    public ContentEstruture ContentEstruture { get; set; }
+    public List<TagMetaHTML> TagMetaHTML { get; set; }
+    
     private void ValidateProperts(string guuid, string content,string contentLanguaRucula)
     {
         ValidationPropert.ValidPropert(String.IsNullOrEmpty(guuid),"guuid is Invalid");
