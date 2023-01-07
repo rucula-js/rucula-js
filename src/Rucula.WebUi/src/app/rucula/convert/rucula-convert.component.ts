@@ -64,26 +64,19 @@ export class RuculaConvertComponent  implements OnInit {
       contentHTMLFk:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value!}
     )
   }
-  Save(){
-      document.getElementById('content-rucula')!.textContent = this.ContentRuculaCache  
-      
+  Save(){      
       let contentEstruture:ContentEstruture = {
         guuid:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
         description:this.ContentHTMLForm.get('contentEstruture')!.get('description')!.value as string,
-        next : this.ContentHTMLForm.get('contentEstruture')!.get('next')!.value as string,
-        previous : this.ContentHTMLForm.get('contentEstruture')!.get('previous')!.value as string,
+        next:this.ContentHTMLForm.get('contentEstruture')!.get('next')!.value as string,
+        previous:this.ContentHTMLForm.get('contentEstruture')!.get('previous')!.value as string,
         contentHTMLDTO:this.ContentHTML = {
-          guuid : this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
+          guuid:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
           contentLanguageRucula : document.getElementById('content-rucula')!.textContent as string
         }
       }
+      this.contentEstrutureService.Save(contentEstruture).subscribe();
 
-      this.contentEstrutureService.Save(contentEstruture).subscribe(
-        c => {
-          console.log('saved')
-        }
-      );
-  
   }
   PreviewContent(){
     document.getElementById('container-preview')!.style.display = "block"
