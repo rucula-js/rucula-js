@@ -13,6 +13,10 @@ public class ContentEstrutureConfiguration : IEntityTypeConfiguration<ContentEst
             .HasKey(k => k.Guuid)
             .HasName("PrimaryKey_ContentEstrutureGuuid");
         builder
+            .Property(p => p.Description)
+            .HasMaxLength(100)
+            .IsRequired();
+        builder
             .Property(p => p.Next)
             .HasMaxLength(150);
 

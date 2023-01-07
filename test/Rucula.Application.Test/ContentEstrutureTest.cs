@@ -8,7 +8,7 @@ public class ContentEstrutureTest
     [TestMethod]
     public void  ContentEstrutureTest_Guuid_ExceptionEmpityOrNull()
     { 
-        Action act = () => new ContentEstruture("","","");
+        Action act = () => new ContentEstruture("","","","");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("guuid is Invalid");
@@ -17,7 +17,7 @@ public class ContentEstrutureTest
     [TestMethod]
     public void  ContentEstrutureTest_GuuidSmaller_ExceptionLengthNot36()
     { 
-        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8","","");
+        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8","","","");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("guuid is Invalid, len not is 36");
@@ -26,7 +26,7 @@ public class ContentEstrutureTest
     [TestMethod]
     public void  ContentEstrutureTest_GuuidLarger_ExceptionLengthNot36()
     { 
-        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4-44444","","");
+        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4-44444","","","");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("guuid is Invalid, len not is 36");
@@ -40,13 +40,13 @@ public class ContentEstrutureTest
         {
             next+="A";
         }
-        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4",next,"");
+        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4","",next,"");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("next invalid, maximum character allowed is equal to 150");
     }
 
-     [TestMethod]
+    [TestMethod]
     public void  ContentEstrutureTest_Previous_ExceptionMaxLength150()
     { 
         string previous = "";
@@ -54,9 +54,30 @@ public class ContentEstrutureTest
         {
             previous+="A";
         }
-        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4","",previous);
+        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4","","",previous);
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("previous invalid, maximum character allowed is equal to 150");
+    }
+    [TestMethod]
+    public void  ContentEstrutureTest_Description_ExceptionMaxLength100()
+    { 
+        string description = "";
+        for (int i = 0; i < 101; i++)
+        {
+            description+="A";
+        }
+        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4",description,"","");
+        act
+            .Should().Throw<RuculaExeption>()
+            .WithMessage("description is Invalid, len not is 100");
+    }
+    [TestMethod]
+    public void  ContentEstrutureTest_Description_ExceptionEmpityOrNull()
+    { 
+        Action act = () => new ContentEstruture("a9ba47ab-f011-45e8-8532-6ecc38eb6db4","","","");
+        act
+            .Should().Throw<RuculaExeption>()
+            .WithMessage("description is Invalid");
     }
 }

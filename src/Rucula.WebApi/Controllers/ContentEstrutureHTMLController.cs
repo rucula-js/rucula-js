@@ -7,30 +7,27 @@ namespace Rucula.WebApi.Controllers;
 [Route("[controller]")]
 public class ContentEstrutureHTMLController : ControllerBase
 {
-   private readonly IContentEstrutureHTMLService _contentHTMLService;
-   private readonly IExtractRuculaService _extractRuculaService;
+   private readonly IContentEstrutureHTMLService _contentEstrutureHTMLService;
    private readonly ILogger<ContentHTMLDTO> _logger;
 
-   public ContentEstrutureHTMLController(IContentEstrutureHTMLService contentHTMLService,IExtractRuculaService extractRuculaService,ILogger<ContentHTMLDTO> logger)
+   public ContentEstrutureHTMLController(IContentEstrutureHTMLService contentEstrutureHTMLService,ILogger<ContentHTMLDTO> logger)
    {
-      _contentHTMLService = contentHTMLService;
-      _extractRuculaService = extractRuculaService; 
+      _contentEstrutureHTMLService = contentEstrutureHTMLService;
       _logger = logger;
    }
    [HttpGet]
    public async Task<ContentEstrutureDTO> Get(string id)
    {
-      return await _contentHTMLService.GetByIdAsync(id);
+      return await _contentEstrutureHTMLService.GetByIdAsync(id);
    }
    [HttpDelete]
-   public async Task Delete([FromBody] ContentEstrutureDTO contentHTML)
+   public async Task Delete([FromBody] ContentEstrutureDTO ContentEstruture)
    {
-      await _contentHTMLService.DeleteAsync(contentHTML);
+      await _contentEstrutureHTMLService.DeleteAsync(ContentEstruture);
    }
    [HttpPost]
-   public async Task Post([FromBody] ContentEstrutureDTO contentHTML)
+   public async Task Post([FromBody] ContentEstrutureDTO ContentEstruture)
    {
-      // contentHTML.Content =_extractRuculaService.ConvertSintaxRucula(contentHTML.ContentLanguageRucula); 
-      await _contentHTMLService.SaveAsync(contentHTML);
+      await _contentEstrutureHTMLService.SaveAsync(ContentEstruture);
    }
 }

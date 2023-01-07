@@ -1,9 +1,11 @@
 import { Component, OnInit , } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RuculaContentService } from './rucula-convert.service';
+import { ExtractRuculaService } from './extract-rucula.service';
 import { ContentHTML } from './ContentHTML';
 import { Guid } from 'guid-typescript';
 import { TagMetaHTML } from './TagMetaHTML';
+import { ContentEstruture } from './ContentEstruture';
+import { ContentEstrutureService } from './ContentEstruture.service';
 
 @Component({
   selector: 'rucula-language',
@@ -12,15 +14,15 @@ import { TagMetaHTML } from './TagMetaHTML';
 })
 export class RuculaConvertComponent  implements OnInit {  
 
-  constructor(private fb: FormBuilder, private rc:RuculaContentService) { }
+  constructor(private fb: FormBuilder, private er:ExtractRuculaService, private contentEstrutureService:ContentEstrutureService) { }
   ngOnInit(){
     this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.setValue(Guid.create().toString())
   }
-
   TagMetaHTML!:TagMetaHTML[]; 
   ContentRuculaCache:any;
   ContentHTMLCache:any;
 
+  ContentEstruture!:ContentEstruture;
   ContentHTML!:ContentHTML;
   ContentHTMLForm = this.fb.group({
     metacharset:['UTF-8'],
@@ -37,9 +39,9 @@ export class RuculaConvertComponent  implements OnInit {
         contentLanguageRucula:['']
     }),
     contentEstruture : this.fb.group({
-      description:[] ,
-      next:[] ,
-      previous:[]
+      description:[''] ,
+      next:[''] ,
+      previous:['']
     })
   })
 
@@ -64,13 +66,31 @@ export class RuculaConvertComponent  implements OnInit {
   }
   Save(){
       document.getElementById('content-rucula')!.textContent = this.ContentRuculaCache  
+      
+      let contentEstruture:ContentEstruture = {
+        guuid:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
+        description:this.ContentHTMLForm.get('contentEstruture')!.get('description')!.value as string,
+        next : this.ContentHTMLForm.get('contentEstruture')!.get('next')!.value as string,
+        previous : this.ContentHTMLForm.get('contentEstruture')!.get('previous')!.value as string,
+        contentHTMLDTO:this.ContentHTML = {
+          guuid : this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
+          contentLanguageRucula : document.getElementById('content-rucula')!.textContent as string
+        }
+      }
+
+      this.contentEstrutureService.Save(contentEstruture).subscribe(
+        c => {
+          console.log('saved')
+        }
+      );
+  
   }
   PreviewContent(){
     document.getElementById('container-preview')!.style.display = "block"
     this.ContentHTML = this.ContentHTMLForm as ContentHTML
     this.ContentRuculaCache = document.getElementById('content-rucula')?.textContent!;
     this.ContentHTML.contentLanguageRucula = this.ContentRuculaCache; 
-    this.rc.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
+    this.er.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
       (resp:any)=> {
         document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
       })

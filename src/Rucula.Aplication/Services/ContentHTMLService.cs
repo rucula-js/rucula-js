@@ -6,10 +6,12 @@ namespace Rucula.Aplication;
 public class ContentHTMLService: IContentEstrutureHTMLService
 {
     private readonly IContentHTMLRepository _contentHTMLRepository;
+    private readonly IExtractRuculaService _extractRuculaService;
     private  readonly IMapper _mapper;
-    public ContentHTMLService(IContentHTMLRepository contentHTMLRepository, IMapper mapper)
+    public ContentHTMLService(IContentHTMLRepository contentHTMLRepository, IExtractRuculaService extractRuculaService,IMapper mapper)
     {
         _contentHTMLRepository = contentHTMLRepository;
+        _extractRuculaService = extractRuculaService; 
         _mapper = mapper;
     }
     public async  Task<ContentEstrutureDTO> GetByIdAsync(string id)
@@ -22,9 +24,10 @@ public class ContentHTMLService: IContentEstrutureHTMLService
         var languagesEntity =  _mapper.Map<ContentEstruture>(Language);
         await _contentHTMLRepository.DeleteAsync(languagesEntity);
     }
-    public async Task SaveAsync(ContentEstrutureDTO contentHTML)
+    public async Task SaveAsync(ContentEstrutureDTO contentEstruture)
     {
-        var languagesEntity =  _mapper.Map<ContentEstruture>(contentHTML);
+        contentEstruture.ContentHTMLDTO.Content =_extractRuculaService.ConvertSintaxRucula(contentEstruture.ContentHTMLDTO.ContentLanguageRucula); 
+        var languagesEntity =  _mapper.Map<ContentEstruture>(contentEstruture);
         await _contentHTMLRepository.SaveAsync(languagesEntity);
     }
 }

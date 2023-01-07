@@ -8,7 +8,7 @@ public class ContentHTMLTest
     [TestMethod]
     public void  ContentHTMLTest_Guuid_ExceptionEmpityOrNull()
     { 
-        Action act = () => new ContentHTML("","",DateTime.Now,DateTime.Now,"");
+        Action act = () => new ContentHTML("","","");
         act
             .Should().Throw<RuculaExeption>()
             .WithMessage("guuid is Invalid");
@@ -22,7 +22,7 @@ public class ContentHTMLTest
         {
             content+="A";
         }
-        Action act = () => new ContentHTML("a9ba47ab-f011-45e8-8532-6ecc38eb6db4",content,DateTime.Now,DateTime.Now,"");
+        Action act = () => new ContentHTML("a9ba47ab-f011-45e8-8532-6ecc38eb6db4",content,"");
 
         act
             .Should().Throw<RuculaExeption>()
