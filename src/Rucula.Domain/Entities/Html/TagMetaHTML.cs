@@ -12,6 +12,7 @@ public class TagMetaHTML
     public string Content { get; private set;}
     public string Description { get; private set;}
     public string ContentHTMLFk { get; set;}
+    
     public ContentHTML ContentHTML { get; set;}
 
     private void ValidateProperts(string guuid, string name, string propert, string content, string description)

@@ -6,5 +6,5 @@ public class ContentHTMLDTO
         public string Guuid { get;  set; }
         public string Content { get;  set; }
         public string ContentLanguageRucula { get;  set; }
-        public List<TagMetaHTMLDTO> TagMetaHTMLDTO { get;  set; }
+        public List<TagMetaHTMLDTO> TagMetaHTML { get;  set; }
 }

@@ -26,7 +26,7 @@ public class ContentHTMLService: IContentEstrutureHTMLService
     }
     public async Task SaveAsync(ContentEstrutureDTO contentEstruture)
     {
-        contentEstruture.ContentHTMLDTO.Content =_extractRuculaService.ConvertSintaxRucula(contentEstruture.ContentHTMLDTO.ContentLanguageRucula); 
+        contentEstruture.ContentHTMLFk.Content =_extractRuculaService.ConvertSintaxRucula(contentEstruture.ContentHTMLFk.ContentLanguageRucula); 
         var languagesEntity =  _mapper.Map<ContentEstruture>(contentEstruture);
         await _contentHTMLRepository.SaveAsync(languagesEntity);
     }

@@ -32,5 +32,6 @@ public static class StartupDependenci
         services.AddScoped<IExtractRucula,ExtractRucula>();
             
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+    
     }
 } 
