@@ -5,5 +5,5 @@ export interface ContentEstruture {
     description:string,
     next: string,
     previous:string,
-    contentHTMLDTO: ContentHTML
+    contentHTMLFk: ContentHTML
 }

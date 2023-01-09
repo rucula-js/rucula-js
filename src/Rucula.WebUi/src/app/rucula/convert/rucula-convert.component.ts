@@ -46,47 +46,78 @@ export class RuculaConvertComponent  implements OnInit {
   })
 
   CreateListTagMetaHTML(){
+    this.TagMetaHTML = new  Array();
     this.TagMetaHTML.push({         
         guuid:Guid.create().toString(),
         name:"meta",
         propert:"charset",
         content:this.ContentHTMLForm.get('metacharset')!.value as string,
-        description:'',
-        contentHTMLFk:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value!}
+        description:''} as TagMetaHTML
     )
-
     this.TagMetaHTML.push({         
       guuid:Guid.create().toString(),
       name:"meta",
       propert:"viewport",
       content:this.ContentHTMLForm.get('metaviewport')!.value as string,
-      description:'',
-      contentHTMLFk:this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value!}
+      description:''}
+    )
+    this.TagMetaHTML.push({         
+      guuid:Guid.create().toString(),
+      name:"meta",
+      propert:"description",
+      content:this.ContentHTMLForm.get('metadescription')!.value as string,
+      description:''}
+    )
+    this.TagMetaHTML.push({         
+      guuid:Guid.create().toString(),
+      name:"meta",
+      propert:"keywords",
+      content:this.ContentHTMLForm.get('metakeywords')!.value as string,
+      description:''}
+    )
+    this.TagMetaHTML.push({         
+      guuid:Guid.create().toString(),
+      name:"meta",
+      propert:"author",
+      content:this.ContentHTMLForm.get('metaauthor')!.value as string,
+      description:''}
+    )
+
+    this.TagMetaHTML.push({         
+      guuid:Guid.create().toString(),
+      name:"meta",
+      propert:"title",
+      content:this.ContentHTMLForm.get('metatitle')!.value as string,
+      description:''}
     )
   }
   Save(){      
+      this.CreateListTagMetaHTML();
       let contentEstruture:ContentEstruture = {
         guuid: this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
         description: this.ContentHTMLForm.get('contentEstruture')!.get('description')!.value as string,
         next: this.ContentHTMLForm.get('contentEstruture')!.get('next')!.value as string,
         previous: this.ContentHTMLForm.get('contentEstruture')!.get('previous')!.value as string,
-        contentHTMLDTO: this.ContentHTML = {
+        contentHTMLFk: this.ContentHTML = {
           guuid: this.ContentHTMLForm.get('sintaxeRucula')!.get('guuid')!.value as string,
-          contentLanguageRucula: document.getElementById('content-rucula')!.textContent as string
+          contentLanguageRucula: document.getElementById('content-rucula')!.textContent as string,
+          tagMetaHTML: this.TagMetaHTML
         }
       }
+
+      console.log(contentEstruture)
       this.contentEstrutureService.Save(contentEstruture).subscribe();
 
   }
   PreviewContent(){
-    document.getElementById('container-preview')!.style.display = "block"
-    this.ContentHTML = this.ContentHTMLForm as ContentHTML
-    this.ContentRuculaCache = document.getElementById('content-rucula')?.textContent!;
-    this.ContentHTML.contentLanguageRucula = this.ContentRuculaCache; 
-    this.er.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
-      (resp:any)=> {
-        document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
-      })
+    // document.getElementById('container-preview')!.style.display = "block"
+    // this.ContentHTML = this.ContentHTMLForm as ContentHTML
+    // this.ContentRuculaCache = document.getElementById('content-rucula')?.textContent!;
+    // this.ContentHTML.contentLanguageRucula = this.ContentRuculaCache; 
+    // this.er.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
+    //   (resp:any)=> {
+    //     document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
+    //   })
   }
   closePreview(){
       document.getElementById('container-preview')!.style.display = "none"
