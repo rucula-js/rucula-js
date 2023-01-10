@@ -55,18 +55,10 @@
             </div>
             <div class="form-group" formGroupName="sintaxeRucula">
                 <h2>Rucula Sintax</h2>
-                    <div class="form-group-item">
-                        <label for="guuid" class="form-group-label">Code: </label>
-                        <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38" readonly>
-                    </div>
-                    <div class="form-group-item">
-                        <label for="dateCreation" class="form-group-label">Date Creation: </label>
-                        <input id="dateCreation" type="date" formControlName="dateCreation" class="form-group-input" FlexibleWidth="20">
-                    </div>
-                    <div class="form-group-item">
-                        <label for="dateLastUpdate" class="form-group-label">Date Last Update: </label>
-                        <input id="dateLastUpdate" type="date" formControlName="dateLastUpdate" class="form-group-input" FlexibleWidth="20">
-                    </div>
+                <div class="form-group-item">
+                    <label for="guuid" class="form-group-label">Code: </label>
+                    <input id="guuid" type="text" formControlName="guuid" class="form-group-input" FlexibleWidth="38" readonly>
+                </div>
             </div>
             <div style="margin-top:50px">
                     <button data-save (click)="Save()">Save <i class="bi bi-code-slash"></i></button>
