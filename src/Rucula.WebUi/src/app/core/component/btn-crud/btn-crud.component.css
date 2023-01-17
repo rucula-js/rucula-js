@@ -1,0 +1,24 @@
+
+
+
+
+.btn-crud {
+display: block;
+margin-bottom: 5px;
+width: 45px;
+height: 45px;
+max-width: 100px;
+border: 0;
+font-size: 1.4rem;
+}
+.btn-crud:hover,
+.btn-crud:focus {
+background-color: #286ad3;
+color: var(--branco);
+}
+
+
+.block-form{
+border: 1px solid rgb(231, 231, 231);
+padding: 10px;
+}

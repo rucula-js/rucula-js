@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { RuculaSintaxeComponent } from './rucula/language/rucula-language.component';
 import { RuculaConvertComponent } from './rucula/convert/rucula-convert.component';
 import { NavegationVerticalComponent } from './shared/navegation-vertical/navegation-vertical.component';
+import { ButtonsCrudComponent } from './core/component/btn-crud/btn-crud.component';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { NavegationVerticalComponent } from './shared/navegation-vertical/navega
     DocsComponent,
     RuculaSintaxeComponent,
     RuculaConvertComponent,
-    NavegationVerticalComponent
+    NavegationVerticalComponent,
+    ButtonsCrudComponent 
+    
   ],
   imports: [
     BrowserModule,

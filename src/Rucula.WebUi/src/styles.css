@@ -65,7 +65,6 @@ ul {
     border: 2px solid var(--color-green-rucula);
 }
 
-
 .nav-left{
     min-width: 300px;
     max-width: 350px;
@@ -81,5 +80,36 @@ ul {
 }
 .nav-left ol a {
     text-decoration: none;
-    color: rgb(107, 107, 107);
+    color: rgb(175, 175, 175);
+}
+
+.quadro-list{
+    margin-top: 10px;
+    overflow-x: scroll ;
+}
+.quadro-block,.quadro-list{
+    box-shadow: 0px 0px 5px 0px #8c8c8c;
+    padding: 5px;
+}
+.quadro-block h3,.quadro-list h3{
+    margin: 10px;
+} 
+
+.quadro-block .form-group-item{
+    margin-left: 10px ;
+}
+
+.quadro-block .form-group-item label{
+    display: block;
+
+}
+.quadro-block{
+    margin-top: 10px;
+}
+.table-form th,.table-form td{
+    border: 1px solid #ddd;
+}
+
+.table-form td input{
+    border: none;
 }

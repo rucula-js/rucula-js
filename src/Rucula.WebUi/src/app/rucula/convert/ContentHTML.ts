@@ -4,5 +4,5 @@ export interface ContentHTML {
     guuid?:string,
     content?: string,
     contentLanguageRucula?:string
-    tagMetaHTML:TagMetaHTML[]
+    tagMetaHTML?:TagMetaHTML[]
 }

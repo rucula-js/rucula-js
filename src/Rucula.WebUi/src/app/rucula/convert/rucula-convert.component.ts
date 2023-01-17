@@ -20,7 +20,6 @@ export class RuculaConvertComponent  implements OnInit {
   }
   TagMetaHTML!:TagMetaHTML[]; 
   ContentRuculaCache:any;
-  ContentHTMLCache:any;
 
   ContentEstruture!:ContentEstruture;
   ContentHTML!:ContentHTML;
@@ -104,20 +103,17 @@ export class RuculaConvertComponent  implements OnInit {
           tagMetaHTML: this.TagMetaHTML
         }
       }
-
-      console.log(contentEstruture)
       this.contentEstrutureService.Save(contentEstruture).subscribe();
-
   }
   PreviewContent(){
-    // document.getElementById('container-preview')!.style.display = "block"
-    // this.ContentHTML = this.ContentHTMLForm as ContentHTML
-    // this.ContentRuculaCache = document.getElementById('content-rucula')?.textContent!;
-    // this.ContentHTML.contentLanguageRucula = this.ContentRuculaCache; 
-    // this.er.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
-    //   (resp:any)=> {
-    //     document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
-    //   })
+    document.getElementById('container-preview')!.style.display = "block"
+    this.ContentHTML = this.ContentHTMLForm as ContentHTML
+    this.ContentRuculaCache = document.getElementById('content-rucula')?.textContent!;
+    this.ContentHTML.contentLanguageRucula = this.ContentRuculaCache; 
+    this.er.PreviewContent(this.ContentHTML.contentLanguageRucula!).subscribe(
+      (resp:any)=> {
+        document.getElementById('content-rucula-preview')!.innerHTML =  resp["content"]
+      })
   }
   closePreview(){
       document.getElementById('container-preview')!.style.display = "none"
