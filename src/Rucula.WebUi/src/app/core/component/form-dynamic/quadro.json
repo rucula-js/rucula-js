@@ -1,6 +1,7 @@
 
 {
   "tela":"Cadastro de Janelas",
+  "type":"CrUD",
   "quadro":[
     {
       "name": "Quadro",
@@ -37,7 +38,8 @@
         {
           "id": "7ec2b914-8a62-4296-bf59-023406111441",
           "description": "type",
-          "type": "text",
+          "type": "select",
+          "combo":["janela","consulta"],
           "maxlength": 15,
           "max": 0,
           "min": 0,
@@ -59,6 +61,73 @@
           "value": "Pontos de entradas API's"
         },
         {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 0,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "unidade",
+          "value": "Pontos de entradas API's"
+        },
+        {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 0,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "unidade",
+          "value": "Pontos de entradas API's"
+        },{
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 0,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "unidade",
+          "value": "Pontos de entradas API's"
+        },{
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 0,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "unidade",
+          "value": "Pontos de entradas API's"
+        },{
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 0,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "unidade",
+          "value": "Pontos de entradas API's"
+        },{
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 0,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "unidade",
+          "value": "Pontos de entradas API's"
+        },{
           "id": "20280273-df01-4205-a454-419c8e89cfd0",
           "description": "chield",
           "type": "text",
@@ -148,7 +217,7 @@
               {
                 "id": "00915F10-e991-4164-8932-57c9aadca2e1",
                 "description": "max",
-                "type": "text",
+                "type": "number",
                 "combo":[],
                 "maxlength": 0,
                 "max": 0,
@@ -161,7 +230,7 @@
               {
                 "id": "00915F10-e991-4164-8932-57c9aadca2e1",
                 "description": "min",
-                "type": "text",
+                "type": "number",
                 "combo":[],
                 "maxlength": 36,
                 "max": 0,

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { button } from './button';
 import { campo } from './campo';
 import { dynamicForm } from './dynamicForm';
 import { quadro } from './quadro';
@@ -17,6 +19,7 @@ export class FormDynamicService {
       janelaName.textContent = this.dynamicForm.tela
       this.form.appendChild(janelaName)
       this.prepareQuadro()
+      this.createButtons()
       this.setEvents()
     }
     private prepareQuadro(){
@@ -86,6 +89,15 @@ export class FormDynamicService {
       fields.forEach(field =>{
         const th = document.createElement('th');
         th.textContent = field.description
+        if (field.required == true){
+          th.textContent = th.textContent+"*"
+        }
+        if (field.type == "text"){
+          th.style.textAlign = "left"
+        }
+        if (field.type == "number"){
+          th.style.textAlign = "right"
+        }
         tr.appendChild(th)
       })
       return tr;
@@ -185,7 +197,11 @@ export class FormDynamicService {
 
     const label = document.createElement('label');
     label.setAttribute('for',field.id)
+    
     label.textContent = field.description
+    if (field.required == true){
+      label.textContent = label.textContent+"*"
+    }
     div.appendChild(label)
     return div;
   }
@@ -215,7 +231,6 @@ export class FormDynamicService {
         current.after(clone)
     }
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "d"){
-      console.log(document.querySelectorAll('.quadro-list table tr').length )
       if (document.querySelectorAll('.quadro-list table tr').length == 2){
         (event.currentTarget as HTMLElement).after(this.createNewLine());
         (event.currentTarget as HTMLElement).remove()
@@ -232,5 +247,56 @@ export class FormDynamicService {
       this.keyEvents = [] 
     })
     return clone as HTMLElement;
+  }
+
+  private createButtons(){
+    if(this.dynamicForm.type.toLocaleUpperCase() == "CRUD"){
+      this.prepareButtonsCRUD()
+    }
+  }
+
+  private prepareButtonsCRUD(){
+    const boxActions = document.getElementById("box-actions")
+    boxActions?.appendChild(this.createButtonOrLink({action:"new",link:"",icon:"bi bi-plus-lg",text:"",type:"button",}))
+    boxActions?.appendChild(this.createButtonOrLink({action:"save",link:"",icon:"bi bi-save",text:"",type:"button",color:"#81e8fa"}))
+    boxActions?.appendChild(this.createButtonOrLink({action:"alter",link:"",icon:"bi bi-wrench",text:"",type:"button",color:"#81e8fa"}))
+    boxActions?.appendChild(this.createButtonOrLink({action:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"#81e8fa"}))
+    boxActions?.appendChild(this.createButtonOrLink({action:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button"}))
+    boxActions?.appendChild(this.createButtonOrLink({action:"",link:"https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-align",icon:"",text:"Doc",type:"link",color:""}))
+  }
+
+  private createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
+    let  buttonOrLink:HTMLButtonElement|HTMLAnchorElement
+    
+    if(button.type != "button" && button.type != "link"){
+      throw new Error("tipo do botão deve ser button ou link");
+    }
+    if(button.type == "button"){
+      buttonOrLink = document.createElement('button')  
+      buttonOrLink!.classList.add("btn-crud")
+      buttonOrLink.textContent = button.text+""
+    }
+    if(button.type == "link"){
+      buttonOrLink = document.createElement('a')
+      buttonOrLink.textContent = button.text+""
+      buttonOrLink.href = `${button.link}`
+      buttonOrLink!.classList.add("btn-link")
+      buttonOrLink!.setAttribute('target',"_blank")
+    }
+    buttonOrLink!.setAttribute("id",`${button.type}-${button.action}`);
+
+    if (button.color){
+      buttonOrLink!.style.backgroundColor = button.color
+    }
+
+    if (button.icon){
+      let  icon = document.createElement('i')
+      button.icon.split(" ").forEach(item => 
+        icon.classList.add(item)
+      )
+      buttonOrLink!.appendChild(icon)
+    }
+    return buttonOrLink!
+    
   }
 }
