@@ -297,6 +297,6 @@ export class FormDynamicService {
       buttonOrLink!.appendChild(icon)
     }
     return buttonOrLink!
-    
+ 
   }
 }
