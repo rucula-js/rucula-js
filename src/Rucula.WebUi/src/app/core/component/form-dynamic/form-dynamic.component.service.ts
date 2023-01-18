@@ -1,6 +1,4 @@
-import { KeyValue } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { ConnectableObservable } from 'rxjs';
 import { campo } from './campo';
 import { dynamicForm } from './dynamicForm';
 import { quadro } from './quadro';
@@ -20,7 +18,6 @@ export class FormDynamicService {
       this.form.appendChild(janelaName)
       this.prepareQuadro()
       this.setEvents()
-
     }
     private prepareQuadro(){
       this.dynamicForm.quadro?.forEach(quadro => {
@@ -76,7 +73,6 @@ export class FormDynamicService {
       div.appendChild(h3)
       return div
     }
-
     private preparefield(fields:Array<campo>):Array<HTMLDivElement>{
       let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
       fields.forEach(field => {
@@ -104,8 +100,6 @@ export class FormDynamicService {
       })
       return tr;
     }
-
-    
     private createFieldTypeLine(field:campo):HTMLInputElement | HTMLSelectElement{
       let _element:HTMLInputElement | HTMLSelectElement
       switch(field.type){
@@ -120,9 +114,7 @@ export class FormDynamicService {
           break;
       }
       return _element!;
-  }
-
-
+    }
     private createField(field:campo):HTMLDivElement{
       let _element
       switch(field.type){
@@ -196,48 +188,49 @@ export class FormDynamicService {
     label.textContent = field.description
     div.appendChild(label)
     return div;
-
-
   }
   private keyEvents:Array<string> = new Array<string>();
-  private lineClone!:HTMLElement;
-
+  private lineClone!:HTMLElement; // como pode conter mais de uma tela de linha, é importante ser um arra map
+  
   setEvents(){
-    
     const line =  document.querySelectorAll('.quadro-list table tr')
-    line.forEach((item, index) => {
-      if (index == 1){
-        item?.addEventListener('keydown',(event)=> {
+    line[1].addEventListener('keydown',(event)=> {
         this.crudLineQuadro(event)
-        })
-        item?.addEventListener('keyup',(event)=> {
-          this.keyEvents = []
-        })
-        this.lineClone = ( item as HTMLElement).cloneNode(true) as HTMLElement
-      }
     })
-    
+    line[1]?.addEventListener('keyup',(event)=> {
+          this.keyEvents = []
+    })
+    this.lineClone = (line[1] as HTMLElement).cloneNode(true) as HTMLElement
   }
-
   private crudLineQuadro(event:Event){
+    
     const current = (event.currentTarget as HTMLElement)
-
-    const k = (event as KeyboardEvent).key;
-    if(this.keyEvents.filter(c=> c==k).length == 0){
-      this.keyEvents.push(k)
+    const key = (event as KeyboardEvent).key;
+    if(this.keyEvents.filter(c=> c==key).length == 0){
+      this.keyEvents.push(key)
     }
     this.keyEvents.sort()
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "l"){
-      
-      var clone = this.lineClone.cloneNode(true);
-      clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
-      current.after(clone)
+        var clone = this.createNewLine() 
+        current.after(clone)
     }
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "d"){
-       (event.currentTarget as HTMLElement).remove()
-    }
-    current?.addEventListener('keyup',(event)=> {
+      console.log(document.querySelectorAll('.quadro-list table tr').length )
+      if (document.querySelectorAll('.quadro-list table tr').length == 2){
+        (event.currentTarget as HTMLElement).after(this.createNewLine());
+        (event.currentTarget as HTMLElement).remove()
+      }else{
+        (event.currentTarget as HTMLElement).remove()
+      }
       this.keyEvents = []
-    }) 
+    }
+  }
+  private createNewLine():HTMLElement{
+    var clone = this.lineClone.cloneNode(true);
+    clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
+    clone.addEventListener('keyup',(event)=> {
+      this.keyEvents = [] 
+    })
+    return clone as HTMLElement;
   }
 }
