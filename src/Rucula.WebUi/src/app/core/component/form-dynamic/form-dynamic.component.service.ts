@@ -11,7 +11,7 @@ import { quadro } from './quadro';
 export class FormDynamicService {
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
-    private ObjectDtoInFocu!:string; 
+    private quadroInFocu!:quadro; 
 
     setForm(dynamic:dynamicForm){
       this.dynamicForm = dynamic;
@@ -22,11 +22,15 @@ export class FormDynamicService {
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
-      this.GetDto()
+      // this.GetDto()
     }
     private prepareQuadro(){
+      /*
+        block: são quadros que não contem contagem de linhas 
+        line: são quadros que contém contagem de linhas 
+      */
       this.dynamicForm.quadro?.forEach(quadro => {
-        this.ObjectDtoInFocu = quadro.objectDto // Essa cara ajuda na ramificação ObjectDto.PropertDto
+        this.quadroInFocu = quadro //  guarda o quadro em foco no
         if (quadro.type=='block'){
           this.createQuadroBlock(quadro);
         }
@@ -46,6 +50,7 @@ export class FormDynamicService {
         table.appendChild(header)
 
         const detail = this.prepareLineDetailTable(line.campo!);
+        detail.setAttribute("data-row","0")
         table.appendChild(detail)
       })
       line.appendChild(table)
@@ -56,6 +61,7 @@ export class FormDynamicService {
       const div = document.createElement('div');
       div.classList.add('quadro-list')
       div.setAttribute('data-objectDto',quadro.objectDto)
+      div.setAttribute('data-chield',quadro.child!)
       const h3 = document.createElement('h3');
       h3.textContent = quadro.name
       div.appendChild(h3)
@@ -74,6 +80,7 @@ export class FormDynamicService {
       const div = document.createElement('div');
       div.classList.add("quadro-block")
       div.setAttribute('data-objectDto',quadro.objectDto)
+      div.setAttribute('data-chield',quadro.child!)
       const h3 = document.createElement('h3');
       h3.textContent = quadro.name
       div.appendChild(h3)
@@ -115,6 +122,7 @@ export class FormDynamicService {
       })
       return tr;
     }
+
     private createFieldTypeLine(field:campo):HTMLInputElement | HTMLSelectElement{
       let _element:HTMLInputElement | HTMLSelectElement
       switch(field.type){
@@ -154,7 +162,6 @@ export class FormDynamicService {
         input.style.width = "20px"  
       }
       this.setAtributesData(input,field)
-      this.ObjectDtoInFocu
       return input
   }
   private createFieldInputTypeLine(field:campo){
@@ -181,14 +188,16 @@ export class FormDynamicService {
       return select
   }
   private setAtributesData(node:HTMLElement,field:campo){
+    node.setAttribute( `data-${this.quadroInFocu.objectDto}`,"")
+    if (this.quadroInFocu.type == "block"){
+      node.setAttribute( `data-${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}._.ruc`,"")
+    }
     node.setAttribute('maxlength',String(field.maxlength));  
-    node.setAttribute('data-id',field.id);
     node.setAttribute('data-maxlength',String(field.maxlength));
     node.setAttribute('data-max',String(field.max));
     node.setAttribute('data-min',String(field.min));
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
-    node.setAttribute('data-objectDto',this.ObjectDtoInFocu);
     node.setAttribute('data-propertDto',String(field.propertDto));
   }
   createformGroup(field:campo):HTMLDivElement{
@@ -219,7 +228,6 @@ export class FormDynamicService {
     this.lineClone = (line[1] as HTMLElement).cloneNode(true) as HTMLElement
   }
   private crudLineQuadro(event:Event){
-    
     const current = (event.currentTarget as HTMLElement)
     const key = (event as KeyboardEvent).key;
     if(this.keyEvents.filter(c=> c==key).length == 0){
@@ -299,19 +307,69 @@ export class FormDynamicService {
     return buttonOrLink!
   }
 
-  GetDto(){
-    let con =  document.querySelectorAll('[data-propertdto]')
-    let ObjectMap : Array<KeyValue<string,KeyValue<string,any>>> = new Array<KeyValue<string,KeyValue<string,any>>>();
-    con.forEach((item) => {
-      ObjectMap.push({
-        key:item.getAttribute('data-objectdto')!,
-        value:
-        {
-          key:item.getAttribute('data-propertdto')!,
-          value:
-          (item as HTMLInputElement|HTMLSelectElement).value
-        }
-      })
-    })
-  }
-}
+//   GetDto(){
+//     let con =  document.querySelectorAll('[data-propertdto]')
+    
+//     let ObjectMap: Map<string,Array<KeyValue<string,any>>> = new Map<string,Array<KeyValue<string,any>>>();
+//     let Keys:Array<KeyValue<string,any>> = new Array<KeyValue<string,any>>()
+//     let ObjectDtoList:Array<string> = new Array<string>()
+
+//     con.forEach((item) => {
+//       const _objectDto = item.getAttribute('data-objectdto')!
+//       const _propertDto = item.getAttribute('data-propertdto')!
+
+//       if (ObjectDtoList.includes(_objectDto) == false){
+//         ObjectDtoList.push(_objectDto)
+//       }
+//       Keys.push
+//       (
+//         {
+//           key:_objectDto,
+//           value:{ 
+//             chield:GetChield(_objectDto) !,
+//             propertDto:_propertDto, 
+//             value:(item as HTMLInputElement|HTMLSelectElement).value
+//           }
+//         }
+//       )
+//     })
+//     Keys.sort();
+
+//     function GetChield(DataObjectDto:string){
+//       const objectDto = document.querySelector(`[data-objectdto="${DataObjectDto}"]`)  
+//       return objectDto!.getAttribute("data-chield")
+//     }
+
+
+//     ObjectDtoList.forEach(element => {
+//       GetProperties(element) 
+//       console.log(element) 
+//     });
+    
+
+
+//     function GetProperties(objectDto:string){
+//       let obj:Object = {} 
+
+//       let velue =  Keys.filter(key => key.key == objectDto)
+      
+//       if (velue[0].value["chield"]!=""){
+//         let chield = velue[0].value["chield"]
+//         //  velue.push({key:chield,value:GetProperties(chield)})
+//       }
+//       else{
+//         return velue
+//       }
+     
+//       return ""
+//     }
+//   }
+
+//   private SetNumberLines(){
+      
+//     let lines =  document.querySelectorAll('.quadro-list table tr')
+//     lines.forEach((element,index) => {
+//       element.setAttribute('data:line',"")
+//     });
+//   }
+ }

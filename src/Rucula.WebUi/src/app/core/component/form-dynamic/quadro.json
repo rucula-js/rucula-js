@@ -133,114 +133,75 @@
                 "disable": true,
                 "propertDto": "codigo",
                 "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "max length",
-                "type": "number",
-                "combo":[],
-                "maxlength": 0,
-                "max": 100,
-                "min": 0,
-                "required": true,
-                "disable": false,
-                "propertDto": "maxLen",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "max",
-                "type": "number",
-                "combo":[],
-                "maxlength": 0,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": false,
-                "propertDto": "max",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "min",
-                "type": "number",
-                "combo":[],
-                "maxlength": 36,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "codigo",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "options",
-                "type": "text",
-                "combo":[],
-                "maxlength": 36,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "options",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "required",
-                "type": "text",
-                "combo":[],
-                "maxlength": 36,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "required",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "disable",
-                "type": "text",
-                "combo":[],
-                "maxlength": 36,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "disable",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "Propert Dto",
-                "type": "text",
-                "combo":[],
-                "maxlength": 36,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "PropertDto",
-                "value": 4555
-              },
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "buttons",
-                "type": "text",
-                "combo":[],
-                "maxlength": 36,
-                "max": 0,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "buttons",
-                "value": 4555
               }
             ]
           }
       ]
+    },
+    {
+      "name": "Campos",
+      "type": "line",
+      "id": "46Wd26c3d-c830-4c0b-90d7-ea7a6d0cfde9",
+      "objectDto": "campoDto",
+      "child": "",
+      "line":[
+          {
+            "campo": [
+              {
+                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                "description": "id",
+                "type": "text",
+                "combo":[],
+                "maxlength": 36,
+                "max": 0,
+                "min": 0,
+                "required": true,
+                "disable": true,
+                "propertDto": "id",
+                "value": 4555
+              },
+              {
+                "id": "7ec2b914-8a62-4296-bf59-028888811441",
+                "description": "description",
+                "type": "text",
+                "maxlength": 15,
+                "max": 0,
+                "min": 0,
+                "required": true,
+                "disable": true,
+                "propertDto": "description",
+                "value": "Pontos de entradas"
+              },
+              {
+                "id": "7ec2b914-8a62-4296-bf59-028888811441",
+                "description": "type",
+                "type": "select",
+                "combo":["sim","não"],
+                "maxlength": 15,
+                "max": 0,
+                "min": 0,
+                "required": true,
+                "disable": true,
+                "propertDto": "type",
+                "value": "Pontos de entradas"
+              }
+            ]
+          }
+        ]
+      }
+  ],
+  "ObjectApi":{
+    "quadroDto":{
+      "unidade":"",
+      "codigo":"",
+      "nome":"",
+      "objectDto":"",
+      "campo":[
+        {
+          "id":"",
+          "description":""
+        }
+      ]
     }
-  ]
+  }
 }
