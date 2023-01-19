@@ -1,5 +1,5 @@
+import { KeyValue } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { button } from './button';
 import { campo } from './campo';
 import { dynamicForm } from './dynamicForm';
@@ -10,7 +10,8 @@ import { quadro } from './quadro';
 })
 export class FormDynamicService {
     private form!:HTMLElement;
-    private dynamicForm!:dynamicForm; 
+    private dynamicForm!:dynamicForm;
+    private ObjectDtoInFocu!:string; 
 
     setForm(dynamic:dynamicForm){
       this.dynamicForm = dynamic;
@@ -21,9 +22,11 @@ export class FormDynamicService {
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
+      this.GetDto()
     }
     private prepareQuadro(){
       this.dynamicForm.quadro?.forEach(quadro => {
+        this.ObjectDtoInFocu = quadro.objectDto // Essa cara ajuda na ramificação ObjectDto.PropertDto
         if (quadro.type=='block'){
           this.createQuadroBlock(quadro);
         }
@@ -150,14 +153,8 @@ export class FormDynamicService {
       }else{
         input.style.width = "20px"  
       }
-      input.setAttribute('maxlength',String(field.maxlength));  
-      input.setAttribute('data-id',field.id);
-      input.setAttribute('data-maxlength',String(field.maxlength));
-      input.setAttribute('data-max',String(field.max));
-      input.setAttribute('data-min',String(field.min));
-      input.setAttribute('data-required',String(field.required));
-      input.setAttribute('data-disable',String(field.disable));
-      input.setAttribute('data-propertDto',String(field.propertDto));
+      this.setAtributesData(input,field)
+      this.ObjectDtoInFocu
       return input
   }
   private createFieldInputTypeLine(field:campo){
@@ -169,20 +166,13 @@ export class FormDynamicService {
       }else{
         input.style.width = "50px"  
       }
-      input.setAttribute('maxlength',String(field.maxlength));  
-      input.setAttribute('data-id',field.id);
-      input.setAttribute('data-maxlength',String(field.maxlength));
-      input.setAttribute('data-max',String(field.max));
-      input.setAttribute('data-min',String(field.min));
-      input.setAttribute('data-required',String(field.required));
-      input.setAttribute('data-disable',String(field.disable));
-      input.setAttribute('data-propertDto',String(field.propertDto));
-
+      this.setAtributesData(input,field)
       return input
   }
 
   private createFieldSelect(field:campo):HTMLSelectElement{
       const select = document.createElement('select');
+      this.setAtributesData(select,field)
         field.combo?.forEach(item => {
           const option = document.createElement('option')
           option.text = item
@@ -190,7 +180,17 @@ export class FormDynamicService {
         })
       return select
   }
-
+  private setAtributesData(node:HTMLElement,field:campo){
+    node.setAttribute('maxlength',String(field.maxlength));  
+    node.setAttribute('data-id',field.id);
+    node.setAttribute('data-maxlength',String(field.maxlength));
+    node.setAttribute('data-max',String(field.max));
+    node.setAttribute('data-min',String(field.min));
+    node.setAttribute('data-required',String(field.required));
+    node.setAttribute('data-disable',String(field.disable));
+    node.setAttribute('data-objectDto',this.ObjectDtoInFocu);
+    node.setAttribute('data-propertDto',String(field.propertDto));
+  }
   createformGroup(field:campo):HTMLDivElement{
     const div = document.createElement('div');
     div.classList.add('form-group-item');
@@ -297,6 +297,21 @@ export class FormDynamicService {
       buttonOrLink!.appendChild(icon)
     }
     return buttonOrLink!
- 
+  }
+
+  GetDto(){
+    let con =  document.querySelectorAll('[data-propertdto]')
+    let ObjectMap : Array<KeyValue<string,KeyValue<string,any>>> = new Array<KeyValue<string,KeyValue<string,any>>>();
+    con.forEach((item) => {
+      ObjectMap.push({
+        key:item.getAttribute('data-objectdto')!,
+        value:
+        {
+          key:item.getAttribute('data-propertdto')!,
+          value:
+          (item as HTMLInputElement|HTMLSelectElement).value
+        }
+      })
+    })
   }
 }

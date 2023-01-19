@@ -52,8 +52,7 @@ ul {
 .form-group-item input,select{
   border-radius: 2px;
   border:1px solid var(--border-color-grey);
-  padding: 5px;
-  
+  padding: 2px;
 }
 
 .form-group-label,.form-group-input{
