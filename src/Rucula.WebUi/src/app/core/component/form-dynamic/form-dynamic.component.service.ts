@@ -4,16 +4,21 @@ import { button } from './button';
 import { campo } from './campo';
 import { dynamicForm } from './dynamicForm';
 import { quadro } from './quadro';
+import { eventFieldService } from './eventField';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FormDynamicService {
+
+   constructor(private eventFieldService?:eventFieldService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
-
+    private isRequerid = document.createElement('span'); 
     setForm(dynamic:dynamicForm){
+      this.isRequerid.innerText = "*"
+      this.isRequerid.style.color = "#871515";
       this.dynamicForm = dynamic;
       this.form = document.getElementById('form-dynamic')!;
       const janelaName = document.createElement('h2')
@@ -38,6 +43,32 @@ export class FormDynamicService {
            this.createQuadroList(quadro);
         }
       })
+    }
+    private createQuadroBlock(quadro:quadro){
+      const _quadro = this.createDivBlockElement(quadro) // cria o elemento do bloco
+      const _fields = this.createElementFormItem(quadro.campo!);  // cria um array de elementos de entrada
+      
+      _fields.forEach(field => {
+        _quadro.appendChild(field)
+      })
+      this.form.appendChild(_quadro)
+    }
+    private createDivBlockElement(quadro:quadro):HTMLDivElement{
+      const div = document.createElement('div');
+      div.classList.add("quadro-block")
+      div.setAttribute('data-objectDto',quadro.objectDto)
+      div.setAttribute('data-chield',quadro.child!)
+      const h3 = document.createElement('h3');
+      h3.textContent = quadro.name
+      div.appendChild(h3)
+      return div
+    }
+    private createElementFormItem(fields:Array<campo>):Array<HTMLDivElement>{
+      let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
+      fields.forEach(field => {
+        _fields.push(this.createField(field)) 
+      })
+      return _fields;
     }
     private createQuadroList(quadro:quadro){
       const line = this.createQuadroListElement(quadro)
@@ -67,32 +98,6 @@ export class FormDynamicService {
       div.appendChild(h3)
       return div
     }
-
-    private createQuadroBlock(quadro:quadro){
-      const _quadro = this.createDivBlockElement(quadro) // cria o elemento do bloco
-      const _fields = this.preparefield(quadro.campo!);  // cria um array de elementos de entrada
-      _fields.forEach(field => {
-        _quadro.appendChild(field)
-      })
-      this.form.appendChild(_quadro)
-    }
-    private createDivBlockElement(quadro:quadro):HTMLDivElement{
-      const div = document.createElement('div');
-      div.classList.add("quadro-block")
-      div.setAttribute('data-objectDto',quadro.objectDto)
-      div.setAttribute('data-chield',quadro.child!)
-      const h3 = document.createElement('h3');
-      h3.textContent = quadro.name
-      div.appendChild(h3)
-      return div
-    }
-    private preparefield(fields:Array<campo>):Array<HTMLDivElement>{
-      let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
-      fields.forEach(field => {
-        _fields.push(this.createField(field)) 
-      })
-      return _fields;
-    }
     private prepareLineHeaderTable(fields:Array<campo>):HTMLTableRowElement{
       
       let tr = document.createElement('tr');
@@ -100,7 +105,8 @@ export class FormDynamicService {
         const th = document.createElement('th');
         th.textContent = field.description
         if (field.required == true){
-          th.textContent = th.textContent+"*"
+          th.textContent = th.textContent
+          th.append(this.isRequerid.cloneNode(true))
         }
         if (field.type == "text"){
           th.style.textAlign = "left"
@@ -142,6 +148,7 @@ export class FormDynamicService {
       let _element
       switch(field.type){
         case 'text':
+        case 'number':
           _element = this.createFieldInput(field);
           break;
         case 'select':
@@ -152,9 +159,25 @@ export class FormDynamicService {
       formgroup.appendChild(_element as HTMLElement)
       return formgroup;
   }
+  createformGroup(field:campo):HTMLDivElement{
+    const div = document.createElement('div');
+    div.classList.add('form-group-item');
+
+    const label = document.createElement('label');
+    label.setAttribute('for',field.id)
+    
+    label.textContent = field.description
+    if (field.required == true){
+      label.textContent = label.textContent
+      label.append(this.isRequerid.cloneNode(true))
+    }
+    div.appendChild(label)
+    return div;
+  }
   private createFieldInput(field:campo){
     const input = document.createElement('input');
       input.type = field.type;
+      this.eventFieldService?.SetEvent(input)
 
       if (field.maxlength != undefined && field.maxlength > 0){
         input.style.width = `${field.maxlength *8}px`  
@@ -166,6 +189,7 @@ export class FormDynamicService {
   }
   private createFieldInputTypeLine(field:campo){
     const input = document.createElement('input');
+    this.eventFieldService?.SetEvent(input)
       input.type = field.type;
 
       if (field.maxlength != undefined && field.maxlength > 0){
@@ -179,6 +203,7 @@ export class FormDynamicService {
 
   private createFieldSelect(field:campo):HTMLSelectElement{
       const select = document.createElement('select');
+      this.eventFieldService?.SetEvent(select)
       this.setAtributesData(select,field)
         field.combo?.forEach(item => {
           const option = document.createElement('option')
@@ -192,27 +217,11 @@ export class FormDynamicService {
     if (this.quadroInFocu.type == "block"){
       node.setAttribute( `data-${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}._.ruc`,"")
     }
-    node.setAttribute('maxlength',String(field.maxlength));  
-    node.setAttribute('data-maxlength',String(field.maxlength));
     node.setAttribute('data-max',String(field.max));
     node.setAttribute('data-min',String(field.min));
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
     node.setAttribute('data-propertDto',String(field.propertDto));
-  }
-  createformGroup(field:campo):HTMLDivElement{
-    const div = document.createElement('div');
-    div.classList.add('form-group-item');
-
-    const label = document.createElement('label');
-    label.setAttribute('for',field.id)
-    
-    label.textContent = field.description
-    if (field.required == true){
-      label.textContent = label.textContent+"*"
-    }
-    div.appendChild(label)
-    return div;
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone!:HTMLElement; // como pode conter mais de uma tela de linha, é importante ser um arra map

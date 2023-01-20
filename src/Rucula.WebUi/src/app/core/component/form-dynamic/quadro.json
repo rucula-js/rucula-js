@@ -15,11 +15,11 @@
           "description": "id",
           "type": "text",
           "maxlength": 50,
-          "max": 0,
-          "min": 0,
+          "max": 36,
+          "min": 36,
           "required": true,
           "disable": true,
-          "propertDto": "unidade",
+          "propertDto": "id",
           "value": "Pontos de entradas API's"
         },
         {
@@ -28,7 +28,7 @@
           "type": "text",
           "combo":["segunda","terça","quarta"],
           "maxlength": 36,
-          "max": 0,
+          "max": 150,
           "min": 0,
           "required": true,
           "disable": true,
@@ -139,10 +139,10 @@
       ]
     },
     {
-      "name": "Campos",
+      "name": "Botões",
       "type": "line",
       "id": "46Wd26c3d-c830-4c0b-90d7-ea7a6d0cfde9",
-      "objectDto": "campoDto",
+      "objectDto": "botoesDto",
       "child": "",
       "line":[
           {
