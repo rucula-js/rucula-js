@@ -20,4 +20,8 @@ export class FormDynamicComponent implements OnInit, AfterContentInit	 {
   }
     ngOnInit(): void {
     }
+
+    GetDto(){
+      this.dynamicForm.GetDto()
+    }
 }

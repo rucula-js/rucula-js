@@ -15,7 +15,11 @@ export class FormDynamicService {
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
+    private ModelObjectDto!:Array<KeyValue<string,any>>
+    
     private isRequerid = document.createElement('span'); 
+
+
     setForm(dynamic:dynamicForm){
       this.isRequerid.innerText = "*"
       this.isRequerid.style.color = "#871515";
@@ -72,7 +76,6 @@ export class FormDynamicService {
     }
     private createQuadroList(quadro:quadro){
       const line = this.createQuadroListElement(quadro)
-
       const table = document.createElement('table');
       table.classList.add("table-form")
 
@@ -81,7 +84,6 @@ export class FormDynamicService {
         table.appendChild(header)
 
         const detail = this.prepareLineDetailTable(line.campo!);
-        detail.setAttribute("data-row","0")
         table.appendChild(detail)
       })
       line.appendChild(table)
@@ -121,6 +123,7 @@ export class FormDynamicService {
     private prepareLineDetailTable(fields:Array<campo>):HTMLTableRowElement{
       
       let tr = document.createElement('tr');
+      tr.setAttribute('data-objecdto',this.quadroInFocu.objectDto)
       fields.forEach(field =>{
         const td = document.createElement('td');
         td.appendChild(this.createFieldTypeLine(field))
@@ -142,6 +145,7 @@ export class FormDynamicService {
           _element = this.createFieldSelect(field);
           break;
       }
+      _element!.setAttribute("data-row","0") // indica a numero da primeira linha 
       return _element!;
     }
     private createField(field:campo):HTMLDivElement{
@@ -221,20 +225,26 @@ export class FormDynamicService {
     node.setAttribute('data-min',String(field.min));
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
-    node.setAttribute('data-propertDto',String(field.propertDto));
+    node.setAttribute('data-objecdto',`${this.quadroInFocu.objectDto}`);
+    node.setAttribute('data-propertdto',`${String(field.propertDto)}`);
+    node.setAttribute('data-childdto',`${this.quadroInFocu.child}`);
   }
   private keyEvents:Array<string> = new Array<string>();
-  private lineClone!:HTMLElement; // como pode conter mais de uma tela de linha, é importante ser um arra map
+  private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
   
   setEvents(){
-    const line =  document.querySelectorAll('.quadro-list table tr')
-    line[1].addEventListener('keydown',(event)=> {
+    const line =  document.querySelectorAll('.quadro-list table tr[data-objecdto]')
+    
+    line.forEach((element) => {
+      element.addEventListener('keydown',(event)=> {
         this.crudLineQuadro(event)
-    })
-    line[1]?.addEventListener('keyup',(event)=> {
-          this.keyEvents = []
-    })
-    this.lineClone = (line[1] as HTMLElement).cloneNode(true) as HTMLElement
+      })
+        element.addEventListener('keyup',(event)=> {
+            this.keyEvents = []
+      })
+      this.lineClone.set(element.getAttribute("data-objecdto")!,(element as HTMLElement).cloneNode(true) as HTMLElement)
+      
+    }); 
   }
   private crudLineQuadro(event:Event){
     const current = (event.currentTarget as HTMLElement)
@@ -244,12 +254,12 @@ export class FormDynamicService {
     }
     this.keyEvents.sort()
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "l"){
-        var clone = this.createNewLine() 
+        var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
         current.after(clone)
     }
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "d"){
       if (document.querySelectorAll('.quadro-list table tr').length == 2){
-        (event.currentTarget as HTMLElement).after(this.createNewLine());
+        (event.currentTarget as HTMLElement).after(this.createNewLine(current.getAttribute('data-objectdto')!));
         (event.currentTarget as HTMLElement).remove()
       }else{
         (event.currentTarget as HTMLElement).remove()
@@ -257,8 +267,9 @@ export class FormDynamicService {
       this.keyEvents = []
     }
   }
-  private createNewLine():HTMLElement{
-    var clone = this.lineClone.cloneNode(true);
+  private createNewLine(ObjectdtoLine:string):HTMLElement{
+    console.log(ObjectdtoLine)
+    var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
     clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
     clone.addEventListener('keyup',(event)=> {
       this.keyEvents = [] 
@@ -316,69 +327,30 @@ export class FormDynamicService {
     return buttonOrLink!
   }
 
-//   GetDto(){
-//     let con =  document.querySelectorAll('[data-propertdto]')
+  GetDto(){
+    var input:HTMLInputElement|HTMLSelectElement;
+    this.ModelObjectDto = new Array<KeyValue<string,any>>()
+    let quadro = document.querySelectorAll('.form-group-item input , .form-group-item select')
+
+    quadro.forEach((item) => {
+      input = (item as HTMLInputElement|HTMLSelectElement)
+      this.ModelObjectDto.push({key:`${input.getAttribute('data-objecdto')!}:${input.getAttribute('data-propertdto')!}`,value:{value:input.value}})
+    })
+    this.ModelObjectDto.sort();    
+
+    let quadroList =  document.querySelectorAll('.quadro-list .table-form')
     
-//     let ObjectMap: Map<string,Array<KeyValue<string,any>>> = new Map<string,Array<KeyValue<string,any>>>();
-//     let Keys:Array<KeyValue<string,any>> = new Array<KeyValue<string,any>>()
-//     let ObjectDtoList:Array<string> = new Array<string>()
-
-//     con.forEach((item) => {
-//       const _objectDto = item.getAttribute('data-objectdto')!
-//       const _propertDto = item.getAttribute('data-propertdto')!
-
-//       if (ObjectDtoList.includes(_objectDto) == false){
-//         ObjectDtoList.push(_objectDto)
-//       }
-//       Keys.push
-//       (
-//         {
-//           key:_objectDto,
-//           value:{ 
-//             chield:GetChield(_objectDto) !,
-//             propertDto:_propertDto, 
-//             value:(item as HTMLInputElement|HTMLSelectElement).value
-//           }
-//         }
-//       )
-//     })
-//     Keys.sort();
-
-//     function GetChield(DataObjectDto:string){
-//       const objectDto = document.querySelector(`[data-objectdto="${DataObjectDto}"]`)  
-//       return objectDto!.getAttribute("data-chield")
-//     }
-
-
-//     ObjectDtoList.forEach(element => {
-//       GetProperties(element) 
-//       console.log(element) 
-//     });
-    
-
-
-//     function GetProperties(objectDto:string){
-//       let obj:Object = {} 
-
-//       let velue =  Keys.filter(key => key.key == objectDto)
-      
-//       if (velue[0].value["chield"]!=""){
-//         let chield = velue[0].value["chield"]
-//         //  velue.push({key:chield,value:GetProperties(chield)})
-//       }
-//       else{
-//         return velue
-//       }
-     
-//       return ""
-//     }
-//   }
-
-//   private SetNumberLines(){
-      
-//     let lines =  document.querySelectorAll('.quadro-list table tr')
-//     lines.forEach((element,index) => {
-//       element.setAttribute('data:line',"")
-//     });
-//   }
+    quadroList.forEach((table) => {
+      table.childNodes.forEach( (tr,numberLine) => {
+        tr.childNodes.forEach(item => {
+          if(item.nodeName == "TD"){
+            input = (item.firstChild as HTMLInputElement|HTMLSelectElement)
+            this.ModelObjectDto.push({key:`${input.getAttribute('data-objecdto')!}:${input.getAttribute('data-propertdto')!}`,value:{value:input.value,row:numberLine}})
+          }
+        });
+      });
+    });
+        
+    console.log(this.ModelObjectDto)
+  }
  }

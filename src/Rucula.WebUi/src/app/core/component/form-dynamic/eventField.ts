@@ -8,10 +8,8 @@ export class eventFieldService {
 
     constructor(private fieldValid:fieldValidService){}
     
-    
-
     SetEvent(element:HTMLElement){
-        element.addEventListener('focusout',(event)=>{
+        element.addEventListener('focusout',(event)=> {
             const elemet = (event.target as HTMLInputElement) 
             try{
                 switch (elemet.getAttribute('type')) {
@@ -40,6 +38,6 @@ export class eventFieldService {
                 element.style.borderColor ="red"
                 document.getElementById("box-message")!.textContent = message["message"]
             }
-        })
+        }) 
     }
 }
