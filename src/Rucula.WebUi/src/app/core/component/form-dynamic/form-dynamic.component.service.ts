@@ -5,33 +5,26 @@ import { campo } from './campo';
 import { dynamicForm } from './dynamicForm';
 import { quadro } from './quadro';
 import { eventFieldService } from './eventField';
-
+import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
 @Injectable({
     providedIn: 'root',
 })
 export class FormDynamicService {
 
-   constructor(private eventFieldService?:eventFieldService){}
+   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
     private ModelObjectDto!:Array<KeyValue<string,any>>
     
-    private isRequerid = document.createElement('span'); 
-
-
     setForm(dynamic:dynamicForm){
-      this.isRequerid.innerText = "*"
-      this.isRequerid.style.color = "#871515";
+
       this.dynamicForm = dynamic;
-      this.form = document.getElementById('form-dynamic')!;
-      const janelaName = document.createElement('h2')
-      janelaName.textContent = this.dynamicForm.tela
-      this.form.appendChild(janelaName)
+      this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
+      this.form.appendChild(this.ObjectsDOMBaseService!.DOMNameWindow(this.dynamicForm.tela))
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
-      // this.GetDto()
     }
     private prepareQuadro(){
       /*
@@ -49,7 +42,7 @@ export class FormDynamicService {
       })
     }
     private createQuadroBlock(quadro:quadro){
-      const _quadro = this.createDivBlockElement(quadro) // cria o elemento do bloco
+      const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(quadro) // cria o elemento do bloco
       const _fields = this.createElementFormItem(quadro.campo!);  // cria um array de elementos de entrada
       
       _fields.forEach(field => {
@@ -57,16 +50,7 @@ export class FormDynamicService {
       })
       this.form.appendChild(_quadro)
     }
-    private createDivBlockElement(quadro:quadro):HTMLDivElement{
-      const div = document.createElement('div');
-      div.classList.add("quadro-block")
-      div.setAttribute('data-objectDto',quadro.objectDto)
-      div.setAttribute('data-chield',quadro.child!)
-      const h3 = document.createElement('h3');
-      h3.textContent = quadro.name
-      div.appendChild(h3)
-      return div
-    }
+    
     private createElementFormItem(fields:Array<campo>):Array<HTMLDivElement>{
       let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
       fields.forEach(field => {
@@ -108,7 +92,7 @@ export class FormDynamicService {
         th.textContent = field.description
         if (field.required == true){
           th.textContent = th.textContent
-          th.append(this.isRequerid.cloneNode(true))
+          th.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
         }
         if (field.type == "text"){
           th.style.textAlign = "left"
@@ -173,7 +157,7 @@ export class FormDynamicService {
     label.textContent = field.description
     if (field.required == true){
       label.textContent = label.textContent
-      label.append(this.isRequerid.cloneNode(true))
+      label.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
     }
     div.appendChild(label)
     return div;
@@ -268,7 +252,6 @@ export class FormDynamicService {
     }
   }
   private createNewLine(ObjectdtoLine:string):HTMLElement{
-    console.log(ObjectdtoLine)
     var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
     clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
     clone.addEventListener('keyup',(event)=> {
@@ -327,6 +310,9 @@ export class FormDynamicService {
     return buttonOrLink!
   }
 
+  private objectDtoMap:Array<string> = new Array<string> ();
+  private objectDtoList:Array<Object> = new Array<Object> ();
+  
   GetDto(){
     var input:HTMLInputElement|HTMLSelectElement;
     this.ModelObjectDto = new Array<KeyValue<string,any>>()
@@ -350,7 +336,72 @@ export class FormDynamicService {
         });
       });
     });
+    
+    let obj:any = {};
+
+    let propertTypeList:Map<string, Array<Object>> = new Map<string, Array<Object>>();
+    
+    this.ModelObjectDto.forEach((i,index) => {
+      if (this.objectDtoMap.indexOf(i.key.split(":")[0],) == -1){
+        this.objectDtoMap.push(i.key.split(":")[0])
+      }
+    })  
+    this.objectDtoMap.forEach(objectDtoMap =>{
+
+      this.ModelObjectDto.filter(c => c.key.split(":")[0]== objectDtoMap && c.value["row"] == undefined)
+        .forEach(element => {
+          const keyValue = element.key.split(":")
+          obj[keyValue[1]] = element.value["value"]  
+      });
+         
+      obj = {}
+      
+      let lastObject = "";
+
+      let ObjectList =  this.ModelObjectDto
+      .filter(c => c.key.split(":")[0]== objectDtoMap && c.value["row"] >= 1)
+      .sort(c => c.key && c.value["row"]);
         
-    console.log(this.ModelObjectDto)
+      for (let index = 0; index < ObjectList.length; index++) {
+          
+        const keyValue = ObjectList[index].key.split(":")
+        
+        
+        if (index == 0 && lastObject != ""){ // entende que acabou as propriedades do ultimo ObjetoDto, assim é preciso salva-lo
+          lastObject =  keyValue[0] 
+          var value =  propertTypeList.get(objectDtoMap)
+          console.log(value)
+          value?.push(obj)
+          propertTypeList.set(objectDtoMap,value!)
+          obj = {}
+        }
+
+        if (index == 0){
+          lastObject =  keyValue[0] 
+          obj = {}
+        }
+
+        if (index == ObjectList.length -1){  
+          obj[keyValue[1]] = ObjectList[index].value["value"] 
+          var value =  propertTypeList.get(objectDtoMap)
+          console.log(value)
+          value?.push(obj)
+          propertTypeList.set(objectDtoMap,value!)
+          obj = {}
+          break // sai do loop
+        }
+        
+        if (index > 0){
+          if (ObjectList[index].value["row"] >  ObjectList[index-1].value["row"]){  
+            var value =  propertTypeList.get(objectDtoMap)
+            value?.push(obj)
+            propertTypeList.set(objectDtoMap,value!)
+            obj = {}
+          }
+        }
+        obj[keyValue[1]] = ObjectList[index].value["value"] 
+      }
+    })
+    console.log(propertTypeList)
   }
  }
