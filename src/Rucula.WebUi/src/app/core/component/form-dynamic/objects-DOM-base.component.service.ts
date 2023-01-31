@@ -26,7 +26,6 @@ export class ObjectsDOMBaseService {
     return span
   }
 
-
   DOMcreateDivBlockElement(quadro:quadro):HTMLDivElement{
     const div = document.createElement('div');
     div.classList.add("quadro-block")

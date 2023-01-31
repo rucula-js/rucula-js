@@ -75,6 +75,77 @@
       ]
     },
     {
+      "name": "Quadro",
+      "type": "block",
+      "id": "46d66c9d-c830-4c0b-90d7-ea7a6d0cfde9",
+      "objectDto": "ssssDto",
+      "child": "campoDto",
+      "campo": [
+        {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "ida",
+          "type": "text",
+          "maxlength": 50,
+          "max": 36,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "iad",
+          "value": "Pontos de entradas API's"
+        },
+        {
+          "id": "00915b10-e991-4164-8932-57c9aadca2e1",
+          "description": "name",
+          "type": "text",
+          "combo":["segunda","terça","quarta"],
+          "maxlength": 36,
+          "max": 150,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "aaa",
+          "value": 4555
+        },
+        {
+          "id": "7ec2b914-8a62-4296-bf59-023406111441",
+          "description": "type",
+          "type": "select",
+          "combo":["janela","consulta"],
+          "maxlength": 15,
+          "max": 30,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "noame",
+          "value": "Pontos de entradas"
+        },
+        {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "objectDto",
+          "type": "text",
+          "maxlength": 30,
+          "max": 30,
+          "min": 0,
+          "required": true,
+          "disable": true,
+          "propertDto": "objecatDto",
+          "value": "Pontos de entradas API's"
+        },
+        {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 30,
+          "min": 0,
+          "required": false,
+          "disable": true,
+          "propertDto": "chiess ld",
+          "value": "Pontos de entradas API's"
+        }
+      ]
+    },
+    {
       "name": "Campos",
       "type": "line",
       "id": "46Wd26c3d-c830-4c0b-90d7-ea7a6d0cfde9",
@@ -137,45 +208,8 @@
             ]
           }
       ]
-    },
-    {
-      "name": "Botões",
-      "type": "line",
-      "id": "46Wd26c3d-c830-4c0b-90d7-ea7a6d0cfde9",
-      "objectDto": "botoesDto",
-      "child": "",
-      "line":[
-          {
-            "campo": [
-              {
-                "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                "description": "id",
-                "type": "text",
-                "combo":[],
-                "maxlength": 36,
-                "max": 36,
-                "min": 36,
-                "required": true,
-                "disable": true,
-                "propertDto": "id",
-                "value": 4555
-              },
-              {
-                "id": "7ec2b914-8a62-4296-bf59-028888811441",
-                "description": "description",
-                "type": "text",
-                "maxlength": 15,
-                "max": 100,
-                "min": 0,
-                "required": true,
-                "disable": true,
-                "propertDto": "description",
-                "value": "Pontos de entradas"
-              }
-            ]
-          }
-        ]
-      }
+    }
+    
   ],
   "ObjectApi":{
     "quadroDto":{

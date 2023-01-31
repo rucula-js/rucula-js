@@ -6,6 +6,8 @@ import { dynamicForm } from './dynamicForm';
 import { quadro } from './quadro';
 import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
+import { throwError } from 'rxjs';
+import { disableDebugTools } from '@angular/platform-browser';
 @Injectable({
     providedIn: 'root',
 })
@@ -15,7 +17,6 @@ export class FormDynamicService {
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
-    private ModelObjectDto!:Array<KeyValue<string,any>>
     
     setForm(dynamic:dynamicForm){
 
@@ -127,9 +128,10 @@ export class FormDynamicService {
             break;
         case 'select':
           _element = this.createFieldSelect(field);
+          _element.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
+
           break;
       }
-      _element!.setAttribute("data-row","0") // indica a numero da primeira linha 
       return _element!;
     }
     private createField(field:campo):HTMLDivElement{
@@ -141,6 +143,7 @@ export class FormDynamicService {
           break;
         case 'select':
           _element = this.createFieldSelect(field);
+          _element.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
           break;
       }
       const formgroup = this.createformGroup(field)
@@ -173,6 +176,7 @@ export class FormDynamicService {
         input.style.width = "20px"  
       }
       this.setAtributesData(input,field)
+      input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
       return input
   }
   private createFieldInputTypeLine(field:campo){
@@ -186,6 +190,7 @@ export class FormDynamicService {
         input.style.width = "50px"  
       }
       this.setAtributesData(input,field)
+      input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
       return input
   }
 
@@ -201,17 +206,12 @@ export class FormDynamicService {
       return select
   }
   private setAtributesData(node:HTMLElement,field:campo){
-    node.setAttribute( `data-${this.quadroInFocu.objectDto}`,"")
-    if (this.quadroInFocu.type == "block"){
-      node.setAttribute( `data-${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}._.ruc`,"")
-    }
     node.setAttribute('data-max',String(field.max));
     node.setAttribute('data-min',String(field.min));
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
-    node.setAttribute('data-objecdto',`${this.quadroInFocu.objectDto}`);
-    node.setAttribute('data-propertdto',`${String(field.propertDto)}`);
     node.setAttribute('data-childdto',`${this.quadroInFocu.child}`);
+    
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
@@ -252,7 +252,18 @@ export class FormDynamicService {
     }
   }
   private createNewLine(ObjectdtoLine:string):HTMLElement{
+
     var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
+
+    (clone as HTMLElement).childNodes.forEach(item => {
+         let atributes = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")!;
+
+          (item.firstChild as HTMLElement).setAttribute('name',
+          `${atributes[0]}.${atributes[1]}.${atributes[2]}.${Number(atributes[3])+1}`)         
+    })
+    this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
+    
+  
     clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
     clone.addEventListener('keyup',(event)=> {
       this.keyEvents = [] 
@@ -308,100 +319,85 @@ export class FormDynamicService {
       buttonOrLink!.appendChild(icon)
     }
     return buttonOrLink!
-  }
-
-  private objectDtoMap:Array<string> = new Array<string> ();
-  private objectDtoList:Array<Object> = new Array<Object> ();
+  } 
   
+  Maps!:Map<string,Array<KeyValue<string,Object>>>
+  MapsLine!:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>> 
   GetDto(){
-    var input:HTMLInputElement|HTMLSelectElement;
-    this.ModelObjectDto = new Array<KeyValue<string,any>>()
-    let quadro = document.querySelectorAll('.form-group-item input , .form-group-item select')
+    this.Maps = new Map<string,Array<KeyValue<string,Object>>>();
+    this.MapsLine = new Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>();
 
-    quadro.forEach((item) => {
-      input = (item as HTMLInputElement|HTMLSelectElement)
-      this.ModelObjectDto.push({key:`${input.getAttribute('data-objecdto')!}:${input.getAttribute('data-propertdto')!}`,value:{value:input.value}})
-    })
-    this.ModelObjectDto.sort();    
+    let form = document.getElementById("form-dynamic")
+    let formData = new FormData(form as HTMLFormElement)
 
-    let quadroList =  document.querySelectorAll('.quadro-list .table-form')
-    
-    quadroList.forEach((table) => {
-      table.childNodes.forEach( (tr,numberLine) => {
-        tr.childNodes.forEach(item => {
-          if(item.nodeName == "TD"){
-            input = (item.firstChild as HTMLInputElement|HTMLSelectElement)
-            this.ModelObjectDto.push({key:`${input.getAttribute('data-objecdto')!}:${input.getAttribute('data-propertdto')!}`,value:{value:input.value,row:numberLine}})
-          }
-        });
-      });
-    });
-    
-    let obj:any = {};
+    for (const KeyValue of Object(formData).entries()) {
 
-    let propertTypeList:Map<string, Array<Object>> = new Map<string, Array<Object>>();
-    
-    this.ModelObjectDto.forEach((i,index) => {
-      if (this.objectDtoMap.indexOf(i.key.split(":")[0],) == -1){
-        this.objectDtoMap.push(i.key.split(":")[0])
-      }
-    })  
-    this.objectDtoMap.forEach(objectDtoMap =>{
-
-      this.ModelObjectDto.filter(c => c.key.split(":")[0]== objectDtoMap && c.value["row"] == undefined)
-        .forEach(element => {
-          const keyValue = element.key.split(":")
-          obj[keyValue[1]] = element.value["value"]  
-      });
-         
-      obj = {}
+      let splitName = KeyValue[0].split(".") 
+      let valor = KeyValue[1]
+      let typeQuadro = splitName[0] 
       
-      let lastObject = "";
+      if (typeQuadro == "block"){
+        this.PrepObjectTypeBlock(splitName,valor)
+      } 
+      if (typeQuadro == "line"){
+        this.PrepObjectTypeLine(splitName,valor)
+      } 
+    }
 
-      let ObjectList =  this.ModelObjectDto
-      .filter(c => c.key.split(":")[0]== objectDtoMap && c.value["row"] >= 1)
-      .sort(c => c.key && c.value["row"]);
-        
-      for (let index = 0; index < ObjectList.length; index++) {
-          
-        const keyValue = ObjectList[index].key.split(":")
-        
-        
-        if (index == 0 && lastObject != ""){ // entende que acabou as propriedades do ultimo ObjetoDto, assim é preciso salva-lo
-          lastObject =  keyValue[0] 
-          var value =  propertTypeList.get(objectDtoMap)
-          console.log(value)
-          value?.push(obj)
-          propertTypeList.set(objectDtoMap,value!)
-          obj = {}
-        }
-
-        if (index == 0){
-          lastObject =  keyValue[0] 
-          obj = {}
-        }
-
-        if (index == ObjectList.length -1){  
-          obj[keyValue[1]] = ObjectList[index].value["value"] 
-          var value =  propertTypeList.get(objectDtoMap)
-          console.log(value)
-          value?.push(obj)
-          propertTypeList.set(objectDtoMap,value!)
-          obj = {}
-          break // sai do loop
-        }
-        
-        if (index > 0){
-          if (ObjectList[index].value["row"] >  ObjectList[index-1].value["row"]){  
-            var value =  propertTypeList.get(objectDtoMap)
-            value?.push(obj)
-            propertTypeList.set(objectDtoMap,value!)
-            obj = {}
-          }
-        }
-        obj[keyValue[1]] = ObjectList[index].value["value"] 
-      }
-    })
-    console.log(propertTypeList)
+   
+    this.mapToObjArray(this.MapsLine)
   }
- }
+
+  PrepObjectTypeBlock(splitName:string[], valor:any){
+
+    let object:string = splitName[1]    
+    let propert:string = splitName[2]   
+
+    let objectMap = this.Maps.get(object)
+    if (objectMap == undefined){ // se não existir o objeto mapeado
+      this.Maps.set(object,new Array({key:propert,value:valor})) // um novo map para o objeto é criado
+    }
+    if (objectMap != undefined && propert == "child"){
+        this.Maps.get(object)?.push({key:valor,value:{}})
+    }
+    if (objectMap != undefined && propert != "child"){
+      this.Maps.get(object)?.push({key:propert,value:valor})
+    }
+  }
+
+  PrepObjectTypeLine(splitName:string[], valor:any){
+
+    let object:string = splitName[1]    
+    let propert:string = splitName[2]   
+    let row:number = Number(splitName[3])   
+
+   
+    let objectMapDto = this.MapsLine.get(object)
+    let objectMapRow = this.MapsLine.get(object)?.find(c => c.get(row))
+    
+    if (objectMapDto == undefined && objectMapRow == undefined){
+      this.MapsLine.set(object,new Array(new Map().set(row,new Array({key:propert,value:valor}))))
+    }
+    if (objectMapDto != undefined && objectMapRow == undefined){
+      this.MapsLine.get(object)?.push(new Map().set(row,new Array({key:propert,value:valor})))
+    }
+    if (objectMapDto != undefined && objectMapRow != undefined && propert == "child"){
+      objectMapDto?.find(c => c.get(row)?.push({key:valor,value:{}}))
+    }
+    if (objectMapDto != undefined && objectMapRow != undefined && propert != "child"){
+      objectMapDto?.find(c => c.get(row)?.push({key:propert,value:valor}))
+    }
+  }
+  mapToObjArray(mapArray:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>) {
+    let objectDto:any = {};
+    let objectRow:any = {};
+
+    mapArray.forEach(function(value, key){
+      
+    });
+
+    return null;
+}
+
+}
+ 

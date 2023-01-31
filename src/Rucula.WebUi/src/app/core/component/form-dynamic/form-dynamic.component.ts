@@ -4,9 +4,7 @@ import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './quadro.json'
 
 @Component({
-  selector: 'form-dynamic',
-  templateUrl: './form-dynamic.component.html',
-  styleUrls: ['./form-dynamic.component.css']
+  templateUrl: './form-dynamic.component.html'
 })
 
 
