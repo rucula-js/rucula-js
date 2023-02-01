@@ -323,9 +323,13 @@ export class FormDynamicService {
   
   Maps!:Map<string,Array<KeyValue<string,Object>>>
   MapsLine!:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>> 
+  MapsChields!:Array<KeyValue<string,string>>
+  objHeader : any = {};
+
   GetDto(){
     this.Maps = new Map<string,Array<KeyValue<string,Object>>>();
     this.MapsLine = new Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>();
+    this.MapsChields = new Array<KeyValue<string,string>>();
 
     let form = document.getElementById("form-dynamic")
     let formData = new FormData(form as HTMLFormElement)
@@ -344,8 +348,11 @@ export class FormDynamicService {
       } 
     }
 
-   
-    this.mapToObjArray(this.MapsLine)
+   this.mapToObjBlock(this.Maps)
+   this.mapToObjArray(this.MapsLine)
+
+   console.log(this.MapsChields)
+    
   }
 
   PrepObjectTypeBlock(splitName:string[], valor:any){
@@ -357,10 +364,14 @@ export class FormDynamicService {
     if (objectMap == undefined){ // se não existir o objeto mapeado
       this.Maps.set(object,new Array({key:propert,value:valor})) // um novo map para o objeto é criado
     }
-    if (objectMap != undefined && propert == "child"){
-        this.Maps.get(object)?.push({key:valor,value:{}})
+    if (objectMap != undefined && propert == "chield"){
+      valor.split(",").forEach((chield:string) => {
+        this.Maps.get(object)?.push({key:chield,value:{}})
+        this.MapsChields.push({key:object,value:chield})
+      });
     }
-    if (objectMap != undefined && propert != "child"){
+    if (objectMap != undefined && propert != "chield"){
+
       this.Maps.get(object)?.push({key:propert,value:valor})
     }
   }
@@ -371,7 +382,6 @@ export class FormDynamicService {
     let propert:string = splitName[2]   
     let row:number = Number(splitName[3])   
 
-   
     let objectMapDto = this.MapsLine.get(object)
     let objectMapRow = this.MapsLine.get(object)?.find(c => c.get(row))
     
@@ -381,23 +391,53 @@ export class FormDynamicService {
     if (objectMapDto != undefined && objectMapRow == undefined){
       this.MapsLine.get(object)?.push(new Map().set(row,new Array({key:propert,value:valor})))
     }
-    if (objectMapDto != undefined && objectMapRow != undefined && propert == "child"){
-      objectMapDto?.find(c => c.get(row)?.push({key:valor,value:{}}))
+    if (objectMapDto != undefined && objectMapRow != undefined && propert == "chield"){
+        valor.split(",").forEach((chield:string) => {
+          objectMapDto?.find(c => c.get(row)?.push({key:chield,value:{}}))
+          this.MapsChields.push({key:object,value:chield})
+      });
     }
-    if (objectMapDto != undefined && objectMapRow != undefined && propert != "child"){
+    if (objectMapDto != undefined && objectMapRow != undefined && propert != "chield"){
       objectMapDto?.find(c => c.get(row)?.push({key:propert,value:valor}))
     }
   }
-  mapToObjArray(mapArray:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>) {
-    let objectDto:any = {};
-    let objectRow:any = {};
+  mapToObjBlock(mapBlock:Map<string,Array<KeyValue<string,Object>>>) {
 
-    mapArray.forEach(function(value, key){
-      
+    let obj : any = {};
+
+    mapBlock.forEach((objectValue, objectkey) => {
+      objectValue.forEach(function(propert){
+        obj[propert.key] = propert.value
+      });
+      this.objHeader[objectkey] = obj
+      obj = {}
     });
+    return this.objHeader;
+  }
 
-    return null;
-}
+  mapToObjArray(mapArray:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>) {
+
+    let objLine :Object[] = [];
+    let obj : any = {};
+
+    mapArray.forEach((obejctValue, obejctkey) => {
+      
+      obejctValue.forEach(function(rows, indexRow){
+        
+        rows.forEach(function(row, value){
+          
+          row.forEach(function(propert, value){
+            obj[propert.key] = propert.value
+          });  
+          objLine.push(obj)
+          obj = {}
+        });  
+      });
+      this.objHeader[obejctkey] = objLine
+      objLine = []
+
+    });
+  }
 
 }
  
