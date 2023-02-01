@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { dynamicForm } from './dynamicForm';
+import { dynamicForm } from './entities/dynamicForm';
 import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './quadro.json'
 

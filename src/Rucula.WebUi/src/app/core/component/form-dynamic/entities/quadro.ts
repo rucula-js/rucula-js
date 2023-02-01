@@ -1,5 +1,5 @@
 import { campo } from "./campo";
-import { line } from "./line";
+import { line } from "../line";
 export interface quadro{
     name: string,
     type: string,

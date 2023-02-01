@@ -1,9 +1,9 @@
 import { KeyValue } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { button } from './button';
-import { campo } from './campo';
-import { dynamicForm } from './dynamicForm';
-import { quadro } from './quadro';
+import { button } from './entities/button';
+import { campo } from './entities/campo';
+import { dynamicForm } from './entities/dynamicForm';
+import { quadro } from './entities/quadro';
 import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
 import { throwError } from 'rxjs';
