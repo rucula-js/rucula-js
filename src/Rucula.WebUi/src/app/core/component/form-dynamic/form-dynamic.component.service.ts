@@ -348,10 +348,10 @@ export class FormDynamicService {
       } 
     }
 
-   this.mapToObjBlock(this.Maps)
-   this.mapToObjArray(this.MapsLine)
-
-   console.log(this.MapsChields)
+    this.mapToObjBlock(this.Maps)
+    this.mapToObjArray(this.MapsLine)
+    this.SetChields()  
+    console.log(this.objHeader)
     
   }
 
@@ -437,6 +437,15 @@ export class FormDynamicService {
       objLine = []
 
     });
+  }
+  
+  SetChields(){
+    this.MapsChields.forEach(item => {
+      if(item.value != ""){
+        this.objHeader[item.key][item.value] = this.objHeader[item.value]
+        delete this.objHeader[item.value]
+      }
+    })
   }
 
 }
