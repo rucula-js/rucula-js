@@ -25,7 +25,6 @@ export class ObjectsDOMBaseService {
     span.style.color = "#871515";
     return span
   }
-
   DOMcreateDivBlockElement(quadro:quadro):HTMLDivElement{
     const div = document.createElement('div');
     div.classList.add("quadro-block")
@@ -36,6 +35,4 @@ export class ObjectsDOMBaseService {
     div.appendChild(h3)
     return div
   }
-
-    
  }

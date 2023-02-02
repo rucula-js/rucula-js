@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { dynamicForm } from './entities/dynamicForm';
+import { factoryObjectService } from './factoryObjectService';
 import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './quadro.json'
 
@@ -10,7 +11,7 @@ import quadro from './quadro.json'
 
 export class FormDynamicComponent implements OnInit, AfterContentInit	 {  
 
-  constructor(private dynamicForm:FormDynamicService){}
+  constructor(private dynamicForm:FormDynamicService, private factoryObject:factoryObjectService){}
 
   ngAfterContentInit(): void {
     this.dynamicForm.setForm(quadro as dynamicForm) 
@@ -20,6 +21,7 @@ export class FormDynamicComponent implements OnInit, AfterContentInit	 {
     }
 
     GetDto(){
-      this.dynamicForm.GetDto()
+      this.factoryObject.createObjet()
+       console.log(this.factoryObject.objJSON);
     }
 }
