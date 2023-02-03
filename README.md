@@ -55,6 +55,11 @@ ATENCAO(){
 - [ ] Menu
 
 
+- [ ] Formulários Dinâmicos
+- [ ] NavBar
+
+
+
 Tecnologias
 - Angular
 - .NET 6
