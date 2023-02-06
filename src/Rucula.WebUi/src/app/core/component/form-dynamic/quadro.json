@@ -137,21 +137,24 @@
             ]
           }
       ]
-    }
-    
+    } 
   ],
-  "ObjectApi":{
-    "quadroDto":{
-      "unidade":"",
-      "codigo":"",
-      "nome":"",
-      "objectDto":"",
-      "campo":[
-        {
-          "id":"",
-          "description":""
-        }
-      ]
+  "columns":
+  [ 
+    {
+      "name":"code",
+      "hidem":"N",
+      "align":"L"
+    },
+    {
+      "name":"nome",
+      "hidem":"N",
+      "align":"R"
+    },
+    {
+      "name":"descricao",
+      "hidem":"N",
+      "align":"C"
     }
-  }
+  ]
 }

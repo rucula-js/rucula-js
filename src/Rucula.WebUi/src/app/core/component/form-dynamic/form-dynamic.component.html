@@ -5,14 +5,18 @@
     <div class="block-fluid ">
         <div class="window-header mb-10px">
             <div class="item-inline-block">
-                <h2>{{Janela}}</h2>
+                <h2 id="window-title"></h2>
             </div>
             <div class="item-inline-block">
-                <button class="btn-new-dynamic">Criar nova {{Janela}} <i class="bi bi-plus-lg"></i></button>
+                <button id="create-new" class="btn-new-dynamic">Novo Registro<i class="bi bi-plus-lg"></i></button>
             </div>
         </div>
         <div class="window-search">
             <input type="text" placeholder="Pesquisar ..."><button><i class="bi bi-search"></i></button>
+        </div>
+        <div>
+            <table id="list-data">
+            </table>
         </div>
     </div>
 </div>

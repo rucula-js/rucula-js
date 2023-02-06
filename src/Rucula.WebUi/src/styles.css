@@ -128,7 +128,7 @@ main img {
 }
 
 .table-form th{
-    background-color: #799de0;
+    background-color: var(--color-blue);
 }
 .table-form td input{
     border: none;

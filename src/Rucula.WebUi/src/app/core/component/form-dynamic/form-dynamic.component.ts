@@ -2,7 +2,9 @@ import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 import { dynamicForm } from './entities/dynamicForm';
 import { factoryObjectService } from './factoryObjectService';
 import { FormDynamicService } from './form-dynamic.component.service';
+
 import quadro from './quadro.json'
+
 import swall from 'sweetalert';
 
 @Component({
@@ -11,7 +13,7 @@ import swall from 'sweetalert';
 })
 
 
-export class FormDynamicComponent implements OnInit, AfterContentInit	 {  
+export class FormDynamicComponent implements AfterContentInit	 {  
 
   constructor(private dynamicForm:FormDynamicService, private factoryObject:factoryObjectService){}
 
@@ -19,15 +21,10 @@ export class FormDynamicComponent implements OnInit, AfterContentInit	 {
     this.dynamicForm.setForm(quadro as dynamicForm) 
 
   }
-  @Input() Janela = "Janela"
+  GetDto(){
+    swall("Hello world!")!;
 
-    ngOnInit(): void {
-    }
-
-    GetDto(){
-      swall("Hello world!")!;
-
-      this.factoryObject.createObjet()
-       console.log(this.factoryObject.objJSON);
-    }
+    this.factoryObject.createObjet()
+      console.log(this.factoryObject.objJSON);
+  }
 }

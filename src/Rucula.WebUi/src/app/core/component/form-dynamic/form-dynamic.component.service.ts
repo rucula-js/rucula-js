@@ -1,4 +1,3 @@
-import { KeyValue } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { button } from './entities/button';
 import { campo } from './entities/campo';
@@ -6,14 +5,17 @@ import { dynamicForm } from './entities/dynamicForm';
 import { quadro } from './entities/quadro';
 import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
-import { throwError } from 'rxjs';
-import { disableDebugTools } from '@angular/platform-browser';
+import { TableBaseService } from './table-Dom-base.component.service';
+import janelaData from './janelasData.json'
+
+
 @Injectable({
     providedIn: 'root',
 })
 export class FormDynamicService {
 
-   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
+   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService,
+    private tableBase?:TableBaseService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
@@ -21,11 +23,17 @@ export class FormDynamicService {
     setForm(dynamic:dynamicForm){
 
       this.dynamicForm = dynamic;
+      this.SetWindowTitle();
       this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
       this.form.appendChild(this.ObjectsDOMBaseService!.DOMNameWindow(this.dynamicForm.tela))
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
+      this.tableBase?.CreateTable(this.dynamicForm.columns,janelaData)
+    }
+    private SetWindowTitle(){
+      const windowTitle = document.getElementById("window-title")
+      windowTitle!.textContent = this.dynamicForm.tela
     }
     private prepareQuadro(){
       /*
