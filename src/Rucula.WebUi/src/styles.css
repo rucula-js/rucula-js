@@ -8,7 +8,13 @@
     --color-write:#fff;
     --color-green:#00bb77;
     --color-black:#000000;
+    --color-red:#c60000;
+    --color-poll-blue:#00abee5e;
 
+
+
+
+    
     --color-green-rucula:#388729;
     --border-color-cinza:#c7c7c7;;
     --color-branco:#fff;
@@ -26,12 +32,26 @@ body{
     font-family: 'Roboto', sans-serif;
     font-family: 'Roboto Mono', monospace;
 }
-main {
-    max-height: 100vh;
-    overflow-y: scroll;
+
+#list-data table{
+    border: 1px solid rgb(231, 231, 231);
 }
-main img {
-    max-width: 100%;
+
+#list-data th{
+    background-color: var(--color-blue);
+}
+#list-data td,th{
+    padding: 5px;
+}
+#list-data  td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}   
+tr:nth-child(odd) {background-color: var(--color-poll-blue);}
+
+tr:hover{
+    opacity: 100%;
 }
 
 .toc ul li{
@@ -122,7 +142,6 @@ main img {
     border-collapse: collapse;
 
 }
-
 .table-form th,.table-form td{
     border: 1px solid #ddd;
 }
@@ -179,6 +198,10 @@ main img {
     padding-top: 10px;
 }
 
+
+.mt-20px{
+    margin-top: 20px;
+}
 
 .mb-50px{
     margin-bottom: 50px;

@@ -142,19 +142,19 @@
   "columns":
   [ 
     {
-      "name":"code",
+      "name":"codigo",
       "hidem":"N",
-      "align":"L"
+      "align":"left"
     },
     {
       "name":"nome",
       "hidem":"N",
-      "align":"R"
+      "align":"left"
     },
     {
-      "name":"descricao",
+      "name":"descrição",
       "hidem":"N",
-      "align":"C"
+      "align":"left"
     }
   ]
 }
