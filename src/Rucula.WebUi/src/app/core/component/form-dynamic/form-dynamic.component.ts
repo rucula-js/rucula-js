@@ -25,7 +25,23 @@ export class FormDynamicComponent implements AfterContentInit	 {
     document.getElementById("create-new")?.addEventListener('click',() => this.OpenFormDynamic())
   }
   OpenFormDynamic(){
-    document.getElementById("box-window")!.style.display = "flex"
-    this.dynamicForm.setForm(quadro as dynamicForm) 
+    const buttonClose = document.getElementById("close-dinamic-form");
+    (buttonClose as HTMLButtonElement).style.display = "block";
+    (buttonClose as HTMLButtonElement).addEventListener('click',() => this.CloseFormDynamic())
+    
+    const formDynamic = document.getElementById("form-dynamic")
+
+    if (formDynamic?.childNodes.length == 0){
+      document.getElementById("box-window")!.style.display = "flex"
+      this.dynamicForm.setForm(quadro as dynamicForm) 
+    }
+    else{
+      document.getElementById("box-window")!.style.display = "flex"
+    }
+  }
+
+  CloseFormDynamic(){
+    document.getElementById("close-dinamic-form")!.style.display = "none"
+    document.getElementById("box-window")!.style.display = "none"
   }
 }

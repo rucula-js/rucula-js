@@ -2,14 +2,17 @@
     <span class="loader"></span>
 </div>
 <div class="container-window">
-    <div id="box-window">
+    <button style="display: none;" id="close-dinamic-form"><i class="bi bi-arrow-left"></i></button>
+    <!-- formularios dinamicos -->
+    <div id="box-window" style="display: none;" class="mt-20px">
         <form id="form-dynamic" autocomplete="off">
-            <h5 id="box-message"></h5>
         </form>
         <div class="action-defaut" id="box-actions">
         </div>
     </div>
-    <div class="block-fluid ">
+    <h5 id="box-message"></h5>
+    <!-- tela Inicial da janela -->
+    <div class="block-fluid">
         <div class="window-header mb-10px">
             <div class="item-inline-block">
                 <h2 id="window-title"></h2>

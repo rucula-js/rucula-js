@@ -10,6 +10,7 @@
     --color-black:#000000;
     --color-red:#c60000;
     --color-poll-blue:#00abee5e;
+    --color-gray:#e3e3e3;
 
 
 
@@ -32,11 +33,27 @@ body{
     font-family: 'Roboto', sans-serif;
     font-family: 'Roboto Mono', monospace;
 }
+/*Base - Inicio*/
+.mt-20px{
+    margin-top: 20px;
+}
+.mb-50px{
+    margin-bottom: 50px;
+}
+/*Base - Fim*/
 
+
+/*Tabela de Registro do Formulario Dinamico - Inicio*/
 #list-data table{
-    border: 1px solid rgb(231, 231, 231);
+    border: 1px solid rgb(231, 231, 231);    
+}
+#list-data tr{
+    opacity: 90%;
 }
 
+#list-data tr:hover{
+    opacity: 100%;
+}
 #list-data th{
     background-color: var(--color-blue);
 }
@@ -56,26 +73,22 @@ body{
     font-size: 1.1rem;
     cursor: pointer;
 }
-.bi-trash3{
+#list-data .bi-trash3{
     color: var(--color-red);
 }
-tr:nth-child(odd) {background-color: var(--color-poll-blue);}
+#list-data tr:nth-child(odd) {background-color: var(--color-poll-blue);}
+/*Tabela de Registro do Formulario Dinamico - Fim*/
 
-tr:hover{
-    opacity: 100%;
-}
+/*Formulario Dinamico - Inicio*/
 
-.toc ul li{
-    margin-top: 2px;
-    padding: 8px;
-}
-.toc ul li:hover{
-    background-color: rgb(149, 211, 177);
-
-}
-.toc ul li a {
-    text-decoration: none;
-    color: #383838;
+#box-window{
+    z-index: 1;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-write);
+    width: calc(100vw - 160px);  /*160px é o padding do container pai*/
+    height: 100%;
 }
 
 .form-group{
@@ -105,7 +118,24 @@ tr:hover{
 .form-group-input:focus{
     border: 2px solid var(--color-green-rucula);
 }
+/*Formulario Dinamico - Fim*/
 
+
+.toc ul li{
+    margin-top: 2px;
+    padding: 8px;
+}
+.toc ul li:hover{
+    background-color: rgb(149, 211, 177);
+
+}
+.toc ul li a {
+    text-decoration: none;
+    color: #383838;
+}
+
+
+/* Navegação Documentador Rucula - Inicio */
 .nav-left{
     min-width: 300px;
     max-width: 350px;
@@ -123,6 +153,8 @@ tr:hover{
     text-decoration: none;
     color: rgb(175, 175, 175);
 }
+/* Navegação Documentador Rucula - Fim */
+
 
 .quadro-list{
     margin-top: 10px;
@@ -131,7 +163,6 @@ tr:hover{
 .quadro-block,.quadro-list{
     box-shadow: 0px 0px 5px 0px #c4c4c4;
     padding: 5px;
-    margin: 10px;
     max-width: calc(100vw - 80px); /*80px é para o box-buttons*/
 }
 .quadro-block h3,.quadro-list h3{
@@ -148,6 +179,7 @@ tr:hover{
 }
 .quadro-block{
     margin-top: 10px;
+    align-items:center;
 }
 .table-form{
     border-collapse: collapse;
@@ -166,10 +198,15 @@ tr:hover{
 .form-dynamic{
     max-width: 100%;
 }
-
+#close-dinamic-form{
+    background-color: var(--color-gray);
+    box-shadow: 0px 0px 5px 2px #e3e3e3d4;
+}
 .btn-crud {
     display: block;
     margin-bottom: 5px;
+}
+.btn-crud,#close-dinamic-form {
     width: 45px;
     height: 45px;
     max-width: 100px;
@@ -177,7 +214,7 @@ tr:hover{
     font-size: 1.4rem;
     cursor: pointer;
     border-radius: 5px;
-  }
+}
 
 .action-defaut{
 display: inline-block;
@@ -204,13 +241,6 @@ display: inline-block;
 }
 
 
-.mt-20px{
-    margin-top: 20px;
-}
-
-.mb-50px{
-    margin-bottom: 50px;
-}
 
 .box-show{
     position: fixed;
@@ -256,13 +286,4 @@ display: inline-block;
   } 
      
 
-
-
-#box-window{
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--color-write);
-    width: calc(100vw - 160px);  /*160px é o padding do container pai*/
-}
   
