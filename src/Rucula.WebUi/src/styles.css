@@ -48,6 +48,17 @@ body{
     text-overflow: ellipsis;
     white-space: nowrap;
 }   
+#list-data button{
+    border: none;
+    background-color: inherit;
+}
+#list-data .bi {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.bi-trash3{
+    color: var(--color-red);
+}
 tr:nth-child(odd) {background-color: var(--color-poll-blue);}
 
 tr:hover{
@@ -168,16 +179,10 @@ tr:hover{
     border-radius: 5px;
   }
 
-  .action-defaut{
-    display: inline-block;
-  }
-  
-  #box-window{
-    display: flex;
-    max-width:  100vw;
-    justify-content: space-around;
+.action-defaut{
+display: inline-block;
 }
-
+  
 
 #form-dynamic input{
     padding: 5px;
@@ -220,40 +225,27 @@ tr:hover{
 .loader {
     width: 48px;
     height: 48px;
-    border-radius: 50%;
     display: inline-block;
     position: relative;
-    border: 3px solid;
-    border-color: var(--border-color-green) var(--border-color-green) transparent transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
   }
   .loader::after,
   .loader::before {
     content: '';  
     box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--color-blue);
     position: absolute;
     left: 0;
-    right: 0;
     top: 0;
-    bottom: 0;
-    margin: auto;
-    border: 3px solid;
-    border-color: transparent transparent var(--color-blue) var(--color-blue);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    box-sizing: border-box;
-    animation: rotationBack 0.5s linear infinite;
-    transform-origin: center center;
+    animation: rotation 2s ease-in-out infinite alternate;
   }
-  .loader::before {
-    width: 32px;
-    height: 32px;
-    border-color: var(--color-black) var(--color-black)  transparent transparent;
-    animation: rotation 1.5s linear infinite;
+  .loader::after {
+    border-color: var(--color-red);
+    animation-direction: alternate-reverse;
   }
-      
+  
+  
   @keyframes rotation {
     0% {
       transform: rotate(0deg);
@@ -262,12 +254,15 @@ tr:hover{
       transform: rotate(360deg);
     }
   } 
-  @keyframes rotationBack {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(-360deg);
-    }
-  }
      
+
+
+
+#box-window{
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-write);
+    width: calc(100vw - 160px);  /*160px é o padding do container pai*/
+}
+  

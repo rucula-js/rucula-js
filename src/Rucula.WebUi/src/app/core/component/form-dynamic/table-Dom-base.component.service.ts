@@ -28,6 +28,9 @@ export class TableBaseService {
             (NewHeader as HTMLHeadElement).style.textAlign = alignColumns[index]
             NewRowHeader.appendChild(NewHeader)
         })
+        let NewHeaderActions = header.cloneNode(true); 
+        NewHeaderActions.textContent = "Ações"
+        NewRowHeader.appendChild(NewHeaderActions)
         table?.appendChild(NewRowHeader)
 
         td?.forEach((item:any) => {
@@ -38,8 +41,34 @@ export class TableBaseService {
                 (NewDetail as HTMLDetailsElement).style.textAlign = alignColumns[index]
                 NewRowDetail.appendChild(NewDetail)
             });
+            NewRowDetail.appendChild(this.createButtonActions())
             table?.appendChild(NewRowDetail)
         })
+    }
+
+    createButtonActions():HTMLTableCellElement{
+        
+        let td =  document.createElement('td');
+        
+        let buttonDelete =  document.createElement('button');
+        let iconDelete =  document.createElement('i');
+        iconDelete.classList.add("bi")
+        iconDelete.classList.add("bi-trash3")
+        buttonDelete.appendChild(iconDelete)
+
+        let buttonEdit =  document.createElement('button');
+        let iconEdit =  document.createElement('i');
+        iconEdit.classList.add("bi")
+        iconEdit.classList.add("bi-wrench")
+
+        buttonEdit.appendChild(iconEdit)
+        td.appendChild(buttonEdit)
+        td.appendChild(buttonDelete)
+
+
+        return td;
+
+            
     }
 }
 

@@ -5,17 +5,13 @@ import { dynamicForm } from './entities/dynamicForm';
 import { quadro } from './entities/quadro';
 import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
-import { TableBaseService } from './table-Dom-base.component.service';
-import janelaData from './janelasData.json'
-
 
 @Injectable({
     providedIn: 'root',
 })
 export class FormDynamicService {
 
-   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService,
-    private tableBase?:TableBaseService){}
+   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
@@ -29,7 +25,6 @@ export class FormDynamicService {
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
-      this.tableBase?.CreateTable(this.dynamicForm.columns,janelaData)
     }
     private SetWindowTitle(){
       const windowTitle = document.getElementById("window-title")

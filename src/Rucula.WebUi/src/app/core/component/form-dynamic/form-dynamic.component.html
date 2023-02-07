@@ -1,14 +1,21 @@
-<div class="box-show" style="display: none;">
+<div class="box-show" style="display: none ;">
     <span class="loader"></span>
 </div>
 <div class="container-window">
+    <div id="box-window">
+        <form id="form-dynamic" autocomplete="off">
+            <h5 id="box-message"></h5>
+        </form>
+        <div class="action-defaut" id="box-actions">
+        </div>
+    </div>
     <div class="block-fluid ">
         <div class="window-header mb-10px">
             <div class="item-inline-block">
                 <h2 id="window-title"></h2>
             </div>
             <div class="item-inline-block">
-                <button id="create-new" class="btn-new-dynamic">Novo Registro<i class="bi bi-plus-lg"></i></button>
+                <button id="create-new" class="btn-new-dynamic" >Novo Registro<i class="bi bi-plus-lg"></i></button>
             </div>
         </div>
         <div class="window-search">
@@ -18,15 +25,5 @@
             <table id="list-data">
             </table>
         </div>
-        <button> <i class="bi bi-trash3"></i> </button >
-        <button> <i class="bi bi-wrench"></i> </button >
-    </div>
-</div>
-
-<div id="box-window" style="display: none;">
-    <form id="form-dynamic" autocomplete="off">
-        <h5 id="box-message"></h5>
-    </form>
-    <div class="action-defaut" id="box-actions">
     </div>
 </div>
