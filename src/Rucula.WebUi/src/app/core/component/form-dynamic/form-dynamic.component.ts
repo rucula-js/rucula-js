@@ -12,15 +12,15 @@ import quadro from './quadro.json'
   styleUrls:['./form-dynamic.component.css']
 })
 
-
 export class FormDynamicComponent implements AfterContentInit	 {  
 
   constructor(private dynamicForm:FormDynamicService, private factoryObject:factoryObjectService, private tableBase?:TableBaseService){}
 
+  
   ngAfterContentInit(): void {
     this.SetDomEvents()
     this.tableBase?.CreateTable((quadro as dynamicForm).columns,janelaData)
-  }
+  } 
   SetDomEvents(){
     document.getElementById("create-new")?.addEventListener('click',() => this.OpenFormDynamic())
   }

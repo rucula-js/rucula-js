@@ -1,9 +1,7 @@
 
 .container-window{
-  width: 100vw;
-  margin: 0;
-  padding-left: 80px;
-  padding-right: 80px;
+  width: 90vw;
+  margin: auto;
   padding-top: 0;
   padding-bottom: 0;
 }

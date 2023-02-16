@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { actions } from './actions/actions';
 import { button } from './entities/button';
 import { campo } from './entities/campo';
 import { dynamicForm } from './entities/dynamicForm';
@@ -11,7 +12,7 @@ import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
 })
 export class FormDynamicService {
 
-   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
+   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService, private ac?:actions){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
@@ -25,6 +26,12 @@ export class FormDynamicService {
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
+      this.SetEventTeste()
+    }
+    public SetEventTeste(){
+      document.getElementById("box-actions")?.addEventListener('click',(e)=> {
+        // this.ac!.save();
+      })
     }
     private SetWindowTitle(){
       const windowTitle = document.getElementById("window-title")
@@ -282,11 +289,10 @@ export class FormDynamicService {
 
   private prepareButtonsCRUD(){
     const boxActions = document.getElementById("box-actions")
-    boxActions?.appendChild(this.createButtonOrLink({action:"new",link:"",icon:"bi bi-plus-lg",text:"",type:"button",}))
     boxActions?.appendChild(this.createButtonOrLink({action:"save",link:"",icon:"bi bi-save",text:"",type:"button",color:"#81e8fa"}))
     boxActions?.appendChild(this.createButtonOrLink({action:"alter",link:"",icon:"bi bi-wrench",text:"",type:"button",color:"#81e8fa"}))
     boxActions?.appendChild(this.createButtonOrLink({action:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"#81e8fa"}))
-    boxActions?.appendChild(this.createButtonOrLink({action:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button"}))
+    boxActions?.appendChild(this.createButtonOrLink({action:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"#81e8fa"}))
     boxActions?.appendChild(this.createButtonOrLink({action:"",link:"https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-align",icon:"",text:"Doc",type:"link",color:""}))
   }
 
