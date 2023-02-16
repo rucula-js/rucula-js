@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { eventFieldService } from './eventField';
-import { quadro } from './entities/quadro';
+import { quadro } from './entities/form/quadro';
 
 
 @Injectable({

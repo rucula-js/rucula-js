@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { actions } from './actions/actions';
-import { button } from './entities/button';
-import { campo } from './entities/campo';
-import { dynamicForm } from './entities/dynamicForm';
-import { quadro } from './entities/quadro';
+import { button } from './entities/form/button';
+import { campo } from './entities/form/campo';
+import { dynamicForm } from './entities/form/dynamicForm';
+import { quadro } from './entities/form/quadro';
 import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
 
@@ -289,11 +289,11 @@ export class FormDynamicService {
 
   private prepareButtonsCRUD(){
     const boxActions = document.getElementById("box-actions")
-    boxActions?.appendChild(this.createButtonOrLink({action:"save",link:"",icon:"bi bi-save",text:"",type:"button",color:"#81e8fa"}))
-    boxActions?.appendChild(this.createButtonOrLink({action:"alter",link:"",icon:"bi bi-wrench",text:"",type:"button",color:"#81e8fa"}))
-    boxActions?.appendChild(this.createButtonOrLink({action:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"#81e8fa"}))
-    boxActions?.appendChild(this.createButtonOrLink({action:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"#81e8fa"}))
-    boxActions?.appendChild(this.createButtonOrLink({action:"",link:"https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-align",icon:"",text:"Doc",type:"link",color:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"5156",method:"post",link:"",icon:"bi bi-save",text:"",type:"button",color:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"4841",method:"put",link:"",icon:"bi bi-wrench",text:"",type:"button",color:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"5144",method:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"rgb(246 95 95)"}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"5454",method:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"7877",method:"",link:"https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-align",icon:"",text:"Doc",type:"link",color:""}))
   }
 
   private createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
@@ -314,8 +314,7 @@ export class FormDynamicService {
       buttonOrLink!.classList.add("btn-link")
       buttonOrLink!.setAttribute('target',"_blank")
     }
-    buttonOrLink!.setAttribute("id",`${button.type}-${button.action}`);
-
+    buttonOrLink!.setAttribute("data-id",`${button.type}-${button.method}-${button.id}`);
     if (button.color){
       buttonOrLink!.style.backgroundColor = button.color
     }

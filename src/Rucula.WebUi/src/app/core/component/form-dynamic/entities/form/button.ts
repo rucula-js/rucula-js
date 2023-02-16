@@ -1,8 +1,9 @@
 export interface button{
-    action:string
+    id:string
+    method:string
     link?:string
     icon?:string
-    text?:string,
-    type:string,
+    text?:string
+    type:string
     color?:string
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { table } from './entities/table';
+import { table } from './entities/form/table';
 
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
-import { dynamicForm } from './entities/dynamicForm';
+import { dynamicForm } from './entities/form/dynamicForm';
 import { factoryObjectService } from './factoryObjectService';
 import { FormDynamicService } from './form-dynamic.component.service';
 import { TableBaseService } from './table-Dom-base.component.service';
