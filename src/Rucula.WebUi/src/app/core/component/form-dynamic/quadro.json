@@ -2,6 +2,35 @@
 {
   "tela":"Cadastro de Janelas",
   "type":"CrUD",
+  "button":[
+    {
+    "id":"8418",
+    "method":"post",
+    "link":"",
+    "icon":"",
+    "text":"",
+    "type":"button",
+    "color":""
+    },
+    {
+      "id":"8248",
+      "method":"put",
+      "link":"",
+      "icon":"",
+      "text":"",
+      "type":"button",
+      "color":""
+    },
+    {
+      "id":"er43",
+      "method":"delete",
+      "link":"",
+      "icon":"",
+      "text":"",
+      "type":"button",
+      "color":""
+    }
+  ],
   "quadro":[
     {
       "name": "Quadro",

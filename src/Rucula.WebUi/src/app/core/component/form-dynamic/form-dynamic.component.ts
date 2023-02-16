@@ -6,7 +6,7 @@ import { TableBaseService } from './table-Dom-base.component.service';
 import swall from 'sweetalert';
 import janelaData from './janelasData.json'
 import quadro from './quadro.json'
-
+import {window} from './entities/window'
 @Component({
   templateUrl: './form-dynamic.component.html',
   styleUrls:['./form-dynamic.component.css']
@@ -16,11 +16,21 @@ export class FormDynamicComponent implements AfterContentInit	 {
 
   constructor(private dynamicForm:FormDynamicService, private factoryObject:factoryObjectService, private tableBase?:TableBaseService){}
 
+  window!:window;
   
   ngAfterContentInit(): void {
     this.SetDomEvents()
     this.tableBase?.CreateTable((quadro as dynamicForm).columns,janelaData)
+    this.MapButtons();
   } 
+  public MapButtons(){
+    this.window = new window();
+    this.window.button = new Map();
+    (quadro as dynamicForm).button.forEach(b => {
+        this.window.button.set(`${b.type}-${b.method}-${b.id}`,b)
+    });
+    console.log(this.window)
+  }
   SetDomEvents(){
     document.getElementById("create-new")?.addEventListener('click',() => this.OpenFormDynamic())
   }
