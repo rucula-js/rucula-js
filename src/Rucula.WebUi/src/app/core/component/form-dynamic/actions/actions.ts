@@ -15,7 +15,7 @@ export class actions{
     private commandAction!:commandAction;
     private invokerAction!:invokerAction;
     
-    save(configuration:any, object:any){
+    post(configuration:any, object:any){
         this.actionsReciverService = new actionsReciverService();
         this.commandAction = new saveCommand(this.actionsReciverService)
         this.invokerAction = new invokerAction();

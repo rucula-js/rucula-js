@@ -289,11 +289,11 @@ export class FormDynamicService {
 
   private prepareButtonsCRUD(){
     const boxActions = document.getElementById("box-actions")
-    boxActions?.appendChild(this.createButtonOrLink({id:"5156",method:"post",link:"",icon:"bi bi-save",text:"",type:"button",color:""}))
-    boxActions?.appendChild(this.createButtonOrLink({id:"4841",method:"put",link:"",icon:"bi bi-wrench",text:"",type:"button",color:""}))
-    boxActions?.appendChild(this.createButtonOrLink({id:"5144",method:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"rgb(246 95 95)"}))
-    boxActions?.appendChild(this.createButtonOrLink({id:"5454",method:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:""}))
-    boxActions?.appendChild(this.createButtonOrLink({id:"7877",method:"",link:"https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-align",icon:"",text:"Doc",type:"link",color:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"8418",method:"post",link:"",icon:"bi bi-save",text:"",type:"button",color:"",target:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"8248",method:"put",link:"",icon:"bi bi-wrench",text:"",type:"button",color:"",target:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"er43",method:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"rgb(246 95 95)",target:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"5454",method:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"",target:""}))
+    boxActions?.appendChild(this.createButtonOrLink({id:"7877",method:"",link:"https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-align",icon:"",text:"Doc",type:"link",color:"",target:""}))
   }
 
   private createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{

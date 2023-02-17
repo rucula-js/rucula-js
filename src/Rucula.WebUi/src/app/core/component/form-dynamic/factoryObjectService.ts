@@ -1,9 +1,5 @@
 import { KeyValue } from "@angular/common";
-import { Injectable } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root',
-})
 export class factoryObjectService {
 
   private Maps!:Map<string,Array<KeyValue<string,Object>>> // Guarda todos os objetos que são unicos (tipo block).
@@ -43,9 +39,11 @@ export class factoryObjectService {
         this.PrepObjectTypeLine(splitName,valor)
       } 
     }
+    
     this.mapToObjBlock(this.Maps)
     this.mapToObjArray(this.MapsLine)
-    this.SetChields()          
+    this.SetChields()     
+         
   }
   private PrepObjectTypeBlock(splitName:string[], valor:any){
 
