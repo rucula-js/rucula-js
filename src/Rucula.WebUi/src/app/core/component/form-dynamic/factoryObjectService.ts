@@ -42,8 +42,8 @@ export class factoryObjectService {
     
     this.mapToObjBlock(this.Maps)
     this.mapToObjArray(this.MapsLine)
-    this.SetChields()     
-         
+    this.SetChields() 
+    this.RemoveObjectDto()
   }
   private PrepObjectTypeBlock(splitName:string[], valor:any){
 
@@ -129,5 +129,12 @@ export class factoryObjectService {
         delete this.objJSON[item.value]
       }
     })
+  }
+
+  private RemoveObjectDto(){
+    // se a propriedade "cheild" do objectDto pai estiver vazio, é necessario remover o objetoDto que foi criado como vazio {"":{}}
+    // "child": "",
+    if (this.objJSON[""])
+    this.objJSON = this.objJSON[""]
   }
 }

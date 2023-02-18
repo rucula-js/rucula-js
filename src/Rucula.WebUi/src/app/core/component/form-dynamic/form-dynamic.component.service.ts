@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { actions } from './actions/actions';
 import { button } from './entities/form/button';
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
@@ -12,7 +11,7 @@ import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
 })
 export class FormDynamicService {
 
-   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService, private ac?:actions){}
+   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
