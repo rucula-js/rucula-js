@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { GridTableJSComponent } from 'src/app/shared/component/grid-js/grid-js.component';
 import { button } from './entities/form/button';
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { quadro } from './entities/form/quadro';
 import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
+
 
 @Injectable({
     providedIn: 'root',

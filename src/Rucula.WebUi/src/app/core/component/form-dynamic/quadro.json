@@ -70,22 +70,5 @@
       ]
     }
   ],
-  "columns":
-  [ 
-    {
-      "name":"codigo",
-      "hidem":"N",
-      "align":"left"
-    },
-    {
-      "name":"nome",
-      "hidem":"N",
-      "align":"left"
-    },
-    {
-      "name":"descrição",
-      "hidem":"N",
-      "align":"left"
-    }
-  ]
+  "columns":["codigo","linguage"]
 }

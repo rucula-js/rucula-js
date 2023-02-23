@@ -11,6 +11,7 @@ import { RuculaSintaxeComponent } from './rucula/language/rucula-language.compon
 import { RuculaConvertComponent } from './rucula/convert/rucula-convert.component';
 import { NavegationVerticalComponent } from './shared/navegation-vertical/navegation-vertical.component';
 import { ButtonsCrudComponent } from './core/component/btn-crud/btn-crud.component';
+import { FormDynamicComponent } from './core/component/form-dynamic/form-dynamic.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ButtonsCrudComponent } from './core/component/btn-crud/btn-crud.compone
     RuculaSintaxeComponent,
     RuculaConvertComponent,
     NavegationVerticalComponent,
-    ButtonsCrudComponent 
+    ButtonsCrudComponent,
+    FormDynamicComponent
     
   ],
   imports: [

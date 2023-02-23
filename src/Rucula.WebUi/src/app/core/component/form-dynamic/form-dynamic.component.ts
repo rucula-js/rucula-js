@@ -1,8 +1,6 @@
-import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component} from '@angular/core';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { FormDynamicService } from './form-dynamic.component.service';
-import { TableBaseService } from './table-Dom-base.component.service';
-import janelaData from './janelasData.json'
 import quadro from './quadro.json'
 import { openCloseFormDynamic } from './DOM/window/openCloseFormDynamic';
 import { actionButtons } from './DOM/actionButton';
@@ -13,14 +11,19 @@ import { actionButtons } from './DOM/actionButton';
 
 export class FormDynamicComponent implements AfterContentInit	 {  
 
-  constructor(private dynamicFormService:FormDynamicService,  private tableBase?:TableBaseService, private buttonsService?:actionButtons){}
+  constructor(private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons){}
 
   openCloseForm:openCloseFormDynamic = new openCloseFormDynamic();
   
+  windowColuns:string[] = [];
+  dynamicForm!:dynamicForm;
+
   ngAfterContentInit(): void {
-    this.tableBase?.CreateTable((quadro as dynamicForm).columns,janelaData)
-    this.dynamicFormService.setForm((quadro as dynamicForm))
+    this.dynamicForm = (quadro as dynamicForm); 
+    this.windowColuns = this.dynamicForm.columns 
+    this.dynamicFormService.setForm(this.dynamicForm)
     this.openCloseForm.SetDomEvents()
-    this.buttonsService!.mapActionButtons((quadro as dynamicForm).button);
+    this.buttonsService!.mapActionButtons(this.dynamicForm.button);
   } 
+
 }
