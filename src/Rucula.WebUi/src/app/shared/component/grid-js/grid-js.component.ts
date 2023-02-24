@@ -1,5 +1,6 @@
-import { AfterContentInit, AfterViewInit, Component, Input } from "@angular/core";
-import { Grid } from "gridjs";
+import { AfterContentInit, Component, EventEmitter, Input, Output } from "@angular/core";
+import { Grid, h, html } from "gridjs";
+import { columnsGridjs } from "src/app/core/component/form-dynamic/entities/form/columnsGridjs";
 
 @Component({
   selector:"gridjs",
@@ -7,19 +8,45 @@ import { Grid } from "gridjs";
 })
 export class GridTableJSComponent implements AfterContentInit {
     
-  @Input() columns:string[] = [];
-
-    private Grid!:Grid;
-    
+  @Input() columns:columnsGridjs[] = [];
+  @Input() data:any;
+  @Output() newItemEvent = new EventEmitter<string>();
+  private Grid!:Grid;
+  
     ngAfterContentInit(){
-        this.Grid = new Grid({
+        
+      this.Grid = new Grid({
         search: true,
-        columns: this.columns,
-        data: [
-          ['John', 'john@example.com', '(353) 01 222 3333'],
-          ['Mark', 'mark@gmail.com',   '(01) 22 888 4444']
-        ]
-    })
-        this.Grid.render(document.getElementById("grid-js")!);
+        sort: true,
+        fixedHeader: true,
+        resizable: true,
+        columns:this.columns,
+        pagination:true,
+        data: () => {
+          return new Promise(resolve => {
+            setTimeout(() =>
+              resolve(this.data), 1000);
+          })
+        },
+        language: {
+          'search': {
+            'placeholder': '🔍 Search...'
+          },
+          'pagination': {
+            'previous': '⬅️',
+            'next': '➡️',
+            'showing': '😃 Displaying',
+            'results': () => 'Records'
+          }
+        }
+      })
+      this.Grid.render(document.getElementById("grid-js")!);
+      this.Grid.on('rowClick', (a,b) => this.editItemGrid(a.currentTarget));
     }
+
+    editItemGrid(a:any) {
+      this.newItemEvent.emit(a);
+    }
+
+
 }

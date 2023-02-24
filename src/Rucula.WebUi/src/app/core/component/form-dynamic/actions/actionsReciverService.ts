@@ -15,7 +15,7 @@ export class actionsReciverService {
     options:Object = {};
 
     public getAll():Observable<any>{
-        return this.http!.get<any>(this._url,this.options).pipe(
+        return this.http!.get<any>(this._url+'/GetLanguageAll',this.options).pipe(
             catchError(this.handleError)
         )
     }

@@ -29,6 +29,6 @@
             <table id="list-data">
             </table>
         </div>
-        <gridjs [columns]="this.windowColuns"></gridjs>
+        <gridjs [columns]="this.windowColuns" [data]="this.datagrid" (newItemEvent)="edit($event)"></gridjs>
     </div>
 </div>

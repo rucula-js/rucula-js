@@ -70,5 +70,14 @@
       ]
     }
   ],
-  "columns":["codigo","linguage"]
+  "columns":[
+    {
+      "id":"id",
+      "name":"id"
+    },
+    {
+      "id":"name",
+      "name":"nome"
+    }
+  ]
 }

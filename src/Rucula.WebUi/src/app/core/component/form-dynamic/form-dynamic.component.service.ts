@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GridTableJSComponent } from 'src/app/shared/component/grid-js/grid-js.component';
 import { button } from './entities/form/button';
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
