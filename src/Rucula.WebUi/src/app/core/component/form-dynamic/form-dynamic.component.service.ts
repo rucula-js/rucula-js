@@ -187,6 +187,7 @@ export class FormDynamicService {
       }
       this.setAtributesData(input,field)
       input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
+      input.setAttribute('set',`${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
       return input
   }
   private createFieldInputTypeLine(field:campo){

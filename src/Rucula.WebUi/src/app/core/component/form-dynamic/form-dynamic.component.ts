@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit} from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './quadro.json'
@@ -28,13 +28,22 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
     this.buttonsService!.urlRoot = this.dynamicForm.urlRoot;
     this.buttonsService!.mapActionButtons(this.dynamicForm.button);
   } 
-
   GetById(parameters:string){
     this.actionsReciverService
     ?.getById(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetById+"?"+parameters)
     .subscribe((data:any) =>
-      console.log(data)
+      this.inputValueForm(data)
     );
+  }
+  inputValueForm(obj:any, objectDto:string=""){
+    Object.keys(obj).forEach(key => {
+      if (typeof obj[key] == "string" || typeof obj[key] == "number"){  
+        let atribute = "";
+        objectDto == "" ? atribute = `[set=".${key}"]` : atribute = `[set="${objectDto}.${key}"]`;
+        (document.querySelector(atribute) as HTMLInputElement).value = obj[key] 
+      }
+    });
+    (document.getElementById("create-new") as HTMLButtonElement).click();
   }
 
 }

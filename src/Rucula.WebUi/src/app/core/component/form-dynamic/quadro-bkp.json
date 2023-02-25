@@ -2,6 +2,9 @@
 {
   "tela":"Cadastro de Janelas",
   "type":"CrUD",
+  "urlRoot":"https://localhost:7170",
+  "urlRelativeGetAll":"/Language/GetLanguageAll",
+  "urlRelativeGetById":"/Language/GetLanguageById",
   "button":[
     {
     "id":"8418",
@@ -11,7 +14,8 @@
     "text":"",
     "type":"button",
     "color":"",
-    "target":""
+    "target":"",
+    "urlrelative":""
     },
     {
       "id":"8248",
@@ -21,7 +25,8 @@
       "text":"",
       "type":"button",
       "color":"",
-      "target":""
+      "target":"",
+      "urlrelative":""
     },
     {
       "id":"er43",
@@ -31,7 +36,8 @@
       "text":"",
       "type":"button",
       "color":"",
-      "target":""
+      "target":"",
+      "urlrelative":""
     }
   ],
   "quadro":[
@@ -174,19 +180,18 @@
   "columns":
   [ 
     {
-      "name":"codigo",
-      "hidem":"N",
-      "align":"left"
+      "id":"id",
+      "name":"id"
     },
     {
-      "name":"nome",
-      "hidem":"N",
-      "align":"left"
-    },
+      "id":"name",
+      "name":"nome"
+    }
+  ],
+  "columnsGridGet":[
     {
-      "name":"descrição",
-      "hidem":"N",
-      "align":"left"
+      "parameterUrl":"id",
+      "parameterGrid":"id"
     }
   ]
 }

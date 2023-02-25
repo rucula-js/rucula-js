@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { ANALYZE_FOR_ENTRY_COMPONENTS, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -26,10 +26,15 @@ export class actionsReciverService {
       )
     }   
     public delete(url:string,options?:Object):Observable<any>{
-      return this.http!.delete<any>(url,options).pipe(
+        return this.http!.delete<any>(url,options).pipe(
           catchError(this.handleError)
       )
-    }   
+    }
+    public put(url:string,body:any,options?:Object):Observable<any>{
+      return this.http!.put<any>(url,body,options).pipe(
+        catchError(this.handleError)
+    )
+  }   
     private handleError(error: HttpErrorResponse) {
         if (error.status === 0) {
           // A client-side or network error occurred. Handle it accordingly.
