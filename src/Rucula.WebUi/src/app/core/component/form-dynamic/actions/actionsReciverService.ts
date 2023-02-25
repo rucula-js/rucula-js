@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -10,22 +10,23 @@ export class actionsReciverService {
     
     constructor(private http: HttpClient) {}
 
-    public _url:string = "https://localhost:7170/Language";
-
-    options:Object = {};
-
-    public getAll():Observable<any>{
-        return this.http!.get<any>(this._url+'/GetLanguageAll',this.options).pipe(
+    public getAll(url:string,options?:Object):Observable<any>{
+        return this.http!.get<any>(url,options).pipe(
             catchError(this.handleError)
         )
     }
-    public getById():Observable<any>{
-      return this.http!.get<any>(this._url,this.options).pipe(
+    public getById(url:string,options?:Object):Observable<any>{
+      return this.http!.get<any>(url,options).pipe(
           catchError(this.handleError)
       )
     }
-    public post(args:any[]):Observable<any>{
-      return this.http!.post<any>(this._url,args,this.options).pipe(
+    public post(url:string,args:any[],options?:Object):Observable<any>{
+      return this.http!.post<any>(url,args,options).pipe(
+          catchError(this.handleError)
+      )
+    }   
+    public delete(url:string,options?:Object):Observable<any>{
+      return this.http!.delete<any>(url,options).pipe(
           catchError(this.handleError)
       )
     }   

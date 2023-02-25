@@ -6,6 +6,9 @@ import { quadro } from "./quadro";
 export interface dynamicForm{
     tela:string,
     type:string,
+    urlRoot:string
+    urlRelativeGetAll:string
+    urlRelativeGetById: string
     quadro?:Array<quadro>,
     columns:columnsGridjs[]
     button:button[]

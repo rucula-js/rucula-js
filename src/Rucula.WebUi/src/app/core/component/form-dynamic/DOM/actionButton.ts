@@ -14,7 +14,7 @@ constructor(private actionsService:actionsReciverService){}
     factoryObjectService:factoryObjectService = new factoryObjectService();
     actions:Map<string,button> = new Map();
     loader!:HTMLElement;
-
+    urlRoot:string="";
     public mapActionButtons(buttons:button[]){
         buttons.forEach(b => {
             this.actions.set(`${b.type}-${b.method}-${b.id}`,b)
@@ -36,7 +36,7 @@ constructor(private actionsService:actionsReciverService){}
         switch (config!.method){
             case "post":
                 this.factoryObjectService.createObjet()
-                this.actionsService!.post(this.factoryObjectService.objJSON)
+                this.actionsService!.post(this.urlRoot+config?.urlrelative,this.factoryObjectService.objJSON)
                 .subscribe(
                     {
                         complete:() => {

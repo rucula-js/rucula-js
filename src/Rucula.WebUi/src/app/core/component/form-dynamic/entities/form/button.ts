@@ -6,6 +6,7 @@ export interface button{
     text?:string
     type:string
     color?:string
-    target:string
+    target:string,
+    urlrelative?:string
 
 }
