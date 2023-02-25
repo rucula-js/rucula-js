@@ -33,65 +33,64 @@ constructor(private actionsService:actionsReciverService){}
         )
     }
     runEvent(key:string){        
-        this.loader = document.getElementById("loader-box")!
-        this.OpenCloseLoader(true);
-        let config = this.actions.get(key);
-        switch (config!.method){
+        this.loader = document.getElementById("loader-box")!        
+        let configButton = this.actions.get(key);
+        switch (configButton!.method){
             case "post":
-                this.factoryObjectService.createObjet()
-                this.actionsService!.post(this.urlRoot+config?.urlrelative,this.factoryObjectService.objJSON)
-                .subscribe(
-                    {
-                        complete:() => {
-                            this.OpenCloseLoader(false);
-                            swall("Registro Salvo com Sucesso");
-                        },
-                        error:(e) => {
-                            this.OpenCloseLoader(false);
-                            swall("Erro Insperado"+e);
-                        }
-                    }
-                );
+                this.post(configButton!)
                 break;
-                case "put":
-                    this.factoryObjectService.createObjet()
-                    this.actionsService!.put(this.urlRoot+config?.urlrelative,this.factoryObjectService.objJSON)
-                    .subscribe(
-                        {
-                            complete:() => {
-                                this.OpenCloseLoader(false);
-                                swall("Registro Alterado com Sucesso");
-                            },
-                            error:(e) => {
-                                this.OpenCloseLoader(false);
-                                swall("Erro Insperado"+e);
-                            }
-                        }
-                    );
-                    break;
+            case "put":
+                this.put(configButton!)
+                break;
             case "delete":
-                this.factoryObjectService.createObjet()    
-                const options = {
-                    headers: new HttpHeaders({
-                      'Content-Type': 'application/json',
-                    }),
-                    body:this.factoryObjectService.objJSON
-                  };
-                this.actionsService!.delete(this.urlRoot+config?.urlrelative,options)
-                .subscribe(
-                    {
-                        complete:() => {
-                            this.OpenCloseLoader(false);
-                            swall("Registro Excluido com Sucesso");
-                        },
-                        error:(e) => {
-                            this.OpenCloseLoader(false);
-                            swall("Erro Insperado "+e);
-                        }
-                    }
-                );
+                this.delete(configButton!)
                 break;        
         }
+    }
+    post(configButton:button){
+        this.OpenCloseLoader(true);
+        let url = this.urlRoot+configButton?.urlrelative;
+        this.actionsService!.post(url,this.getObject())
+            .subscribe({
+                complete:() => {
+                    this.finallySucess("Registro Salvo!")
+                },
+                error:(e) => {
+                    this.finallyError(e)
+                }
+            }
+        );
+    }
+    put(configButton:button){
+        this.OpenCloseLoader(true);
+        this.factoryObjectService.createObjet()
+        this.actionsService!.put(this.urlRoot+configButton?.urlrelative,this.factoryObjectService.objJSON)
+        .subscribe({
+            complete:() => {
+                this.finallySucess("Registro Alterado!")
+            },
+            error:(e) => {
+                this.finallyError(e)
+            }
+        })
+    }
+    delete(configButton:button){
+        this.OpenCloseLoader(true);
+        this.factoryObjectService.createObjet()    
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            body:this.factoryObjectService.objJSON
+            };
+        this.actionsService!.delete(this.urlRoot+configButton?.urlrelative,options).subscribe({
+            complete:() => {
+                this.finallySucess("Registro Excluido!")
+            },
+            error:(e) => {
+                this.finallyError(e)
+            }
+        })
     }
     OpenCloseLoader(open:boolean){
         if (open){
@@ -100,5 +99,21 @@ constructor(private actionsService:actionsReciverService){}
         else{
             this.loader.style.display = "none"
         }
+    }
+    getObject(){
+        this.factoryObjectService.createObjet()
+        return this.factoryObjectService.objJSON
+    }
+    finallySucess(message:string){
+        setTimeout(() =>{
+            this.OpenCloseLoader(false);
+            swall(message);
+        },1000)
+    }
+    finallyError(e:any){
+        setTimeout(() =>{
+            this.OpenCloseLoader(false);
+            swall("Erro:" +e);
+        },1000)
     }
 }

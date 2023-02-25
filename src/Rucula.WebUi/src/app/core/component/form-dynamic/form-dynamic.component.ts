@@ -15,9 +15,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   constructor(private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionsReciverService?:actionsReciverService){}
   ngOnInit(): void {
       this.dynamicForm = (quadro as dynamicForm);  
-      this.actionsReciverService
-        ?.getAll(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetAll)
-        .subscribe((data:any) => this.datagrid = data);
+      this.GetAll()
   }
   openCloseForm:openCloseFormDynamic = new openCloseFormDynamic();
   datagrid:any;
@@ -35,6 +33,13 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
       this.inputValueForm(data)
     );
   }
+
+  GetAll(){
+    this.actionsReciverService
+    ?.getAll(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetAll)
+    .subscribe((data:any) => this.datagrid = data);
+  }
+
   inputValueForm(obj:any, objectDto:string=""){
     Object.keys(obj).forEach(key => {
       if (typeof obj[key] == "string" || typeof obj[key] == "number"){  
