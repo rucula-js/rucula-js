@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, EventEmitter, Input, Output } from "@angular/core";
 import { Grid, h, html } from "gridjs";
+import { columnsGridGet } from "src/app/core/component/form-dynamic/entities/form/columnsGridGet";
 import { columnsGridjs } from "src/app/core/component/form-dynamic/entities/form/columnsGridjs";
 
 @Component({
@@ -9,6 +10,7 @@ import { columnsGridjs } from "src/app/core/component/form-dynamic/entities/form
 export class GridTableJSComponent implements AfterContentInit {
     
   @Input() columns:columnsGridjs[] = [];
+  @Input() columnsGridGet:columnsGridGet[] = [];
   @Input() data:any;
   @Output() newItemEvent = new EventEmitter<string>();
   private Grid!:Grid;
@@ -45,7 +47,14 @@ export class GridTableJSComponent implements AfterContentInit {
     }
 
     editItemGrid(a:any) {
-      this.newItemEvent.emit(a);
+      let intrucionGridGet:string = ""
+      this.columnsGridGet.forEach(parameter => {
+        intrucionGridGet+=`${parameter.parameterUrl}=${a.querySelector(`[data-column-id=${parameter.parameterGrid}]`)?.textContent}&`
+      });
+      this.newItemEvent.emit(this.RemoveLastSpecialCharacter(intrucionGridGet));
+    }
+    RemoveLastSpecialCharacter(value:string){
+      return  value.slice(0,value.length-1)
     }
 
 

@@ -79,5 +79,12 @@
       "id":"name",
       "name":"nome"
     }
+  ],
+  "columnsGridGet":[
+    {
+      "parameterUrl":"id",
+      "parameterGrid":"id"
+    }
   ]
+  
 }

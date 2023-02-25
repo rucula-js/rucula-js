@@ -21,7 +21,6 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   }
   openCloseForm:openCloseFormDynamic = new openCloseFormDynamic();
   datagrid:any;
-  windowColuns:columnsGridjs[] = [];
   dynamicForm!:dynamicForm;
 
 
@@ -29,8 +28,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
 
 
   ngAfterContentInit(): void {
-    this.dynamicForm = (quadro as dynamicForm); 
-    this.windowColuns = this.dynamicForm.columns 
+    this.dynamicForm = (quadro as dynamicForm);  
     this.dynamicFormService.setForm(this.dynamicForm)
     this.openCloseForm.SetDomEvents()
     this.buttonsService!.mapActionButtons(this.dynamicForm.button);
