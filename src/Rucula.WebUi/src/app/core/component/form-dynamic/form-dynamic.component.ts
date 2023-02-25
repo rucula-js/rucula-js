@@ -14,7 +14,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
 
   constructor(private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionsReciverService?:actionsReciverService){}
   ngOnInit(): void {
-      this.dynamicForm = (quadro as dynamicForm);  
+      this.dynamicForm = (quadro as unknown as dynamicForm);  
       this.GetAll()
   }
   openCloseForm:openCloseFormDynamic = new openCloseFormDynamic();
