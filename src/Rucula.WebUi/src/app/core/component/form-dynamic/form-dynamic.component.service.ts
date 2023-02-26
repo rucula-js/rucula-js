@@ -22,7 +22,6 @@ export class FormDynamicService {
       this.dynamicForm = dynamic;
       this.SetWindowTitle();
       this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
-      this.form.appendChild(this.ObjectsDOMBaseService!.DOMNameWindow(this.dynamicForm.tela))
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
@@ -302,7 +301,7 @@ export class FormDynamicService {
     }
     if(button.type == "button"){
       buttonOrLink = document.createElement('button')  
-      buttonOrLink!.classList.add("btn-crud")
+      buttonOrLink!.classList.add("btn")
       buttonOrLink.textContent = button.text+""
     }
     if(button.type == "link"){

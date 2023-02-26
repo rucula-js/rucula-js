@@ -193,19 +193,6 @@ body{
 .form-dynamic{
     max-width: 100%;
 }
-.btn-crud {
-    display: block;
-    margin-bottom: 5px;
-}
-.btn-crud {
-    width: 45px;
-    height: 45px;
-    max-width: 100px;
-    border: 0;
-    font-size: 1.4rem;
-    cursor: pointer;
-    border-radius: 5px;
-}
 
 .action-defaut{
 display: inline-block;

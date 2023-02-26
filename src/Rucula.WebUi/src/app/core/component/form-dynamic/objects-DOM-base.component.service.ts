@@ -14,11 +14,6 @@ export class ObjectsDOMBaseService {
     const form = document.getElementById('form-dynamic') as HTMLFormElement;
     return form;
   }
-  DOMNameWindow(name:string):HTMLHeadingElement{
-    const h2 = document.createElement('h2')
-    h2.textContent = name;
-    return h2;
-  }
   DOMLabelIsRequerid():HTMLSpanElement{
     const span = document.createElement('span'); 
     span.innerText = "*"
