@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { actionsReciverService } from "../actions/actionsReciverService";
+import { actionsHTTPService } from "../actions/actionsHTTPService";
 import { button } from "../entities/form/button";
 import { factoryObjectService } from "../factoryObjectService";
 import swall from 'sweetalert';
@@ -10,7 +10,7 @@ import { HttpHeaders } from "@angular/common/http";
     providedIn: 'root',
 })
 export class actionButtons{
-constructor(private actionsService:actionsReciverService){}
+constructor(private actionHttp:actionsHTTPService){}
 
     headers!:HttpHeaders
 
@@ -50,7 +50,7 @@ constructor(private actionsService:actionsReciverService){}
     post(configButton:button){
         this.OpenCloseLoader(true);
         let url = this.urlRoot+configButton?.urlrelative;
-        this.actionsService!.post(url,this.getObject())
+        this.actionHttp!.post(url,this.getObject())
             .subscribe({
                 complete:() => {
                     this.finallySucess("Registro Salvo!")
@@ -64,7 +64,7 @@ constructor(private actionsService:actionsReciverService){}
     put(configButton:button){
         this.OpenCloseLoader(true);
         this.factoryObjectService.createObjet()
-        this.actionsService!.put(this.urlRoot+configButton?.urlrelative,this.factoryObjectService.objJSON)
+        this.actionHttp!.put(this.urlRoot+configButton?.urlrelative,this.factoryObjectService.objJSON)
         .subscribe({
             complete:() => {
                 this.finallySucess("Registro Alterado!")
@@ -83,7 +83,7 @@ constructor(private actionsService:actionsReciverService){}
             }),
             body:this.factoryObjectService.objJSON
             };
-        this.actionsService!.delete(this.urlRoot+configButton?.urlrelative,options).subscribe({
+        this.actionHttp!.delete(this.urlRoot+configButton?.urlrelative,options).subscribe({
             complete:() => {
                 this.finallySucess("Registro Excluido!")
             },

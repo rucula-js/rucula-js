@@ -136,5 +136,6 @@ export class factoryObjectService {
     // "child": "",
     if (this.objJSON[""])
     this.objJSON = this.objJSON[""]
+    console.log( this.Maps )
   }
 }

@@ -1,10 +1,10 @@
 
 {
-  "tela":"Linguages de Programação",
-  "type":"CrUD",
+  "tela":"Language Rucula",
+  "type":"CRUD",
   "urlRoot":"https://localhost:7170",
-  "urlRelativeGetAll":"/Language/GetLanguageAll",
-  "urlRelativeGetById":"/Language/GetLanguageById",
+  "urlRelativeGetAll":"/LanguageRucula/GetAll",
+  "urlRelativeGetById":"/LanguageRucula/GetById",
   "button":[
     {
     "id":"8418",
@@ -15,7 +15,7 @@
     "type":"button",
     "color":"",
     "target":"",
-    "urlrelative":"/Language"
+    "urlrelative":"/LanguageRucula"
     },
     {
       "id":"8248",
@@ -26,7 +26,7 @@
       "type":"button",
       "color":"",
       "target":"",
-      "urlrelative":"/Language"
+      "urlrelative":"/LanguageRucula"
     },
     {
       "id":"er43",
@@ -37,59 +37,146 @@
       "type":"button",
       "color":"",
       "target":"",
-      "urlrelative":"/Language"
+      "urlrelative":"/LanguageRucula"
     }
   ],
   "quadro":[
     {
-      "name": "Languages",
+      "name": "Language Rucula",
       "type": "block",
       "id": "46d66c9d-c830-4c0b-90d7-ea7a6d0cfde9",
       "objectDto": "",
-      "child": "",
+      "child": "languageRuculaRepresentationDTO",
       "campo": [
         {
           "id": "20280273-df01-4205-a454-419c8e89cfd0",
-          "description": "id",
+          "description": "code",
           "type": "text",
-          "maxlength": 50,
+          "maxlength": 10,
           "max": 36,
           "min": 0,
           "required": true,
           "disable": true,
-          "propertDto": "id",
-          "value": "Pontos de entradas API's"
+          "propertDto": "code",
+          "value": ""
         },
         {
-          "id": "20280273-df01-4ddd-a454-419c8e89cfd0",
-          "description": "name",
+          "id": "00915b10-e991-4164-8932-57c9aadca2e1",
+          "description": "description",
           "type": "text",
-          "combo":[],
-          "maxlength": 50,
-          "max": 36,
+          "combo":["segunda","terça","quarta"],
+          "maxlength": 36,
+          "max": 150,
           "min": 0,
           "required": true,
           "disable": true,
-          "propertDto": "name"
+          "propertDto": "description"
+        },
+        {
+          "id": "7ec2b914-8a62-4296-bf59-023406111441",
+          "description": "description2",
+          "type": "text",
+          "combo":[],
+          "maxlength": 36,
+          "max": 30,
+          "min": 0,
+          "required": false,
+          "disable": true,
+          "propertDto": "description2",
+          "value": "Pontos de entradas"
+        },
+        {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "atributesDefaut",
+          "type": "text",
+          "maxlength": 30,
+          "max": 30,
+          "min": 0,
+          "required": false,
+          "disable": true,
+          "propertDto": "atributesDefaut",
+          "value": ""
+        },
+        {
+          "id": "20280273-df01-4205-a454-419c8e89cfd0",
+          "description": "chield",
+          "type": "text",
+          "maxlength": 30,
+          "max": 30,
+          "min": 0,
+          "required": false,
+          "disable": true,
+          "propertDto": "chield",
+          "value": "Pontos de entradas API's"
         }
       ]
-    }
+  },
+  {
+    "name": "language Rucula Representation",
+    "type": "block",
+    "id": "46d66c9d-c830-4c0b-90d7-ea7a6d0cfde9",
+    "objectDto": "languageRuculaRepresentationDTO",
+    "child": "",
+    "campo": [
+      {
+        "id": "20280273-df01-4205-a454-419c8e89cfd0",
+        "description": "code",
+        "type": "text",
+        "maxlength": 10,
+        "max": 36,
+        "min": 0,
+        "required": true,
+        "disable": true,
+        "propertDto": "code",
+        "value": ""
+      },
+      {
+        "id": "00915b10-e991-4164-8932-57c9aadca2e1",
+        "description": "description",
+        "type": "text",
+        "combo":["segunda","terça","quarta"],
+        "maxlength": 36,
+        "max": 150,
+        "min": 0,
+        "required": true,
+        "disable": true,
+        "propertDto": "description"
+      },
+      {
+        "id": "7ec2b914-8a62-4296-bf59-023406111441",
+        "description": "codeRuculaForeKey",
+        "type": "text",
+        "combo":[],
+        "maxlength": 36,
+        "max": 30,
+        "min": 0,
+        "required": false,
+        "disable": true,
+        "propertDto": "codeRuculaForeKey",
+        "value": "Pontos de entradas"
+      }
+    ]
+}
   ],
-  "columns":[
+  "columns":
+  [ 
     {
-      "id":"id",
-      "name":"id"
+      "id":"code",
+      "name":"code"
     },
     {
-      "id":"name",
-      "name":"nome"
+      "id":"description",
+      "name":"description"
+    },
+    {
+      "id":"atributesDefaut",
+      "name":"atributes Defaut"
     }
   ],
   "columnsGridGet":[
     {
-      "parameterUrl":"id",
-      "parameterGrid":"id"
+      "parameterUrl":"code",
+      "parameterGrid":"code"
     }
   ]
-  
 }

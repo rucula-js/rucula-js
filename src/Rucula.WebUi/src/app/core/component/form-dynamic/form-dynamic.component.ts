@@ -4,7 +4,7 @@ import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './quadro.json'
 import { openCloseFormDynamic } from './DOM/window/openCloseFormDynamic';
 import { actionButtons } from './DOM/actionButton';
-import {actionsReciverService} from './actions/actionsReciverService'
+import {actionsHTTPService} from './actions/actionsHTTPService'
 @Component({
   templateUrl: './form-dynamic.component.html',
   styleUrls:['./form-dynamic.component.css']
@@ -12,7 +12,7 @@ import {actionsReciverService} from './actions/actionsReciverService'
 
 export class FormDynamicComponent implements AfterContentInit, OnInit	 {  
 
-  constructor(private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionsReciverService?:actionsReciverService){}
+  constructor(private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionHttp?:actionsHTTPService){}
   ngOnInit(): void {
       this.dynamicForm = (quadro as unknown as dynamicForm);  
       this.GetAll()
@@ -27,7 +27,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
     this.buttonsService!.mapActionButtons(this.dynamicForm.button);
   } 
   GetById(parameters:string){
-    this.actionsReciverService
+    this.actionHttp
     ?.getById(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetById+"?"+parameters)
     .subscribe((data:any) =>
       this.inputValueForm(data)
@@ -35,7 +35,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   }
 
   GetAll(){
-    this.actionsReciverService
+    this.actionHttp
     ?.getAll(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetAll)
     .subscribe((data:any) => this.datagrid = data);
   }
