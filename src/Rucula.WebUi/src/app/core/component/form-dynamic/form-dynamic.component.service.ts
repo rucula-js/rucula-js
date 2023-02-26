@@ -26,13 +26,8 @@ export class FormDynamicService {
       this.prepareQuadro()
       this.createButtons()
       this.setEvents()
-      this.SetEventTeste()
     }
-    public SetEventTeste(){
-      document.getElementById("box-actions")?.addEventListener('click',(e)=> {
-        // this.ac!.save();
-      })
-    }
+
     private SetWindowTitle(){
       const windowTitle = document.getElementById("window-title")
       windowTitle!.textContent = this.dynamicForm.tela
@@ -185,6 +180,8 @@ export class FormDynamicService {
       }else{
         input.style.width = "20px"  
       }
+      input.classList.add("form-control")
+
       this.setAtributesData(input,field)
       input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
       input.setAttribute('set',`${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);

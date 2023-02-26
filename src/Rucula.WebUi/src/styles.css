@@ -27,11 +27,6 @@ h1,h2,h3,h4,h5,h6{
 }
 body{
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Poppins', sans-serif;
-    font-family: 'Raleway', sans-serif;
-    font-family: 'Roboto', sans-serif;
-    font-family: 'Roboto Mono', monospace;
 }
 /*Base - Inicio*/
 .mt-20px{
@@ -109,7 +104,6 @@ body{
 }
 .form-group-label{
     display: block;
-    font-size: 0.9rem;;
 }
 .form-group-input{
     padding: 4px;
@@ -199,15 +193,11 @@ body{
 .form-dynamic{
     max-width: 100%;
 }
-#close-dinamic-form{
-    background-color: var(--color-gray);
-    box-shadow: 0px 0px 5px 2px #e3e3e3d4;
-}
 .btn-crud {
     display: block;
     margin-bottom: 5px;
 }
-.btn-crud,#close-dinamic-form {
+.btn-crud {
     width: 45px;
     height: 45px;
     max-width: 100px;

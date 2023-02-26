@@ -1,5 +1,5 @@
 <div class="container-window">
-    <button style="display: none;" id="close-dinamic-form"><i class="bi bi-arrow-left"></i></button>
+    <button class="btn btn-dark mb-2" style="display: none;" id="close-dinamic-form"><i class="bi bi-arrow-left"></i></button>
     <!-- formularios dinamicos -->
     <div id="box-window" style="display: none;">
         <form id="form-dynamic" autocomplete="off">
@@ -12,14 +12,11 @@
     <div class="block-fluid">
         <div class="window-header mb-10px">
             <div class="item-inline-block">
-                <h2 id="window-title"></h2>
+                <h3 id="window-title"></h3>
             </div>
             <div class="item-inline-block">
-                <button id="create-new" class="btn-new-dynamic" >Novo Registro<i class="bi bi-plus-lg"></i></button>
+                <button id="create-new" class="btn btn-primary">Novo Registro<i class="bi bi-plus-lg"></i></button>
             </div>
-        </div>
-        <div class="window-search">
-            <input type="text" placeholder="Pesquisar ..."><button><i class="bi bi-search"></i></button>
         </div>
         <div class="mt-20px">
             <table id="list-data">
