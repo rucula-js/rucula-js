@@ -6,7 +6,6 @@ import { quadro } from './entities/form/quadro';
     providedIn: 'root',
 })
 export class ObjectsDOMBaseService {
-
   DOMFormDynamic():HTMLFormElement{
     const form = document.getElementById('form-dynamic') as HTMLFormElement;
     return form;

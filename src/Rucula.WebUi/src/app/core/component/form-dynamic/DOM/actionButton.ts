@@ -4,13 +4,15 @@ import { button } from "../entities/form/button";
 import { factoryObjectService } from "../factoryObjectService";
 import swall from 'sweetalert';
 import { HttpHeaders } from "@angular/common/http";
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 @Injectable({
     providedIn: 'root',
 })
 export class actionButtons{
-constructor(private actionHttp:actionsHTTPService, private factoryObjectService:factoryObjectService){}
+constructor(private actionHttp:actionsHTTPService, private factoryObjectService:factoryObjectService, private router: Router){}
 
     headers!:HttpHeaders
     actions:Map<string,button> = new Map();
@@ -41,7 +43,7 @@ constructor(private actionHttp:actionsHTTPService, private factoryObjectService:
                 this.put(configButton!)
                 break;
             case "delete":
-                this.delete(configButton!)
+                this.delete(configButton!)                
                 break;        
         }
     }

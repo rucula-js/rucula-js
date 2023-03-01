@@ -197,16 +197,6 @@ body{
 .action-defaut{
 display: inline-block;
 }
-  
-
-#form-dynamic input{
-    padding: 5px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 5px;
-
-}
-
 .item-inline-block{
     width: auto;
 }

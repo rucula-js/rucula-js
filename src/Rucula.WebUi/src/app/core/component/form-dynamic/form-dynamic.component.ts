@@ -24,7 +24,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   dynamicForm!:dynamicForm;
 
   ngAfterContentInit(): void {
-    this.dynamicFormService.setForm(this.dynamicForm)
+    this.dynamicFormService.domCreateForm(this.dynamicForm)
     this.openCloseForm.SetDomEvents()
     this.buttonsService!.urlRoot = this.dynamicForm.urlRoot;
     this.buttonsService!.mapActionButtons(this.dynamicForm.button);
@@ -62,6 +62,6 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
     this.formDynamicBase.urlBase = this.dynamicForm.urlRoot
     this.formDynamicBase.urlGetAll = this.dynamicForm.urlRelativeGetAll
     this.formDynamicBase.urlGetById = this.dynamicForm.urlRelativeGetById
-     this.formDynamicBase.JoinChield = this.dynamicForm.joinChield
+    this.formDynamicBase.JoinChield = this.dynamicForm.joinChield
   }
 }
