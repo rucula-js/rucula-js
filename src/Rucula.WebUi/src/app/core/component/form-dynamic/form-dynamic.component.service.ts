@@ -3,22 +3,19 @@ import { button } from './entities/form/button';
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { quadro } from './entities/form/quadro';
-import { eventFieldService } from './eventField';
 import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
-
 
 @Injectable({
     providedIn: 'root',
 })
 export class FormDynamicService {
 
-   constructor(private eventFieldService?:eventFieldService, private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
+   constructor(private ObjectsDOMBaseService?:ObjectsDOMBaseService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
-    
+        
     setForm(dynamic:dynamicForm){
-
       this.dynamicForm = dynamic;
       this.SetWindowTitle();
       this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
@@ -172,8 +169,6 @@ export class FormDynamicService {
   private createFieldInput(field:campo){
     const input = document.createElement('input');
       input.type = field.type;
-      this.eventFieldService?.SetEvent(input)
-
       if (field.maxlength != undefined && field.maxlength > 0){
         input.style.width = `${field.maxlength *8}px`  
       }else{
@@ -188,7 +183,6 @@ export class FormDynamicService {
   }
   private createFieldInputTypeLine(field:campo){
     const input = document.createElement('input');
-    this.eventFieldService?.SetEvent(input)
       input.type = field.type;
 
       if (field.maxlength != undefined && field.maxlength > 0){
@@ -203,7 +197,6 @@ export class FormDynamicService {
 
   private createFieldSelect(field:campo):HTMLSelectElement{
       const select = document.createElement('select');
-      this.eventFieldService?.SetEvent(select)
       this.setAtributesData(select,field)
         field.combo?.forEach(item => {
           const option = document.createElement('option')

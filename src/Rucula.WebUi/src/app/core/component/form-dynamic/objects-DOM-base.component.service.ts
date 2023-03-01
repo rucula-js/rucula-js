@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { eventFieldService } from './eventField';
 import { quadro } from './entities/form/quadro';
 
 
@@ -7,8 +6,6 @@ import { quadro } from './entities/form/quadro';
     providedIn: 'root',
 })
 export class ObjectsDOMBaseService {
-
-  constructor(private eventFieldService?:eventFieldService){}
 
   DOMFormDynamic():HTMLFormElement{
     const form = document.getElementById('form-dynamic') as HTMLFormElement;

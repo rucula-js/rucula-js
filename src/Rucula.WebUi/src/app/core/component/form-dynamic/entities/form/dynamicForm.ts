@@ -1,3 +1,4 @@
+import { KeyValue } from "@angular/common";
 import { button } from "./button";
 import { columnsGridGet } from "./columnsGridGet";
 import { columnsGridjs } from "./columnsGridjs";
@@ -12,5 +13,6 @@ export interface dynamicForm{
     quadro?:Array<quadro>,
     columns:columnsGridjs[]
     button:button[]
-    columnsGridGet:columnsGridGet[]
+    columnsGridGet:columnsGridGet[],
+    joinChield:Array<KeyValue<string,string>>
 }

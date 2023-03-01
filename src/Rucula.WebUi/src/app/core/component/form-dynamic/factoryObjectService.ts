@@ -1,7 +1,13 @@
 import { KeyValue } from "@angular/common";
+import { Injectable } from "@angular/core";
+import { formDynamicBaseService } from "./formDynamicBaseService";
 
+@Injectable({
+  providedIn: 'root',
+})
 export class factoryObjectService {
 
+  constructor(private formConfig?:formDynamicBaseService){}
   private Maps!:Map<string,Array<KeyValue<string,Object>>> // Guarda todos os objetos que são unicos (tipo block).
   private MapsLine!:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>  // Guarda todos os objetos que podem ter mais de uma linha (tipo line)
   /*  Quando um Objeto possui uma propriedade chield (do tipo objeto), é necessário
@@ -11,6 +17,7 @@ export class factoryObjectService {
   public objJSON : any = {}; // Esse é o objeto principal construido 
 
   createObjet(){
+
     this.Maps = new Map<string,Array<KeyValue<string,Object>>>();
     this.MapsLine = new Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>();
     this.MapsChields = new Array<KeyValue<string,string>>();
@@ -39,10 +46,10 @@ export class factoryObjectService {
         this.PrepObjectTypeLine(splitName,valor)
       } 
     }
-    
     this.mapToObjBlock(this.Maps)
     this.mapToObjArray(this.MapsLine)
     this.SetChields() 
+    this.MapChields()
     this.RemoveObjectDto()
   }
   private PrepObjectTypeBlock(splitName:string[], valor:any){
@@ -54,14 +61,7 @@ export class factoryObjectService {
     if (objectMap == undefined){ // se não existir o objeto mapeado
       this.Maps.set(object,new Array({key:propert,value:valor})) // um novo map para o objeto é criado
     }
-    if (objectMap != undefined && propert == "chield"){
-      valor.split(",").forEach((chield:string) => {
-        this.Maps.get(object)?.push({key:chield,value:{}})
-        this.MapsChields.push({key:object,value:chield})
-      });
-    }
-    if (objectMap != undefined && propert != "chield"){
-
+    if (objectMap != undefined){
       this.Maps.get(object)?.push({key:propert,value:valor})
     }
   }
@@ -80,14 +80,11 @@ export class factoryObjectService {
     if (objectMapDto != undefined && objectMapRow == undefined){
       this.MapsLine.get(object)?.push(new Map().set(row,new Array({key:propert,value:valor})))
     }
-    if (objectMapDto != undefined && objectMapRow != undefined && propert == "chield"){
+    if (objectMapDto != undefined && objectMapRow != undefined){
       valor.split(",").forEach((chield:string) => {
         objectMapDto?.find(c => c.get(row)?.push({key:chield,value:{}}))
         this.MapsChields.push({key:object,value:chield})
       });
-    }
-    if (objectMapDto != undefined && objectMapRow != undefined && propert != "chield"){
-      objectMapDto?.find(c => c.get(row)?.push({key:propert,value:valor}))
     }
   }
   private mapToObjBlock(mapBlock:Map<string,Array<KeyValue<string,Object>>>) {
@@ -123,10 +120,21 @@ export class factoryObjectService {
     });
   }
   private SetChields(){
-    this.MapsChields.forEach(item => {
+    this.formConfig?.JoinChield.forEach(item => {
+      let key = "";
+      item.key == undefined ? key = "": key=item.key;
+      let cheild = item.value;
+      this.objJSON[key][cheild] = {};
+    })
+  }
+
+  private MapChields(){
+    this.formConfig?.JoinChield.forEach(item => {
+      let key = item.key == undefined ? "":item.key;
+      let cheild = item.value;
       if(item.value != ""){
-        this.objJSON[item.key][item.value] = this.objJSON[item.value]
-        delete this.objJSON[item.value]
+        this.objJSON[key][cheild] = this.objJSON[cheild]
+        delete this.objJSON[cheild]
       }
     })
   }
@@ -136,6 +144,5 @@ export class factoryObjectService {
     // "child": "",
     if (this.objJSON[""])
     this.objJSON = this.objJSON[""]
-    console.log( this.Maps )
   }
 }

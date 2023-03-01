@@ -96,18 +96,6 @@
           "disable": true,
           "propertDto": "atributesDefaut",
           "value": ""
-        },
-        {
-          "id": "20280273-df01-4205-a454-419c8e89cfd0",
-          "description": "chield",
-          "type": "text",
-          "maxlength": 30,
-          "max": 30,
-          "min": 0,
-          "required": false,
-          "disable": true,
-          "propertDto": "chield",
-          "value": "Pontos de entradas API's"
         }
       ]
   },
@@ -178,5 +166,8 @@
       "parameterUrl":"code",
       "parameterGrid":"code"
     }
+  ],
+  "joinChield":[
+    {"key":"","value":"languageRuculaRepresentationDTO"}
   ]
 }

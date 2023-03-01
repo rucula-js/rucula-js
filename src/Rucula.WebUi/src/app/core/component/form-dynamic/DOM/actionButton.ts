@@ -10,11 +10,9 @@ import { HttpHeaders } from "@angular/common/http";
     providedIn: 'root',
 })
 export class actionButtons{
-constructor(private actionHttp:actionsHTTPService){}
+constructor(private actionHttp:actionsHTTPService, private factoryObjectService:factoryObjectService){}
 
     headers!:HttpHeaders
-
-    factoryObjectService:factoryObjectService = new factoryObjectService();
     actions:Map<string,button> = new Map();
     loader!:HTMLElement;
     urlRoot:string="";

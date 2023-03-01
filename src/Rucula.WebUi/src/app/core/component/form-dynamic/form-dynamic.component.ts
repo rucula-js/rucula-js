@@ -5,6 +5,7 @@ import quadro from './quadro.json'
 import { openCloseFormDynamic } from './DOM/window/openCloseFormDynamic';
 import { actionButtons } from './DOM/actionButton';
 import {actionsHTTPService} from './actions/actionsHTTPService'
+import  {formDynamicBaseService} from './formDynamicBaseService'
 @Component({
   templateUrl: './form-dynamic.component.html',
   styleUrls:['./form-dynamic.component.css']
@@ -12,14 +13,16 @@ import {actionsHTTPService} from './actions/actionsHTTPService'
 
 export class FormDynamicComponent implements AfterContentInit, OnInit	 {  
 
-  constructor(private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionHttp?:actionsHTTPService){}
+  constructor(private formDynamicBase:formDynamicBaseService,private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionHttp?:actionsHTTPService){}
   ngOnInit(): void {
       this.dynamicForm = (quadro as unknown as dynamicForm);  
       this.GetAll()
+      this.SetConfigurationsForm()
   }
   openCloseForm:openCloseFormDynamic = new openCloseFormDynamic();
   datagrid:any;
   dynamicForm!:dynamicForm;
+
   ngAfterContentInit(): void {
     this.dynamicFormService.setForm(this.dynamicForm)
     this.openCloseForm.SetDomEvents()
@@ -41,14 +44,24 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   }
 
   inputValueForm(obj:any, objectDto:string=""){
+   
     Object.keys(obj).forEach(key => {
       if (typeof obj[key] == "string" || typeof obj[key] == "number"){  
         let atribute = "";
         objectDto == "" ? atribute = `[set=".${key}"]` : atribute = `[set="${objectDto}.${key}"]`;
         (document.querySelector(atribute) as HTMLInputElement).value = obj[key] 
       }
+      if(typeof obj[key] == "object"){
+        this.inputValueForm(obj[key],key);
+      }
     });
     (document.getElementById("create-new") as HTMLButtonElement).click();
   }
 
+  SetConfigurationsForm(){
+    this.formDynamicBase.urlBase = this.dynamicForm.urlRoot
+    this.formDynamicBase.urlGetAll = this.dynamicForm.urlRelativeGetAll
+    this.formDynamicBase.urlGetById = this.dynamicForm.urlRelativeGetById
+     this.formDynamicBase.JoinChield = this.dynamicForm.joinChield
+  }
 }
