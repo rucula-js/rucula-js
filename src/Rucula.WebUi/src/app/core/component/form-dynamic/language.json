@@ -1,6 +1,6 @@
 
 {
-  "tela":"Linguages de Programação",
+  "tela":"Linguagem de Programação",
   "type":"CrUD",
   "urlRoot":"https://localhost:7170",
   "urlRelativeGetAll":"/Language/GetLanguageAll",
@@ -90,6 +90,6 @@
       "parameterUrl":"id",
       "parameterGrid":"id"
     }
-  ]
-  
+  ],
+  "joinChield":[]
 }

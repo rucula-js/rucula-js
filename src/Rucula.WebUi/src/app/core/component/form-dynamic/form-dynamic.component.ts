@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { FormDynamicService } from './form-dynamic.component.service';
-import quadro from './quadro.json'
+import quadro from './LanguageRucula.json'
 import { openCloseFormDynamic } from './DOM/window/openCloseFormDynamic';
 import { actionButtons } from './DOM/actionButton';
 import {actionsHTTPService} from './actions/actionsHTTPService'
