@@ -254,6 +254,7 @@ display: inline-block;
       transform: rotate(360deg);
     }
   } 
-     
-
   
+  #form-dynamic input{
+    box-shadow: none;
+  }
