@@ -13,7 +13,7 @@ export class ObjectsDOMBaseService {
   DOMLabelIsRequerid():HTMLSpanElement{
     const span = document.createElement('span'); 
     span.innerText = "*"
-    span.style.color = "#871515";
+    span.style.color = "red";
     return span
   }
   DOMcreateDivBlockElement(quadro:quadro):HTMLDivElement{

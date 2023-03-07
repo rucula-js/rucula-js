@@ -45,7 +45,7 @@
       "name": "Quadro",
       "type": "block",
       "id": "46d66c9d-c830-4c0b-90d7-ea7a6d0cfde9",
-      "objectDto": "quadroDto",
+      "objectDto": "",
       "child": "campoDto",
       "campo": [
         {
@@ -193,5 +193,8 @@
       "parameterUrl":"id",
       "parameterGrid":"id"
     }
+  ],
+  "joinChield":[
+    {"key":"","value":"campoDto"}
   ]
 }

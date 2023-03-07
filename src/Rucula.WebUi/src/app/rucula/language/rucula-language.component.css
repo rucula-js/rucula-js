@@ -32,15 +32,7 @@ tr:nth-child(even) {background-color: #529c8c8a;}
 tr:hover{
     opacity: 100%;
 }
-
-.action-defaut {
-    display: block;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-
-
-  .block-form{
-    border: 1px solid rgb(231, 231, 231);
-    padding: 10px;
-  }
+.block-form{
+border: 1px solid rgb(231, 231, 231);
+padding: 10px;
+}

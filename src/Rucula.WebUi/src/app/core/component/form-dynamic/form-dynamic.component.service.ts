@@ -81,9 +81,9 @@ export class FormDynamicService {
       div.classList.add('quadro-list')
       div.setAttribute('data-objectDto',quadro.objectDto)
       div.setAttribute('data-chield',quadro.child!)
-      const h3 = document.createElement('h3');
-      h3.textContent = quadro.name
-      div.appendChild(h3)
+      const h4 = document.createElement('h4');
+      h4.textContent = quadro.name
+      div.appendChild(h4)
       return div
     }
     private prepareLineHeaderTable(fields:Array<campo>):HTMLTableRowElement{

@@ -48,6 +48,7 @@ export class factoryObjectService {
     }
     this.mapToObjBlock(this.Maps)
     this.mapToObjArray(this.MapsLine)
+    console.log(this.objJSON)
     this.SetChields() 
     this.MapChields()
     this.RemoveObjectDto()
@@ -144,5 +145,8 @@ export class factoryObjectService {
     // "child": "",
     if (this.objJSON[""])
     this.objJSON = this.objJSON[""]
+
+
+    console.log(this.objJSON)
   }
 }
