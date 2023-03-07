@@ -48,7 +48,6 @@ export class factoryObjectService {
     }
     this.mapToObjBlock(this.Maps)
     this.mapToObjArray(this.MapsLine)
-    console.log(this.objJSON)
     this.SetChields() 
     this.MapChields()
     this.RemoveObjectDto()
@@ -71,7 +70,6 @@ export class factoryObjectService {
     let object:string = splitName[1]    
     let propert:string = splitName[2]   
     let row:number = Number(splitName[3])   
-
     let objectMapDto = this.MapsLine.get(object)
     let objectMapRow = this.MapsLine.get(object)?.find(c => c.get(row))
     
@@ -82,10 +80,7 @@ export class factoryObjectService {
       this.MapsLine.get(object)?.push(new Map().set(row,new Array({key:propert,value:valor})))
     }
     if (objectMapDto != undefined && objectMapRow != undefined){
-      valor.split(",").forEach((chield:string) => {
-        objectMapDto?.find(c => c.get(row)?.push({key:chield,value:{}}))
-        this.MapsChields.push({key:object,value:chield})
-      });
+        objectMapDto?.find(c => c.get(row)?.push({key:propert,value:valor}))
     }
   }
   private mapToObjBlock(mapBlock:Map<string,Array<KeyValue<string,Object>>>) {
@@ -106,7 +101,9 @@ export class factoryObjectService {
     let objLine :Object[] = [];
     let obj : any = {};
 
+    console.log(mapArray)
     mapArray.forEach((obejctValue, obejctkey) => {
+      console.log(obejctValue)
       obejctValue.forEach(function(rows, indexRow){
         rows.forEach(function(row, value){
           row.forEach(function(propert, value){

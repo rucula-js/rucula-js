@@ -192,6 +192,7 @@ export class FormDynamicService {
       }
       this.setAtributesData(input,field)
       input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
+      input.setAttribute('set',`${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
       return input
   }
 
@@ -256,14 +257,19 @@ export class FormDynamicService {
     var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
 
     (clone as HTMLElement).childNodes.forEach(item => {
-         let atributes = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")!;
+         let atributeName = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")!;
+         let atributeSet = (item.firstChild as HTMLElement).getAttribute('set')?.split(".")!;
 
-          (item.firstChild as HTMLElement).setAttribute('name',
-          `${atributes[0]}.${atributes[1]}.${atributes[2]}.${Number(atributes[3])+1}`)         
+          
+         (item.firstChild as HTMLElement).setAttribute('name',
+          `${atributeName[0]}.${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`);
+          
+          (item.firstChild as HTMLElement).setAttribute('set',
+          `${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`)
+
     })
     this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
     
-  
     clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
     clone.addEventListener('keyup',(event)=> {
       this.keyEvents = [] 
