@@ -1,8 +1,7 @@
 import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { FormDynamicService } from './form-dynamic.component.service';
-import quadro from './LanguageRucula.json'
-import { openCloseFormDynamic } from './DOM/window/openCloseFormDynamic';
+import quadro from './quadro-bkp.json'
 import { actionButtons } from './DOM/actionButton';
 import {actionsHTTPService} from './actions/actionsHTTPService'
 import  {formDynamicBaseService} from './formDynamicBaseService'
@@ -19,13 +18,11 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
       this.GetAll()
       this.SetConfigurationsForm()
   }
-  openCloseForm:openCloseFormDynamic = new openCloseFormDynamic();
   datagrid:any;
   dynamicForm!:dynamicForm;
 
   ngAfterContentInit(): void {
     this.dynamicFormService.domCreateForm(this.dynamicForm)
-    this.openCloseForm.SetDomEvents()
     this.buttonsService!.urlRoot = this.dynamicForm.urlRoot;
     this.buttonsService!.mapActionButtons(this.dynamicForm.button);
   } 

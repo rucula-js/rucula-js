@@ -16,6 +16,8 @@ export class createButtonOrLinkService {
           buttonOrLink = document.createElement('button')  
           buttonOrLink!.classList.add("btn")
           buttonOrLink!.classList.add("mb-1")
+          buttonOrLink!.classList.add("d-block")
+          
           buttonOrLink.textContent = button.text+""
         }
         if(button.type == "link"){

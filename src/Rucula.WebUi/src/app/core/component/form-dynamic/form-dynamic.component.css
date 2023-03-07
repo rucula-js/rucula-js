@@ -23,6 +23,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 60px;
+  background-color: #022940;
+  color: var(--color-write);
+  padding-left:10px ;
+  padding-right:10px ;
 }
 
 

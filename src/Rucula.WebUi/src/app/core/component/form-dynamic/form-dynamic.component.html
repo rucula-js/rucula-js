@@ -1,12 +1,5 @@
 <div class="container-window">
-    <button class="btn btn-dark mb-2" style="display: none;" id="close-dinamic-form"><i class="bi bi-arrow-left"></i></button>
     <!-- formularios dinamicos -->
-    <div id="box-window" style="display: none;">
-        <form id="form-dynamic" autocomplete="off">
-        </form>
-        <div class="action-defaut mt-2 ms-2" id="box-actions">
-        </div>
-    </div>
     <h5 id="box-message"></h5>
     <!-- tela Inicial da janela -->
     <div class="block-fluid">
@@ -15,7 +8,7 @@
                 <h3 id="window-title"></h3>
             </div>
             <div class="item-inline-block">
-                <button id="create-new" class="btn btn-primary">Novo Registro<i class="bi bi-plus-lg"></i></button>
+                <button id="create-new" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#FormModal">Novo Registro<i class="bi bi-plus-lg"></i></button>
             </div>
         </div>
         <div class="mt-20px">
@@ -27,5 +20,21 @@
                 [columnsGridGet]="this.dynamicForm.columnsGridGet"
                  (newItemEvent)="GetById($event)">
         </gridjs>
+    </div>
+</div>
+
+<div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-fullscreen" data-bs-backdrop="static">
+        <div class="modal-content">            
+        <div class="modal-body">
+            <button class="btn btn-dark mb-2" data-bs-dismiss="modal"><i class="bi bi-arrow-left"></i></button>
+            <div id="box-window">
+                <form id="form-dynamic" autocomplete="off">
+                </form>
+                <div class="action-defaut mt-2 ms-2" id="box-actions">
+                </div>
+            </div>
+        </div>  
+    </div>  
     </div>
 </div>
