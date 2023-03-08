@@ -65,6 +65,7 @@ export class FormDynamicService {
       const table = document.createElement('table');
       table.classList.add("table-form")
 
+      
       quadro.line?.forEach(line => {
         const header = this.prepareLineHeaderTable(line.campo!);
         table.appendChild(header)
