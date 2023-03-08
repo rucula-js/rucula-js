@@ -10,18 +10,11 @@ export class factoryObjectService {
   constructor(private formConfig?:formDynamicBaseService){}
   private Maps!:Map<string,Array<KeyValue<string,Object>>> // Guarda todos os objetos que são unicos (tipo block).
   private MapsLine!:Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>  // Guarda todos os objetos que podem ter mais de uma linha (tipo line)
-  /*  Quando um Objeto possui uma propriedade chield (do tipo objeto), é necessário
-      passar para essa propriedade do tipo objeto, o objeto que foi mapeado em MapsChields */
-  private MapsChields!:Array<KeyValue<string,string>>  
-  
   public objJSON : any = {}; // Esse é o objeto principal construido 
 
   createObjet(){
-
     this.Maps = new Map<string,Array<KeyValue<string,Object>>>();
     this.MapsLine = new Map<string,Array<Map<number,Array<KeyValue<string,Object>>>>>();
-    this.MapsChields = new Array<KeyValue<string,string>>();
-
     let form = document.getElementById("form-dynamic")
 
     let formData = new FormData(form as HTMLFormElement) // FormData é o que faz o trabalho de mapeamento ser mais simples. https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData
@@ -125,7 +118,6 @@ export class factoryObjectService {
       this.objJSON[key][cheild] = {};
     })
   }
-
   private MapChields(){
     this.formConfig?.JoinChield.forEach(item => {
       let key = item.key == undefined ? "":item.key;
@@ -136,14 +128,10 @@ export class factoryObjectService {
       }
     })
   }
-
   private RemoveObjectDto(){
     // se a propriedade "cheild" do objectDto pai estiver vazio, é necessario remover o objetoDto que foi criado como vazio {"":{}}
     // "child": "",
     if (this.objJSON[""])
     this.objJSON = this.objJSON[""]
-
-
-    console.log(this.objJSON)
   }
 }

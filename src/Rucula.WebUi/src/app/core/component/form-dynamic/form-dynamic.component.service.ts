@@ -213,7 +213,6 @@ export class FormDynamicService {
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
     node.setAttribute('data-childdto',`${this.quadroInFocu.child}`);
-    
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map

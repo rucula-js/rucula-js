@@ -210,9 +210,6 @@ display: inline-block;
     padding-bottom: 10px;
     padding-top: 10px;
 }
-
-
-
 .box-show{
     position: fixed;
     display: flex;
@@ -220,64 +217,81 @@ display: inline-block;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    z-index: 500;
+    z-index: 1060;
     background-color: rgba(0,0,0,.4);
 
 }
 
+.window-form-dynamic {   
+width:100% ;
+}
+#form-dynamic input,.gridjs-search-input{
+box-shadow: none !important;
+}
+
+#form-dynamic {
+overflow-y: auto;
+padding-right: 5px;
+max-height: 100vh;
+}
+
+#form-dynamic::-webkit-scrollbar {
+width: 8px;
+} 
+#form-dynamic::-webkit-scrollbar-track {
+background:  var(--color-branco);
+}  
+#form-dynamic::-webkit-scrollbar-thumb {
+background-color:#022940;
+border-radius: 20px;    
+}
+
 .loader {
-    width: 48px;
-    height: 48px;
-    display: inline-block;
+    z-index: 10;
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 30px, 0 -30px;
+    border-radius: 4px;
+    background: currentColor;
+    display: block;
+    margin: -50px auto 0;
     position: relative;
+    color: #FFF;
+    transform: translateY(30px);
+    box-sizing: border-box;
+    animation: animloader 2s ease infinite;
   }
   .loader::after,
   .loader::before {
     content: '';  
     box-sizing: border-box;
-    width: 48px;
-    height: 48px;
-    border: 3.5px solid var(--color-blue);
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 30px, 0 -30px;
+    border-radius: 4px;
+    background: currentColor;
+    color: #FFF;
     position: absolute;
-    left: 0;
+    left: 30px;
     top: 0;
-    animation: rotation 2s ease-in-out infinite alternate;
+    animation: animloader 2s 0.2s ease infinite;
   }
-  .loader::after {
-    border-color: var(--color-red);
-    animation-direction: alternate-reverse;
+  .loader::before {
+    animation-delay: 0.4s;
+    left: 60px;
   }
   
-  
-  @keyframes rotation {
+  @keyframes animloader {
     0% {
-      transform: rotate(0deg);
+      top: 0;
+      color: #022940;
+    }
+    50% {
+      top: 30px;
+      color: rgba(255, 255, 255, 0.2);
     }
     100% {
-      transform: rotate(360deg);
+      top: 0;
+      color: white;
     }
-  } 
-
-  .window-form-dynamic {   
-    width:100% ;
   }
-  #form-dynamic input,.gridjs-search-input{
-    box-shadow: none !important;
-  }
-
-  #form-dynamic {
-    overflow-y: auto;
-    padding-right: 5px;
-    max-height: 100vh;
-  }
-
-  #form-dynamic::-webkit-scrollbar {
-    width: 8px;
-} 
-#form-dynamic::-webkit-scrollbar-track {
-    background:  var(--color-branco);
-}  
-#form-dynamic::-webkit-scrollbar-thumb {
-    background-color:#022940;
-    border-radius: 20px;    
-}
