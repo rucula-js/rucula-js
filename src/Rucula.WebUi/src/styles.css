@@ -11,11 +11,6 @@
     --color-red:#c60000;
     --color-poll-blue:#00abee5e;
     --color-gray:#e3e3e3;
-
-
-
-
-    
     --color-green-rucula:#388729;
     --border-color-cinza:#c7c7c7;;
     --color-branco:#fff;
@@ -152,11 +147,14 @@ body{
 
 .quadro-list{
     margin-top: 10px;
-    overflow-x: scroll ;
+    overflow-x: auto ;
 }
 .quadro-block,.quadro-list{
     box-shadow: 0px 0px 5px 0px #c4c4c4;
     padding: 5px;
+    border: 0.5px solid #dbdada;
+    border-radius: 5px;
+
 }
 
 .quadro-block,.quadro-list,.form-dynamic-header{
@@ -263,11 +261,23 @@ display: inline-block;
   .window-form-dynamic {   
     width:100% ;
   }
-  .form-dynamic-header {
-    margin: auto;
-  }
   #form-dynamic input,.gridjs-search-input{
     box-shadow: none !important;
   }
 
-  
+  #form-dynamic {
+    overflow-y: auto;
+    padding-right: 5px;
+    max-height: 100vh;
+  }
+
+  #form-dynamic::-webkit-scrollbar {
+    width: 8px;
+} 
+#form-dynamic::-webkit-scrollbar-track {
+    background:  var(--color-branco);
+}  
+#form-dynamic::-webkit-scrollbar-thumb {
+    background-color:#022940;
+    border-radius: 20px;    
+}

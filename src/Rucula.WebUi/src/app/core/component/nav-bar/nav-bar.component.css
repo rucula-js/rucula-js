@@ -19,7 +19,8 @@ ul li{
 }
 .nav-bar{
     padding: 5px;
-    background-color: rgba(0, 171, 238, 0.37);
+    background-color: #022940;
+    color: #fff;
     margin-bottom: 10px;
 }
 .nav-bar h2 {
@@ -43,6 +44,5 @@ ul li{
     border-radius: 80px;
     width: 50px;
     height: 50px;
-    border: 3px solid var(--border-color-green);
 }
 
