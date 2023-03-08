@@ -9,7 +9,7 @@ describe('ObjectsDOMBaseService',() => {
 
     const span = document.createElement('span'); 
     span.innerText = "*"
-    span.style.color = "#871515";
+    span.style.color = "red";
     expect(service.DOMLabelIsRequerid())
     .toEqual(span)
   });

@@ -17,7 +17,7 @@ describe('createButtonOrLinkService',()=>{
             color:"",
             target:""
         })
-        expect(buttonDOM.outerHTML).toEqual('<button class="btn mb-1" data-id="button-post-8418"><i class="bi bi-save"></i></button>')        
+        expect(buttonDOM.outerHTML).toEqual('<button class="btn mb-1 d-block" data-id="button-post-8418"><i class="bi bi-save"></i></button>')        
     })
 
     it('#Button Default contain Attribute data-id Contains "button"',function () {
