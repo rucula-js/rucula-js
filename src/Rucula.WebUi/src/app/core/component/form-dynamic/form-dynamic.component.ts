@@ -2,9 +2,9 @@ import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './quadro-bkp.json'
-import { actionButtons } from './DOM/actionButton';
+import { actionButtons } from './actions/actionButton'
 import {actionsHTTPService} from './actions/actionsHTTPService'
-import  {formDynamicBaseService} from './formDynamicBaseService'
+import  {formDynamicBaseService} from './form-dynamic-base.component.service'
 @Component({
   templateUrl: './form-dynamic.component.html',
   styleUrls:['./form-dynamic.component.css']

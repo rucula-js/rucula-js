@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CreatePopperService } from './DOM/createPopper';
-import { createButtonOrLinkService } from './DOM/window/createButtonOrLink.service';
+import { CreatePopperService } from './popper/createPopper';
+import { createButtonOrLinkService } from './buttons/createButtonOrLink.service';
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { quadro } from './entities/form/quadro';

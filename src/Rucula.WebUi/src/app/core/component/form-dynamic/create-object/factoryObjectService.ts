@@ -1,6 +1,6 @@
 import { KeyValue } from "@angular/common";
 import { Injectable } from "@angular/core";
-import { formDynamicBaseService } from "./formDynamicBaseService";
+import { formDynamicBaseService } from "../form-dynamic-base.component.service";
 
 @Injectable({
   providedIn: 'root',

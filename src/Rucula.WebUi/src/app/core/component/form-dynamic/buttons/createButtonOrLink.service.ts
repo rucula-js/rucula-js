@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { button } from '../../entities/form/button';
+import { button } from '../entities/form/button';
 
 @Injectable({
     providedIn: 'root',
