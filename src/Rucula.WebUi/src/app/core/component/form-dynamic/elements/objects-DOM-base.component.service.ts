@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { quadro } from './entities/form/quadro';
+import { quadro } from '../entities/form/quadro';
 
 
 @Injectable({
