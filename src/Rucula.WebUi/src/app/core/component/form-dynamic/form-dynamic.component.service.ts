@@ -4,7 +4,7 @@ import { createButtonOrLinkService } from './buttons/createButtonOrLink.service'
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
 import { quadro } from './entities/form/quadro';
-import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
+import {ObjectsDOMBaseService} from './elements/objects-DOM-base.component.service'
 
 @Injectable({
     providedIn: 'root',
