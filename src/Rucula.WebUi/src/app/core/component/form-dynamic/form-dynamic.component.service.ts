@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CreatePopperService } from './DOM/createPopper';
 import { createButtonOrLinkService } from './DOM/window/createButtonOrLink.service';
 import { campo } from './entities/form/campo';
 import { dynamicForm } from './entities/form/dynamicForm';
@@ -10,7 +11,7 @@ import {ObjectsDOMBaseService} from './objects-DOM-base.component.service'
 })
 export class FormDynamicService {
 
-   constructor(private ObjectsDOMBaseService?:ObjectsDOMBaseService, private buttonOrLinkServie?:createButtonOrLinkService){}
+   constructor(private ObjectsDOMBaseService?:ObjectsDOMBaseService, private buttonOrLinkService?:createButtonOrLinkService, private cps?:CreatePopperService){}
     private form!:HTMLElement;
     private dynamicForm!:dynamicForm;
     private quadroInFocu!:quadro; 
@@ -218,8 +219,11 @@ export class FormDynamicService {
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
   
   setEvents(){
+    this.setEventForCreationLine()
+    this.setEventForInformationInputQuadro()
+  }
+  private setEventForCreationLine(){
     const line =  document.querySelectorAll('.quadro-list table tr[data-objecdto]')
-    
     line.forEach((element) => {
       element.addEventListener('keydown',(event)=> {
         this.crudLineQuadro(event)
@@ -228,21 +232,69 @@ export class FormDynamicService {
             this.keyEvents = []
       })
       this.lineClone.set(element.getAttribute("data-objecdto")!,(element as HTMLElement).cloneNode(true) as HTMLElement)
-      
     }); 
   }
-  private crudLineQuadro(event:Event){
+  private setEventForInformationInputQuadro(){
+    const line =  document.querySelectorAll('#box-window input,#box-window select')
+    line.forEach((element) => {
+      element.addEventListener('keydown',(event)=> {
+        this.createPopper(event)
+      })
+        element.addEventListener('keyup',(event)=> {
+            this.keyEvents = []
+      })
+    });
+    const boxWindow =  document.getElementById('box-window')
+    boxWindow?.addEventListener('click',()=>{
+      var tooltip = document.getElementById("tooltip")!
+      tooltip.style.display = 'none';
+    })
+  }
+  private createPopper(event:Event){
     const current = (event.currentTarget as HTMLElement)
     const key = (event as KeyboardEvent).key;
     if(this.keyEvents.filter(c=> c==key).length == 0){
       this.keyEvents.push(key)
     }
     this.keyEvents.sort()
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "l"){
+    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "h"){
+     
+      var atribute = current.getAttribute('name')!.split('.');
+      
+      var field = this.dynamicForm.quadro!
+      .find( c => c.objectDto == atribute[1])?.campo?.find( c=>c.propertDto == atribute[2]);
+
+      var tooltip = document.getElementById("tooltip")!
+      
+
+      tooltip.textContent = String(field!.information)
+      if (field!.information == "" || field!.information == undefined){
+        tooltip.innerHTML = "Campo sem informação &#128542";
+      }
+    
+      let arrow = document.createElement('div') 
+      arrow.setAttribute("id","arrow");
+      arrow.setAttribute("data-popper-arrow","");
+      tooltip.appendChild(arrow)
+      tooltip.style.display = "inline-block"
+      
+
+      this.cps?.createPopper(current,tooltip)
+    }
+  }
+  private crudLineQuadro(event:Event){
+
+    const current = (event.currentTarget as HTMLElement)
+    const key = (event as KeyboardEvent).key;
+    if(this.keyEvents.filter(c=> c==key).length == 0){
+      this.keyEvents.push(key)
+    }
+    this.keyEvents.sort()
+    if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLowerCase() ==  "a"){
         var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
         current.after(clone)
     }
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "Control" && this.keyEvents[2] ==  "d"){
+    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] ==  "d"){
       if (document.querySelectorAll('.quadro-list table tr').length == 2){
         (event.currentTarget as HTMLElement).after(this.createNewLine(current.getAttribute('data-objectdto')!));
         (event.currentTarget as HTMLElement).remove()
@@ -279,16 +331,7 @@ export class FormDynamicService {
 
   private createButtons(){
     if(this.dynamicForm.type.toLocaleUpperCase() == "CRUD"){
-      this.prepareButtonsCRUD()
+      this.buttonOrLinkService!.prepareButtonsCRUD()
     }
   }
-
-  private prepareButtonsCRUD(){
-    const boxActions = document.getElementById("box-actions")
-    boxActions?.appendChild(this.buttonOrLinkServie!.createButtonOrLink({id:"8418",method:"post",link:"",icon:"bi bi-save",text:"",type:"button",color:"rgb(95 152 246)",target:""}))
-    boxActions?.appendChild(this.buttonOrLinkServie!.createButtonOrLink({id:"8248",method:"put",link:"",icon:"bi bi-wrench",text:"",type:"button",color:"rgb(95 108 246)",target:""}))
-    boxActions?.appendChild(this.buttonOrLinkServie!.createButtonOrLink({id:"er43",method:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"rgb(246 95 95)",target:""}))
-    boxActions?.appendChild(this.buttonOrLinkServie!.createButtonOrLink({id:"5454",method:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"",target:""}))
-  }
-
 }

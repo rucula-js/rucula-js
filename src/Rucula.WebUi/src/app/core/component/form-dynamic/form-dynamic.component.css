@@ -5,20 +5,6 @@
   padding-top: 0;
   padding-bottom: 0;
 }
-
-.btn-new-dynamic{
-    margin: 0;
-    border: none;
-    background-color: var(--color-blue);
-    color: var(--color-write);
-    min-width: 80px;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    float:right;
-
-}
 .window-header{
   display: flex;
   justify-content: space-between;

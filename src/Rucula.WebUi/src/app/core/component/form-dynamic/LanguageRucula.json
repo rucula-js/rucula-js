@@ -58,7 +58,8 @@
           "required": true,
           "disable": true,
           "propertDto": "code",
-          "value": ""
+          "value": "",
+          "Description":""
         },
         {
           "id": "00915b10-e991-4164-8932-57c9aadca2e1",

@@ -73,8 +73,6 @@ body{
 
 #box-window{
     z-index: 1;
-    display: flex;
-    justify-content: space-between;
     background-color: var(--color-write);
     justify-content: center;
     width: 100%;
@@ -154,11 +152,6 @@ body{
     padding: 5px;
     border: 0.5px solid #dbdada;
     border-radius: 5px;
-
-}
-
-.quadro-block,.quadro-list,.form-dynamic-header{
-    width:calc(90vmax - 45px);
 }
 
 .quadro-block h4,.quadro-list h4{
@@ -233,6 +226,7 @@ box-shadow: none !important;
 overflow-y: auto;
 padding-right: 5px;
 max-height: 100vh;
+width: 100%;
 }
 
 #form-dynamic::-webkit-scrollbar {
@@ -295,3 +289,45 @@ border-radius: 20px;
       color: white;
     }
   }
+
+  
+#tooltip {
+    display: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    background: #fff;
+    font-size: 13px;
+    border-radius: 4px;
+    border : 1px solid #022940;
+}
+  
+#arrow,
+#arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-bottom: 1px solid #022940;
+    border-right: 1px solid #022940;
+}
+#arrow {
+    visibility: hidden;
+}
+#arrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+}
+#tooltip[data-popper-placement^='top'] > #arrow {
+    bottom: -4px;
+}
+#tooltip[data-popper-placement^='bottom'] > #arrow {
+    top: -4px;
+}
+#tooltip[data-popper-placement^='left'] > #arrow {
+    right: -4px;
+}
+#tooltip[data-popper-placement^='right'] > #arrow {
+    left: -4px;
+}
+  

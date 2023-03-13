@@ -23,25 +23,27 @@
     </div>
 </div>
 
+
 <div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-fullscreen" data-bs-backdrop="static">
         <div class="modal-content">            
         <div class="modal-body" style="overflow: hidden;">
             <div class="window-form-dynamic">
                 <div id="box-window">
-                    <div>
-                        <div class="form-dynamic-header mb-2 ms-2">
-                            <button class="btn bg-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
-                        </div>
+                    <div class="form-dynamic-header mb-2 ms-2">
+                        <button class="btn bg-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="d-flex justify-content-between">
                         <form id="form-dynamic" autocomplete="off" class="ms-2">
                         </form>
-                    </div>
-                    <div class="action-defaut ms-2" id="box-actions">
-                        <button class="btn btn-dark mb-2" style="opacity:0; cursor:auto;"><i class="bi bi-arrow-left"></i></button>
+                        <div class="action-defaut ms-2" id="box-actions">
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-    </div>  
+        </div>
+        <div id="tooltip" role="tooltip">
+        </div>  
     </div>
+</div>
 </div>

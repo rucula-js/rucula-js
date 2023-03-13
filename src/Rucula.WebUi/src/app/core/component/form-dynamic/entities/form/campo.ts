@@ -10,4 +10,5 @@ export interface campo{
     disable: boolean
     propertDto?: string
     value?: number|string|boolean|Date
+    information?:string
 }
