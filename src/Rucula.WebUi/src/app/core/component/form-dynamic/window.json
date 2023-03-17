@@ -134,20 +134,147 @@
                 },
                 {
                   "id": "7ec2b914-8a62-4296-bf59-028888811441",
-                  "description": "Name",
+                  "description": "column",
                   "type": "text",
                   "maxlength": 15,
                   "max": 100,
                   "min": 0,
                   "required": true,
                   "disable": true,
-                  "propertDto": "Name"
+                  "propertDto": "column"
                 },
                 {
                   "id": "00915F10-e991-4164-8932-57c9aadca2e1",
                   "description": "Description",
                   "type": "text",
                   "maxlength": 36,
+                  "max": 30,
+                  "min": 0,
+                  "required": false,
+                  "disable": false,
+                  "propertDto": "description"
+                },
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "Information",
+                  "type": "text",
+                  "maxlength": 50,
+                  "max": 30,
+                  "min": 0,
+                  "required": false,
+                  "disable": false,
+                  "propertDto": "description"
+                }
+              ]
+            }
+        ]
+      } ,
+      {
+        "name": "Parameter Grid Get ",
+        "type": "line",
+        "id": "46Wd26c33-c830-4c0b-90d7-ea7a6d0cfde9",
+        "objectDto": "campoDto",
+        "child": "",
+        "line":[
+            {
+              "campo": [
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "id",
+                  "type": "text",
+                  "combo":[],
+                  "maxlength": 36,
+                  "max": 36,
+                  "min": 0,
+                  "required": true,
+                  "disable": false,
+                  "propertDto": "id"
+                },
+                {
+                  "id": "7ec2b914-8a62-4296-bf59-028888811441",
+                  "description": "Parameter",
+                  "type": "text",
+                  "maxlength": 15,
+                  "max": 100,
+                  "min": 0,
+                  "required": true,
+                  "disable": true,
+                  "propertDto": "parameter"
+                },
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "Description",
+                  "type": "text",
+                  "maxlength": 36,
+                  "max": 30,
+                  "min": 0,
+                  "required": false,
+                  "disable": false,
+                  "propertDto": "description"
+                },
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "Information",
+                  "type": "text",
+                  "maxlength": 50,
+                  "max": 30,
+                  "min": 0,
+                  "required": false,
+                  "disable": false,
+                  "propertDto": "description"
+                }
+              ]
+            }
+        ]
+      } ,
+      {
+        "name": "Frame",
+        "type": "line",
+        "id": "46Wd26c33-c830-4c0b-90d7-ea7a6d0cfde9",
+        "objectDto": "frameDto",
+        "child": "",
+        "line":[
+            {
+              "campo": [
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "quadro",
+                  "type": "text",
+                  "combo":[],
+                  "maxlength": 36,
+                  "max": 36,
+                  "min": 0,
+                  "required": true,
+                  "disable": false,
+                  "propertDto": "quadro"
+                },
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "Description",
+                  "type": "text",
+                  "maxlength": 36,
+                  "max": 30,
+                  "min": 0,
+                  "required": false,
+                  "disable": false,
+                  "propertDto": "description"
+                },
+                {
+                  "id": "7ec2b914-8a62-4296-bf59-028888811441",
+                  "description": "position",
+                  "type": "number",
+                  "maxlength": 15,
+                  "max": 100,
+                  "min": 0,
+                  "required": true,
+                  "disable": true,
+                  "propertDto": "position"
+                },
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "Information",
+                  "type": "text",
+                  "maxlength": 50,
                   "max": 30,
                   "min": 0,
                   "required": false,
