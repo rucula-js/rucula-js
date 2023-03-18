@@ -133,6 +133,18 @@
                   "propertDto": "id"
                 },
                 {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "type",
+                  "type": "text",
+                  "combo":[],
+                  "maxlength": 36,
+                  "max": 36,
+                  "min": 0,
+                  "required": true,
+                  "disable": false,
+                  "propertDto": "type"
+                },
+                {
                   "id": "7ec2b914-8a62-4296-bf59-028888811441",
                   "description": "column",
                   "type": "text",
@@ -279,6 +291,53 @@
                   "min": 0,
                   "required": false,
                   "disable": false,
+                  "propertDto": "description"
+                }
+              ]
+            }
+        ]
+      },
+      {
+        "name": "Chield Objects",
+        "type": "line",
+        "id": "46Wd26c33-c830-4c0b-90d7-ea7a6d0cfde9",
+        "objectDto": "Chields",
+        "child": "",
+        "line":[
+            {
+              "campo": [
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "father",
+                  "type": "text",
+                  "combo":[],
+                  "maxlength": 36,
+                  "max": 36,
+                  "min": 0,
+                  "required": false,
+                  "disable": false,
+                  "propertDto": "father"
+                },
+                {
+                  "id": "00915F10-e991-4164-8932-57c9aadca2e1",
+                  "description": "chield",
+                  "type": "text",
+                  "maxlength": 36,
+                  "max": 30,
+                  "min": 0,
+                  "required": true,
+                  "disable": false,
+                  "propertDto": "chield"
+                },
+                {
+                  "id": "7ec2b914-8a62-4296-bf59-028888811441",
+                  "description": "description",
+                  "type": "number",
+                  "maxlength": 15,
+                  "max": 100,
+                  "min": 0,
+                  "required": true,
+                  "disable": true,
                   "propertDto": "description"
                 }
               ]
