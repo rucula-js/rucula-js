@@ -9,6 +9,9 @@ public class Frame : Entity<string>
     public string Type { get; private set; }
     public string ObjectDto { get; private set; }
 
+    public List<Field> Fields { get; set; }
+    public Window Window { get; set; }
+    public string WindowFk { get; set; }
     private void Validation(string id, string name, string type, string objectDto)
     {
         #region Id

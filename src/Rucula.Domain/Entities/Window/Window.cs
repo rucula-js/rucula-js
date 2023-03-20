@@ -11,6 +11,8 @@ public class Window : Entity<string>
     public string URLGetAll { get; private  set; }
     public string URLGetId { get; private  set; }
     public string Type { get; private  set; }
+
+    public List<Frame> Frames { get; set; }
     
     private void Validation(string id, string name, string uRLRoot, string uRLGetAll, string uRLGetId, string type)
     {
@@ -33,7 +35,7 @@ public class Window : Entity<string>
         #endregion
          #region Type
         type.IsRequerid().AddThrowExceptionDomain("type is requerid");
-        type.MaxLength(10).AddThrowExceptionDomain("type must be a maximum of 20 characters");
+        type.MaxLength(10).AddThrowExceptionDomain("type must be a maximum of 10 characters");
         #endregion
         this.Id = id;
         this.Name = name;
