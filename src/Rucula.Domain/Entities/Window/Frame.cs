@@ -27,5 +27,10 @@ public class Frame : Entity<string>
         objectDto.IsRequerid().AddThrowExceptionDomain("objectDto is requerid");
         objectDto.MaxLength(20).AddThrowExceptionDomain("objectDto must be a maximum of 20 characters");  
         #endregion
+
+        this.Id = id;
+        this.Name = name;
+        this.Type = type;
+        this.ObjectDto = objectDto;
     }
 }
