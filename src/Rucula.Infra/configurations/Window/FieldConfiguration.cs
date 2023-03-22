@@ -1,42 +1,42 @@
-using Rucula.Domain.Window;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+// using Rucula.Domain.Window;
+// using Microsoft.EntityFrameworkCore;
+// using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class FieldConfiguration : IEntityTypeConfiguration<Field>
-{
-    public void Configure(EntityTypeBuilder<Field> builder)
-    {
+// public class FieldConfiguration : IEntityTypeConfiguration<Field>
+// {
+//     public void Configure(EntityTypeBuilder<Field> builder)
+//     {
 
-        builder.HasKey(k => k.Id).HasName("PrimaryKey_Field_Id");
-        builder
-            .Property(p => p.Id)
-            .HasMaxLength(10)
-            .IsRequired();
+//         builder.HasKey(k => k.Id).HasName("PrimaryKey_Field_Id");
+//         builder
+//             .Property(p => p.Id)
+//             .HasMaxLength(10)
+//             .IsRequired();
         
-        builder
-            .Property( c=> c.PropertDto)
-            .HasMaxLength(20)
-            .IsRequired();
+//         builder
+//             .Property( c=> c.PropertDto)
+//             .HasMaxLength(20)
+//             .IsRequired();
 
-        builder
-            .Property( c=> c.Description)
-            .HasMaxLength(20)
-            .IsRequired();
+//         builder
+//             .Property( c=> c.Description)
+//             .HasMaxLength(20)
+//             .IsRequired();
 
-         builder
-            .Property( c=> c.Information)
-            .HasMaxLength(20);
+//          builder
+//             .Property( c=> c.Information)
+//             .HasMaxLength(20);
             
-        builder
-            .Property( c=> c.Type)
-            .HasMaxLength(10)
-            .IsRequired();
+//         builder
+//             .Property( c=> c.Type)
+//             .HasMaxLength(10)
+//             .IsRequired();
         
-        builder
-        .HasOne( c=> c.Frame)
-        .WithMany( c=> c.Fields)
-        .HasForeignKey(f => f.FrameFk)
-        .OnDelete(DeleteBehavior.NoAction);
+//         builder
+//         .HasOne( c=> c.Frame)
+//         .WithMany( c=> c.Fields)
+//         .HasForeignKey(f => f.FrameFk)
+//         .OnDelete(DeleteBehavior.NoAction);
         
-    }
-}
+//     }
+// }

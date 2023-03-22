@@ -1,6 +1,8 @@
 
 using AutoMapper;
 using Rucula.Domain;
+using Rucula.Domain.Window;
+
 namespace Rucula.Aplication;
 public class DomainToDTOMappingProfile : Profile
 {
@@ -15,5 +17,9 @@ public class DomainToDTOMappingProfile : Profile
         CreateMap<ContentEstruture,ContentEstrutureDTO>().ReverseMap();
         CreateMap<ContentHTML,ContentHTMLDTO>().ReverseMap();
         CreateMap<TagMetaHTML,TagMetaHTMLDTO>().ReverseMap();
+        
+        CreateMap<Window,windowDto>().ReverseMap();
+
+
     }
 }

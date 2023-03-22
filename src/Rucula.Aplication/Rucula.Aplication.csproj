@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rucula.Domain\Rucula.Domain.csproj" />
+    <ProjectReference Include="..\Rucula.Infra\Rucula.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>

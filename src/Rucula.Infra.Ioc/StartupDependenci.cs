@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 using Rucula.Domain;
 using Rucula.Aplication;
+using Rucula.Infra.Repository;
+using Rucula.Domain.Window;
 
 namespace Rucula.Infra.Ioc;
 public static class StartupDependenci
@@ -32,6 +34,8 @@ public static class StartupDependenci
         services.AddScoped<IExtractRucula,ExtractRucula>();
             
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
-    
+        services.AddTransient<Repository<Window,ApplicationContext>>();
+        services.AddTransient<IWindowService,WindowService>();
+        
     }
 } 
