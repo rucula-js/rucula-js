@@ -1,4 +1,4 @@
 public interface IWindowService
 {
-    Task SaveAsync(windowDto input);
+    Task InsertAsync(windowDto input);
 }

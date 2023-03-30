@@ -34,8 +34,8 @@ public static class StartupDependenci
         services.AddScoped<IExtractRucula,ExtractRucula>();
             
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
-        services.AddTransient<Repository<Window,ApplicationContext>>();
-        services.AddTransient<IWindowService,WindowService>();
+        services.AddScoped<UnitOfWork>();
+        services.AddScoped<IWindowService,WindowService>();
         
     }
 } 

@@ -1,27 +1,47 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Rucula.Infra.Repository;
-public class Repository<TEntity,TContext> : IRepository<TEntity> where TEntity:class where TContext:DbContext
-{
-    private readonly DbSet<TEntity> DbSet;
-    public Repository(TContext context){
+public class Repository<TEntity> : IRepository<TEntity> where TEntity:class 
+{   private readonly DbSet<TEntity> DbSet;
+    public Repository(DbContext context){
         this.DbSet = context.Set<TEntity>();
     }
-
     public TEntity Get<TPrimaryKey>(TPrimaryKey id)
     {
-        var result = this.DbSet.Find(id); 
-        return result;
+        return this.DbSet.Find(id)!;
     }
-    
     public async Task<TEntity> GetAsync<TPrimaryKey>(TPrimaryKey id)
     {
         var result = await this.DbSet.FindAsync(id); 
-        return result;
+        return result!;
+    }
+    public void Insert(TEntity input)
+    {
+        this.DbSet.Add(input);   
+    }
+    public async Task InsertAsync(TEntity input)
+    {
+        await this.DbSet.AddAsync(input); 
+    }
+    private bool disposed = false;
+
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!this.disposed)
+        {
+            if (disposing)
+            {
+                this.Dispose();
+            }
+        }
+        this.disposed = true;
     }
 
-    public async Task SaveAsync(TEntity input)
+    public void Dispose()
     {
-        await this.DbSet.AddAsync(input);   
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

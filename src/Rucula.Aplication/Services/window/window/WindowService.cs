@@ -1,19 +1,21 @@
 using AutoMapper;
 using Rucula.Domain.Window;
-using Rucula.Infra.Repository;
-
 public class WindowService : IWindowService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Window> _repository;
-    public WindowService(Repository<Window, ApplicationContext> repository,IMapper mapper)
+    private readonly UnitOfWork _unitOfWork;
+    public WindowService(UnitOfWork unitOfWork,IMapper mapper)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    public async Task SaveAsync(windowDto input)
+    public async Task InsertAsync(windowDto input)
     {
         var window =_mapper.Map<Window>(input);
-        await _repository.SaveAsync(window);
+        using (var unitOfWork = _unitOfWork)
+        {
+            await unitOfWork.RepoWindow.InsertAsync(window);
+            unitOfWork.Save();   
+        } 
     }
 }

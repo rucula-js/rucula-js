@@ -16,6 +16,7 @@ public class WindowController : ControllerBase
    [HttpPost]
    public async Task Post([FromBody] windowDto input)
    {
-      await _windowService.SaveAsync(input);
+      
+      await _windowService.InsertAsync(input);
    }
 }

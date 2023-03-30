@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Rucula.Domain;
+using Rucula.Domain.Window;
+
 public class ApplicationContext : DbContext
 {
     public DbSet<Language>? Languages { get; set; }
@@ -9,7 +11,7 @@ public class ApplicationContext : DbContext
     public DbSet<ContentEstruture>? ContentEstruture { get; set; }
     public DbSet<KeyWord>? KeyWords { get; set; }
     public DbSet<TagMetaHTML>? TagMetaHTML { get; set; }
-    
+    public DbSet<Window>? Window { get; set; }
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
