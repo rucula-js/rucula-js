@@ -16,7 +16,7 @@ public class KeyWordRepositorie : IKeyWordRepository
     {
         return await _KeyWordContext.KeyWords!.ToListAsync();
     }
-    public async Task<KeyWord> GetByIdAsync(int? id)
+    public async Task<KeyWord> GetByIdAsync(int id)
     {
         return await this._KeyWordContext.KeyWords.FindAsync(id);       
     }

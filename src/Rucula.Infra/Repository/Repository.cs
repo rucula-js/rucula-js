@@ -44,4 +44,14 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity:class
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+
+    public void Delete(TEntity input)
+    {
+        this.DbSet.Remove(input);
+    }
+
+    public async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
+    {
+        return await this.DbSet.ToListAsync();   
+    }
 }

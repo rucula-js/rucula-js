@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-public class windowDto : EntityDto<string>
+namespace Rucula.Aplication.WindowFactory;
+public class WindowDto : EntityDto<string>
 {
     [Required]
     [MaxLength(10)]
@@ -13,4 +14,5 @@ public class windowDto : EntityDto<string>
     [Required]
     [MaxLength(10)]
     public string Type { get; set; }
+    public IReadOnlyCollection<FrameDto> Frames {get;set;} 
 }

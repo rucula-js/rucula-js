@@ -1,27 +1,45 @@
-using Microsoft.EntityFrameworkCore;
 using Rucula.Domain.Window;
 using Rucula.Infra.Repository;
 
 public class UnitOfWork : IUnitOfWork
 {
-    public  ApplicationContext Context;
+    private  ApplicationContext _context;
     public UnitOfWork(ApplicationContext context)
     {
-         this.Context =  context;
+         this._context =  context;
     }
     private IRepository<Window>? _repoWindow;
+    private IRepository<Field>? _repoField;
+    private IRepository<Frame>? _repoFrame;
 
     public IRepository<Window>  RepoWindow
     {
         get
         {
-            if (_repoWindow is null) _repoWindow = new Repository<Window>(this.Context);
+            if (_repoWindow is null) _repoWindow = new Repository<Window>(this._context);
             return  _repoWindow;
         }
     }
+    public IRepository<Field>  RepoField
+    {
+        get
+        {
+            if (_repoField is null) _repoField = new Repository<Field>(this._context);
+            return  _repoField;
+        }
+    }
+    public IRepository<Frame>  RepoFrame
+    {
+        get
+        {
+            if (_repoFrame is null) _repoFrame = new Repository<Frame>(this._context);
+            return  _repoFrame;
+        }
+    }
+
     public void Save()
     {
-        Context.SaveChanges();
+        _context.SaveChanges();
     }
     private bool disposed = false;
     
@@ -31,7 +49,7 @@ public class UnitOfWork : IUnitOfWork
         {
             if (disposing)
             {
-                Context.Dispose();
+                _context.Dispose();
             }
         }
         this.disposed = true;
