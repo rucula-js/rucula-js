@@ -25,7 +25,7 @@ public class Window : Entity<string>
         name.MaxLength(20).AddThrowExceptionDomain("name must be a maximum of 20 characters");
         #endregion
         #region URLRoot
-        uRLRoot.MaxLength(20).AddThrowExceptionDomain("uRLRoot must be a maximum of 20 characters");
+        uRLRoot.MaxLength(60).AddThrowExceptionDomain("uRLRoot must be a maximum of 60 characters");
         #endregion
         #region URLGetAll
         uRLGetAll.MaxLength(20).AddThrowExceptionDomain("uRLGetAll must be a maximum of 20 characters");

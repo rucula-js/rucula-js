@@ -9,10 +9,10 @@ public class WindowRepository : UnitOfWork , IWindowRepository
         Window result;
         using (var db  = this._context)
         {
-             result = await  db.Window!
+            result = await  db.Window!
             .Include(c => c.Frames)
             .ThenInclude( c => c.Fields)
-            .FirstAsync();
+            .FirstAsync(c => c.Id == id);
         }
         return result;
     }

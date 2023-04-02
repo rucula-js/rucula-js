@@ -12,6 +12,8 @@ public class ApplicationContext : DbContext
     public DbSet<KeyWord>? KeyWords { get; set; }
     public DbSet<TagMetaHTML>? TagMetaHTML { get; set; }
     public DbSet<Window>? Window { get; set; }
+    public DbSet<Frame>? Frame { get; set; }
+    public DbSet<Field>? Field { get; set; }
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)

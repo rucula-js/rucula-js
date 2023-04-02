@@ -43,8 +43,8 @@ public class WindowTest
     #endregion  
     #region URLRoot
     [TestMethod]
-    public void Throw_Exception_When_URLRoot_Contain_More_Than_20_Characteres(){
-        Action act = () => new Window("1515","products",new String('a',22),"","","crud");
+    public void Throw_Exception_When_URLRoot_Contain_More_Than_60_Characteres(){
+        Action act = () => new Window("1515","products",new String('a',65),"","","crud");
         act
         .Should()
         .Throw<DomainExeption>()
