@@ -6,14 +6,9 @@ public class WindowRepository : UnitOfWork , IWindowRepository
     public WindowRepository(ApplicationContext context) : base(context){}
     public async Task<Window> GetCompleteAsync(string id)
     {
-        Window result;
-        using (var db  = this._context)
-        {
-            result = await  db.Window!
+            return await  this._context.Window!
             .Include(c => c.Frames)
             .ThenInclude( c => c.Fields)
-            .FirstAsync(c => c.Id == id);
-        }
-        return result;
+            .FirstAsync(c => c.Id == id); 
     }
 }

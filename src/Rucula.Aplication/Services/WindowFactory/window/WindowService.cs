@@ -15,7 +15,7 @@ public class WindowService : IWindowService
     {
         using (var unitOfWork = this._unitOfWork)
         {
-            var window = await unitOfWork.RepoWindow.GetAsync<string>(input.Id);
+            var window = await this._unitOfWork.GetCompleteAsync(input.Id);
             _mapper.Map(input,window);
             unitOfWork.Save();
         }
@@ -52,7 +52,11 @@ public class WindowService : IWindowService
 
     public async Task<WindowDto> GetCompleteAsync(string id)
     {
-        var result  = await this._unitOfWork.GetCompleteAsync(id);
+        WindowDto result;
+        using (var unitOfWork = this._unitOfWork)
+        {
+            result  = await GetCompleteAsync(id);
+        }
         return _mapper.Map<WindowDto>(result);
     }
 
