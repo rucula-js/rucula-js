@@ -5,8 +5,8 @@ namespace Rucula.Aplication.WindowFactory;
 public class WindowService : IWindowService
 {
     private readonly IMapper _mapper;
-    private readonly UnitOfWork _unitOfWork;
-    public WindowService(UnitOfWork unitOfWork,IMapper mapper)
+    private readonly WindowRepository _unitOfWork;
+    public WindowService(WindowRepository unitOfWork,IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -49,6 +49,13 @@ public class WindowService : IWindowService
         } 
         return windowDto;
     }
+
+    public async Task<WindowDto> GetCompleteAsync(string id)
+    {
+        var result  = await this._unitOfWork.GetCompleteAsync(id);
+        return _mapper.Map<WindowDto>(result);
+    }
+
     public async Task InsertAsync(WindowDto input)
     {
         var window =_mapper.Map<Window>(input);

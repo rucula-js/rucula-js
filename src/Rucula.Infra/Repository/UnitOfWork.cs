@@ -3,7 +3,7 @@ using Rucula.Infra.Repository;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private  ApplicationContext _context;
+    protected  ApplicationContext _context;
     public UnitOfWork(ApplicationContext context)
     {
          this._context =  context;

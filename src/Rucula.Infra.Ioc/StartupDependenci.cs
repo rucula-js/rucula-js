@@ -33,6 +33,7 @@ public static class StartupDependenci
             
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
         services.AddScoped<UnitOfWork>();
+        services.AddScoped<WindowRepository>();
         services.AddScoped<IWindowService,WindowService>();
         services.AddScoped<IFieldService,FieldService>();
         services.AddScoped<IFrameService,FrameService>();

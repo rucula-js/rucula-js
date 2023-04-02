@@ -7,6 +7,7 @@ public static class Validation
         return false;
     }
     public static bool MaxLength(this string o, short maxLength){
+        if (String.IsNullOrEmpty(o)) return false;
         if(o.Length > maxLength){
             return true;
         }

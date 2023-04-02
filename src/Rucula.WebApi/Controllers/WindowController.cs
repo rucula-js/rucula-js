@@ -21,7 +21,7 @@ public class WindowController : ControllerBase
    [HttpGet]
    public async Task<WindowDto>  Get(string id)
    {
-      return await _windowService.GetAsync(id);
+      return await _windowService.GetCompleteAsync(id);
    }
    [HttpPost]
    public async Task Post([FromBody] WindowDto input)
