@@ -20,8 +20,7 @@ public class WindowConfiguration: IEntityTypeConfiguration<Window>
 
         builder
             .Property( c=> c.URLRoot)
-            .HasMaxLength(20);
-        
+            .HasMaxLength(60);
         builder
             .Property( c=> c.URLGetAll)
             .HasMaxLength(20);
