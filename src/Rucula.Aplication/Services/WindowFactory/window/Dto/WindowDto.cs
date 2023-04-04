@@ -5,7 +5,7 @@ public class WindowDto : EntityDto<string>
     [Required]
     [MaxLength(10)]
     public string Name { get; set; }
-    [MaxLength(20)]
+    [MaxLength(60)]
     public string URLRoot { get; set; }
     [MaxLength(20)]
     public string URLGetAll { get; set; }

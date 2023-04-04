@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Rucula.Domain.Window;
 using Rucula.Infra.Repository;
 
@@ -41,6 +42,11 @@ public class UnitOfWork : IUnitOfWork
     {
         _context.SaveChanges();
     }
+    public EntityEntry Entry<TEntity>(TEntity entity)
+    {
+        return _context.Entry(entity!);
+    }
+
     private bool disposed = false;
     
     protected virtual void Dispose(bool disposing)
