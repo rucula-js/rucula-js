@@ -2,15 +2,15 @@ import { KeyValue } from "@angular/common";
 import { button } from "./button";
 import { columnsGridGet } from "./columnsGridGet";
 import { columnsGridjs } from "./columnsGridjs";
-import { quadro } from "./quadro";
+import { frame } from "./frame";
 
-export interface dynamicForm{
+export interface window{
     tela:string,
     type:string,
     urlRoot:string
     urlRelativeGetAll:string
     urlRelativeGetById: string
-    quadro?:Array<quadro>,
+    frame?:Array<frame>,
     columns:columnsGridjs[]
     button:button[]
     columnsGridGet:columnsGridGet[],

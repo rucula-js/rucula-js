@@ -1,4 +1,4 @@
-export interface campo{
+export interface field{
     id: string
     description: string
     type: string,

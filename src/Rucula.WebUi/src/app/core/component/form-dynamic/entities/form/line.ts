@@ -1,6 +1,6 @@
-import { campo } from "./campo";
+import { field } from "./field";
 
 export interface line{
     line:number;
-    campo?:Array<campo>
+    field?:Array<field>
 }

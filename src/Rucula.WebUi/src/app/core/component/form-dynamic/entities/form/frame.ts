@@ -1,11 +1,11 @@
-import { campo } from "./campo";
+import { field } from "./field";
 import { line } from "./line";
-export interface quadro{
+export interface frame{
     name: string,
     type: string,
     id: string,
     objectDto: string,
     child?: string,
-    campo?:Array<campo>
+    field?:Array<field>
     line?:Array<line>
 }

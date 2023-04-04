@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
-import { dynamicForm } from './entities/form/dynamicForm';
+import { window } from './entities/form/window';
 import { FormDynamicService } from './form-dynamic.component.service';
 import quadro from './frame.json'
 import { actionButtons } from './actions/actionButton'
@@ -14,21 +14,21 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
 
   constructor(private formDynamicBase:formDynamicBaseService,private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionHttp?:actionsHTTPService){}
   ngOnInit(): void {
-      this.dynamicForm = (quadro as unknown as dynamicForm);  
+      this.window = (quadro as unknown as window);  
       this.GetAll()
       this.SetConfigurationsForm()
   }
   datagrid:any;
-  dynamicForm!:dynamicForm;
+  window!:window;
 
   ngAfterContentInit(): void {
-    this.dynamicFormService.domCreateForm(this.dynamicForm)
-    this.buttonsService!.urlRoot = this.dynamicForm.urlRoot;
-    this.buttonsService!.mapActionButtons(this.dynamicForm.button);
+    this.dynamicFormService.domCreateForm(this.window)
+    this.buttonsService!.urlRoot = this.window.urlRoot;
+    this.buttonsService!.mapActionButtons(this.window.button);
   } 
   GetById(parameters:string){
     this.actionHttp
-    ?.getById(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetById+"?"+parameters)
+    ?.getById(this.window.urlRoot+this.window.urlRelativeGetById+"?"+parameters)
     .subscribe((data:any) =>
       this.inputValueForm(data)
     );
@@ -36,7 +36,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
 
   GetAll(){
     this.actionHttp
-    ?.getAll(this.dynamicForm.urlRoot+this.dynamicForm.urlRelativeGetAll)
+    ?.getAll(this.window.urlRoot+this.window.urlRelativeGetAll)
     .subscribe((data:any) => this.datagrid = data);
   }
 
@@ -56,9 +56,9 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   }
 
   SetConfigurationsForm(){
-    this.formDynamicBase.urlBase = this.dynamicForm.urlRoot
-    this.formDynamicBase.urlGetAll = this.dynamicForm.urlRelativeGetAll
-    this.formDynamicBase.urlGetById = this.dynamicForm.urlRelativeGetById
-    this.formDynamicBase.JoinChield = this.dynamicForm.joinChield
+    this.formDynamicBase.urlBase = this.window.urlRoot
+    this.formDynamicBase.urlGetAll = this.window.urlRelativeGetAll
+    this.formDynamicBase.urlGetById = this.window.urlRelativeGetById
+    this.formDynamicBase.JoinChield = this.window.joinChield
   }
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CreatePopperService } from './popper/createPopper';
 import { createButtonOrLinkService } from './buttons/createButtonOrLink.service';
-import { campo } from './entities/form/campo';
-import { dynamicForm } from './entities/form/dynamicForm';
-import { quadro } from './entities/form/quadro';
+import { field } from './entities/form/field';
+import { window } from './entities/form/window';
+import { frame } from './entities/form/frame';
 import {ObjectsDOMBaseService} from './elements/objects-DOM-base.component.service'
 
 @Injectable({
@@ -13,11 +13,11 @@ export class FormDynamicService {
 
    constructor(private ObjectsDOMBaseService?:ObjectsDOMBaseService, private buttonOrLinkService?:createButtonOrLinkService, private cps?:CreatePopperService){}
     private form!:HTMLElement;
-    private dynamicForm!:dynamicForm;
-    private quadroInFocu!:quadro; 
+    private window!:window;
+    private frameInFocu!:frame; 
         
-    domCreateForm(dynamic:dynamicForm){
-      this.dynamicForm = dynamic;
+    domCreateForm(window:window){
+      this.window = window;
       this.SetWindowTitle();
       this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
       this.prepareQuadro()
@@ -27,26 +27,26 @@ export class FormDynamicService {
 
     private SetWindowTitle(){
       const windowTitle = document.getElementById("window-title")
-      windowTitle!.textContent = this.dynamicForm.tela
+      windowTitle!.textContent = this.window.tela
     }
     private prepareQuadro(){
       /*
         block: são quadros que não contem contagem de linhas 
         line: são quadros que contém contagem de linhas 
       */
-      this.dynamicForm.quadro?.forEach(quadro => {
-        this.quadroInFocu = quadro //  guarda o quadro em foco no
-        if (quadro.type=='block'){
-          this.createQuadroBlock(quadro);
+      this.window.frame?.forEach(frame => {
+        this.frameInFocu = frame //  guarda o quadro em foco no
+        if (frame.type=='block'){
+          this.createQuadroBlock(frame);
         }
-        if (quadro.type=='line'){
-           this.createQuadroList(quadro);
+        if (frame.type=='line'){
+           this.createQuadroList(frame);
         }
       })
     }
-    private createQuadroBlock(quadro:quadro){
-      const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(quadro) // cria o elemento do bloco
-      const _fields = this.createElementFormItem(quadro.campo!);  // cria um array de elementos de entrada
+    private createQuadroBlock(frame:frame){
+      const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(frame) // cria o elemento do bloco
+      const _fields = this.createElementFormItem(frame.field!);  // cria um array de elementos de entrada
       
       _fields.forEach(field => {
         _quadro.appendChild(field)
@@ -54,41 +54,41 @@ export class FormDynamicService {
       this.form.appendChild(_quadro)
     }
     
-    private createElementFormItem(fields:Array<campo>):Array<HTMLDivElement>{
+    private createElementFormItem(fields:Array<field>):Array<HTMLDivElement>{
       let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
       fields.forEach(field => {
         _fields.push(this.createField(field)) 
       })
       return _fields;
     }
-    private createQuadroList(quadro:quadro){
-      const line = this.createQuadroListElement(quadro)
+    private createQuadroList(frame:frame){
+      const line = this.createQuadroListElement(frame)
       const table = document.createElement('table');
       table.classList.add("table-form")
 
       
-      quadro.line?.forEach(line => {
-        const header = this.prepareLineHeaderTable(line.campo!);
+      frame.line?.forEach(line => {
+        const header = this.prepareLineHeaderTable(line.field!);
         table.appendChild(header)
 
-        const detail = this.prepareLineDetailTable(line.campo!);
+        const detail = this.prepareLineDetailTable(line.field!);
         table.appendChild(detail)
       })
       line.appendChild(table)
 
       this.form.appendChild(line)
     }
-    private createQuadroListElement(quadro:quadro){
+    private createQuadroListElement(frame:frame){
       const div = document.createElement('div');
       div.classList.add('quadro-list')
-      div.setAttribute('data-objectDto',quadro.objectDto)
-      div.setAttribute('data-chield',quadro.child!)
+      div.setAttribute('data-objectDto',frame.objectDto)
+      div.setAttribute('data-chield',frame.child!)
       const h4 = document.createElement('h4');
-      h4.textContent = quadro.name
+      h4.textContent = frame.name
       div.appendChild(h4)
       return div
     }
-    private prepareLineHeaderTable(fields:Array<campo>):HTMLTableRowElement{
+    private prepareLineHeaderTable(fields:Array<field>):HTMLTableRowElement{
       
       let tr = document.createElement('tr');
       fields.forEach(field =>{
@@ -108,10 +108,10 @@ export class FormDynamicService {
       })
       return tr;
     }
-    private prepareLineDetailTable(fields:Array<campo>):HTMLTableRowElement{
+    private prepareLineDetailTable(fields:Array<field>):HTMLTableRowElement{
       
       let tr = document.createElement('tr');
-      tr.setAttribute('data-objecdto',this.quadroInFocu.objectDto)
+      tr.setAttribute('data-objecdto',this.frameInFocu.objectDto)
       fields.forEach(field =>{
         const td = document.createElement('td');
         td.appendChild(this.createFieldTypeLine(field))
@@ -120,7 +120,7 @@ export class FormDynamicService {
       return tr;
     }
 
-    private createFieldTypeLine(field:campo):HTMLInputElement | HTMLSelectElement{
+    private createFieldTypeLine(field:field):HTMLInputElement | HTMLSelectElement{
       let _element:HTMLInputElement | HTMLSelectElement
       switch(field.type){
         case 'text':
@@ -131,13 +131,13 @@ export class FormDynamicService {
             break;
         case 'select':
           _element = this.createFieldSelect(field);
-          _element.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
+          _element.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
 
           break;
       }
       return _element!;
     }
-    private createField(field:campo):HTMLDivElement{
+    private createField(field:field):HTMLDivElement{
       let _element
       switch(field.type){
         case 'text':
@@ -146,14 +146,14 @@ export class FormDynamicService {
           break;
         case 'select':
           _element = this.createFieldSelect(field);
-          _element.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
+          _element.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
           break;
       }
       const formgroup = this.createformGroup(field)
       formgroup.appendChild(_element as HTMLElement)
       return formgroup;
   }
-  createformGroup(field:campo):HTMLDivElement{
+  createformGroup(field:field):HTMLDivElement{
     const div = document.createElement('div');
     div.classList.add('form-group-item');
 
@@ -168,7 +168,7 @@ export class FormDynamicService {
     div.appendChild(label)
     return div;
   }
-  private createFieldInput(field:campo){
+  private createFieldInput(field:field){
     const input = document.createElement('input');
       input.type = field.type;
       if (field.maxlength != undefined && field.maxlength > 0){
@@ -179,11 +179,11 @@ export class FormDynamicService {
       input.classList.add("form-control")
 
       this.setAtributesData(input,field)
-      input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
-      input.setAttribute('set',`${this.quadroInFocu.objectDto}.${String(field.propertDto)}`);
+      input.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+      input.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
       return input
   }
-  private createFieldInputTypeLine(field:campo){
+  private createFieldInputTypeLine(field:field){
     const input = document.createElement('input');
       input.type = field.type;
 
@@ -193,12 +193,12 @@ export class FormDynamicService {
         input.style.width = "50px"  
       }
       this.setAtributesData(input,field)
-      input.setAttribute('name',`${this.quadroInFocu.type}.${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
-      input.setAttribute('set',`${this.quadroInFocu.objectDto}.${String(field.propertDto)}.0`);
+      input.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+      input.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
       return input
   }
 
-  private createFieldSelect(field:campo):HTMLSelectElement{
+  private createFieldSelect(field:field):HTMLSelectElement{
       const select = document.createElement('select');
       this.setAtributesData(select,field)
         field.combo?.forEach(item => {
@@ -208,12 +208,12 @@ export class FormDynamicService {
         })
       return select
   }
-  private setAtributesData(node:HTMLElement,field:campo){
+  private setAtributesData(node:HTMLElement,field:field){
     node.setAttribute('data-max',String(field.max));
     node.setAttribute('data-min',String(field.min));
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
-    node.setAttribute('data-childdto',`${this.quadroInFocu.child}`);
+    node.setAttribute('data-childdto',`${this.frameInFocu.child}`);
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
@@ -261,8 +261,8 @@ export class FormDynamicService {
      
       var atribute = current.getAttribute('name')!.split('.');
       
-      var field = this.dynamicForm.quadro!
-      .find( c => c.objectDto == atribute[1])?.campo?.find( c=>c.propertDto == atribute[2]);
+      var field = this.window.frame!
+      .find( c => c.objectDto == atribute[1])?.field?.find( c=>c.propertDto == atribute[2]);
 
       var tooltip = document.getElementById("tooltip")!
       
@@ -330,7 +330,7 @@ export class FormDynamicService {
   }
 
   private createButtons(){
-    if(this.dynamicForm.type.toLocaleUpperCase() == "CRUD"){
+    if(this.window.type.toLocaleUpperCase() == "CRUD"){
       this.buttonOrLinkService!.prepareButtonsCRUD()
     }
   }

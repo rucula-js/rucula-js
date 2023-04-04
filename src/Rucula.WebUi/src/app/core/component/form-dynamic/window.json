@@ -40,14 +40,14 @@
         "urlrelative":"/window"
       }
     ],
-    "quadro":[
+    "frame":[
       {
         "name": "Header",
         "type": "block",
         "id": "46d66c9d-c830-4c0b-90d7-ea7a6d0cfde9",
         "objectDto": "",
         "child": "",
-        "campo": [
+        "field": [
           {
             "id": "20280273-df01-4205-a454-419c8e89cfd0",
             "description": "id",
@@ -119,7 +119,7 @@
         "child": "",
         "line":[
             {
-              "campo": [
+              "field": [
                 {
                   "id": "00915F10-e991-4164-8932-57c9aadca2e1",
                   "description": "id",
@@ -189,7 +189,7 @@
         "child": "",
         "line":[
             {
-              "campo": [
+              "field": [
                 {
                   "id": "00915F10-e991-4164-8932-57c9aadca2e1",
                   "description": "id",
@@ -247,10 +247,10 @@
         "child": "",
         "line":[
             {
-              "campo": [
+              "field": [
                 {
                   "id": "00915F10-e991-4164-8932-57c9aadca2e1",
-                  "description": "quadro",
+                  "description": "frame",
                   "type": "text",
                   "combo":[],
                   "maxlength": 36,
@@ -258,7 +258,7 @@
                   "min": 0,
                   "required": true,
                   "disable": false,
-                  "propertDto": "quadro"
+                  "propertDto": "frame"
                 },
                 {
                   "id": "00915F10-e991-4164-8932-57c9aadca2e1",
@@ -305,7 +305,7 @@
         "child": "",
         "line":[
             {
-              "campo": [
+              "field": [
                 {
                   "id": "00915F10-e991-4164-8932-57c9aadca2e1",
                   "description": "father",
