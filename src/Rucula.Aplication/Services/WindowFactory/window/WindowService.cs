@@ -27,8 +27,15 @@ public class WindowService : IWindowService
             {
                 this._windowRepository.RepoFrame.Delete(_mapper.Map<Frame>(item));   
             }
+            foreach (var item in window.Columns)
+            {
+                this._windowRepository.RepoColumns.Delete(_mapper.Map<Columns>(item));   
+            }
+            foreach (var item in window.ColumnsGridGet)
+            {
+                this._windowRepository.RepoColumnsGridGet.Delete(_mapper.Map<ColumnsGridGet>(item));   
+            }
             unitOfWork.RepoWindow.Delete(window);
-
             var windowNew = _mapper.Map<Window>(input);
             await unitOfWork.RepoWindow.InsertAsync(windowNew);
 
