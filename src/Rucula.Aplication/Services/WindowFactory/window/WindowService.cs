@@ -5,27 +5,27 @@ namespace Rucula.Aplication.WindowFactory;
 public class WindowService : IWindowService
 {
     private readonly IMapper _mapper;
-    private readonly WindowRepository _unitOfWork;
+    private readonly WindowRepository _windowRepository;
     public WindowService(WindowRepository unitOfWork,IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _windowRepository = unitOfWork;
         _mapper = mapper;
     }
     public async Task AlterAsync(WindowDto input)
     {
-        using (var unitOfWork = this._unitOfWork)
+        using (var unitOfWork = this._windowRepository)
         {
-            var window = await this._unitOfWork.GetCompleteAsync(input.Id);
+            var window = await this._windowRepository.GetCompleteAsync(input.Id);
             foreach (var item in window.Frames)
             {
                 foreach (var field in item.Fields)
                 {
-                    this._unitOfWork.RepoField.Delete(_mapper.Map<Field>(field));
+                    this._windowRepository.RepoField.Delete(_mapper.Map<Field>(field));
                 }   
             }
             foreach (var item in window.Frames)
             {
-                this._unitOfWork.RepoFrame.Delete(_mapper.Map<Frame>(item));   
+                this._windowRepository.RepoFrame.Delete(_mapper.Map<Frame>(item));   
             }
             unitOfWork.RepoWindow.Delete(window);
 
@@ -37,7 +37,7 @@ public class WindowService : IWindowService
     }
     public  async Task DeleteAsync(string id)
     {
-        using (var unitOfWork = this._unitOfWork)
+        using (var unitOfWork = this._windowRepository)
         {
             var window = await unitOfWork.RepoWindow.GetAsync<string>(id);
             unitOfWork.RepoWindow.Delete(window);
@@ -47,7 +47,7 @@ public class WindowService : IWindowService
     public async Task<IReadOnlyCollection<WindowDto>> GetAllAsync()
     {
         IReadOnlyCollection<WindowDto> windowDto = null;
-        using (var unitOfWork = _unitOfWork)
+        using (var unitOfWork = _windowRepository)
         {
             var result = await unitOfWork.RepoWindow.GetAllAsync();
             windowDto = this._mapper.Map<IReadOnlyCollection<WindowDto>>(result);
@@ -57,7 +57,7 @@ public class WindowService : IWindowService
     public async Task<WindowDto> GetAsync(string id)
     {
         WindowDto windowDto = null;
-        using (var unitOfWork = _unitOfWork)
+        using (var unitOfWork = _windowRepository)
         {
             var result = await unitOfWork.RepoWindow.GetAsync(id);
             windowDto = this._mapper.Map<WindowDto>(result);
@@ -68,7 +68,7 @@ public class WindowService : IWindowService
     public async Task<WindowDto> GetCompleteAsync(string id)
     {
         Window result;
-        using (var unitOfWork = this._unitOfWork)
+        using (var unitOfWork = this._windowRepository)
         {
             result  = await unitOfWork.GetCompleteAsync(id);
         }
@@ -78,7 +78,7 @@ public class WindowService : IWindowService
     public async Task InsertAsync(WindowDto input)
     {
         var window =_mapper.Map<Window>(input);
-        using (var unitOfWork = _unitOfWork)
+        using (var unitOfWork = _windowRepository)
         {
             await unitOfWork.RepoWindow.InsertAsync(window);
             unitOfWork.Save();   

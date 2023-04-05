@@ -1,5 +1,4 @@
 namespace Rucula.Domain.Window;
-
 public class Window : Entity<string>
 {
     public Window(string id,string name, string uRLRoot, string uRLGetAll, string uRLGetId, string Type)
@@ -13,6 +12,8 @@ public class Window : Entity<string>
     public string Type { get; private  set; }
 
     public List<Frame> Frames { get; set; }
+    public List<Columns> Columns { get; set; }
+    public List<ColumnsGridGet> ColumnsGridGet { get; set; } 
     
     private void Validation(string id, string name, string uRLRoot, string uRLGetAll, string uRLGetId, string type)
     {
