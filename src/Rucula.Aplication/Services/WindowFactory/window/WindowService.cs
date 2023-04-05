@@ -16,7 +16,22 @@ public class WindowService : IWindowService
         using (var unitOfWork = this._unitOfWork)
         {
             var window = await this._unitOfWork.GetCompleteAsync(input.Id);
-            unitOfWork.Entry(window).CurrentValues.SetValues(input);
+            foreach (var item in window.Frames)
+            {
+                foreach (var field in item.Fields)
+                {
+                    this._unitOfWork.RepoField.Delete(_mapper.Map<Field>(field));
+                }   
+            }
+            foreach (var item in window.Frames)
+            {
+                this._unitOfWork.RepoFrame.Delete(_mapper.Map<Frame>(item));   
+            }
+            unitOfWork.RepoWindow.Delete(window);
+
+            var windowNew = _mapper.Map<Window>(input);
+            await unitOfWork.RepoWindow.InsertAsync(windowNew);
+
             unitOfWork.Save();
         }
     }

@@ -9,5 +9,6 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     Task<IReadOnlyCollection<TEntity>> GetAllAsync();
     void Insert(TEntity input);
     Task InsertAsync(TEntity input);
-    void Delete(TEntity input);    
+    void Delete(TEntity input);  
+
 }
