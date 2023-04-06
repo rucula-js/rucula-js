@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Rucula.Domain.Window;
 
 namespace Rucula.Aplication.WindowFactory;
 public class WindowDto : EntityDto<string>
@@ -18,6 +17,8 @@ public class WindowDto : EntityDto<string>
     public string Type { get; set; }
     public IReadOnlyCollection<FrameDto> Frames {get;set;} 
     public IReadOnlyCollection<ColumnsDto> Columns { get; set; }
-    public IReadOnlyCollection<ColumnsGridGetDto> ColumnsGridGet { get; set; } 
+    public IReadOnlyCollection<ColumnsGridGetDto> ColumnsGridGet { get; set; }
+    public IReadOnlyCollection<ButtonDto> Button {get;set;} 
+    public IReadOnlyCollection<JoinChieldDto> JoinChield {get;set;} 
 
 }

@@ -9,6 +9,7 @@ public class ApplicationContext : DbContext
     public DbSet<Field>? Field { get; set; }
     public DbSet<Columns>? Columns { get; set; }
     public DbSet<ColumnsGridGet>? ColumnsGridGet { get; set; }
+    public DbSet<Button>? Button { get; set; }
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -14,7 +14,8 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Frame>? _repoFrame;
     private IRepository<Columns>? _repoColumns;
     private IRepository<ColumnsGridGet>? _repoColumnsGridGet;
-
+    private IRepository<Button>? _repoButton;
+    private IRepository<JoinChield>? _repoJoinChield;
     public IRepository<Window>  RepoWindow
     {
         get
@@ -53,6 +54,22 @@ public class UnitOfWork : IUnitOfWork
         {
             if (_repoColumnsGridGet is null) _repoColumnsGridGet = new Repository<ColumnsGridGet>(this._context);
             return  _repoColumnsGridGet;
+        }
+    }
+    public IRepository<Button>  RepoButton
+    {
+        get
+        {
+            if (_repoButton is null) _repoButton = new Repository<Button>(this._context);
+            return  _repoButton;
+        }
+    }
+     public IRepository<JoinChield>  RepoJoinChield
+    {
+        get
+        {
+            if (_repoJoinChield is null) _repoJoinChield = new Repository<JoinChield>(this._context);
+            return  _repoJoinChield;
         }
     }
 

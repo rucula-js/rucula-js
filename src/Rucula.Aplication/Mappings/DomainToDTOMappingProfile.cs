@@ -13,5 +13,8 @@ public class DomainToDTOMappingProfile : Profile
         CreateMap<Frame,FrameDto>().ReverseMap();
         CreateMap<Columns,ColumnsDto>().ReverseMap();
         CreateMap<ColumnsGridGet,ColumnsGridGetDto>().ReverseMap();
+        CreateMap<Button,ButtonDto>().ReverseMap();
+        CreateMap<JoinChield,JoinChieldDto>().ReverseMap();
+        
     }
 }

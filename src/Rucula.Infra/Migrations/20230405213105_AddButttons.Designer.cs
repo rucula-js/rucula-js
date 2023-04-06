@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Rucula.Infra.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230405213105_AddButttons")]
+    partial class AddButttons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,6 +23,59 @@ namespace Rucula.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Button", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("WindowFk")
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Icon")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("Link")
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)");
+
+                    b.Property<string>("Method")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Post")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Target")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Urlrelative")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id", "WindowFk")
+                        .HasName("PrimaryKey_Button_Id");
+
+                    b.HasIndex("WindowFk");
+
+                    b.ToTable("Button");
+                });
 
             modelBuilder.Entity("LanguageRuculaParameter", b =>
                 {
@@ -242,59 +298,6 @@ namespace Rucula.Infra.Migrations
                     b.ToTable("TagMetaHTML");
                 });
 
-            modelBuilder.Entity("Rucula.Domain.Window.Button", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
-
-                    b.Property<string>("WindowFk")
-                        .HasColumnType("character varying(10)");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("Icon")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.Property<string>("Link")
-                        .HasMaxLength(120)
-                        .HasColumnType("character varying(120)");
-
-                    b.Property<string>("Method")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("Post")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("Target")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.Property<string>("Text")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("Type")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("Urlrelative")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id", "WindowFk")
-                        .HasName("PrimaryKey_Button_Id");
-
-                    b.HasIndex("WindowFk");
-
-                    b.ToTable("Button");
-                });
-
             modelBuilder.Entity("Rucula.Domain.Window.Columns", b =>
                 {
                     b.Property<string>("Id")
@@ -427,32 +430,6 @@ namespace Rucula.Infra.Migrations
                     b.ToTable("Frame");
                 });
 
-            modelBuilder.Entity("Rucula.Domain.Window.JoinChield", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
-
-                    b.Property<string>("WindowFk")
-                        .HasColumnType("character varying(10)");
-
-                    b.Property<string>("Key")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.HasKey("Id", "WindowFk")
-                        .HasName("PrimaryKey_JoinChield_Id");
-
-                    b.HasIndex("WindowFk");
-
-                    b.ToTable("JoinChield");
-                });
-
             modelBuilder.Entity("Rucula.Domain.Window.Window", b =>
                 {
                     b.Property<string>("Id")
@@ -485,6 +462,18 @@ namespace Rucula.Infra.Migrations
                         .HasName("PrimaryKey_Window_Id");
 
                     b.ToTable("Window");
+                });
+
+            modelBuilder.Entity("Button", b =>
+                {
+                    b.HasOne("Rucula.Domain.Window.Window", "Window")
+                        .WithMany("Button")
+                        .HasForeignKey("WindowFk")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("ForeignKey_Buttons_Window");
+
+                    b.Navigation("Window");
                 });
 
             modelBuilder.Entity("Rucula.Domain.ContentHTML", b =>
@@ -525,18 +514,6 @@ namespace Rucula.Infra.Migrations
                         .HasForeignKey("ContentHTMLFk");
 
                     b.Navigation("ContentHTML");
-                });
-
-            modelBuilder.Entity("Rucula.Domain.Window.Button", b =>
-                {
-                    b.HasOne("Rucula.Domain.Window.Window", "Window")
-                        .WithMany("Button")
-                        .HasForeignKey("WindowFk")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("ForeignKey_Buttons_Window");
-
-                    b.Navigation("Window");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Columns", b =>
@@ -583,18 +560,6 @@ namespace Rucula.Infra.Migrations
                     b.Navigation("Window");
                 });
 
-            modelBuilder.Entity("Rucula.Domain.Window.JoinChield", b =>
-                {
-                    b.HasOne("Rucula.Domain.Window.Window", "Window")
-                        .WithMany("JoinChield")
-                        .HasForeignKey("WindowFk")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("ForeignKey_JoinChield_Window");
-
-                    b.Navigation("Window");
-                });
-
             modelBuilder.Entity("Rucula.Domain.ContentEstruture", b =>
                 {
                     b.Navigation("ContentHTMLFk");
@@ -629,8 +594,6 @@ namespace Rucula.Infra.Migrations
                     b.Navigation("ColumnsGridGet");
 
                     b.Navigation("Frames");
-
-                    b.Navigation("JoinChield");
                 });
 #pragma warning restore 612, 618
         }

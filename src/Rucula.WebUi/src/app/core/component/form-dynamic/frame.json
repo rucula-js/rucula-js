@@ -1,95 +1,101 @@
 {
-  "id": "7890q2wqq",
   "name": "Frames",
   "urlRoot": "Frame",
   "urlGetAll": "",
   "urlGetId": "",
   "type": "crud",
-  "button":[
-    {
-    "id":"8418",
-    "method":"post",
-    "link":"",
-    "icon":"bi bi-save",
-    "text":"",
-    "type":"button",
-    "color":"rgb(95 152 246)",
-    "target":"",
-    "urlrelative":"/window"
-    },
-    {
-      "id":"8248",
-      "method":"put",
-      "link":"",
-      "icon":"bi bi-wrench",
-      "text":"",
-      "type":"button",
-      "color":"rgb(95 108 246)",
-      "target":"",
-      "urlrelative":"/window"
-    },
-    {
-      "id":"er43",
-      "method":"delete",
-      "link":"",
-      "icon":"bi bi bi-trash3",
-      "text":"",
-      "type":"button",
-      "color":"rgb(246 95 95)",
-      "target":"",
-      "urlrelative":"/window"
-    }
-  ],
   "frames": [
     {
-      "id": "18544",
       "name": "string",
       "type": "block",
       "objectDto": "string",
       "windowFk": "7890q2wqq",
       "fields": [
         {
-          "id": "id",
-          "propertDto": "id",
-          "description": "Id",
-          "information": "Identificador Único",
-          "type": "text",
-          "maxLength": 50,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "frameFk": "18544"
-        },
-        {
-          "id": "5616",
           "propertDto": "name",
           "description": "Name",
-          "information": "Nome do Frame",
+          "information": null,
           "type": "text",
-          "maxLength": 50,
+          "maxLength": 40,
           "max": 0,
           "min": 0,
           "requerid": true,
           "disable": false,
-          "frameFk": "18544"
+          "frameFk": "18544",
+          "id": "5616"
+        },
+        {
+          "propertDto": "id",
+          "description": "Id",
+          "information": null,
+          "type": "text",
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": true,
+          "frameFk": "18544",
+          "id": "id"
         }
-      ]
+      ],
+      "id": "18544"
     }
   ],
   "columns": [
     {
-      "id": "id",
       "name": "Id",
-      "windowFk": "7890q2wqq"
+      "windowFk": "7890q2wqq",
+      "id": "id"
     }
   ],
   "columnsGridGet": [
     {
-      "id": "180",
       "parameterUrl": "id",
       "parameterGrid": "id",
-      "windowFk": "7890q2wqq"
+      "windowFk": "7890q2wqq",
+      "id": "180"
     }
-  ]
+  ],
+  "button": [
+    {
+      "method": "put",
+      "post": "",
+      "link": "",
+      "icon": "bi bi-wrench",
+      "text": "",
+      "type": "button",
+      "color": "rgb(95 108 246)",
+      "target": "",
+      "urlrelative": "/window",
+      "windowFk": "7890q2wqq",
+      "id": "8248"
+    },
+    {
+      "method": "post",
+      "post": "",
+      "link": "",
+      "icon": "bi bi-save",
+      "text": "",
+      "type": "button",
+      "color": "rgb(95 152 246)",
+      "target": "",
+      "urlrelative": "/window",
+      "windowFk": "7890q2wqq",
+      "id": "8418"
+    },
+    {
+      "method": "delete",
+      "post": "",
+      "link": "",
+      "icon": "bi bi-trash3",
+      "text": "",
+      "type": "button",
+      "color": "rgb(246 95 95)",
+      "target": "",
+      "urlrelative": "/window",
+      "windowFk": "7890q2wqq",
+      "id": "er43"
+    }
+  ],
+  "id": "7890q2wqq"
 }

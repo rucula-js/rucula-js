@@ -10,11 +10,11 @@ public class Window : Entity<string>
     public string URLGetAll { get; private  set; }
     public string URLGetId { get; private  set; }
     public string Type { get; private  set; }
-
+    public List<Button> Button { get; set; }
     public List<Frame> Frames { get; set; }
     public List<Columns> Columns { get; set; }
     public List<ColumnsGridGet> ColumnsGridGet { get; set; } 
-    
+    public List<JoinChield> JoinChield { get; set; } 
     private void Validation(string id, string name, string uRLRoot, string uRLGetAll, string uRLGetId, string type)
     {
         #region Id

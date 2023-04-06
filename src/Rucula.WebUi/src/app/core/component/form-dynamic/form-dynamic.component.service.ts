@@ -172,7 +172,7 @@ export class FormDynamicService {
     const input = document.createElement('input');
       input.type = field.type;
       if (field.maxLength != undefined && field.maxLength > 0){
-        input.style.width = `${field.maxLength *8}px`  
+        input.style.width = `${field.maxLength * 10}px`  
       }else{
         input.style.width = "90px"  
       }
@@ -188,7 +188,7 @@ export class FormDynamicService {
       input.type = field.type;
 
       if (field.maxLength != undefined && field.maxLength > 0){
-        input.style.width = `${field.maxLength *8}px`  
+        input.style.width = `${field.maxLength *10}px`  
       }else{
         input.style.width = "50px"  
       }
@@ -214,6 +214,8 @@ export class FormDynamicService {
     node.setAttribute('data-required',String(field.required));
     node.setAttribute('data-disable',String(field.disable));
     node.setAttribute('data-childdto',`${this.frameInFocu.child}`);
+    node.setAttribute('maxlength',`${field.maxLength}`);
+    
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map

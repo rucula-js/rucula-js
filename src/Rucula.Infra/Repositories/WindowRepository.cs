@@ -12,6 +12,7 @@ public class WindowRepository : UnitOfWork , IWindowRepository
                 .ThenInclude( c => c.Fields)
                 .Include(c => c.Columns)
                 .Include(c => c.ColumnsGridGet)
+                .Include(c => c.Button)
                 .FirstAsync(c => c.Id == id); 
     }
 }

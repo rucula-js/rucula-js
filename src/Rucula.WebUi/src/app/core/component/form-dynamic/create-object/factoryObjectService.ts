@@ -111,7 +111,7 @@ export class factoryObjectService {
     });
   }
   private SetChields(){
-    this.formConfig?.JoinChield.forEach(item => {
+    this.formConfig?.JoinChield?.forEach(item => {
       let key = "";
       item.key == undefined ? key = "": key=item.key;
       let cheild = item.value;
@@ -119,7 +119,7 @@ export class factoryObjectService {
     })
   }
   private MapChields(){
-    this.formConfig?.JoinChield.forEach(item => {
+    this.formConfig?.JoinChield?.forEach(item => {
       let key = item.key == undefined ? "":item.key;
       let cheild = item.value;
       if(item.value != ""){
