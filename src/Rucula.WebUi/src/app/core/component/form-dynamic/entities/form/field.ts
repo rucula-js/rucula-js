@@ -3,7 +3,7 @@ export interface field{
     description: string
     type: string,
     combo?:[]
-    maxlength?: number
+    maxLength?: number
     max?: number
     min?: number
     required: boolean

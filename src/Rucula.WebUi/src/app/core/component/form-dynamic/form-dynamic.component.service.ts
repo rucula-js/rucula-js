@@ -34,7 +34,7 @@ export class FormDynamicService {
         block: são quadros que não contem contagem de linhas 
         line: são quadros que contém contagem de linhas 
       */
-      this.window.frame?.forEach(frame => {
+      this.window.frames?.forEach(frame => {
         this.frameInFocu = frame //  guarda o quadro em foco no
         if (frame.type=='block'){
           this.createQuadroBlock(frame);
@@ -46,7 +46,7 @@ export class FormDynamicService {
     }
     private createQuadroBlock(frame:frame){
       const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(frame) // cria o elemento do bloco
-      const _fields = this.createElementFormItem(frame.field!);  // cria um array de elementos de entrada
+      const _fields = this.createElementFormItem(frame.fields!);  // cria um array de elementos de entrada
       
       _fields.forEach(field => {
         _quadro.appendChild(field)
@@ -171,10 +171,10 @@ export class FormDynamicService {
   private createFieldInput(field:field){
     const input = document.createElement('input');
       input.type = field.type;
-      if (field.maxlength != undefined && field.maxlength > 0){
-        input.style.width = `${field.maxlength *8}px`  
+      if (field.maxLength != undefined && field.maxLength > 0){
+        input.style.width = `${field.maxLength *8}px`  
       }else{
-        input.style.width = "20px"  
+        input.style.width = "90px"  
       }
       input.classList.add("form-control")
 
@@ -187,8 +187,8 @@ export class FormDynamicService {
     const input = document.createElement('input');
       input.type = field.type;
 
-      if (field.maxlength != undefined && field.maxlength > 0){
-        input.style.width = `${field.maxlength *8}px`  
+      if (field.maxLength != undefined && field.maxLength > 0){
+        input.style.width = `${field.maxLength *8}px`  
       }else{
         input.style.width = "50px"  
       }
@@ -261,8 +261,8 @@ export class FormDynamicService {
      
       var atribute = current.getAttribute('name')!.split('.');
       
-      var field = this.window.frame!
-      .find( c => c.objectDto == atribute[1])?.field?.find( c=>c.propertDto == atribute[2]);
+      var field = this.window.frames!
+      .find( c => c.objectDto == atribute[1])?.fields?.find( c=>c.propertDto == atribute[2]);
 
       var tooltip = document.getElementById("tooltip")!
       
@@ -331,7 +331,7 @@ export class FormDynamicService {
 
   private createButtons(){
     if(this.window.type.toLocaleUpperCase() == "CRUD"){
-      this.buttonOrLinkService!.prepareButtonsCRUD()
+      this.buttonOrLinkService!.prepareButtonsCRUD(this.window.button)
     }
   }
 }

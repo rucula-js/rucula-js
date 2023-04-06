@@ -10,7 +10,7 @@ export interface window{
     urlRoot:string
     urlRelativeGetAll:string
     urlRelativeGetById: string
-    frame?:Array<frame>,
+    frames?:Array<frame>,
     columns:columnsGridjs[]
     button:button[]
     columnsGridGet:columnsGridGet[],

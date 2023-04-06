@@ -6,6 +6,6 @@ export interface frame{
     id: string,
     objectDto: string,
     child?: string,
-    field?:Array<field>
+    fields?:Array<field>
     line?:Array<line>
 }

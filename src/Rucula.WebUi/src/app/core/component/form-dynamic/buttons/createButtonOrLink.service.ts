@@ -7,11 +7,11 @@ import { button } from '../entities/form/button';
 export class createButtonOrLinkService {
  
 
-    public prepareButtonsCRUD(){
+    public prepareButtonsCRUD(button:button[]){
       const ButtonsBox = document.getElementById("box-actions")
-      ButtonsBox?.appendChild(this.createButtonOrLink({id:"8418",method:"post",link:"",icon:"bi bi-save",text:"",type:"button",color:"rgb(95 152 246)",target:""}))
-      ButtonsBox?.appendChild(this.createButtonOrLink({id:"8248",method:"put",link:"",icon:"bi bi-wrench",text:"",type:"button",color:"rgb(95 108 246)",target:""}))
-      ButtonsBox?.appendChild(this.createButtonOrLink({id:"er43",method:"delete",link:"",icon:"bi bi bi-trash3",text:"",type:"button",color:"rgb(246 95 95)",target:""}))
+      button.forEach(b => {
+        ButtonsBox?.appendChild(this.createButtonOrLink(b))  
+      })
       ButtonsBox?.appendChild(this.createButtonOrLink({id:"5454",method:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"",target:""}))
     }
 

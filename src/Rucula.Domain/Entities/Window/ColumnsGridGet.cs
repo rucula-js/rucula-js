@@ -1,11 +1,15 @@
 namespace Rucula.Domain.Window;
 public class ColumnsGridGet : Entity<string>
 {
+    public ColumnsGridGet(string id, string parameterUrl, string parameterGrid)
+    {
+        Validation(id, parameterUrl, parameterGrid);
+    }
     public string ParameterUrl { get; private set; }
     public string ParameterGrid { get; private set; }
     public Window Window { get; set; }
     public string WindowFk { get; set; }
-    public ColumnsGridGet(string id,string parameterUrl, string parameterGrid)
+    public void Validation(string id,string parameterUrl, string parameterGrid)
     {
         #region Id
         id.IsRequerid().AddThrowExceptionDomain("id is requerid");
