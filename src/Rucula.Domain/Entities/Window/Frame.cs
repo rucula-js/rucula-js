@@ -1,18 +1,18 @@
 namespace Rucula.Domain.Window;
 public class Frame : Entity<string>
 {
-    public Frame(string id, string name, string type, string objectDto)
+    public Frame(string id, string name, string type, string objectDto,short sequence)
     {
-        Validation(id, name, type, objectDto);
+        Validation(id, name, type, objectDto,sequence);
     }
     public string Name { get;  private set; }
     public string Type { get; private set; }
     public string ObjectDto { get; private set; }
-
+    public short  Sequence { get; private set; }
     public List<Field> Fields { get; set; }
     public Window Window { get; set; }
     public string WindowFk { get; set; }
-    private void Validation(string id, string name, string type, string objectDto)
+    private void Validation(string id, string name, string type, string objectDto,short sequence)
     {
         #region Id
         id.IsRequerid().AddThrowExceptionDomain("id is requerid");
@@ -30,10 +30,13 @@ public class Frame : Entity<string>
         objectDto.IsRequerid().AddThrowExceptionDomain("objectDto is requerid");
         objectDto.MaxLength(20).AddThrowExceptionDomain("objectDto must be a maximum of 20 characters");  
         #endregion
-
+        sequence.Smalle(0).AddThrowExceptionDomain("sequence can't be negative");
         this.Id = id;
         this.Name = name;
         this.Type = type;
         this.ObjectDto = objectDto;
+        this.Sequence = sequence;
+
+
     }
 }

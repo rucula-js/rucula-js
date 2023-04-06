@@ -34,7 +34,8 @@ export class FormDynamicService {
         block: são quadros que não contem contagem de linhas 
         line: são quadros que contém contagem de linhas 
       */
-      this.window.frames?.forEach(frame => {
+        this.window.frames?.sort(c => c.sequence);
+        this.window.frames?.forEach(frame => {
         this.frameInFocu = frame //  guarda o quadro em foco no
         if (frame.type=='block'){
           this.createQuadroBlock(frame);
@@ -45,6 +46,7 @@ export class FormDynamicService {
       })
     }
     private createQuadroBlock(frame:frame){
+      frame.fields = frame.fields?.sort(c => c.sequence)
       const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(frame) // cria o elemento do bloco
       const _fields = this.createElementFormItem(frame.fields!);  // cria um array de elementos de entrada
       

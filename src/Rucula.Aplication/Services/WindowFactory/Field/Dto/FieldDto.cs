@@ -18,5 +18,6 @@ public class FieldDto : EntityDto<string>
     public short Min { get; set; }
     public bool Requerid { get; set; }
     public bool  Disable { get; set; }
+    public short  Sequence { get; set; }
     public string FrameFk { get; set; }
 }

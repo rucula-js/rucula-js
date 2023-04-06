@@ -11,4 +11,6 @@ export interface field{
     propertDto?: string
     value?: number|string|boolean|Date
     information?:string
+    sequence:number
+
 }

@@ -5,6 +5,7 @@ export interface frame{
     type: string,
     id: string,
     objectDto: string,
+    sequence:number
     child?: string,
     fields?:Array<field>
     line?:Array<line>

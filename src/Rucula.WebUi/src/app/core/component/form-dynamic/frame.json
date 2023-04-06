@@ -9,6 +9,7 @@
       "name": "string",
       "type": "block",
       "objectDto": "string",
+      "sequence": 0,
       "windowFk": "7890q2wqq",
       "fields": [
         {
@@ -21,6 +22,7 @@
           "min": 0,
           "requerid": true,
           "disable": false,
+          "sequence": 1,
           "frameFk": "18544",
           "id": "5616"
         },
@@ -34,6 +36,7 @@
           "min": 0,
           "requerid": true,
           "disable": true,
+          "sequence": 1,
           "frameFk": "18544",
           "id": "id"
         }
@@ -97,5 +100,6 @@
       "id": "er43"
     }
   ],
+  "joinChield": [],
   "id": "7890q2wqq"
 }

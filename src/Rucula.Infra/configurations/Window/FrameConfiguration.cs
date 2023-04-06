@@ -29,6 +29,9 @@ public class FrameConfiguration : IEntityTypeConfiguration<Frame>
             .HasMaxLength(20);
         
         builder
+            .Property( c=> c.Sequence);
+        
+        builder
             .HasOne(c=> c.Window)
             .WithMany( c=> c.Frames)
             .HasForeignKey( f => f.WindowFk)
