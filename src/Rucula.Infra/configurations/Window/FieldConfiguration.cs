@@ -36,10 +36,9 @@ public class FieldConfiguration : IEntityTypeConfiguration<Field>
             .Property( c=> c.Sequence);
         
         builder
-        .HasOne( c=> c.Frame)
-        .WithMany( c=> c.Fields)
-        .HasForeignKey(f => f.FrameFk)
-        .OnDelete(DeleteBehavior.NoAction);
-        
+            .HasOne( c=> c.Frame)
+            .WithMany( c=> c.Fields)
+            .HasForeignKey(f => f.FrameFk)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

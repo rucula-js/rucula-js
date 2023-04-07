@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Rucula.Infra.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230407222730_AddLine")]
+    partial class AddLine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,6 +368,9 @@ namespace Rucula.Infra.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<string>("LineFk")
+                        .HasColumnType("character varying(10)");
+
                     b.Property<short>("Max")
                         .HasColumnType("smallint");
 
@@ -394,6 +400,8 @@ namespace Rucula.Infra.Migrations
                         .HasName("PrimaryKey_Field_Id");
 
                     b.HasIndex("FrameFk");
+
+                    b.HasIndex("LineFk");
 
                     b.ToTable("Field");
                 });
@@ -457,6 +465,23 @@ namespace Rucula.Infra.Migrations
                     b.HasIndex("WindowFk");
 
                     b.ToTable("JoinChield");
+                });
+
+            modelBuilder.Entity("Rucula.Domain.Window.Line", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("FrameFk")
+                        .HasColumnType("character varying(10)");
+
+                    b.HasKey("Id")
+                        .HasName("PrimaryKey_Line_Id");
+
+                    b.HasIndex("FrameFk");
+
+                    b.ToTable("Line");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Window", b =>
@@ -577,7 +602,14 @@ namespace Rucula.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Rucula.Domain.Window.Line", "Line")
+                        .WithMany("Fields")
+                        .HasForeignKey("LineFk")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.Navigation("Frame");
+
+                    b.Navigation("Line");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Frame", b =>
@@ -602,6 +634,16 @@ namespace Rucula.Infra.Migrations
                     b.Navigation("Window");
                 });
 
+            modelBuilder.Entity("Rucula.Domain.Window.Line", b =>
+                {
+                    b.HasOne("Rucula.Domain.Window.Frame", "Frame")
+                        .WithMany("Line")
+                        .HasForeignKey("FrameFk")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Frame");
+                });
+
             modelBuilder.Entity("Rucula.Domain.ContentEstruture", b =>
                 {
                     b.Navigation("ContentHTMLFk");
@@ -623,6 +665,13 @@ namespace Rucula.Infra.Migrations
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Frame", b =>
+                {
+                    b.Navigation("Fields");
+
+                    b.Navigation("Line");
+                });
+
+            modelBuilder.Entity("Rucula.Domain.Window.Line", b =>
                 {
                     b.Navigation("Fields");
                 });

@@ -68,14 +68,13 @@ export class FormDynamicService {
       const table = document.createElement('table');
       table.classList.add("table-form")
 
-      
-      frame.line?.forEach(line => {
-        const header = this.prepareLineHeaderTable(line.field!);
-        table.appendChild(header)
+      debugger;
+      const header = this.prepareLineHeaderTable(frame.fields!);
+      table.appendChild(header)
 
-        const detail = this.prepareLineDetailTable(line.field!);
-        table.appendChild(detail)
-      })
+      const detail = this.prepareLineDetailTable(frame.fields!);
+      table.appendChild(detail)
+
       line.appendChild(table)
 
       this.form.appendChild(line)
@@ -95,8 +94,9 @@ export class FormDynamicService {
       let tr = document.createElement('tr');
       fields.forEach(field =>{
         const th = document.createElement('th');
+        debugger;
         th.textContent = field.description
-        if (field.required == true){
+        if (field.requerid == true){
           th.textContent = th.textContent
           th.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
         }
@@ -163,7 +163,7 @@ export class FormDynamicService {
     label.setAttribute('for',field.id)
     
     label.textContent = field.description
-    if (field.required == true){
+    if (field.requerid == true){
       label.textContent = label.textContent
       label.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
     }
@@ -213,7 +213,7 @@ export class FormDynamicService {
   private setAtributesData(node:HTMLElement,field:field){
     node.setAttribute('data-max',String(field.max));
     node.setAttribute('data-min',String(field.min));
-    node.setAttribute('data-required',String(field.required));
+    node.setAttribute('data-required',String(field.requerid));
     node.setAttribute('data-disable',String(field.disable));
     node.setAttribute('data-childdto',`${this.frameInFocu.child}`);
     node.setAttribute('maxlength',`${field.maxLength}`);
@@ -229,6 +229,7 @@ export class FormDynamicService {
   private setEventForCreationLine(){
     const line =  document.querySelectorAll('.quadro-list table tr[data-objecdto]')
     line.forEach((element) => {
+      
       element.addEventListener('keydown',(event)=> {
         this.crudLineQuadro(event)
       })
@@ -294,6 +295,8 @@ export class FormDynamicService {
       this.keyEvents.push(key)
     }
     this.keyEvents.sort()
+
+    console.log(this.keyEvents)
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLowerCase() ==  "a"){
         var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
         current.after(clone)

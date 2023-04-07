@@ -8,8 +8,7 @@ public class WindowRepository : UnitOfWork , IWindowRepository
     {
             return  await  
                 this._context.Window!
-                .Include(c => c.Frames)
-                .ThenInclude( c => c.Fields)
+                .Include(c => c.Frames).ThenInclude( c => c.Fields)
                 .Include(c => c.Columns)
                 .Include(c => c.ColumnsGridGet)
                 .Include(c => c.Button)

@@ -42,6 +42,44 @@
         }
       ],
       "id": "18544"
+    },
+    {
+      "name": "SSS",
+      "type": "line",
+      "objectDto": "string",
+      "sequence": 0,
+      "windowFk": "7890q2wqq",
+      "fields": [
+        {
+          "propertDto": "name",
+          "description": "Name",
+          "information": null,
+          "type": "text",
+          "maxLength": 40,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 1,
+          "frameFk": "18544",
+          "id": "5616"
+        },
+        {
+          "propertDto": "id",
+          "description": "Id",
+          "information": null,
+          "type": "text",
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": true,
+          "sequence": 0,
+          "frameFk": "18544",
+          "id": "id"
+        }
+      ],
+      "id": "SSSS"
     }
   ],
   "columns": [

@@ -6,7 +6,7 @@ export interface field{
     maxLength?: number
     max?: number
     min?: number
-    required: boolean
+    requerid: boolean
     disable: boolean
     propertDto?: string
     value?: number|string|boolean|Date
