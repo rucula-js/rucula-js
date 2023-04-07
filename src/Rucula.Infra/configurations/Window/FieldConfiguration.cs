@@ -7,7 +7,7 @@ public class FieldConfiguration : IEntityTypeConfiguration<Field>
     public void Configure(EntityTypeBuilder<Field> builder)
     {
 
-        builder.HasKey(k => k.Id).HasName("PrimaryKey_Field_Id");
+        builder.HasKey(k => new {k.Id, k.FrameFk}).HasName("PrimaryKey_Field_Id");
         builder
             .Property(p => p.Id)
             .HasMaxLength(10)

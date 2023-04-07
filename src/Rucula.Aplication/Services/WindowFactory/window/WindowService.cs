@@ -16,37 +16,25 @@ public class WindowService : IWindowService
         using (var unitOfWork = this._windowRepository)
         {
             var window = await this._windowRepository.GetCompleteAsync(input.Id);
-            foreach (var item in window.Frames)
-            {
-                foreach (var field in item.Fields)
-                {
-                    this._windowRepository.RepoField.Delete(_mapper.Map<Field>(field));
-                }   
-            }
-            foreach (var item in window.Frames)
-            {
-                this._windowRepository.RepoFrame.Delete(_mapper.Map<Frame>(item));   
-            }
-            foreach (var item in window.Columns)
-            {
-                this._windowRepository.RepoColumns.Delete(_mapper.Map<Columns>(item));   
-            }
-            foreach (var item in window.ColumnsGridGet)
-            {
-                this._windowRepository.RepoColumnsGridGet.Delete(_mapper.Map<ColumnsGridGet>(item));   
-            }
-            foreach (var item in window.Button)
-            {
-                this._windowRepository.RepoButton.Delete(_mapper.Map<Button>(item));   
-            }
-            foreach (var item in window.JoinChield)
-            {
-                this._windowRepository.RepoJoinChield.Delete(_mapper.Map<JoinChield>(item));   
-            }
+            window.Frames.ForEach( c => 
+                c.Fields.ForEach(f => 
+                    this._windowRepository.RepoField.Delete(_mapper.Map<Field>(f))));
+            window.Frames.ForEach(c => 
+                this._windowRepository.RepoFrame.Delete(_mapper.Map<Frame>(c)));
+            window.Columns.ForEach(c => 
+                this._windowRepository.RepoColumns.Delete(_mapper.Map<Columns>(c)));
+            window.ColumnsGridGet.ForEach(c => 
+                this._windowRepository.RepoColumnsGridGet.Delete(_mapper.Map<ColumnsGridGet>(c)));   
+            window.Button.ForEach(c =>
+                this._windowRepository.RepoButton.Delete(_mapper.Map<Button>(c))
+            );
+            if(window.JoinChield is not null) 
+                window?.JoinChield.ForEach(
+                    c => this._windowRepository.RepoJoinChield.Delete(_mapper.Map<JoinChield>(c))
+                );
             unitOfWork.RepoWindow.Delete(window);
             var windowNew = _mapper.Map<Window>(input);
             await unitOfWork.RepoWindow.InsertAsync(windowNew);
-
             unitOfWork.Save();
         }
     }

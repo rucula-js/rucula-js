@@ -18,8 +18,9 @@ public class Field : Entity<string>
     public short  Sequence { get; private set; }
     public Frame Frame { get; set; }
     public string FrameFk { get; set; }
+    public Line Line { get; set; }
+    public string LineFk { get; set; }
     
-
     private void Validate(string id, string propertDto,string description,string information,string type,short maxLength ,short max ,short min,
         bool requerid, bool  disable, short sequence)
     {

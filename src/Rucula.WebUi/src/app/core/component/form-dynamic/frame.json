@@ -36,7 +36,7 @@
           "min": 0,
           "requerid": true,
           "disable": true,
-          "sequence": 1,
+          "sequence": 0,
           "frameFk": "18544",
           "id": "id"
         }

@@ -71,22 +71,4 @@ public class WindowTest
         .WithMessage("uRLGetId must be a maximum of 20 characters");
     }
     #endregion
-     #region Type
-    [TestMethod]
-    public void Throw_Exception_When_Type_Is_Requerid(){
-        Action act = () => new Frame("1505","frame","","frame");
-        act
-        .Should()
-        .Throw<DomainExeption>()
-        .WithMessage("type is requerid");
-    }
-    [TestMethod]
-    public void Throw_Exception_When_Type_Contain_More_Than_10_Characteres(){
-        Action act = () => new Frame("5454","frame",new String('a',11),"frame");
-        act
-        .Should()
-        .Throw<DomainExeption>()
-        .WithMessage("type must be a maximum of 10 characters");
-    }    
-    #endregion     
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Rucula.Infra.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230407030743_AlterPrimaryKeyField")]
+    partial class AlterPrimaryKeyField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace Rucula.Infra.Migrations
                     b.HasKey("Code")
                         .HasName("PrimaryKey_LanguageRuculaParameterCode");
 
-                    b.ToTable("LanguageRuculaParameter", (string)null);
+                    b.ToTable("LanguageRuculaParameter");
                 });
 
             modelBuilder.Entity("Rucula.Domain.AtributesHTML", b =>
@@ -60,7 +63,7 @@ namespace Rucula.Infra.Migrations
                     b.HasKey("Code")
                         .HasName("PrimaryKey_AtributesHTMLCode");
 
-                    b.ToTable("AtributesHTML", (string)null);
+                    b.ToTable("AtributesHTML");
                 });
 
             modelBuilder.Entity("Rucula.Domain.ContentEstruture", b =>
@@ -85,7 +88,7 @@ namespace Rucula.Infra.Migrations
                     b.HasKey("Guuid")
                         .HasName("PrimaryKey_ContentEstrutureGuuid");
 
-                    b.ToTable("ContentEstruture", (string)null);
+                    b.ToTable("ContentEstruture");
                 });
 
             modelBuilder.Entity("Rucula.Domain.ContentHTML", b =>
@@ -119,7 +122,7 @@ namespace Rucula.Infra.Migrations
                     b.HasIndex("ContentEstrutureForeignKey")
                         .IsUnique();
 
-                    b.ToTable("ContentHTML", (string)null);
+                    b.ToTable("ContentHTML");
                 });
 
             modelBuilder.Entity("Rucula.Domain.KeyWord", b =>
@@ -143,7 +146,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("KeyWord", (string)null);
+                    b.ToTable("KeyWord");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Language", b =>
@@ -161,7 +164,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language", (string)null);
+                    b.ToTable("Language");
                 });
 
             modelBuilder.Entity("Rucula.Domain.LanguageRucula", b =>
@@ -184,7 +187,7 @@ namespace Rucula.Infra.Migrations
                     b.HasKey("Code")
                         .HasName("PrimaryKey_LAnguageRuculaCode");
 
-                    b.ToTable("LanguageRucula", (string)null);
+                    b.ToTable("LanguageRucula");
                 });
 
             modelBuilder.Entity("Rucula.Domain.LanguageRuculaRepresentation", b =>
@@ -206,7 +209,7 @@ namespace Rucula.Infra.Migrations
                     b.HasIndex("CodeRuculaForeKey")
                         .IsUnique();
 
-                    b.ToTable("LanguageRuculaRepresentation", (string)null);
+                    b.ToTable("LanguageRuculaRepresentation");
                 });
 
             modelBuilder.Entity("Rucula.Domain.TagMetaHTML", b =>
@@ -239,7 +242,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("ContentHTMLFk");
 
-                    b.ToTable("TagMetaHTML", (string)null);
+                    b.ToTable("TagMetaHTML");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Button", b =>
@@ -292,7 +295,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("WindowFk");
 
-                    b.ToTable("Button", (string)null);
+                    b.ToTable("Button");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Columns", b =>
@@ -314,7 +317,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("WindowFk");
 
-                    b.ToTable("Columns", (string)null);
+                    b.ToTable("Columns");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.ColumnsGridGet", b =>
@@ -341,7 +344,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("WindowFk");
 
-                    b.ToTable("ColumnsGridGet", (string)null);
+                    b.ToTable("ColumnsGridGet");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Field", b =>
@@ -395,7 +398,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("FrameFk");
 
-                    b.ToTable("Field", (string)null);
+                    b.ToTable("Field");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Frame", b =>
@@ -430,7 +433,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("WindowFk");
 
-                    b.ToTable("Frame", (string)null);
+                    b.ToTable("Frame");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.JoinChield", b =>
@@ -456,7 +459,7 @@ namespace Rucula.Infra.Migrations
 
                     b.HasIndex("WindowFk");
 
-                    b.ToTable("JoinChield", (string)null);
+                    b.ToTable("JoinChield");
                 });
 
             modelBuilder.Entity("Rucula.Domain.Window.Window", b =>
@@ -490,7 +493,7 @@ namespace Rucula.Infra.Migrations
                     b.HasKey("Id")
                         .HasName("PrimaryKey_Window_Id");
 
-                    b.ToTable("Window", (string)null);
+                    b.ToTable("Window");
                 });
 
             modelBuilder.Entity("Rucula.Domain.ContentHTML", b =>
