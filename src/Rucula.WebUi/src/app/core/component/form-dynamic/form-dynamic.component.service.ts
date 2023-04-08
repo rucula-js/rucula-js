@@ -113,15 +113,11 @@ export class FormDynamicService {
       let _element:HTMLInputElement | HTMLSelectElement
       switch(field.type){
         case 'text':
-          _element = this.createFieldInputTypeLine(field);
-          break;
         case 'number':
             _element = this.createFieldInputTypeLine(field);
             break;
         case 'select':
           _element = this.createFieldSelect(field);
-          _element.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
-
           break;
       }
       return _element!;
@@ -135,7 +131,6 @@ export class FormDynamicService {
           break;
         case 'select':
           _element = this.createFieldSelect(field);
-          _element.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
           break;
       }
       const formgroup = this.createformGroup(field)
@@ -173,7 +168,7 @@ export class FormDynamicService {
       return input
   }
   private createFieldInputTypeLine(field:field){
-    const input = document.createElement('input');
+      const input = document.createElement('input');
       input.type = field.type;
 
       if (field.maxLength != undefined && field.maxLength > 0){
