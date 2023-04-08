@@ -12,11 +12,12 @@ public class FieldController : ControllerBase
    {
       _fieldService = windowService;
    }
-   // [HttpGet]
-   // public async Task<IReadOnlyCollection<FieldDto>> Get()
-   // {
-   //    return await _fieldService.GetAllAsync();
-   // }
+   [HttpGet]
+   [Route("GetAll")]
+   public async Task<IReadOnlyCollection<FieldDto>> Get()
+   {
+      return await _fieldService.GetAllAsync();
+   }
    [HttpGet]
    public async Task<FieldDto>  Get(string id)
    {

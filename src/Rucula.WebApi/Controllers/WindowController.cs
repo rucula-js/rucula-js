@@ -13,11 +13,12 @@ public class WindowController : ControllerBase
    {
       _windowService = windowService;
    }
-   // [HttpGet]
-   // public async Task<IReadOnlyCollection<WindowDto>> Get()
-   // {
-   //    return await _windowService.GetAllAsync();
-   // }
+   [HttpGet]
+   [Route("GetAll")]
+   public async Task<IReadOnlyCollection<WindowDto>> Get()
+   {
+      return await _windowService.GetAllAsync();
+   }
    [HttpGet]
    public async Task<WindowDto>  Get(string id)
    {

@@ -8,8 +8,8 @@ export interface window{
     tela:string,
     type:string,
     urlRoot:string
-    urlRelativeGetAll:string
-    urlRelativeGetById: string
+    urlGetAll:string
+    urlGetId: string
     frames?:Array<frame>,
     columns:columnsGridjs[]
     button:button[]

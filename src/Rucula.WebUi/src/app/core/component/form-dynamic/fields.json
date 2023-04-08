@@ -1,97 +1,16 @@
 {
-  "name": "Frames",
-  "urlRoot": "https://localhost:7170/Frame",
+  "name": "Fields",
+  "urlRoot": "https://localhost:7170/Field",
   "urlGetAll": "/GetAll",
   "urlGetId": "",
   "type": "crud",
   "frames": [
     {
-      "name": "Frame",
-      "type": "block",
-      "objectDto": "",
-      "sequence": 0,
-      "windowFk": "7890q2wqq",
-      "fields": [
-        {
-          "propertDto": "window",
-          "description": "Code Window",
-          "information": null,
-          "type": "text",
-          "maxLength": 10,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 4,
-          "frameFk": "18544",
-          "id": "1565165"
-        },
-        {
-          "propertDto": "name",
-          "description": "Name",
-          "information": null,
-          "type": "text",
-          "maxLength": 40,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 1,
-          "frameFk": "18544",
-          "id": "5616"
-        },
-        {
-          "propertDto": "type",
-          "description": "type",
-          "information": null,
-          "type": "select",
-          "combo":[{"value":1,"representation":"block"},{"value":2,"representation":"line"}],
-          "maxLength": 10,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 2,
-          "frameFk": "18544",
-          "id": "9849849"
-        },
-        {
-          "propertDto": "id",
-          "description": "Id",
-          "information": null,
-          "type": "text",
-          "maxLength": 10,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 0,
-          "frameFk": "18544",
-          "id": "id"
-        },
-        {
-          "propertDto": "sequence",
-          "description": "sequence",
-          "information": null,
-          "type": "number",
-          "maxLength": 20,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 3,
-          "frameFk": "18544",
-          "id": "wddwcw45"
-        }
-      ],
-      "id": "18544"
-    },
-    {
       "name": "Fields",
-      "type": "line",
+      "type": "block",
       "objectDto": "field",
       "sequence": 0,
-      "windowFk": "7890q2wqq",
+      "windowFk": "field",
       "fields": [
         {
           "id": "8978",
@@ -156,7 +75,13 @@
           "description": "type",
           "information": null,
           "type": "select",
-          "combo":["text","number","select","check","radio"],
+          "combo":[
+            {"value":"text","representation":"text"},
+            {"value":"number","representation":"number"},
+            {"value":"select","representation":"select"},
+            {"value":"check","representation":"check"},
+            {"value":"radio","representation":"radio"}
+          ],
           "maxLength": 10,
           "max": 0,
           "min": 0,
@@ -212,7 +137,7 @@
           "propertDto": "requerid",
           "description": "requerid",
           "information": null,
-          "type": "checkbox",
+          "type": "text",
           "maxLength": 5,
           "max": 0,
           "min": 0,
@@ -226,7 +151,7 @@
           "propertDto": "disable",
           "description": "disable",
           "information": null,
-          "type": "checkbox",
+          "type": "text",
           "maxLength": 5,
           "max": 0,
           "min": 0,
@@ -248,31 +173,38 @@
           "disable": false,
           "sequence": 11
         }
-
-        
       ],
       "id": "16516"
     }
   ],
   "columns": [
     {
-      "name": "name",
-      "windowFk": "7890q2wqq",
-      "id": "name"
+      "name": "Id",
+      "windowFk": "field",
+      "id": "id"
+    },
+    {
+      "name": "Propert",
+      "windowFk": "field",
+      "id": "propertDto"
+    },
+    {
+      "name": "description",
+      "windowFk": "field",
+      "id": "description"
+    },
+    {
+      "name": "type",
+      "windowFk": "field",
+      "id": "type"
     }
   ],
   "columnsGridGet": [
     {
       "parameterUrl": "id",
       "parameterGrid": "id",
-      "windowFk": "7890q2wqq",
+      "windowFk": "field",
       "id": "180"
-    },
-    {
-      "parameterUrl": "windowFk",
-      "parameterGrid": "windowFk",
-      "windowFk": "7890q2wqq",
-      "id": "1505"
     }
   ],
   "button": [
@@ -285,8 +217,8 @@
       "type": "button",
       "color": "rgb(95 108 246)",
       "target": "",
-      "urlrelative": "/window",
-      "windowFk": "7890q2wqq",
+      "urlrelative": "",
+      "windowFk": "field",
       "id": "8248"
     },
     {
@@ -298,8 +230,8 @@
       "type": "button",
       "color": "rgb(95 152 246)",
       "target": "",
-      "urlrelative": "/window",
-      "windowFk": "7890q2wqq",
+      "urlrelative": "",
+      "windowFk": "field",
       "id": "8418"
     },
     {
@@ -311,11 +243,11 @@
       "type": "button",
       "color": "rgb(246 95 95)",
       "target": "",
-      "urlrelative": "/window",
-      "windowFk": "7890q2wqq",
+      "urlrelative": "",
+      "windowFk": "field",
       "id": "er43"
     }
   ],
-  "joinChield": [{"key":"","value":"field"}],
-  "id": "7890q2wqq"
+  "joinChield": [],
+  "id": "field"
 }

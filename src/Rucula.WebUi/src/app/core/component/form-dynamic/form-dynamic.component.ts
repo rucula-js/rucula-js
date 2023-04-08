@@ -1,7 +1,7 @@
-import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
+import { AfterContentInit, Component, OnInit} from '@angular/core';
 import { window } from './entities/form/window';
 import { FormDynamicService } from './form-dynamic.component.service';
-import quadro from './frame.json'
+import quadro from './window.json'
 import { actionButtons } from './actions/actionButton'
 import {actionsHTTPService} from './actions/actionsHTTPService'
 import  {formDynamicBaseService} from './form-dynamic-base.component.service'
@@ -28,7 +28,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   } 
   GetById(parameters:string){
     this.actionHttp
-    ?.getById(this.window.urlRoot+this.window.urlRelativeGetById+"?"+parameters)
+    ?.getById(this.window.urlRoot+this.window.urlGetId+"?"+parameters)
     .subscribe((data:any) =>
       this.inputValueForm(data)
     );
@@ -36,7 +36,7 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
 
   GetAll(){
     this.actionHttp
-    ?.getAll(this.window.urlRoot+this.window.urlRelativeGetAll)
+    ?.getAll(this.window.urlRoot+this.window.urlGetAll)
     .subscribe((data:any) => this.datagrid = data);
   }
 
@@ -57,8 +57,8 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
 
   SetConfigurationsForm(){
     this.formDynamicBase.urlBase = this.window.urlRoot
-    this.formDynamicBase.urlGetAll = this.window.urlRelativeGetAll
-    this.formDynamicBase.urlGetById = this.window.urlRelativeGetById
+    this.formDynamicBase.urlGetAll = this.window.urlGetAll
+    this.formDynamicBase.urlGetById = this.window.urlGetId
     this.formDynamicBase.JoinChield = this.window.joinChield
   }
 }

@@ -12,11 +12,12 @@ public class FrameController : ControllerBase
    {
       _frameService = windowService;
    }
-   // [HttpGet]
-   // public async Task<IReadOnlyCollection<FrameDto>> Get()
-   // {
-   //    return await _frameService.GetAllAsync();
-   // }
+   [HttpGet]
+   [Route("GetAll")]
+   public async Task<IReadOnlyCollection<FrameDto>> Get()
+   {
+      return await _frameService.GetAllAsync();
+   }
    [HttpGet]
    public async Task<FrameDto>  Get(string id)
    {
