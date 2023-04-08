@@ -51,7 +51,6 @@ export class FormDynamicService {
       })
       this.form.appendChild(_quadro)
     }
-    
     private createElementsField(fields:Array<field>):Array<HTMLDivElement>{
       let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
       fields.forEach(field => {
@@ -108,34 +107,39 @@ export class FormDynamicService {
       })
       return tr;
     }
-
-    private createFieldTypeLine(field:field):HTMLInputElement | HTMLSelectElement{
-      let _element:HTMLInputElement | HTMLSelectElement
-      switch(field.type){
-        case 'text':
-        case 'number':
-            _element = this.createFieldInputTypeLine(field);
-            break;
-        case 'select':
-          _element = this.createFieldSelect(field);
-          break;
-      }
-      return _element!;
-    }
     private createFieldTypeBlock(field:field):HTMLDivElement{
-      let _element
+      let element
       switch(field.type){
         case 'text':
         case 'number':
-          _element = this.createFieldInput(field);
+          element = this.createFieldInputTypeBlock(field);
           break;
         case 'select':
-          _element = this.createFieldSelect(field);
+          element = this.createFieldSelect(field);
+          this.setAtributesDataSetAndNameTypeBlock(element,field)
           break;
+        default:
+            throw new Error(`Field type "${field.type}" is not allowed`);     
       }
       const formgroup = this.createformGroup(field)
-      formgroup.appendChild(_element as HTMLElement)
+      formgroup.appendChild(element as HTMLElement)
       return formgroup;
+  }
+  private createFieldTypeLine(field:field):HTMLInputElement | HTMLSelectElement{
+    let element:HTMLInputElement | HTMLSelectElement
+    switch(field.type){
+      case 'text':
+      case 'number':
+        element = this.createFieldInputTypeLine(field);
+          break;
+      case 'select':
+        element = this.createFieldSelect(field);
+        this.setAtributesDataSetAndNameTypeLine(element,field)
+        break;
+      default:
+          throw new Error(`Field type "${field.type}" is not allowed`); 
+    }
+    return element!;
   }
   createformGroup(field:field):HTMLDivElement{
     const div = document.createElement('div');
@@ -152,8 +156,9 @@ export class FormDynamicService {
     div.appendChild(label)
     return div;
   }
-  private createFieldInput(field:field){
-    const input = document.createElement('input');
+  
+  private createFieldTypeInputBasic(field:field):HTMLInputElement{
+      const input = document.createElement('input');
       input.type = field.type;
       if (field.maxLength != undefined && field.maxLength > 0){
         input.style.width = `${field.maxLength * 10}px`  
@@ -161,30 +166,24 @@ export class FormDynamicService {
         input.style.width = "90px"  
       }
       input.classList.add("form-control")
-
-      this.setAtributesData(input,field)
-      input.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
-      input.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+      return input;
+  }
+  private createFieldInputTypeBlock(field:field){
+      const input = this.createFieldTypeInputBasic(field)
+      this.setAtributesDataDefault(input,field)
+      this.setAtributesDataSetAndNameTypeBlock(input,field)
       return input
   }
   private createFieldInputTypeLine(field:field){
-      const input = document.createElement('input');
-      input.type = field.type;
-
-      if (field.maxLength != undefined && field.maxLength > 0){
-        input.style.width = `${field.maxLength *10}px`  
-      }else{
-        input.style.width = "50px"  
-      }
-      this.setAtributesData(input,field)
-      input.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
-      input.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+      const input = this.createFieldTypeInputBasic(field)
+      this.setAtributesDataDefault(input,field)
+      this.setAtributesDataSetAndNameTypeLine(input,field)
       return input
   }
 
   private createFieldSelect(field:field):HTMLSelectElement{
       const select = document.createElement('select');
-      this.setAtributesData(select,field)
+      this.setAtributesDataDefault(select,field)
         field.combo?.forEach(item => {
           const option = document.createElement('option')
           option.text = item
@@ -192,18 +191,25 @@ export class FormDynamicService {
         })
       return select
   }
-  private setAtributesData(node:HTMLElement,field:field){
+  private setAtributesDataDefault(node:HTMLElement,field:field){
     node.setAttribute('data-max',String(field.max));
     node.setAttribute('data-min',String(field.min));
     node.setAttribute('data-required',String(field.requerid));
     node.setAttribute('data-disable',String(field.disable));
     node.setAttribute('data-childdto',`${this.frameInFocu.child}`);
-    node.setAttribute('maxlength',`${field.maxLength}`);
-    
+    node.setAttribute('maxlength',`${field.maxLength}`); 
+  }
+  private setAtributesDataSetAndNameTypeBlock(node:HTMLElement,field:field){
+    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+  }
+  private setAtributesDataSetAndNameTypeLine(node:HTMLElement,field:field){
+    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
-  
+
   setEvents(){
     this.setEventForCreationLine()
     this.setEventForInformationInputQuadro()
@@ -253,32 +259,25 @@ export class FormDynamicService {
 
       var tooltip = document.getElementById("tooltip")!
       
-
       tooltip.textContent = String(field!.information)
       if (field!.information == "" || field!.information == undefined){
         tooltip.innerHTML = "Campo sem informação &#128542";
       }
-    
       let arrow = document.createElement('div') 
       arrow.setAttribute("id","arrow");
       arrow.setAttribute("data-popper-arrow","");
       tooltip.appendChild(arrow)
       tooltip.style.display = "inline-block"
-      
-
       this.cps?.createPopper(current,tooltip)
     }
   }
   private crudLineQuadro(event:Event){
-
     const current = (event.currentTarget as HTMLElement)
     const key = (event as KeyboardEvent).key;
     if(this.keyEvents.filter(c=> c==key).length == 0){
       this.keyEvents.push(key)
     }
     this.keyEvents.sort()
-
-    console.log(this.keyEvents)
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLowerCase() ==  "a"){
         var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
         current.after(clone)
@@ -296,12 +295,10 @@ export class FormDynamicService {
   private createNewLine(ObjectdtoLine:string):HTMLElement{
 
     var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
-
     (clone as HTMLElement).childNodes.forEach(item => {
          let atributeName = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")!;
          let atributeSet = (item.firstChild as HTMLElement).getAttribute('set')?.split(".")!;
 
-          
          (item.firstChild as HTMLElement).setAttribute('name',
           `${atributeName[0]}.${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`);
           
@@ -310,7 +307,7 @@ export class FormDynamicService {
 
     })
     this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
-    
+
     clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
     clone.addEventListener('keyup',(event)=> {
       this.keyEvents = [] 

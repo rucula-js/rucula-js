@@ -20,7 +20,6 @@ export class factoryObjectService {
     let formData = new FormData(form as HTMLFormElement) // FormData é o que faz o trabalho de mapeamento ser mais simples. https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData
 
     for (const inputValue of Object(formData).entries()) {
-
       /*
         Para que sejá possivel mepear corretamente os inputs de acordo com os objetsDto, os nomes dos inputs seguem o seguinte padrão:
         "tipoDoQuadro.ObjetoDto.Propiedade" ou "tipoDoQuadro.ObjetoDto.Propiedade.NumeroDaLinha"

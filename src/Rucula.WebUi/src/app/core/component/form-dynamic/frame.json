@@ -45,6 +45,7 @@
           "description": "type",
           "information": null,
           "type": "select",
+          "combo":["segunda","terça","quarta"],
           "maxLength": 10,
           "max": 0,
           "min": 0,
