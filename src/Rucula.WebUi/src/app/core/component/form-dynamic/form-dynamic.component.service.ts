@@ -30,16 +30,21 @@ export class FormDynamicService {
     }
     private createFrames(){
       /*
-        block: são quadros que não contem contagem de linhas 
-        line: são quadros que contém contagem de linhas 
+        block: são frames que não contem contagem de linhas 
+        line: são frames que contém contagem de linhas 
       */
         this.window.frames?.forEach(frame => {
-        this.frameInFocu = frame //  guarda o quadro em foco no
-        if (frame.type=='block'){
-          this.createFrameTypeBlock(frame);
-        }
-        if (frame.type=='line'){
-           this.createQuadroList(frame);
+        this.frameInFocu = frame //  guarda o frames em foco
+        
+        switch (frame.type) {
+          case 'block':
+            this.createFrameTypeBlock(frame);
+            break;
+          case 'line':
+              this.createQuadroList(frame);
+              break;
+          default:
+            throw new Error(`Frame type "${frame.type}" is not allowed`); 
         }
       })
     }
@@ -314,7 +319,6 @@ export class FormDynamicService {
     })
     return clone as HTMLElement;
   }
-
   private createButtons(){
     if(this.window.type.toLocaleUpperCase() == "CRUD"){
       this.buttonOrLinkService!.prepareButtonsCRUD(this.window.button)
