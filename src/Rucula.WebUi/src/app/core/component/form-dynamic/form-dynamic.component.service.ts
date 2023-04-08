@@ -20,46 +20,42 @@ export class FormDynamicService {
       this.window = window;
       this.SetWindowTitle();
       this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
-      this.prepareQuadro()
+      this.createFrames()
       this.createButtons()
       this.setEvents()
     }
-
     private SetWindowTitle(){
       const windowTitle = document.getElementById("window-title")
       windowTitle!.textContent = this.window.tela
     }
-    private prepareQuadro(){
+    private createFrames(){
       /*
         block: são quadros que não contem contagem de linhas 
         line: são quadros que contém contagem de linhas 
       */
-        this.window.frames?.sort(c => c.sequence);
         this.window.frames?.forEach(frame => {
         this.frameInFocu = frame //  guarda o quadro em foco no
         if (frame.type=='block'){
-          this.createQuadroBlock(frame);
+          this.createFrameTypeBlock(frame);
         }
         if (frame.type=='line'){
            this.createQuadroList(frame);
         }
       })
     }
-    private createQuadroBlock(frame:frame){
-      frame.fields = frame.fields?.sort(c => c.sequence)
+    private createFrameTypeBlock(frame:frame){
       const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(frame) // cria o elemento do bloco
-      const _fields = this.createElementFormItem(frame.fields!);  // cria um array de elementos de entrada
-      
+      const _fields = this.createElementsField(frame.fields!);  // cria um array de elementos de entrada
       _fields.forEach(field => {
         _quadro.appendChild(field)
       })
       this.form.appendChild(_quadro)
     }
     
-    private createElementFormItem(fields:Array<field>):Array<HTMLDivElement>{
+    private createElementsField(fields:Array<field>):Array<HTMLDivElement>{
       let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
       fields.forEach(field => {
-        _fields.push(this.createField(field)) 
+        _fields.push(this.createFieldTypeBlock(field)) 
       })
       return _fields;
     }
@@ -67,16 +63,11 @@ export class FormDynamicService {
       const line = this.createQuadroListElement(frame)
       const table = document.createElement('table');
       table.classList.add("table-form")
-
-      debugger;
       const header = this.prepareLineHeaderTable(frame.fields!);
       table.appendChild(header)
-
       const detail = this.prepareLineDetailTable(frame.fields!);
       table.appendChild(detail)
-
       line.appendChild(table)
-
       this.form.appendChild(line)
     }
     private createQuadroListElement(frame:frame){
@@ -90,22 +81,18 @@ export class FormDynamicService {
       return div
     }
     private prepareLineHeaderTable(fields:Array<field>):HTMLTableRowElement{
-      
       let tr = document.createElement('tr');
-      fields.forEach(field =>{
+      fields.forEach(field => {
         const th = document.createElement('th');
-        debugger;
         th.textContent = field.description
-        if (field.requerid == true){
+        if(field.requerid == true){
           th.textContent = th.textContent
           th.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
         }
-        if (field.type == "text"){
+        if(field.type == "text")
           th.style.textAlign = "left"
-        }
-        if (field.type == "number"){
+        if(field.type == "number")
           th.style.textAlign = "right"
-        }
         tr.appendChild(th)
       })
       return tr;
@@ -139,7 +126,7 @@ export class FormDynamicService {
       }
       return _element!;
     }
-    private createField(field:field):HTMLDivElement{
+    private createFieldTypeBlock(field:field):HTMLDivElement{
       let _element
       switch(field.type){
         case 'text':

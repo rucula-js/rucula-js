@@ -8,7 +8,7 @@
     {
       "name": "Frame",
       "type": "block",
-      "objectDto": "string",
+      "objectDto": "",
       "sequence": 0,
       "windowFk": "7890q2wqq",
       "fields": [
@@ -44,7 +44,7 @@
           "propertDto": "type",
           "description": "type",
           "information": null,
-          "type": "text",
+          "type": "select",
           "maxLength": 10,
           "max": 0,
           "min": 0,
@@ -88,7 +88,7 @@
     {
       "name": "Fields",
       "type": "line",
-      "objectDto": "string",
+      "objectDto": "field",
       "sequence": 0,
       "windowFk": "7890q2wqq",
       "fields": [
@@ -308,6 +308,6 @@
       "id": "er43"
     }
   ],
-  "joinChield": [],
+  "joinChield": [{"key":"","value":"field"}],
   "id": "7890q2wqq"
 }

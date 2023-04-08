@@ -94,9 +94,7 @@ export class factoryObjectService {
     let objLine :Object[] = [];
     let obj : any = {};
 
-    console.log(mapArray)
     mapArray.forEach((obejctValue, obejctkey) => {
-      console.log(obejctValue)
       obejctValue.forEach(function(rows, indexRow){
         rows.forEach(function(row, value){
           row.forEach(function(propert, value){
@@ -133,5 +131,7 @@ export class factoryObjectService {
     // "child": "",
     if (this.objJSON[""])
     this.objJSON = this.objJSON[""]
+
+    console.log(this.objJSON)
   }
 }
