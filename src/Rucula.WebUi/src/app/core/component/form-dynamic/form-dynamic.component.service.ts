@@ -5,8 +5,6 @@ import { field } from './entities/form/field';
 import { window } from './entities/form/window';
 import { frame } from './entities/form/frame';
 import {ObjectsDOMBaseService} from './elements/objects-DOM-base.component.service'
-import { KeyValuePipe } from '@angular/common';
-import { createElement } from 'gridjs';
 
 @Injectable({
     providedIn: 'root',

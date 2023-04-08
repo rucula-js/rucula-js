@@ -156,7 +156,13 @@
           "description": "type",
           "information": null,
           "type": "select",
-          "combo":["text","number","select","check","radio"],
+          "combo":[
+            {"value":"text","representation":"text"},
+            {"value":"number","representation":"number"},
+            {"value":"select","representation":"select"},
+            {"value":"check","representation":"check"},
+            {"value":"radio","representation":"radio"}
+          ],
           "maxLength": 10,
           "max": 0,
           "min": 0,
