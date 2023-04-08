@@ -5,6 +5,8 @@ import { field } from './entities/form/field';
 import { window } from './entities/form/window';
 import { frame } from './entities/form/frame';
 import {ObjectsDOMBaseService} from './elements/objects-DOM-base.component.service'
+import { KeyValuePipe } from '@angular/common';
+import { createElement } from 'gridjs';
 
 @Injectable({
     providedIn: 'root',
@@ -93,10 +95,7 @@ export class FormDynamicService {
           th.textContent = th.textContent
           th.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
         }
-        if(field.type == "text")
-          th.style.textAlign = "left"
-        if(field.type == "number")
-          th.style.textAlign = "right"
+        this.alignColumnOfTable(field,th)
         tr.appendChild(th)
       })
       return tr;
@@ -108,9 +107,18 @@ export class FormDynamicService {
       fields.forEach(field =>{
         const td = document.createElement('td');
         td.appendChild(this.createFieldTypeLine(field))
+        this.alignColumnOfTable(field,td)
         tr.appendChild(td)
       })
       return tr;
+    }
+    private alignColumnOfTable(field:field, cell: HTMLTableCellElement){
+      if(field.type == "text")
+        cell.style.textAlign = "left"
+      if(field.type == "number")
+        cell.style.textAlign = "right"
+      if(field.type == "select" || field.type == "checkbox")
+        cell.style.textAlign = "center"
     }
     private createFieldTypeBlock(field:field):HTMLDivElement{
       let element
@@ -123,6 +131,8 @@ export class FormDynamicService {
           element = this.createFieldSelect(field);
           this.setAtributesDataSetAndNameTypeBlock(element,field)
           break;
+          case 'checkbox':
+            break;
         default:
             throw new Error(`Field type "${field.type}" is not allowed`);     
       }
@@ -139,6 +149,10 @@ export class FormDynamicService {
           break;
       case 'select':
         element = this.createFieldSelect(field);
+        this.setAtributesDataSetAndNameTypeLine(element,field)
+        break;
+      case 'checkbox':
+        element = this.createFieldCheckbox(field)
         this.setAtributesDataSetAndNameTypeLine(element,field)
         break;
       default:
@@ -186,15 +200,24 @@ export class FormDynamicService {
       return input
   }
 
-  private createFieldSelect(field:field):HTMLSelectElement{
-      const select = document.createElement('select');
+  private createFieldSelect(field:field):HTMLSelectElement{  
+    const select = document.createElement('select');
       this.setAtributesDataDefault(select,field)
         field.combo?.forEach(item => {
           const option = document.createElement('option')
-          option.text = item
+          option.text = item["representation"]
+          option.value = item["value"]
           select.appendChild(option)
         })
       return select
+  }
+  private createFieldCheckbox(field:field):HTMLInputElement{  
+
+    var input = document.createElement("input")
+    input.type = "checkbox";
+    input.id = field.id;
+    
+    return input;
   }
   private setAtributesDataDefault(node:HTMLElement,field:field){
     node.setAttribute('data-max',String(field.max));
