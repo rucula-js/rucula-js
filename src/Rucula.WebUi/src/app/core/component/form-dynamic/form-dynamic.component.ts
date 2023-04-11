@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, OnInit} from '@angular/core';
 import { window } from './entities/form/window';
 import { FormDynamicService } from './form-dynamic.component.service';
-import quadro from './window.json'
+import quadro from './frame.json'
 import { actionButtons } from './actions/actionButton'
 import {actionsHTTPService} from './actions/actionsHTTPService'
 import  {formDynamicBaseService} from './form-dynamic-base.component.service'

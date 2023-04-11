@@ -214,7 +214,9 @@ export class FormDynamicService {
     var input = document.createElement("input")
     input.type = "checkbox";
     input.id = field.id;
-    
+    input.checked = true;
+    input.value = "off";
+
     return input;
   }
   private setAtributesDataDefault(node:HTMLElement,field:field){
