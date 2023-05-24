@@ -10,7 +10,7 @@ import { catchError, retry } from 'rxjs/operators';
 export class DocsService {  
   constructor(private http: HttpClient) { }
   
-  Url:string = 'https://localhost:7242/Docs';
+  Url:string = 'http://localhost:7242/Docs';
 
   GetDocumento(param:string){
     const options = {

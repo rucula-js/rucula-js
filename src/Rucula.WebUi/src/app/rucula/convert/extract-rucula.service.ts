@@ -9,7 +9,7 @@ export class ExtractRuculaService {
     
     constructor(private http: HttpClient) { }
     
-    private Url:string = "https://localhost:7170";
+    private Url:string = "http://localhost:8080";
     
     PreviewContent(contentRucula:string): Observable<string>{
       let httpheaders=new HttpHeaders()

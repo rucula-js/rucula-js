@@ -10,7 +10,7 @@ export class ContentEstrutureService {
     
     constructor(private http: HttpClient) { }
     
-    private Url:string = "https://localhost:7170";
+    private Url:string = "http://localhost:8080";
     
     Save(contentEstruture:ContentEstruture):Observable<ContentEstruture>
     {

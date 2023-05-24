@@ -2,7 +2,6 @@ import { DebugNode, Injectable } from "@angular/core";
 import { actionsHTTPService } from "./actionsHTTPService";
 import { button } from "../entities/form/button";
 import { factoryObjectService } from "../create-object/factory-object-service";
-import swall from 'sweetalert';
 import { HttpHeaders } from "@angular/common/http";
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -105,13 +104,13 @@ constructor(private actionHttp:actionsHTTPService, private factoryObjectService:
     finallySucess(message:string){
         setTimeout(() =>{
             this.OpenCloseLoader(false);
-            swall(message);
+            alert(message);
         },1000)
     }
     finallyError(e:any){
         setTimeout(() =>{
             this.OpenCloseLoader(false);
-            swall("Erro:" +e);
+            alert("Erro:" +e);
         },1000)
     }
 }

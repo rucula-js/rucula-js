@@ -2,7 +2,7 @@
 {
   "tela":"Language Rucula",
   "type":"CRUD",
-  "urlRoot":"https://localhost:7170",
+  "urlRoot":"http://localhost:8080",
   "urlRelativeGetAll":"/LanguageRucula/GetAll",
   "urlRelativeGetById":"/LanguageRucula/GetById",
   "button":[

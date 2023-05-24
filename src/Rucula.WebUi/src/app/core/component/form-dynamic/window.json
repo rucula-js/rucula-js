@@ -1,6 +1,6 @@
 {
   "name": "Frames",
-  "urlRoot": "https://localhost:7170/Window",
+  "urlRoot": "http://localhost:8080/Window",
   "urlGetAll": "/GetAll",
   "urlGetId": "",
   "type": "crud",

@@ -2,7 +2,7 @@
 {
   "tela":"Cadastro de Janelas",
   "type":"CrUD",
-  "urlRoot":"https://localhost:7170",
+  "urlRoot":"http://localhost:8080",
   "urlRelativeGetAll":"/Language/GetLanguageAll",
   "urlRelativeGetById":"/Language/GetLanguageById",
   "button":[

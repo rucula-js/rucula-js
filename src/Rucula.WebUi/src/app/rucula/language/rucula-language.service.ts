@@ -10,7 +10,7 @@ export class RuculaService {
     
     constructor(private http: HttpClient) { }
     
-    private Url:string = "https://localhost:7170/LanguageRucula/";
+    private Url:string = "http://localhost:8080/LanguageRucula/";
     GetAll(): Observable<RuculaSintax[]>{
         return this.http.get<RuculaSintax[]>(`${this.Url}GetAll`)
     }

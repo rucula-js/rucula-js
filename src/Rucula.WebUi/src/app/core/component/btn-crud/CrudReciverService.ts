@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class CrudReciverService {
     constructor(private http?: HttpClient) { }
 
-    private Url:string = "https://localhost:7170";
+    private Url:string = "http://localhost:8080";
     
 
     Save(){

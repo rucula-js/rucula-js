@@ -1,6 +1,6 @@
 {
   "name": "Frames",
-  "urlRoot": "https://localhost:7170/Frame",
+  "urlRoot": "http://localhost:8080/Frame",
   "urlGetAll": "/GetAll",
   "urlGetId": "",
   "type": "crud",
@@ -8,7 +8,7 @@
     {
       "name": "Frame",
       "type": "block",
-      "objectDto": "",
+      "objectDto": "frame",
       "sequence": 0,
       "windowFk": "7890q2wqq",
       "fields": [

@@ -1,6 +1,6 @@
 {
   "name": "Fields",
-  "urlRoot": "https://localhost:7170/Field",
+  "urlRoot": "http://localhost:8080/Field",
   "urlGetAll": "/GetAll",
   "urlGetId": "",
   "type": "crud",
