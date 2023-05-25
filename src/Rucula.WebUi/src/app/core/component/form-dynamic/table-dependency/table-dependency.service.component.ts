@@ -35,7 +35,7 @@ export class TableDependencyService{
         if(split[0] == "line") key = this.keyLineDependency(split[1],split[2],split[3]);
 
         var line = this.tableDependency.find(c => c.key == key);
-        this.checkPropertDependency(line!)
+        this.checkPropertDependency(line!, propert)
     } 
 
     private keyLineDependency(frame:string,propert:string, line:string,):string {                
@@ -51,21 +51,18 @@ export class TableDependencyService{
         if(min > 0) valueLineDependency += "4,"
         return valueLineDependency;
     }
-
-    private message(code:number):string{
-        switch (code) {
-            case 1:
-                return "is requerid";
-            case 2:
-                return "max len";
-            case 3:
-                return "error format";
-            case 4:
-                return "not mask";
+    private checkPropertDependency(dependency:KeyValue<string,string>,propert:HTMLInputElement){
+        
+        let check = dependency.value.split(',');
+        
+        check.forEach(c => {
+             if(c == "1") checkRequerid(propert)
+        });
+        function checkRequerid(propert:HTMLInputElement){
+            if(propert.value.length < 1){
+                propert.style.borderColor = "red"
+                propert.focus()
+            } 
         }
-        return ""
-    }
-
-    private checkPropertDependency(dependency:KeyValue<string,string>){
     }
 }
