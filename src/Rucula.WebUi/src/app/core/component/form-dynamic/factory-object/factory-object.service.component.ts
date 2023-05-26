@@ -35,6 +35,6 @@ export class FactoryObjectService{
             default:
                 throw new Error("Rucula Error! Type Frame Incorrect");   
         }
-        console.log(this.object)
+        console.log(this.object);
     }
 }
