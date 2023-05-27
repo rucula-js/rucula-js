@@ -123,40 +123,35 @@ export class TableDependencyService{
             
             function SetOrRemoveResolved(status:boolean, dependency:string, resolved:string ){
                 if (status == true){
-                    resolved.replace(dependency+",","")
+                    resolved = resolved.replace(dependency+",","")
                     resolved+=dependency+","
                 }
                 if (status == false){
-                    resolved.replace(dependency+",","")
+                    resolved = resolved.replace(dependency+",","")
                 }
                 return resolved;
             }
         })
-        console.log(resolved)
+        dependency.value = `${todoist}.${resolved}`
     }
     private consistRequerid(value:string|number|Data|boolean):boolean{
         
-        let backupBorderColor = this.ElementInFocu.style.borderColor
         if( value == undefined ||
             value as number == 0){
                 this.Message.messageDangerRequerid()
                 this.ElementInFocu.focus()
-                this.ElementInFocu.style.borderColor = "red";
                 return false;
         }
-        this.ElementInFocu.style.borderColor = backupBorderColor
         return true;
     }
 
     private consistMaxLen(todoist:string,value:string|number|Data|boolean){
-        let backupBorderColor = this.ElementInFocu.style.borderColor
         let max = this.getDependecy(todoist,this.MAX_LENGHT)
         if ((value as string).length > Number(max)){
             this.Message.messageDangerMaxValue()
             this.ElementInFocu.focus()
-            this.ElementInFocu.style.borderColor = "red";
+            return  false;
         }
-        this.ElementInFocu.style.borderColor = backupBorderColor
         return true;
     }
     private getDependecy(todoist:string, dependecy:string){

@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 export class MessageFormService{
    
     public messageDangerRequerid(){
-        this.createMessage("propriedade e obrigatoria")
+        this.createMessage("propriedade é obrigatoria")
     }
     public messageDangerMaxValue(){
         this.createMessage("Max Value")
