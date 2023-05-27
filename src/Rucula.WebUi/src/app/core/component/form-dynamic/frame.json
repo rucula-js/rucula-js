@@ -34,7 +34,7 @@
           "maxLength": 40,
           "max": 0,
           "min": 0,
-          "requerid": true,
+          "requerid": false,
           "disable": false,
           "sequence": 1,
           "frameFk": "18544",

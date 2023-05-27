@@ -1,71 +1,192 @@
 import { KeyValue } from "@angular/common";
 import { Injectable } from "@angular/core";
+import { Data } from "@angular/router";
+import { dependencies } from "webpack";
 import { frame } from "../entities/form/frame";
+import { MessageFormService } from "../message/message-form.servive.component";
 
-@Injectable({
+@Injectable({ 
     providedIn: 'root',
 })
 export class TableDependencyService{
-    
-    private tableDependency:Array<KeyValue<string,string>> = new Array();
 
-    public createTable(frames?:Array<frame>){
+    constructor(private Message:MessageFormService){}
+   
+    private tableDependency:Array<KeyValue<string,string>> = new Array();
+    private ElementInFocu!: HTMLElement;
+    /*
+     *  Fornece a estrutura para consistir o básico do que cada campo precisa
+     *  O padrão  chave:valor 
+     *      Cada chave segue a mesma estrutura criacional: valorObjeto.Chave.Linha
+     *      Cada valor segue uma estrutura que muda com base nas dependencias
+     *      exemplo 1 - chave = frame.id. valor = 1,2:10
+     *          frame - Objeto
+     *          id - propriedade
+     *      descrendo a dependendia
+     *          1 - Obrigatório
+     *          2:10 - Deve ter no máximo 10 caracteres
+     * 
+     *      nota: Como não há linha, é possivel identificar que o frame é 1 - 1
+     * 
+     *      chave = frame.idade.10 valor = 1,2:18,3:150
+     *      Acima temos um exemplo de uma idade que deve estar entre 12 e 150 e que não pode ser vazia
+     *      descrendo a dependendia
+     *      1 - idade deve ser obrigatória
+     *      2:150 - idade deve ser maior que 150 
+     *      3:18 -  idade não deve ser menor que 18
+     * 
+     *      nota: Como há linha uma linha de numero 10, é possivel identificar que o frame é 1 - *
+    
+     *      As Dependencias
+     *      1 - Obrigatoriedade
+     *      2 - Tamanho Máximo de Caracteres
+     *      3 - Tamanho Máximo
+     *      4 - Tamanho Minino
+     *      5 - Expressão Regular
+     * 
+     *      Valores das Dependencias
+     *      1
+     *      2:[0-9]*
+     *      3:[0-9]*
+     *      4:[0-9]*
+     *      5: qualquer expressão 
+     * 
+     * 
+    */
+    private REQUERID:string = "1" as const;
+    private MAX_LENGHT:string = "2" as const;
+    private MAX:string = "3" as const;
+    private MIN:string = "4" as const;
+    private DEPENDENCIES_AND_TODOIST_TAB:string = "." as const;
+
+    /**
+     * @method createTable - cria uma tabela mapeando cada propriedade da janela  
+     * @param frames - são as caixas que represetam um objeto JSON
+    */
+    public createTableDependency(frames?:Array<frame>){
         frames?.forEach(frame => 
             frame.fields?.forEach(field => {
                 
-                let keyLineDependency = ""
-                let valueLineDependency = ""
+                let keyDependency = ""
+                let valueDependency = ""
 
                 if(frame.type == "block"){
-                    keyLineDependency = this.keyLineDependency(frame.objectDto,field.propertDto!,"")}
+                    keyDependency = this.keyDependency(frame.objectDto,field.propertDto!,"")}
 
                 if(frame.type == "line"){
-                    keyLineDependency = this.keyLineDependency(frame.objectDto,field.propertDto!,"0")}
+                    keyDependency = this.keyDependency(frame.objectDto,field.propertDto!,"0")}
 
-                valueLineDependency = this.valueLineDependency(field.requerid,Number(field.maxLength),Number(field.max),Number(field.min));
-                this.tableDependency.push({key:keyLineDependency, value:valueLineDependency})
+                    valueDependency = this.valueDependency(field.requerid,Number(field.maxLength),Number(field.max),Number(field.min));
+                this.tableDependency.push({key:keyDependency, value:valueDependency})
             }))
-            console.log(this.tableDependency)
     }
+
+    private keyDependency(frame:string,propert:string, line:string,):string {                
+        return `${frame}.${propert}.${line}`
+    }
+
+    private valueDependency(requerid:boolean, maxLength:number, max:number, min:number):string {                
+        let valueDependency = ""
+
+        if(requerid) valueDependency += `${this.REQUERID},`
+        if(maxLength > 0) valueDependency += `${this.MAX_LENGHT}:${maxLength},`
+        if(max > 0) valueDependency += `${this.MAX}:${max},`
+        if(min > 0) valueDependency += `${this.MIN}:${min},`
+        valueDependency += this.DEPENDENCIES_AND_TODOIST_TAB;  
+        return valueDependency;
+    }
+
     public setDependency(propert:HTMLInputElement){
+        this.ElementInFocu = propert
         var split = propert.getAttribute("name")!.split(".")
- 
         var key = ""
-        if(split[0] == "block") key = this.keyLineDependency(split[1],split[2],"");
-        if(split[0] == "line") key = this.keyLineDependency(split[1],split[2],split[3]);
+        if(split[0] == "block") key = this.keyDependency(split[1],split[2],"");
+        if(split[0] == "line") key = this.keyDependency(split[1],split[2],split[3]);
 
         var line = this.tableDependency.find(c => c.key == key);
-        this.checkPropertDependency(line!)
-    } 
-
-    private keyLineDependency(frame:string,propert:string, line:string,):string {                
-                return `${frame}${propert}${line}`
+        this.checkPropertDependency(line!, propert.value)
     }
+    private checkPropertDependency(dependency:KeyValue<string,string>, value:string|number|boolean){
 
-    private valueLineDependency(requerid:boolean, maxLength:number, max:number, min:number):string {                
-        console.log(`${requerid},${maxLength},${max},${min}`)
-        let valueLineDependency = ""
-        if(requerid) valueLineDependency += "1,"
-        if(maxLength > 0) valueLineDependency += "2,"
-        if(max > 0) valueLineDependency += "3,"
-        if(min > 0) valueLineDependency += "4,"
-        return valueLineDependency;
+        let dependecies = dependency.value.split(".")[0]
+        let todoist = dependency.value.split(".")[0]
+        let resolved = dependency.value.split(".")[1]
+
+        dependecies.split(",").forEach(d => {
+            let option = d.split(":")[0]
+            if(option == this.REQUERID){
+                resolved = SetOrRemoveResolved(this.consistRequerid(value),this.REQUERID,resolved)
+            }
+            if(option == this.MAX_LENGHT){
+                resolved = SetOrRemoveResolved(this.consistMaxLen(todoist,value),this.MAX_LENGHT,resolved)
+            }
+            
+            function SetOrRemoveResolved(status:boolean, dependency:string, resolved:string ){
+                if (status == true){
+                    resolved.replace(dependency+",","")
+                    resolved+=dependency+","
+                }
+                if (status == false){
+                    resolved.replace(dependency+",","")
+                }
+                return resolved;
+            }
+        })
+        console.log(resolved)
     }
-
-    private message(code:number):string{
-        switch (code) {
-            case 1:
-                return "is requerid";
-            case 2:
-                return "max len";
-            case 3:
-                return "error format";
-            case 4:
-                return "not mask";
+    private consistRequerid(value:string|number|Data|boolean):boolean{
+        
+        let backupBorderColor = this.ElementInFocu.style.borderColor
+        if( value == undefined ||
+            value as number == 0){
+                this.Message.messageDangerRequerid()
+                this.ElementInFocu.focus()
+                this.ElementInFocu.style.borderColor = "red";
+                return false;
         }
-        return ""
+        this.ElementInFocu.style.borderColor = backupBorderColor
+        return true;
     }
 
-    private checkPropertDependency(dependency:KeyValue<string,string>){
+    private consistMaxLen(todoist:string,value:string|number|Data|boolean){
+        let backupBorderColor = this.ElementInFocu.style.borderColor
+        let max = this.getDependecy(todoist,this.MAX_LENGHT)
+        if ((value as string).length > Number(max)){
+            this.Message.messageDangerMaxValue()
+            this.ElementInFocu.focus()
+            this.ElementInFocu.style.borderColor = "red";
+        }
+        this.ElementInFocu.style.borderColor = backupBorderColor
+        return true;
     }
+    private getDependecy(todoist:string, dependecy:string){
+        /*
+         1,2:40,3:20,4:1
+        */
+        var dependecies = todoist.split(",") // [1,2:40,3:20,4:1]
+        let result = dependecies.find( c=> c.split(":")[0] == dependecy)! // 2:40 -> [0] = 2, [1] = 40
+        
+        return result.split(":")[1] // 40
+    }
+    public createNewLine(propert:HTMLInputElement){
+        
+        let  split = propert.getAttribute("name")!.split(".")
+        let frame:string = split[1]
+        const LINE_NUMBER:string = "0"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
+        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
+
+        dependecyes.forEach(dependency => {
+            let  split = dependency.key.split("."); 
+            let frame:string = split[0];
+            let propert = split[1];
+            let newKey = `${frame}.${propert}.${split[3]}`;
+            let valueDependency = dependency.value.split(".")[0];
+
+            this.tableDependency.push({
+                key:newKey, 
+                value:valueDependency
+            })
+        })
+    }
+   
 }

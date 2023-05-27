@@ -16,6 +16,7 @@ export class FactoryObjectService{
                 this.object[frame.objectDto] = [{}]
         });
     }
+
     public setPropertDto(propert:HTMLInputElement){
 
         let map =  propert.getAttribute("name")!.split(".")
@@ -35,6 +36,5 @@ export class FactoryObjectService{
             default:
                 throw new Error("Rucula Error! Type Frame Incorrect");   
         }
-        console.log(this.object);
     }
 }

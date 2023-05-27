@@ -7,7 +7,6 @@ import { frame } from './entities/form/frame';
 import {ObjectsDOMBaseService} from './elements/objects-DOM-base.component.service'
 import { TableDependencyService } from './table-dependency/table-dependency.service.component';
 import { FactoryObjectService } from './factory-object/factory-object.service.component';
-import { isTypeNode } from 'typescript';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +21,7 @@ export class FormDynamicService {
     private frameInFocu!:frame; 
         
     domCreateForm(window:window){
-      this.tableDependency?.createTable(window.frames)
+      this.tableDependency?.createTableDependency(window.frames)
       this.factoryObject?.createObject(window.frames)
       this.window = window;
       this.SetWindowTitle();
@@ -338,9 +337,10 @@ export class FormDynamicService {
   }
   private createNewLine(ObjectdtoLine:string):HTMLElement{
 
-    var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
-    (clone as HTMLElement).childNodes.forEach(item => {
-        let atributeName = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")!;
+    var clone:HTMLElement = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true) as HTMLElement;
+
+    clone.childNodes.forEach(item => {
+        let atributeName = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")! ;
 
         (item.firstChild as HTMLElement).setAttribute('name',
         `${atributeName[0]}.${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`);
@@ -355,6 +355,7 @@ export class FormDynamicService {
     clone.addEventListener('keyup',(event)=> {
       this.keyEvents = [] 
     })
+    this.tableDependency?.createNewLine(clone.querySelector("input")!)
     return clone as HTMLElement;
   }
   private createButtons(){
