@@ -44,8 +44,7 @@ export class FactoryObjectService{
     }
 
     public PrepareObject(){
-        let formatedObject:any = this.Object
-        
+        let formatedObject:any  =  Object.prototype.constructor(this.Object)
         this.JoinChield!.forEach(item => {
           let key = item.key
           let cheild = item.value;
@@ -54,7 +53,5 @@ export class FactoryObjectService{
             delete formatedObject[cheild]
           }
         })
-        console.log(formatedObject)
       }
-
 }

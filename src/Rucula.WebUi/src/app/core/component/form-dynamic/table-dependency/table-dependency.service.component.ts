@@ -11,7 +11,10 @@ export class TableDependencyService{
     constructor(private Message:MessageFormService){}
    
     private tableDependency:Array<KeyValue<string,string>> = new Array();
-    private Dependencies:Array<string> = new Array();
+    private resolvedDependency:Array<string> = new Array();
+
+
+    //:[^\,]*
     private ElementInFocu!: HTMLElement;
     /*
      *  Fornece a estrutura para consistir o básico do que cada campo precisa
@@ -73,10 +76,10 @@ export class TableDependencyService{
 
                 valueDependency = this.valueDependency(field.requerid,Number(field.maxLength),Number(field.max),Number(field.min));
                 this.tableDependency.push({key:keyDependency, value:valueDependency})
+                this.resolveDependecy(keyDependency,valueDependency)
             })
         )
     }
-
     private keyDependency(frame:string,propert:string, line:string):string {                
         return `${frame}.${propert}.${line}`
     }
@@ -106,7 +109,7 @@ export class TableDependencyService{
 
         var lineDependency = this.tableDependency.find(c => c.key == key)!;
         this.checkPropertDependency(lineDependency, input.value)
-
+        this.resolveDependecy(lineDependency.key,lineDependency.value)
     }
     private checkPropertDependency(dependency:KeyValue<string,string>, value:string|number|boolean){
 
@@ -170,9 +173,9 @@ export class TableDependencyService{
         var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
 
         dependecyes.forEach(dependency => {
-            let split = dependency.key.split("."); 
-            let frame:string = split[0];
-            let propert = split[1];
+            let splitDependency = dependency.key.split("."); 
+            let frame:string = splitDependency[0];
+            let propert = splitDependency[1];
             let newKey = `${frame}.${propert}.${split[3]}`;
             let valueDependency = dependency.value.split(".")[0];
 
@@ -182,4 +185,39 @@ export class TableDependencyService{
             })
         })
     }
+    public deleteLine(propert:HTMLInputElement){
+        
+        let split = propert.getAttribute("name")!.split(".")
+        let objeto:string = split[1]
+        let linha:string = split[3]
+        
+        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == objeto && c.key.split(".")[2] == linha);
+
+        dependecyes.forEach(dependency => {
+            let index  = this.tableDependency.indexOf(dependency);
+            this.tableDependency.splice(index,1)
+        })
+        console.log(this.tableDependency)
+    }
+    private resolveDependecy(key:string,value:string){
+        
+        let split = value.split(".")
+        let regular = /:[^\,]*/
+        let dependecies = split[0].replace(regular,"") 
+        let resolveds = split[1] 
+        let dependeciesNotResolveds = 0
+
+        dependecies.split(",").forEach(numberDependecy => {
+            if(resolveds.search(numberDependecy+",") == -1) 
+            dependeciesNotResolveds+=1
+        })
+        let exist = this.resolvedDependency.indexOf(key)
+        if(exist == -1 && dependeciesNotResolveds > 0){
+            this.resolvedDependency.push(key);
+        }
+        if(exist != -1 && dependeciesNotResolveds == 0){
+            this.resolvedDependency.splice(exist,1);
+        }
+    }
+
 }

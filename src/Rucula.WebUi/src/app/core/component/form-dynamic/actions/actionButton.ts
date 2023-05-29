@@ -1,16 +1,14 @@
 import { DebugNode, Injectable } from "@angular/core";
 import { actionsHTTPService } from "./actionsHTTPService";
 import { button } from "../entities/form/button";
-import { factoryObjectService } from "../create-object/factory-object-service";
 import { HttpHeaders } from "@angular/common/http";
-import { ActivatedRoute, Router } from '@angular/router';
 import { FactoryObjectService } from "../factory-object/factory-object.service.component";
 
 @Injectable({
     providedIn: 'root',
 })
 export class actionButtons{
-constructor(private actionHttp:actionsHTTPService, private factoryObjectService:factoryObjectService,private fb?:FactoryObjectService){}
+constructor(private actionHttp:actionsHTTPService, private fb?:FactoryObjectService){}
 
     headers!:HttpHeaders
     actions:Map<string,button> = new Map();
@@ -47,40 +45,40 @@ constructor(private actionHttp:actionsHTTPService, private factoryObjectService:
     }
     post(configButton:button){
         this.fb?.getObject();
-        this.OpenCloseLoader(true);
-        let url = this.urlRoot+configButton?.urlrelative;
-        this.actionHttp!.post(url,this.getObject())
-            .subscribe({
-                complete:() => {
-                    this.finallySucess("Registro Salvo!")
-                },
-                error:(e) => {
-                    this.finallyError(e)
-                }
-            }
-        );
+        // this.OpenCloseLoader(true);
+        // let url = this.urlRoot+configButton?.urlrelative;
+        // this.actionHttp!.post(url,this.getObject())
+        //     .subscribe({
+        //         complete:() => {
+        //             this.finallySucess("Registro Salvo!")
+        //         },
+        //         error:(e) => {
+        //             this.finallyError(e)
+        //         }
+        //     }
+        // );
     }
     put(configButton:button){
         this.OpenCloseLoader(true);
-        this.factoryObjectService.createObjet()
-        this.actionHttp!.put(this.urlRoot+configButton?.urlrelative,this.factoryObjectService.objJSON)
-        .subscribe({
-            complete:() => {
-                this.finallySucess("Registro Alterado!")
-            },
-            error:(e) => {
-                this.finallyError(e)
-            }
-        })
+        // // this.factoryObjectService.createObjet()
+        // this.actionHttp!.put(this.urlRoot+configButton?.urlrelative,this.factoryObjectService.objJSON)
+        // .subscribe({
+        //     complete:() => {
+        //         this.finallySucess("Registro Alterado!")
+        //     },
+        //     error:(e) => {
+        //         this.finallyError(e)
+        //     }
+        // })
     }
     delete(configButton:button){
         this.OpenCloseLoader(true);
-        this.factoryObjectService.createObjet()    
+        // this.factoryObjectService.createObjet()    
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
             }),
-            body:this.factoryObjectService.objJSON
+            // body:this.factoryObjectService.objJSON
             };
         this.actionHttp!.delete(this.urlRoot+configButton?.urlrelative,options).subscribe({
             complete:() => {
@@ -100,8 +98,8 @@ constructor(private actionHttp:actionsHTTPService, private factoryObjectService:
         }
     }
     getObject(){
-        this.factoryObjectService.createObjet()
-        return this.factoryObjectService.objJSON
+        // this.factoryObjectService.createObjet()
+        // return this.factoryObjectService.objJSON
     }
     finallySucess(message:string){
         setTimeout(() =>{

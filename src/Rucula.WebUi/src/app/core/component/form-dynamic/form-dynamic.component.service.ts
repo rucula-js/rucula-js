@@ -28,15 +28,10 @@ export class FormDynamicService {
       this.factoryObject!.JoinChield = window.joinChield
       this.factoryObject?.createObject(window.frames)
       this.window = window;
-      this.SetWindowTitle();
       this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
       this.createFrames()
       this.createButtons()
       this.setEvents()
-    }
-    private SetWindowTitle(){
-      const windowTitle = document.getElementById("window-title")
-      windowTitle!.textContent = this.window.tela
     }
     private createFrames(){
       /*
@@ -321,26 +316,33 @@ export class FormDynamicService {
     }
   }
   private crudLineQuadro(event:Event){
-    const current = (event.currentTarget as HTMLElement)
+    const currentElement:HTMLElement = (event.currentTarget as HTMLElement)
+
     const key = (event as KeyboardEvent).key;
-    if(this.keyEvents.filter(c=> c==key).length == 0){
-      this.keyEvents.push(key)
-    }
+    
+    if(this.keyEvents.filter(c=> c == key).length == 0) this.keyEvents.push(key)
     this.keyEvents.sort()
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLowerCase() ==  "a"){
-        var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
-        current.after(clone)
+    if (this.keyEvents[0] == undefined || this.keyEvents[1] == undefined) return
+
+    if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLocaleLowerCase() ==  "a"){
+        var clone = this.createNewLine(currentElement.getAttribute('data-objecdto')!)
+        currentElement.after(clone)
         clone.querySelector("input")?.focus()
     }
+
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] ==  "d"){
-      if (document.querySelectorAll('.quadro-list table tr').length == 2){
-        (event.currentTarget as HTMLElement).after(this.createNewLine(current.getAttribute('data-objectdto')!));
-        (event.currentTarget as HTMLElement).remove()
+      let firstInput = currentElement.querySelector("input")
+      if (document.querySelectorAll('.quadro-list table tr').length == 2){ // Está errado, se existir mais de um quadro, ele vai ser perder
+        currentElement.after(this.createNewLine(currentElement.getAttribute('data-objectdto')!));
+        currentElement.remove()
+        this.tableDependency!.deleteLine(firstInput as HTMLInputElement)
       }else{
-        (event.currentTarget as HTMLElement).remove()
+        currentElement.remove()
+        this.tableDependency!.deleteLine(firstInput as HTMLInputElement)
       }
       this.keyEvents = []
     }
+    
   }
   private createNewLine(ObjectdtoLine:string):HTMLElement{
 
