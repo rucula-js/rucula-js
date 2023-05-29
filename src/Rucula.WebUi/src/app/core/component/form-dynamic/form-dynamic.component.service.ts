@@ -13,15 +13,19 @@ import { FactoryObjectService } from './factory-object/factory-object.service.co
 })
 export class FormDynamicService {
 
-   constructor(private ObjectsDOMBaseService?:ObjectsDOMBaseService, private buttonOrLinkService?:createButtonOrLinkService, private cps?:CreatePopperService,
-    private tableDependency?: TableDependencyService,
-    private factoryObject?:FactoryObjectService){}
+   constructor( private ObjectsDOMBaseService?:ObjectsDOMBaseService, 
+                private buttonOrLinkService?:createButtonOrLinkService, 
+                private cps?:CreatePopperService,
+                private tableDependency?: TableDependencyService,
+                private factoryObject?:FactoryObjectService){}
+    
     private form!:HTMLElement;
     private window!:window;
     private frameInFocu!:frame; 
         
     domCreateForm(window:window){
-      this.tableDependency?.createTableDependency(window.frames)
+      this.tableDependency?.createTableDependency(window.frames!)
+      this.factoryObject!.JoinChield = window.joinChield
       this.factoryObject?.createObject(window.frames)
       this.window = window;
       this.SetWindowTitle();
@@ -159,6 +163,8 @@ export class FormDynamicService {
       case 'checkbox':
         element = this.createFieldCheckbox(field)
         this.setAtributesDataSetAndNameTypeLine(element,field)
+        this.factoryObject!.setPropertDto(element as HTMLInputElement);
+        this.tableDependency?.setDependency(element as HTMLInputElement)
         break;
       default:
           throw new Error(`Field type "${field.type}" is not allowed`); 
@@ -324,6 +330,7 @@ export class FormDynamicService {
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLowerCase() ==  "a"){
         var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
         current.after(clone)
+        clone.querySelector("input")?.focus()
     }
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1] ==  "d"){
       if (document.querySelectorAll('.quadro-list table tr').length == 2){

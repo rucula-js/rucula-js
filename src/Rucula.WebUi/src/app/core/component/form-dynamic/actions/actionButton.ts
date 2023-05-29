@@ -4,12 +4,13 @@ import { button } from "../entities/form/button";
 import { factoryObjectService } from "../create-object/factory-object-service";
 import { HttpHeaders } from "@angular/common/http";
 import { ActivatedRoute, Router } from '@angular/router';
+import { FactoryObjectService } from "../factory-object/factory-object.service.component";
 
 @Injectable({
     providedIn: 'root',
 })
 export class actionButtons{
-constructor(private actionHttp:actionsHTTPService, private factoryObjectService:factoryObjectService, private router: Router){}
+constructor(private actionHttp:actionsHTTPService, private factoryObjectService:factoryObjectService,private fb?:FactoryObjectService){}
 
     headers!:HttpHeaders
     actions:Map<string,button> = new Map();
@@ -45,6 +46,7 @@ constructor(private actionHttp:actionsHTTPService, private factoryObjectService:
         }
     }
     post(configButton:button){
+        this.fb?.getObject();
         this.OpenCloseLoader(true);
         let url = this.urlRoot+configButton?.urlrelative;
         this.actionHttp!.post(url,this.getObject())

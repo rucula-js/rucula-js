@@ -1,7 +1,5 @@
 import { KeyValue } from "@angular/common";
 import { Injectable } from "@angular/core";
-import { Data } from "@angular/router";
-import { dependencies } from "webpack";
 import { frame } from "../entities/form/frame";
 import { MessageFormService } from "../message/message-form.servive.component";
 
@@ -13,6 +11,7 @@ export class TableDependencyService{
     constructor(private Message:MessageFormService){}
    
     private tableDependency:Array<KeyValue<string,string>> = new Array();
+    private Dependencies:Array<string> = new Array();
     private ElementInFocu!: HTMLElement;
     /*
      *  Fornece a estrutura para consistir o básico do que cada campo precisa
@@ -59,29 +58,26 @@ export class TableDependencyService{
     private MIN:string = "4" as const;
     private DEPENDENCIES_AND_TODOIST_TAB:string = "." as const;
 
-    /**
-     * @method createTable - cria uma tabela mapeando cada propriedade da janela  
-     * @param frames - são as caixas que represetam um objeto JSON
-    */
-    public createTableDependency(frames?:Array<frame>){
-        frames?.forEach(frame => 
-            frame.fields?.forEach(field => {
-                
-                let keyDependency = ""
-                let valueDependency = ""
+    public createTableDependency(frames:Array<frame>){
+        frames.forEach(frame => 
+            frame.fields!.forEach(field => {
 
-                if(frame.type == "block"){
-                    keyDependency = this.keyDependency(frame.objectDto,field.propertDto!,"")}
+                let keyDependency = ""      // terá o formato {frame.propriedade.} ou {frame.propriedade.linha}
+                let valueDependency = "" 
 
-                if(frame.type == "line"){
-                    keyDependency = this.keyDependency(frame.objectDto,field.propertDto!,"0")}
+                if(frame.type == "block")
+                    keyDependency = this.keyDependency(frame.objectDto,field.propertDto!,"")
 
-                    valueDependency = this.valueDependency(field.requerid,Number(field.maxLength),Number(field.max),Number(field.min));
+                if(frame.type == "line")
+                    keyDependency = this.keyDependency(frame.objectDto,field.propertDto!,"0")
+
+                valueDependency = this.valueDependency(field.requerid,Number(field.maxLength),Number(field.max),Number(field.min));
                 this.tableDependency.push({key:keyDependency, value:valueDependency})
-            }))
+            })
+        )
     }
 
-    private keyDependency(frame:string,propert:string, line:string,):string {                
+    private keyDependency(frame:string,propert:string, line:string):string {                
         return `${frame}.${propert}.${line}`
     }
 
@@ -96,15 +92,21 @@ export class TableDependencyService{
         return valueDependency;
     }
 
-    public setDependency(propert:HTMLInputElement){
-        this.ElementInFocu = propert
-        var split = propert.getAttribute("name")!.split(".")
+    public setDependency(input:HTMLInputElement){
+        this.ElementInFocu = input
+        let split = input.getAttribute("name")!.split(".")
+        let type = split[0]
+        let object = split[1]
+        let propert = split[2]
+        let line = split[3]
+        
         var key = ""
-        if(split[0] == "block") key = this.keyDependency(split[1],split[2],"");
-        if(split[0] == "line") key = this.keyDependency(split[1],split[2],split[3]);
+        if(type == "block") key = this.keyDependency(object,propert,"");
+        if(type == "line") key = this.keyDependency(object,propert,line);
 
-        var line = this.tableDependency.find(c => c.key == key);
-        this.checkPropertDependency(line!, propert.value)
+        var lineDependency = this.tableDependency.find(c => c.key == key)!;
+        this.checkPropertDependency(lineDependency, input.value)
+
     }
     private checkPropertDependency(dependency:KeyValue<string,string>, value:string|number|boolean){
 
@@ -134,7 +136,7 @@ export class TableDependencyService{
         })
         dependency.value = `${todoist}.${resolved}`
     }
-    private consistRequerid(value:string|number|Data|boolean):boolean{
+    private consistRequerid(value:string|number|boolean):boolean{
         
         if( value == undefined ||
             value as number == 0){
@@ -145,7 +147,7 @@ export class TableDependencyService{
         return true;
     }
 
-    private consistMaxLen(todoist:string,value:string|number|Data|boolean){
+    private consistMaxLen(todoist:string,value:string|number|boolean){
         let max = this.getDependecy(todoist,this.MAX_LENGHT)
         if ((value as string).length > Number(max)){
             this.Message.messageDangerMaxValue()
@@ -155,9 +157,6 @@ export class TableDependencyService{
         return true;
     }
     private getDependecy(todoist:string, dependecy:string){
-        /*
-         1,2:40,3:20,4:1
-        */
         var dependecies = todoist.split(",") // [1,2:40,3:20,4:1]
         let result = dependecies.find( c=> c.split(":")[0] == dependecy)! // 2:40 -> [0] = 2, [1] = 40
         
@@ -171,7 +170,7 @@ export class TableDependencyService{
         var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
 
         dependecyes.forEach(dependency => {
-            let  split = dependency.key.split("."); 
+            let split = dependency.key.split("."); 
             let frame:string = split[0];
             let propert = split[1];
             let newKey = `${frame}.${propert}.${split[3]}`;
@@ -183,5 +182,4 @@ export class TableDependencyService{
             })
         })
     }
-   
 }
