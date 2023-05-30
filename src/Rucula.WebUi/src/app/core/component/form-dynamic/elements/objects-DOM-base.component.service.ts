@@ -6,17 +6,17 @@ import { frame } from '../entities/form/frame';
     providedIn: 'root',
 })
 export class ObjectsDOMBaseService {
-  DOMFormDynamic():HTMLFormElement{
+    getElementFormDynamic():HTMLFormElement{
     const form = document.getElementById('form-dynamic') as HTMLFormElement;
     return form;
   }
-  DOMLabelIsRequerid():HTMLSpanElement{
+  createSpanLabelIsRequerid():HTMLSpanElement{
     const span = document.createElement('span'); 
     span.innerText = "*"
     span.style.color = "red";
     return span
   }
-  DOMcreateDivBlockElement(frame:frame):HTMLDivElement{
+  createDivBlockFrame(frame:frame):HTMLDivElement{
     const div = document.createElement('div');
     div.classList.add("quadro-block")
     div.setAttribute('data-objectDto',frame.objectDto)

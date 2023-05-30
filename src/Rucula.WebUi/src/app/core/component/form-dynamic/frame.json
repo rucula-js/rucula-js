@@ -14,9 +14,23 @@
       "fields": [
         {
           "propertDto": "window",
-          "description": "Code Window",
+          "description": "Code",
           "information": null,
           "type": "text",
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 4,
+          "frameFk": "18544",
+          "id": "1565165"
+        },
+        {
+          "propertDto": "check teste",
+          "description": "Code",
+          "information": null,
+          "type": "checkbox",
           "maxLength": 10,
           "max": 0,
           "min": 0,
@@ -34,7 +48,7 @@
           "maxLength": 40,
           "max": 0,
           "min": 0,
-          "requerid": false,
+          "requerid": true,
           "disable": false,
           "sequence": 1,
           "frameFk": "18544",
@@ -56,20 +70,6 @@
           "id": "9849849"
         },
         {
-          "propertDto": "id",
-          "description": "Id",
-          "information": null,
-          "type": "text",
-          "maxLength": 10,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 0,
-          "frameFk": "18544",
-          "id": "id"
-        },
-        {
           "propertDto": "sequence",
           "description": "sequence",
           "information": null,
@@ -80,6 +80,20 @@
           "requerid": true,
           "disable": false,
           "sequence": 3,
+          "frameFk": "18544",
+          "id": "wddwcw45"
+        },
+        {
+          "propertDto": "description",
+          "description": "description",
+          "information": null,
+          "type": "text",
+          "maxLength": 20,
+          "max": 0,
+          "min": 0,
+          "requerid": false,
+          "disable": false,
+          "sequence": 4,
           "frameFk": "18544",
           "id": "wddwcw45"
         }

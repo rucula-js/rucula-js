@@ -12,49 +12,8 @@ export class TableDependencyService{
    
     private tableDependency:Array<KeyValue<string,string>> = new Array();
     private resolvedDependency:Array<string> = new Array();
-
-
-    //:[^\,]*
     private ElementInFocu!: HTMLElement;
-    /*
-     *  Fornece a estrutura para consistir o básico do que cada campo precisa
-     *  O padrão  chave:valor 
-     *      Cada chave segue a mesma estrutura criacional: valorObjeto.Chave.Linha
-     *      Cada valor segue uma estrutura que muda com base nas dependencias
-     *      exemplo 1 - chave = frame.id. valor = 1,2:10
-     *          frame - Objeto
-     *          id - propriedade
-     *      descrendo a dependendia
-     *          1 - Obrigatório
-     *          2:10 - Deve ter no máximo 10 caracteres
-     * 
-     *      nota: Como não há linha, é possivel identificar que o frame é 1 - 1
-     * 
-     *      chave = frame.idade.10 valor = 1,2:18,3:150
-     *      Acima temos um exemplo de uma idade que deve estar entre 12 e 150 e que não pode ser vazia
-     *      descrendo a dependendia
-     *      1 - idade deve ser obrigatória
-     *      2:150 - idade deve ser maior que 150 
-     *      3:18 -  idade não deve ser menor que 18
-     * 
-     *      nota: Como há linha uma linha de numero 10, é possivel identificar que o frame é 1 - *
-    
-     *      As Dependencias
-     *      1 - Obrigatoriedade
-     *      2 - Tamanho Máximo de Caracteres
-     *      3 - Tamanho Máximo
-     *      4 - Tamanho Minino
-     *      5 - Expressão Regular
-     * 
-     *      Valores das Dependencias
-     *      1
-     *      2:[0-9]*
-     *      3:[0-9]*
-     *      4:[0-9]*
-     *      5: qualquer expressão 
-     * 
-     * 
-    */
+   
     private REQUERID:string = "1" as const;
     private MAX_LENGHT:string = "2" as const;
     private MAX:string = "3" as const;
@@ -95,7 +54,7 @@ export class TableDependencyService{
         return valueDependency;
     }
 
-    public setDependency(input:HTMLInputElement){
+    public setDependency(input:HTMLInputElement|HTMLSelectElement){
         this.ElementInFocu = input
         let split = input.getAttribute("name")!.split(".")
         let type = split[0]
@@ -110,6 +69,7 @@ export class TableDependencyService{
         var lineDependency = this.tableDependency.find(c => c.key == key)!;
         this.checkPropertDependency(lineDependency, input.value)
         this.resolveDependecy(lineDependency.key,lineDependency.value)
+        console.log(this.tableDependency)
     }
     private checkPropertDependency(dependency:KeyValue<string,string>, value:string|number|boolean){
 
@@ -138,6 +98,63 @@ export class TableDependencyService{
             }
         })
         dependency.value = `${todoist}.${resolved}`
+        
+    }
+
+    public createNewLine(propert:HTMLInputElement){
+        
+        let  split = propert.getAttribute("name")!.split(".")
+        let frame:string = split[1]
+        const LINE_NUMBER:string = "0"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
+        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
+
+        dependecyes.forEach(dependency => {
+            let splitDependency = dependency.key.split("."); 
+            let frame:string = splitDependency[0];
+            let propert = splitDependency[1];
+            let newKey = `${frame}.${propert}.${split[3]}`;
+            let valueDependency = `${dependency.value.split(".")[0]}.` ;
+
+            this.tableDependency.push({
+                key:newKey, 
+                value:valueDependency
+            })
+
+            //todo - Fazer tratativa para tidos que são checkbox, select e radio
+        })
+    }
+    public deleteLine(propert:HTMLInputElement){
+        
+        let split = propert.getAttribute("name")!.split(".")
+        let objeto:string = split[1]
+        let linha:string = split[3]
+        
+        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == objeto && c.key.split(".")[2] == linha);
+
+        dependecyes.forEach(dependency => {
+            let index  = this.tableDependency.indexOf(dependency);
+            this.tableDependency.splice(index,1)
+        })
+    }
+    private resolveDependecy(key:string,value:string){
+        
+        let split = value.split(".")
+        let regular = /:[^\,]*/
+        let dependecies = split[0].replace(regular,"") 
+        let resolveds = split[1] 
+        let dependeciesNotResolveds = 0
+
+        dependecies.split(",").forEach(numberDependecy => {
+            if(resolveds.search(numberDependecy+",") == -1) 
+            dependeciesNotResolveds+=1
+        })
+        let exist = this.resolvedDependency.indexOf(key)
+        if(exist == -1 && dependeciesNotResolveds > 0){
+            this.resolvedDependency.push(key);
+        }
+        if(exist != -1 && dependeciesNotResolveds == 0){
+            this.resolvedDependency.splice(exist,1);
+        }
     }
     private consistRequerid(value:string|number|boolean):boolean{
         
@@ -164,60 +181,6 @@ export class TableDependencyService{
         let result = dependecies.find( c=> c.split(":")[0] == dependecy)! // 2:40 -> [0] = 2, [1] = 40
         
         return result.split(":")[1] // 40
-    }
-    public createNewLine(propert:HTMLInputElement){
-        
-        let  split = propert.getAttribute("name")!.split(".")
-        let frame:string = split[1]
-        const LINE_NUMBER:string = "0"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
-        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
-
-        dependecyes.forEach(dependency => {
-            let splitDependency = dependency.key.split("."); 
-            let frame:string = splitDependency[0];
-            let propert = splitDependency[1];
-            let newKey = `${frame}.${propert}.${split[3]}`;
-            let valueDependency = dependency.value.split(".")[0];
-
-            this.tableDependency.push({
-                key:newKey, 
-                value:valueDependency
-            })
-        })
-    }
-    public deleteLine(propert:HTMLInputElement){
-        
-        let split = propert.getAttribute("name")!.split(".")
-        let objeto:string = split[1]
-        let linha:string = split[3]
-        
-        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == objeto && c.key.split(".")[2] == linha);
-
-        dependecyes.forEach(dependency => {
-            let index  = this.tableDependency.indexOf(dependency);
-            this.tableDependency.splice(index,1)
-        })
-        console.log(this.tableDependency)
-    }
-    private resolveDependecy(key:string,value:string){
-        
-        let split = value.split(".")
-        let regular = /:[^\,]*/
-        let dependecies = split[0].replace(regular,"") 
-        let resolveds = split[1] 
-        let dependeciesNotResolveds = 0
-
-        dependecies.split(",").forEach(numberDependecy => {
-            if(resolveds.search(numberDependecy+",") == -1) 
-            dependeciesNotResolveds+=1
-        })
-        let exist = this.resolvedDependency.indexOf(key)
-        if(exist == -1 && dependeciesNotResolveds > 0){
-            this.resolvedDependency.push(key);
-        }
-        if(exist != -1 && dependeciesNotResolveds == 0){
-            this.resolvedDependency.splice(exist,1);
-        }
     }
 
 }

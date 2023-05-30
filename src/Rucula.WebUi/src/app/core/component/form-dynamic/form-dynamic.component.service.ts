@@ -28,7 +28,7 @@ export class FormDynamicService {
       this.factoryObject!.JoinChield = window.joinChield
       this.factoryObject?.createObject(window.frames)
       this.window = window;
-      this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
+      this.form = this.ObjectsDOMBaseService!.getElementFormDynamic();
       this.createFrames()
       this.createButtons()
       this.setEvents()
@@ -54,19 +54,20 @@ export class FormDynamicService {
       })
     }
     private createFrameTypeBlock(frame:frame){
-      const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(frame) // cria o elemento do bloco
-      const _fields = this.createElementsField(frame.fields!);  // cria um array de elementos de entrada
+      const _quadro = this.ObjectsDOMBaseService!.createDivBlockFrame(frame) // cria o elemento do bloco
+      const _fields = this.createElementsField(frame.fields!);
       _fields.forEach(field => {
         _quadro.appendChild(field)
       })
       this.form.appendChild(_quadro)
     }
     private createElementsField(fields:Array<field>):Array<HTMLDivElement>{
-      let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
-      fields.forEach(field => {
-        _fields.push(this.createFieldTypeBlock(field)) 
+      let _fieldsElements: Array<HTMLDivElement> = new Array<HTMLDivElement>();
+      let sortFields = fields.sort(c => c.sequence);
+      sortFields.forEach(field => {
+        _fieldsElements.push(this.createFieldInput(field) as HTMLDivElement) 
       })
-      return _fields;
+      return _fieldsElements;
     }
     private createQuadroList(frame:frame){
       const line = this.createQuadroListElement(frame)
@@ -96,7 +97,7 @@ export class FormDynamicService {
         th.textContent = field.description
         if(field.requerid == true){
           th.textContent = th.textContent
-          th.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
+          th.append(this.ObjectsDOMBaseService!.createSpanLabelIsRequerid().cloneNode(true))
         }
         this.alignColumnOfTable(field,th)
         tr.appendChild(th)
@@ -109,7 +110,7 @@ export class FormDynamicService {
       tr.setAttribute('data-objecdto',this.frameInFocu.objectDto)
       fields.forEach(field =>{
         const td = document.createElement('td');
-        td.appendChild(this.createFieldTypeLine(field))
+        td.appendChild(this.createFieldInput(field, true))
         this.alignColumnOfTable(field,td)
         tr.appendChild(td)
       })
@@ -123,65 +124,6 @@ export class FormDynamicService {
       if(field.type == "select" || field.type == "checkbox")
         cell.style.textAlign = "center"
     }
-    private createFieldTypeBlock(field:field):HTMLDivElement{
-      let element:any
-      switch(field.type){
-        case 'text':
-        case 'number':
-          element = this.createFieldInputTypeBlock(field);
-          break;
-        case 'select':
-          element = this.createFieldSelect(field);
-          this.setAtributesDataSetAndNameTypeBlock(element,field)
-          break;
-          case 'checkbox':
-            break;
-        default:
-            throw new Error(`Field type "${field.type}" is not allowed`);     
-      }
-      this.setEventListenerForInput(element!)
-      const formgroup = this.createformGroup(field)
-      formgroup.appendChild(element as HTMLElement)
-      return formgroup;
-  }
-  private createFieldTypeLine(field:field):HTMLInputElement | HTMLSelectElement{
-    let element:HTMLInputElement | HTMLSelectElement
-    switch(field.type){
-      case 'text':
-      case 'number':
-        element = this.createFieldInputTypeLine(field);
-          break;
-      case 'select':
-        element = this.createFieldSelect(field);
-        this.setAtributesDataSetAndNameTypeLine(element,field)
-        break;
-      case 'checkbox':
-        element = this.createFieldCheckbox(field)
-        this.setAtributesDataSetAndNameTypeLine(element,field)
-        this.factoryObject!.setPropertDto(element as HTMLInputElement);
-        this.tableDependency?.setDependency(element as HTMLInputElement)
-        break;
-      default:
-          throw new Error(`Field type "${field.type}" is not allowed`); 
-    }
-    this.setEventListenerForInput(element!)
-    return element!;
-  }
-  createformGroup(field:field):HTMLDivElement{
-    const div = document.createElement('div');
-    div.classList.add('form-group-item');
-
-    const label = document.createElement('label');
-    label.setAttribute('for',field.id)
-    
-    label.textContent = field.description
-    if (field.requerid == true){
-      label.textContent = label.textContent
-      label.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
-    }
-    div.appendChild(label)
-    return div;
-  }
   
   private createFieldTypeInputBasic(field:field):HTMLInputElement{
       const input = document.createElement('input');
@@ -193,63 +135,6 @@ export class FormDynamicService {
       }
       input.classList.add("form-control")
       return input;
-  }
-  private createFieldInputTypeBlock(field:field){
-      const input = this.createFieldTypeInputBasic(field)
-      this.setAtributesDataDefault(input,field)
-      this.setAtributesDataSetAndNameTypeBlock(input,field)
-      return input
-  }
-  private createFieldInputTypeLine(field:field){
-      const input = this.createFieldTypeInputBasic(field)
-      this.setAtributesDataDefault(input,field)
-      this.setAtributesDataSetAndNameTypeLine(input,field)
-      return input
-  }
-
-  private createFieldSelect(field:field):HTMLSelectElement{  
-    const select = document.createElement('select');
-      this.setAtributesDataDefault(select,field)
-        field.combo?.forEach(item => {
-          const option = document.createElement('option')
-          option.text = item["representation"]
-          option.value = item["value"]
-          select.appendChild(option)
-        })
-      return select
-  }
-  private createFieldCheckbox(field:field):HTMLInputElement{  
-
-    var input = document.createElement("input")
-    input.type = "checkbox";
-    input.id = field.id;
-    input.value = "off"
-    input.addEventListener('click',(e) =>{
-      var check = (e.target as HTMLInputElement); 
-
-      if(check.value == "on"){
-        check.value = "off"
-      }else{
-        check.value = "on"
-      }
-    })
-    return input;
-  }
-  private setAtributesDataDefault(node:HTMLElement,field:field){
-    node.setAttribute('data-max',String(field.max));
-    node.setAttribute('data-min',String(field.min));
-    node.setAttribute('data-required',String(field.requerid));
-    node.setAttribute('data-disable',String(field.disable));
-    node.setAttribute('data-childdto',`${this.frameInFocu.child}`);
-    node.setAttribute('maxlength',`${field.maxLength}`); 
-  }
-  private setAtributesDataSetAndNameTypeBlock(node:HTMLElement,field:field){
-    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
-    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
-  }
-  private setAtributesDataSetAndNameTypeLine(node:HTMLElement,field:field){
-    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
-    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
   }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
@@ -372,11 +257,102 @@ export class FormDynamicService {
       this.buttonOrLinkService!.prepareButtonsCRUD(this.window.button)
     }
   }
+  private createFieldInput(field:field, isTypeLine:boolean = false):HTMLDivElement|HTMLInputElement|HTMLSelectElement{
+    let element:HTMLSelectElement|HTMLInputElement
+    switch(field.type){
+      case 'text':
+      case 'number':
+        element = this.createInput(field);
+        break;
+      case 'select':
+        element = this.createFieldSelect(field);
+        break;
+        case 'checkbox':
+          element = this.createFieldCheckbox(field)
+          break;
+      default:
+          throw new Error(`Field type "${field.type}" is not allowed`);     
+    }
+    this.setEventListenerForInput(element)
 
+    if(isTypeLine == false){
+      this.addAtributesSetAndNameTypeBlock(element,field)
+    }
+    if(isTypeLine == true){
+      this.addAtributesSetAndNameTypeLine(element,field)
+    }
+    this.factoryObject!.setPropertDto(element);
+    this.tableDependency?.setDependency(element)
+    
+    if(isTypeLine == false){
+      const formGroup = this.createformGroup(field)
+      formGroup.appendChild(element)
+      return formGroup;
+    }
+    return element; 
+  }
+  private createInput(field:field){
+    const input = this.createFieldTypeInputBasic(field)
+    this.setAtributesDataDefault(input,field)
+    return input
+  }
+  private createFieldSelect(field:field):HTMLSelectElement{  
+    const select = document.createElement('select');
+      this.setAtributesDataDefault(select,field)
+        field.combo?.forEach(item => {
+          const option = document.createElement('option')
+          option.text = item["representation"]
+          option.value = item["value"]
+          select.appendChild(option)
+        })
+      return select
+  }
+  private createFieldCheckbox(field:field):HTMLInputElement{  
+
+    var input = document.createElement("input")
+    input.type = "checkbox";
+    input.id = field.id;
+    input.value = "off"
+    input.addEventListener('click',(e) =>{
+      var check = (e.target as HTMLInputElement); 
+      if(check.value == "on"){
+        check.value = "off"
+      }else{
+        check.value = "on"
+      }
+    })
+    return input;
+  }
   private setEventListenerForInput(element:HTMLSelectElement | HTMLInputElement){
     element.addEventListener('focusout',(e) => {
       this.factoryObject!.setPropertDto(e.target as HTMLInputElement);
       this.tableDependency?.setDependency(e.target as HTMLInputElement)
     })
+  }
+  private setAtributesDataDefault(node:HTMLElement,field:field){
+    node.setAttribute('maxlength',`${field.maxLength}`); 
+  }
+  private addAtributesSetAndNameTypeBlock(node:HTMLElement,field:field){
+    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+  }
+  private addAtributesSetAndNameTypeLine(node:HTMLElement,field:field){
+    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+  }
+  createformGroup(field:field):HTMLDivElement{
+    const div = document.createElement('div');
+    div.classList.add('form-group-item');
+
+    const label = document.createElement('label');
+    label.setAttribute('for',field.id)
+    
+    label.textContent = field.description
+    if (field.requerid == true){
+      label.textContent = label.textContent
+      label.append(this.ObjectsDOMBaseService!.createSpanLabelIsRequerid().cloneNode(true))
+    }
+    div.appendChild(label)
+    return div;
   }
 }

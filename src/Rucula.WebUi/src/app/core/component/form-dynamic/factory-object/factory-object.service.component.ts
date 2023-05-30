@@ -18,7 +18,7 @@ export class FactoryObjectService{
         });
     }
 
-    public setPropertDto(propert:HTMLInputElement){
+    public setPropertDto(propert:HTMLInputElement|HTMLSelectElement){
 
         let map =  propert.getAttribute("name")!.split(".")
         let type:string = map[0]
