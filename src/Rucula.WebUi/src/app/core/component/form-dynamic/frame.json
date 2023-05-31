@@ -59,7 +59,16 @@
           "description": "type",
           "information": null,
           "type": "select",
-          "combo":[{"value":1,"representation":"block"},{"value":2,"representation":"line"}],
+          "combo": [
+            {
+              "value": 1,
+              "representation": "block"
+            },
+            {
+              "value": 2,
+              "representation": "line"
+            }
+          ],
           "maxLength": 10,
           "max": 0,
           "min": 0,
@@ -170,12 +179,27 @@
           "description": "type",
           "information": null,
           "type": "select",
-          "combo":[
-            {"value":"text","representation":"text"},
-            {"value":"number","representation":"number"},
-            {"value":"select","representation":"select"},
-            {"value":"check","representation":"check"},
-            {"value":"radio","representation":"radio"}
+          "combo": [
+            {
+              "value": "text",
+              "representation": "text"
+            },
+            {
+              "value": "number",
+              "representation": "number"
+            },
+            {
+              "value": "select",
+              "representation": "select"
+            },
+            {
+              "value": "check",
+              "representation": "check"
+            },
+            {
+              "value": "radio",
+              "representation": "radio"
+            }
           ],
           "maxLength": 10,
           "max": 0,
@@ -268,8 +292,6 @@
           "disable": false,
           "sequence": 11
         }
-
-        
       ],
       "id": "16516"
     }
@@ -305,7 +327,7 @@
       "type": "button",
       "color": "rgb(95 108 246)",
       "target": "",
-      "urlrelative": "/window",
+      "urlrelative": "/Frame",
       "windowFk": "7890q2wqq",
       "id": "8248"
     },
@@ -318,7 +340,7 @@
       "type": "button",
       "color": "rgb(95 152 246)",
       "target": "",
-      "urlrelative": "/window",
+      "urlrelative": "/Frame",
       "windowFk": "7890q2wqq",
       "id": "8418"
     },
@@ -331,11 +353,16 @@
       "type": "button",
       "color": "rgb(246 95 95)",
       "target": "",
-      "urlrelative": "/window",
+      "urlrelative": "/Frame",
       "windowFk": "7890q2wqq",
       "id": "er43"
     }
   ],
-  "joinChield": [{"key":"frame","value":"field"}],
+  "joinChield": [
+    {
+      "key": "frame",
+      "value": "field"
+    }
+  ],
   "id": "7890q2wqq"
 }

@@ -69,7 +69,7 @@ export class TableDependencyService{
         var lineDependency = this.tableDependency.find(c => c.key == key)!;
         this.checkPropertDependency(lineDependency, input.value)
         this.resolveDependecy(lineDependency.key,lineDependency.value)
-        console.log(this.tableDependency)
+        console.log(this.resolvedDependency)
     }
     private checkPropertDependency(dependency:KeyValue<string,string>, value:string|number|boolean){
 
@@ -119,10 +119,10 @@ export class TableDependencyService{
                 key:newKey, 
                 value:valueDependency
             })
-
-            //todo - Fazer tratativa para tidos que são checkbox, select e radio
+            this.resolveDependecy(newKey,valueDependency)
         })
     }
+
     public deleteLine(propert:HTMLInputElement){
         
         let split = propert.getAttribute("name")!.split(".")
@@ -130,12 +130,17 @@ export class TableDependencyService{
         let linha:string = split[3]
         
         var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == objeto && c.key.split(".")[2] == linha);
-
         dependecyes.forEach(dependency => {
             let index  = this.tableDependency.indexOf(dependency);
             this.tableDependency.splice(index,1)
         })
+        var resolveds = this.resolvedDependency.filter( c=> c.split(".")[0] == objeto && c.split(".")[2] == linha);
+        resolveds.forEach(resolved => {
+            let index  = this.resolvedDependency.indexOf(resolved);
+            this.resolvedDependency.splice(index,1)
+        })
     }
+    
     private resolveDependecy(key:string,value:string){
         
         let split = value.split(".")
