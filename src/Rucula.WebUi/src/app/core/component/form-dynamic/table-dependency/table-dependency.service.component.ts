@@ -39,6 +39,7 @@ export class TableDependencyService{
             })
         )
     }
+
     private keyDependency(frame:string,propert:string, line:string):string {                
         return `${frame}.${propert}.${line}`
     }
@@ -69,7 +70,6 @@ export class TableDependencyService{
         var lineDependency = this.tableDependency.find(c => c.key == key)!;
         this.checkPropertDependency(lineDependency, input.value)
         this.resolveDependecy(lineDependency.key,lineDependency.value)
-        console.log(this.resolvedDependency)
     }
     private checkPropertDependency(dependency:KeyValue<string,string>, value:string|number|boolean){
 
@@ -103,10 +103,11 @@ export class TableDependencyService{
 
     public createNewLine(propert:HTMLInputElement){
         
+        this.checkCreateSpanShot(propert);
         let  split = propert.getAttribute("name")!.split(".")
         let frame:string = split[1]
-        const LINE_NUMBER:string = "0"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
-        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
+        const LINE_SNAPSHOT:string = "SS"; 
+        var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_SNAPSHOT);
 
         dependecyes.forEach(dependency => {
             let splitDependency = dependency.key.split("."); 
@@ -121,14 +122,39 @@ export class TableDependencyService{
             })
             this.resolveDependecy(newKey,valueDependency)
         })
+        console.log(this.tableDependency)
     }
 
-    public deleteLine(propert:HTMLInputElement){
+    private checkCreateSpanShot(propert:HTMLInputElement){
         
+        let  split = propert.getAttribute("name")!.split(".")
+        let frame:string = split[1]
+
+        const LINE_SNAPSHOT:string = "SS"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
+        const LINE_NUMBER:string = "0"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
+
+        var snapShot = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_SNAPSHOT);
+        if(snapShot.length > 0) return;
+        snapShot = this.tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_NUMBER);
+        snapShot.forEach(dependency => {
+            let splitDependency = dependency.key.split("."); 
+            let frame:string = splitDependency[0];
+            let propert = splitDependency[1];
+            let newKey = `${frame}.${propert}.${LINE_SNAPSHOT}`;
+            let valueDependency = `${dependency.value.split(".")[0]}.` ;
+
+            this.tableDependency.push({
+                key:newKey, 
+                value:valueDependency
+            })
+        })
+    }   
+
+    public deleteLine(propert:HTMLInputElement){
         let split = propert.getAttribute("name")!.split(".")
         let objeto:string = split[1]
         let linha:string = split[3]
-        
+
         var dependecyes = this.tableDependency.filter( c=> c.key.split(".")[0] == objeto && c.key.split(".")[2] == linha);
         dependecyes.forEach(dependency => {
             let index  = this.tableDependency.indexOf(dependency);

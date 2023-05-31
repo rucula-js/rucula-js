@@ -118,15 +118,17 @@ export class FormDynamicService {
   private setEventForCreationLine(){
     const line =  document.querySelectorAll('.quadro-list table tr[data-objecdto]')
     line.forEach((element) => {
-      
-      element.addEventListener('keydown',(event)=> {
-        this.crudLineQuadro(event)
-      })
-        element.addEventListener('keyup',(event)=> {
-            this.keyEvents = []
-      })
+      this.eventKeyDownKeyUpLineFrame(element as HTMLElement)
       this.lineClone.set(element.getAttribute("data-objecdto")!,(element as HTMLElement).cloneNode(true) as HTMLElement)
     }); 
+  }
+  private eventKeyDownKeyUpLineFrame(element:HTMLElement){
+    element.addEventListener('keydown',(event)=> {
+      this.crudLineQuadro(event)
+    })
+      element.addEventListener('keyup',(event)=> {
+          this.keyEvents = []
+    })
   }
   private setEventForInformationInputQuadro(){
     const line =  document.querySelectorAll('#box-window input,#box-window select')
@@ -218,8 +220,8 @@ export class FormDynamicService {
   }
   private setEventListenerForInput(element:HTMLSelectElement | HTMLInputElement){
     element.addEventListener('focusout',(e) => {
-      this.factoryObject!.setPropertDto(e.target as HTMLInputElement);
-      this.tableDependency?.setDependency(e.target as HTMLInputElement)
+        this.factoryObject!.setPropertDto(e.target as HTMLInputElement);
+        this.tableDependency?.setDependency(e.target as HTMLInputElement)
     })
   }
   private addAtributesSetAndNameTypeBlock(node:HTMLElement,field:field){
@@ -231,7 +233,8 @@ export class FormDynamicService {
     node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
   }
   private crudLineQuadro(event:Event){
-    const currentElement:HTMLElement = (event.currentTarget as HTMLElement)
+
+    let currentLineElement:HTMLElement = (event.currentTarget as HTMLElement)
 
     const key = (event as KeyboardEvent).key;
     
@@ -240,22 +243,31 @@ export class FormDynamicService {
     if (this.keyEvents[0] == undefined || this.keyEvents[1] == undefined) return
 
     if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLocaleLowerCase() ==  "a"){
-        var clone = this.createNewLine(currentElement.getAttribute('data-objecdto')!)
-        currentElement.after(clone)
-        clone.querySelector("input")?.focus()
+        event.preventDefault();
+        var newLine = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
+        currentLineElement.after(newLine)
+        newLine.querySelector("input")?.focus()
     }
 
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] ==  "d"){
-      let firstInput = currentElement.querySelector("input")
-      // todo - é Preciso implementar o evento delete
-      // ! Lembrando que não é permitido a remoção
-      
-      console.log(currentElement.previousSibling)
-      console.log(currentElement.nextSibling)
-      // this.tableDependency!.deleteLine(firstInput as HTMLInputElement)
+    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "d"){
+      event.preventDefault();
+
+      let nodeSuperiorIsHeader = currentLineElement.previousSibling?.firstChild?.nodeName == "TH" ? true:false;
+      let linhaInferior = currentLineElement.nextSibling?true:undefined;
+
+      if( nodeSuperiorIsHeader && linhaInferior == undefined){
+          let newLineForDelete = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
+          this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
+          currentLineElement.parentNode!.appendChild(newLineForDelete)
+          newLineForDelete.querySelector("input")?.focus();
+          currentLineElement.remove();
+      }
+      if(nodeSuperiorIsHeader == false || linhaInferior){
+        this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
+        currentLineElement.remove();
+      }
       this.keyEvents = []
     }
-    
   }
   private createNewLine(ObjectdtoLine:string):HTMLElement{
 
@@ -272,11 +284,7 @@ export class FormDynamicService {
         this.setEventListenerForInput(item.firstChild as HTMLInputElement)
     })
     this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
-
-    clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
-    clone.addEventListener('keyup',(event)=> {
-      this.keyEvents = [] 
-    })
+    this.eventKeyDownKeyUpLineFrame(clone as HTMLElement)
     this.tableDependency?.createNewLine(clone.querySelector("input")!)
     clone.querySelectorAll("select, input[type='checkbox']").forEach((element)=> {
        this.tableDependency?.setDependency(element as HTMLInputElement|HTMLSelectElement)
