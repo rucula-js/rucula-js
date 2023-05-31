@@ -12,7 +12,6 @@ export class TableDependencyService{
    
     private tableDependency:Array<KeyValue<string,string>> = new Array();
     private resolvedDependency:Array<string> = new Array();
-    private ElementInFocu!: HTMLElement;
    
     private REQUERID:string = "1" as const;
     private MAX_LENGHT:string = "2" as const;
@@ -56,13 +55,12 @@ export class TableDependencyService{
     }
 
     public setDependency(input:HTMLInputElement|HTMLSelectElement){
-        this.ElementInFocu = input
         let split = input.getAttribute("name")!.split(".")
         let type = split[0]
         let object = split[1]
         let propert = split[2]
         let line = split[3]
-        
+
         var key = ""
         if(type == "block") key = this.keyDependency(object,propert,"");
         if(type == "line") key = this.keyDependency(object,propert,line);
@@ -122,7 +120,6 @@ export class TableDependencyService{
             })
             this.resolveDependecy(newKey,valueDependency)
         })
-        console.log(this.tableDependency)
     }
 
     private checkCreateSpanShot(propert:HTMLInputElement){
@@ -165,6 +162,8 @@ export class TableDependencyService{
             let index  = this.resolvedDependency.indexOf(resolved);
             this.resolvedDependency.splice(index,1)
         })
+
+        console.log(this.tableDependency)
     }
     
     private resolveDependecy(key:string,value:string){
@@ -192,7 +191,6 @@ export class TableDependencyService{
         if( value == undefined ||
             value as number == 0){
                 this.Message.messageDangerRequerid()
-                this.ElementInFocu.focus()
                 return false;
         }
         return true;
@@ -202,7 +200,6 @@ export class TableDependencyService{
         let max = this.getDependecy(todoist,this.MAX_LENGHT)
         if ((value as string).length > Number(max)){
             this.Message.messageDangerMaxValue()
-            this.ElementInFocu.focus()
             return  false;
         }
         return true;

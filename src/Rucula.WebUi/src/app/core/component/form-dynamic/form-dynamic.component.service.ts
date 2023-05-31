@@ -257,15 +257,14 @@ export class FormDynamicService {
 
       if( nodeSuperiorIsHeader && linhaInferior == undefined){
           let newLineForDelete = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
-          this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
           currentLineElement.parentNode!.appendChild(newLineForDelete)
           newLineForDelete.querySelector("input")?.focus();
-          currentLineElement.remove();
       }
       if(nodeSuperiorIsHeader == false || linhaInferior){
-        this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
         currentLineElement.remove();
       }
+      this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
+
       this.keyEvents = []
     }
   }
