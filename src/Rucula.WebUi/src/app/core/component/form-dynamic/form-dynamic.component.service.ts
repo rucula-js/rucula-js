@@ -234,33 +234,70 @@ export class FormDynamicService {
   }
   private crudLineQuadro(event:Event){
 
-    let currentLineElement:HTMLElement = (event.currentTarget as HTMLElement)
-
     const key = (event as KeyboardEvent).key;
     
     if(this.keyEvents.filter(c=> c == key).length == 0) this.keyEvents.push(key)
     this.keyEvents.sort()
+
+    let nextLine = null;
+    let previousLine = null;
+    
+    let input:HTMLInputElement = event.target as HTMLInputElement 
+    let currentLineElement:HTMLElement = (event.currentTarget as HTMLElement)
+
+    if(this.keyEvents[0] == "ArrowUp"){
+      previousLine = (currentLineElement.previousSibling as HTMLTableRowElement)
+
+      let split = input.getAttribute("name")!.split(".")
+      let type = split[0] 
+      let object = split[1]
+      let propert = split[2]
+      
+      var atribute =`input[name^="${type}.${object}.${propert}."]`;
+      let varttt = previousLine?.querySelector(atribute);
+      (varttt as HTMLInputElement)?.focus()
+    }
+    
+    if(this.keyEvents[0] == "ArrowDown"){
+      nextLine = (currentLineElement.nextSibling as HTMLTableRowElement)
+
+      let split = input.getAttribute("name")!.split(".")
+      let type = split[0] 
+      let object = split[1]!
+      let propert = split[2]!
+      
+      var atribute =`input[name^="${type}.${object}.${propert}."]`;
+      let varttt = nextLine?.querySelector(atribute);
+      (varttt as HTMLInputElement)?.focus()
+    }
     if (this.keyEvents[0] == undefined || this.keyEvents[1] == undefined) return
 
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLocaleLowerCase() ==  "a"){
+    if (this.keyEvents[0] == "Control" && this.keyEvents[1] ==  "Enter"){
         event.preventDefault();
         var newLine = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
         currentLineElement.after(newLine)
         newLine.querySelector("input")?.focus()
     }
-
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] == "d"){
+    if (this.keyEvents[0] == "Backspace" && this.keyEvents[1] == "Control"){
       event.preventDefault();
 
       let nodeSuperiorIsHeader = currentLineElement.previousSibling?.firstChild?.nodeName == "TH" ? true:false;
-      let linhaInferior = currentLineElement.nextSibling?true:undefined;
+      let nextSibling = currentLineElement.nextSibling?true:undefined;
+      let previousSibling = currentLineElement.previousSibling?true:undefined;
 
-      if( nodeSuperiorIsHeader && linhaInferior == undefined){
+      if( nodeSuperiorIsHeader && nextSibling == undefined){
           let newLineForDelete = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
           currentLineElement.parentNode!.appendChild(newLineForDelete)
           newLineForDelete.querySelector("input")?.focus();
+          currentLineElement.remove();
       }
-      if(nodeSuperiorIsHeader == false || linhaInferior){
+      if(nodeSuperiorIsHeader == false || nextSibling){
+        if(previousSibling){
+          (currentLineElement.previousSibling as HTMLElement).querySelector("input")?.focus();
+        }
+        if(nextSibling){
+          (currentLineElement.nextSibling as HTMLElement).querySelector("input")?.focus();
+        }
         currentLineElement.remove();
       }
       this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
@@ -282,11 +319,11 @@ export class FormDynamicService {
         `${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`)
         this.setEventListenerForInput(item.firstChild as HTMLInputElement)
     })
-    this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
-    this.eventKeyDownKeyUpLineFrame(clone as HTMLElement)
-    this.tableDependency?.createNewLine(clone.querySelector("input")!)
-    clone.querySelectorAll("select, input[type='checkbox']").forEach((element)=> {
-       this.tableDependency?.setDependency(element as HTMLInputElement|HTMLSelectElement)
+      this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
+      this.eventKeyDownKeyUpLineFrame(clone as HTMLElement)
+      this.tableDependency?.createNewLine(clone.querySelector("input")!)
+      clone.querySelectorAll("select, input[type='checkbox']").forEach((element)=> {
+      this.tableDependency?.setDependency(element as HTMLInputElement|HTMLSelectElement)
     })
     return clone as HTMLElement;
   }

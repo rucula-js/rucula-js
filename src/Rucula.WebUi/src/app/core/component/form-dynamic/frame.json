@@ -27,20 +27,6 @@
           "id": "1565165"
         },
         {
-          "propertDto": "check teste",
-          "description": "Code",
-          "information": null,
-          "type": "checkbox",
-          "maxLength": 10,
-          "max": 0,
-          "min": 0,
-          "requerid": true,
-          "disable": false,
-          "sequence": 4,
-          "frameFk": "18544",
-          "id": "1565165"
-        },
-        {
           "propertDto": "name",
           "description": "Name",
           "information": null,

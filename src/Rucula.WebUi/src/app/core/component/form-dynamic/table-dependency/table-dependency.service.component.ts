@@ -162,8 +162,6 @@ export class TableDependencyService{
             let index  = this.resolvedDependency.indexOf(resolved);
             this.resolvedDependency.splice(index,1)
         })
-
-        console.log(this.tableDependency)
     }
     
     private resolveDependecy(key:string,value:string){
