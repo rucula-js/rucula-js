@@ -278,7 +278,7 @@ export class FormDynamicService {
         currentLineElement.after(newLine)
         newLine.querySelector("input")?.focus()
     }
-    if (this.keyEvents[0] == "Backspace" && this.keyEvents[1] == "Control"){
+    if (this.keyEvents[0] == "0" && this.keyEvents[1] == "Control"){
       event.preventDefault();
 
       let nodeSuperiorIsHeader = currentLineElement.previousSibling?.firstChild?.nodeName == "TH" ? true:false;

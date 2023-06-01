@@ -103,10 +103,10 @@
       "windowFk": "7890q2wqq",
       "fields": [
         {
-          "id": "8978",
+          "id": "8498",
           "frameFk": "16516",
-          "propertDto": "id",
-          "description": "id",
+          "propertDto": "frameFk",
+          "description": "frame id",
           "information": null,
           "type": "text",
           "maxLength": 10,
@@ -117,10 +117,10 @@
           "sequence": 1
         },
         {
-          "id": "8498",
+          "id": "8978",
           "frameFk": "16516",
-          "propertDto": "frameFk",
-          "description": "frame id",
+          "propertDto": "id",
+          "description": "id",
           "information": null,
           "type": "text",
           "maxLength": 10,
