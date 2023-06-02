@@ -15,8 +15,8 @@ export class FormDynamicComponent implements AfterContentInit, OnInit	 {
   constructor(private formDynamicBase:formDynamicBaseService,private dynamicFormService:FormDynamicService, private buttonsService?:actionButtons,private actionHttp?:actionsHTTPService){}
   ngOnInit(): void {
       this.window = (quadro as unknown as window);  
-      this.GetAll()
-      this.SetConfigurationsForm()
+      // this.GetAll()
+      // this.SetConfigurationsForm()
   }
   datagrid:any;
   window!:window;

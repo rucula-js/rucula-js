@@ -1,3 +1,4 @@
+import { KeyValue } from "@angular/common";
 import { Injectable } from "@angular/core";
 import { frame } from "../entities/form/frame";
 
@@ -6,17 +7,18 @@ import { frame } from "../entities/form/frame";
 })
 export class FactoryObjectService{
     
-    private object:any = {};
-    
+    private Object:any = {};
+    public JoinChield!:Array<KeyValue<string,string>> 
     public createObject(frames?:Array<frame>){
         frames?.forEach(frame => {
             if(frame.type == "block")
-                this.object[frame.objectDto] = {}
+                this.Object[frame.objectDto] = {}
             if(frame.type == "line")
-                this.object[frame.objectDto] = [{}]
+                this.Object[frame.objectDto] = [{}]
         });
     }
-    public setPropertDto(propert:HTMLInputElement){
+
+    public setPropertDto(propert:HTMLInputElement|HTMLSelectElement){
 
         let map =  propert.getAttribute("name")!.split(".")
         let type:string = map[0]
@@ -26,15 +28,30 @@ export class FactoryObjectService{
 
         switch(type){
             case "block":
-                this.object[objectDto][propertDto] = propert.value
+                this.Object[objectDto][propertDto] = propert.value
                 break;
             case "line":
-                if(this.object[objectDto][lineNumber] == undefined) this.object[objectDto][lineNumber] = {}
-                this.object[objectDto][lineNumber][propertDto] = propert.value
+                if(this.Object[objectDto][lineNumber] == undefined) this.Object[objectDto][lineNumber] = {}
+                this.Object[objectDto][lineNumber][propertDto] = propert.value
                 break;
             default:
                 throw new Error("Rucula Error! Type Frame Incorrect");   
         }
-        console.log(this.object)
     }
+    getObject():object{
+        this.PrepareObject()
+        return this.Object;
+    }
+
+    public PrepareObject(){
+        let formatedObject:any  =  Object.prototype.constructor(this.Object)
+        this.JoinChield!.forEach(item => {
+          let key = item.key
+          let cheild = item.value;
+          if(item.value != ""){
+            formatedObject[key][cheild] = formatedObject[cheild]
+            delete formatedObject[cheild]
+          }
+        })
+      }
 }

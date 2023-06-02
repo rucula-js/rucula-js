@@ -4,36 +4,34 @@ import { createButtonOrLinkService } from './buttons/createButtonOrLink.service'
 import { field } from './entities/form/field';
 import { window } from './entities/form/window';
 import { frame } from './entities/form/frame';
-import {ObjectsDOMBaseService} from './elements/objects-DOM-base.component.service'
+import { ComponentsDOMFactoryService } from './elements/components-DOM.component.service'
 import { TableDependencyService } from './table-dependency/table-dependency.service.component';
 import { FactoryObjectService } from './factory-object/factory-object.service.component';
-import { isTypeNode } from 'typescript';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FormDynamicService {
 
-   constructor(private ObjectsDOMBaseService?:ObjectsDOMBaseService, private buttonOrLinkService?:createButtonOrLinkService, private cps?:CreatePopperService,
-    private tableDependency?: TableDependencyService,
-    private factoryObject?:FactoryObjectService){}
+   constructor( private componentsDOM?:ComponentsDOMFactoryService, 
+                private buttonOrLinkService?:createButtonOrLinkService, 
+                private cps?:CreatePopperService,
+                private tableDependency?: TableDependencyService,
+                private factoryObject?:FactoryObjectService){}
+    
     private form!:HTMLElement;
     private window!:window;
     private frameInFocu!:frame; 
         
     domCreateForm(window:window){
-      this.tableDependency?.createTable(window.frames)
+      this.tableDependency?.createTableDependency(window.frames!)
+      this.factoryObject!.JoinChield = window.joinChield
       this.factoryObject?.createObject(window.frames)
       this.window = window;
-      this.SetWindowTitle();
-      this.form = this.ObjectsDOMBaseService!.DOMFormDynamic();
+      this.form = this.componentsDOM!.getElementFormDynamic();
       this.createFrames()
       this.createButtons()
       this.setEvents()
-    }
-    private SetWindowTitle(){
-      const windowTitle = document.getElementById("window-title")
-      windowTitle!.textContent = this.window.tela
     }
     private createFrames(){
       /*
@@ -56,22 +54,23 @@ export class FormDynamicService {
       })
     }
     private createFrameTypeBlock(frame:frame){
-      const _quadro = this.ObjectsDOMBaseService!.DOMcreateDivBlockElement(frame) // cria o elemento do bloco
-      const _fields = this.createElementsField(frame.fields!);  // cria um array de elementos de entrada
+      const _quadro = this.componentsDOM!.createFrame(frame)
+      const _fields = this.createElementsField(frame.fields!);
       _fields.forEach(field => {
         _quadro.appendChild(field)
       })
       this.form.appendChild(_quadro)
     }
     private createElementsField(fields:Array<field>):Array<HTMLDivElement>{
-      let _fields: Array<HTMLDivElement> = new Array<HTMLDivElement>();
-      fields.forEach(field => {
-        _fields.push(this.createFieldTypeBlock(field)) 
+      let _fieldsElements: Array<HTMLDivElement> = new Array<HTMLDivElement>();
+      let sortFields = fields.sort(c => c.sequence);
+      sortFields.forEach(field => {
+        _fieldsElements.push(this.createFieldInput(field) as HTMLDivElement) 
       })
-      return _fields;
+      return _fieldsElements;
     }
     private createQuadroList(frame:frame){
-      const line = this.createQuadroListElement(frame)
+      const line = this.componentsDOM!.createFrame(frame)
       const table = document.createElement('table');
       table.classList.add("table-form")
       const header = this.prepareLineHeaderTable(frame.fields!);
@@ -81,16 +80,7 @@ export class FormDynamicService {
       line.appendChild(table)
       this.form.appendChild(line)
     }
-    private createQuadroListElement(frame:frame){
-      const div = document.createElement('div');
-      div.classList.add('quadro-list')
-      div.setAttribute('data-objectDto',frame.objectDto)
-      div.setAttribute('data-chield',frame.child!)
-      const h4 = document.createElement('h4');
-      h4.textContent = frame.name
-      div.appendChild(h4)
-      return div
-    }
+    
     private prepareLineHeaderTable(fields:Array<field>):HTMLTableRowElement{
       let tr = document.createElement('tr');
       fields.forEach(field => {
@@ -98,9 +88,9 @@ export class FormDynamicService {
         th.textContent = field.description
         if(field.requerid == true){
           th.textContent = th.textContent
-          th.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
+          th.append(this.componentsDOM!.createSpanLabelIsRequerid().cloneNode(true))
         }
-        this.alignColumnOfTable(field,th)
+        this.componentsDOM!.alignColumnOfTable(field,th)
         tr.appendChild(th)
       })
       return tr;
@@ -111,146 +101,13 @@ export class FormDynamicService {
       tr.setAttribute('data-objecdto',this.frameInFocu.objectDto)
       fields.forEach(field =>{
         const td = document.createElement('td');
-        td.appendChild(this.createFieldTypeLine(field))
-        this.alignColumnOfTable(field,td)
+        td.appendChild(this.createFieldInput(field, true))
+        this.componentsDOM!.alignColumnOfTable(field,td)
         tr.appendChild(td)
       })
       return tr;
     }
-    private alignColumnOfTable(field:field, cell: HTMLTableCellElement){
-      if(field.type == "text")
-        cell.style.textAlign = "left"
-      if(field.type == "number")
-        cell.style.textAlign = "right"
-      if(field.type == "select" || field.type == "checkbox")
-        cell.style.textAlign = "center"
-    }
-    private createFieldTypeBlock(field:field):HTMLDivElement{
-      let element:any
-      switch(field.type){
-        case 'text':
-        case 'number':
-          element = this.createFieldInputTypeBlock(field);
-          break;
-        case 'select':
-          element = this.createFieldSelect(field);
-          this.setAtributesDataSetAndNameTypeBlock(element,field)
-          break;
-          case 'checkbox':
-            break;
-        default:
-            throw new Error(`Field type "${field.type}" is not allowed`);     
-      }
-      this.setEventListenerForInput(element!)
-      const formgroup = this.createformGroup(field)
-      formgroup.appendChild(element as HTMLElement)
-      return formgroup;
-  }
-  private createFieldTypeLine(field:field):HTMLInputElement | HTMLSelectElement{
-    let element:HTMLInputElement | HTMLSelectElement
-    switch(field.type){
-      case 'text':
-      case 'number':
-        element = this.createFieldInputTypeLine(field);
-          break;
-      case 'select':
-        element = this.createFieldSelect(field);
-        this.setAtributesDataSetAndNameTypeLine(element,field)
-        break;
-      case 'checkbox':
-        element = this.createFieldCheckbox(field)
-        this.setAtributesDataSetAndNameTypeLine(element,field)
-        break;
-      default:
-          throw new Error(`Field type "${field.type}" is not allowed`); 
-    }
-    this.setEventListenerForInput(element!)
-    return element!;
-  }
-  createformGroup(field:field):HTMLDivElement{
-    const div = document.createElement('div');
-    div.classList.add('form-group-item');
 
-    const label = document.createElement('label');
-    label.setAttribute('for',field.id)
-    
-    label.textContent = field.description
-    if (field.requerid == true){
-      label.textContent = label.textContent
-      label.append(this.ObjectsDOMBaseService!.DOMLabelIsRequerid().cloneNode(true))
-    }
-    div.appendChild(label)
-    return div;
-  }
-  
-  private createFieldTypeInputBasic(field:field):HTMLInputElement{
-      const input = document.createElement('input');
-      input.type = field.type;
-      if (field.maxLength != undefined && field.maxLength > 0){
-        input.style.width = `${field.maxLength * 10}px`  
-      }else{
-        input.style.width = "90px"  
-      }
-      input.classList.add("form-control")
-      return input;
-  }
-  private createFieldInputTypeBlock(field:field){
-      const input = this.createFieldTypeInputBasic(field)
-      this.setAtributesDataDefault(input,field)
-      this.setAtributesDataSetAndNameTypeBlock(input,field)
-      return input
-  }
-  private createFieldInputTypeLine(field:field){
-      const input = this.createFieldTypeInputBasic(field)
-      this.setAtributesDataDefault(input,field)
-      this.setAtributesDataSetAndNameTypeLine(input,field)
-      return input
-  }
-
-  private createFieldSelect(field:field):HTMLSelectElement{  
-    const select = document.createElement('select');
-      this.setAtributesDataDefault(select,field)
-        field.combo?.forEach(item => {
-          const option = document.createElement('option')
-          option.text = item["representation"]
-          option.value = item["value"]
-          select.appendChild(option)
-        })
-      return select
-  }
-  private createFieldCheckbox(field:field):HTMLInputElement{  
-
-    var input = document.createElement("input")
-    input.type = "checkbox";
-    input.id = field.id;
-    input.value = "off"
-    input.addEventListener('click',(e) =>{
-      var check = (e.target as HTMLInputElement); 
-
-      if(check.value == "on"){
-        check.value = "off"
-      }else{
-        check.value = "on"
-      }
-    })
-    return input;
-  }
-  private setAtributesDataDefault(node:HTMLElement,field:field){
-    node.setAttribute('data-max',String(field.max));
-    node.setAttribute('data-min',String(field.min));
-    node.setAttribute('data-required',String(field.requerid));
-    node.setAttribute('data-disable',String(field.disable));
-    node.setAttribute('data-childdto',`${this.frameInFocu.child}`);
-    node.setAttribute('maxlength',`${field.maxLength}`); 
-  }
-  private setAtributesDataSetAndNameTypeBlock(node:HTMLElement,field:field){
-    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
-    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
-  }
-  private setAtributesDataSetAndNameTypeLine(node:HTMLElement,field:field){
-    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
-    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
-  }
   private keyEvents:Array<string> = new Array<string>();
   private lineClone:Map<string,HTMLElement> = new  Map<string,HTMLElement>(); // como pode conter mais de uma tela de linha, é importante ser um arra map
 
@@ -261,15 +118,17 @@ export class FormDynamicService {
   private setEventForCreationLine(){
     const line =  document.querySelectorAll('.quadro-list table tr[data-objecdto]')
     line.forEach((element) => {
-      
-      element.addEventListener('keydown',(event)=> {
-        this.crudLineQuadro(event)
-      })
-        element.addEventListener('keyup',(event)=> {
-            this.keyEvents = []
-      })
+      this.eventKeyDownKeyUpLineFrame(element as HTMLElement)
       this.lineClone.set(element.getAttribute("data-objecdto")!,(element as HTMLElement).cloneNode(true) as HTMLElement)
     }); 
+  }
+  private eventKeyDownKeyUpLineFrame(element:HTMLElement){
+    element.addEventListener('keydown',(event)=> {
+      this.crudLineQuadro(event)
+    })
+      element.addEventListener('keyup',(event)=> {
+          this.keyEvents = []
+    })
   }
   private setEventForInformationInputQuadro(){
     const line =  document.querySelectorAll('#box-window input,#box-window select')
@@ -315,32 +174,143 @@ export class FormDynamicService {
       this.cps?.createPopper(current,tooltip)
     }
   }
+  private createButtons(){
+    if(this.window.type.toLocaleUpperCase() == "CRUD"){
+      this.buttonOrLinkService!.prepareButtonsCRUD(this.window.button)
+    }
+  }
+  private createFieldInput(field:field, isTypeLine:boolean = false):HTMLDivElement|HTMLInputElement|HTMLSelectElement{
+    let element:HTMLSelectElement|HTMLInputElement
+    switch(field.type){
+      case 'text':
+      case 'number':
+        element = this.createInput(field);
+        break;
+      case 'select':
+        element = this.componentsDOM!.createFieldSelect(field);
+        break;
+        case 'checkbox':
+          element = this.componentsDOM!.createFieldCheckbox(field)
+          break;
+      default:
+          throw new Error(`Field type "${field.type}" is not allowed`);     
+    }
+    this.setEventListenerForInput(element)
+
+    if(isTypeLine == false){
+      this.addAtributesSetAndNameTypeBlock(element,field)
+    }
+    if(isTypeLine == true){
+      this.addAtributesSetAndNameTypeLine(element,field)
+    }
+    this.factoryObject!.setPropertDto(element);
+    this.tableDependency?.setDependency(element)
+    
+    if(isTypeLine == false){
+      const formGroup = this.componentsDOM!.createGroupOfInput(field)
+      formGroup.appendChild(element)
+      return formGroup;
+    }
+    return element; 
+  }
+  private createInput(field:field){
+    const input = this.componentsDOM!.createFieldTypeInputBasic(field)
+    this.componentsDOM!.setAtributesDataDefault(input,field)
+    return input
+  }
+  private setEventListenerForInput(element:HTMLSelectElement | HTMLInputElement){
+    element.addEventListener('focusout',(e) => {
+        this.factoryObject!.setPropertDto(e.target as HTMLInputElement);
+        this.tableDependency?.setDependency(e.target as HTMLInputElement)
+    })
+  }
+  private addAtributesSetAndNameTypeBlock(node:HTMLElement,field:field){
+    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}`);
+  }
+  private addAtributesSetAndNameTypeLine(node:HTMLElement,field:field){
+    node.setAttribute('name',`${this.frameInFocu.type}.${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+    node.setAttribute('set',`${this.frameInFocu.objectDto}.${String(field.propertDto)}.0`);
+  }
   private crudLineQuadro(event:Event){
-    const current = (event.currentTarget as HTMLElement)
+
     const key = (event as KeyboardEvent).key;
-    if(this.keyEvents.filter(c=> c==key).length == 0){
-      this.keyEvents.push(key)
-    }
+    
+    if(this.keyEvents.filter(c=> c == key).length == 0) this.keyEvents.push(key)
     this.keyEvents.sort()
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1].toLowerCase() ==  "a"){
-        var clone = this.createNewLine(current.getAttribute('data-objecdto')!)
-        current.after(clone)
+
+    let nextLine = null;
+    let previousLine = null;
+    
+    let input:HTMLInputElement = event.target as HTMLInputElement 
+    let currentLineElement:HTMLElement = (event.currentTarget as HTMLElement)
+
+    if(this.keyEvents[0] == "ArrowUp"){
+      previousLine = (currentLineElement.previousSibling as HTMLTableRowElement)
+
+      let split = input.getAttribute("name")!.split(".")
+      let type = split[0] 
+      let object = split[1]
+      let propert = split[2]
+      
+      var atribute =`input[name^="${type}.${object}.${propert}."]`;
+      let varttt = previousLine?.querySelector(atribute);
+      (varttt as HTMLInputElement)?.focus()
     }
-    if (this.keyEvents[0] == "Alt" && this.keyEvents[1] ==  "d"){
-      if (document.querySelectorAll('.quadro-list table tr').length == 2){
-        (event.currentTarget as HTMLElement).after(this.createNewLine(current.getAttribute('data-objectdto')!));
-        (event.currentTarget as HTMLElement).remove()
-      }else{
-        (event.currentTarget as HTMLElement).remove()
+    
+    if(this.keyEvents[0] == "ArrowDown"){
+      nextLine = (currentLineElement.nextSibling as HTMLTableRowElement)
+
+      let split = input.getAttribute("name")!.split(".")
+      let type = split[0] 
+      let object = split[1]!
+      let propert = split[2]!
+      
+      var atribute =`input[name^="${type}.${object}.${propert}."]`;
+      let varttt = nextLine?.querySelector(atribute);
+      (varttt as HTMLInputElement)?.focus()
+    }
+    if (this.keyEvents[0] == undefined || this.keyEvents[1] == undefined) return
+
+    if (this.keyEvents[0] == "Control" && this.keyEvents[1] ==  "Enter"){
+        event.preventDefault();
+        var newLine = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
+        currentLineElement.after(newLine)
+        newLine.querySelector("input")?.focus()
+    }
+    if (this.keyEvents[0] == "0" && this.keyEvents[1] == "Control"){
+      event.preventDefault();
+
+      let nodeSuperiorIsHeader = currentLineElement.previousSibling?.firstChild?.nodeName == "TH" ? true:false;
+      let nextSibling = currentLineElement.nextSibling?true:undefined;
+      let previousSibling = currentLineElement.previousSibling?true:undefined;
+
+      if( nodeSuperiorIsHeader && nextSibling == undefined){
+          let newLineForDelete = this.createNewLine(currentLineElement.getAttribute('data-objecdto')!)
+          currentLineElement.parentNode!.appendChild(newLineForDelete)
+          newLineForDelete.querySelector("input")?.focus();
+          currentLineElement.remove();
       }
+      if(nodeSuperiorIsHeader == false || nextSibling){
+        if(previousSibling){
+          (currentLineElement.previousSibling as HTMLElement).querySelector("input")?.focus();
+        }
+        if(nextSibling){
+          (currentLineElement.nextSibling as HTMLElement).querySelector("input")?.focus();
+        }
+        currentLineElement.remove();
+      }
+      this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
+
       this.keyEvents = []
     }
   }
   private createNewLine(ObjectdtoLine:string):HTMLElement{
 
-    var clone = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true);
-    (clone as HTMLElement).childNodes.forEach(item => {
-        let atributeName = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")!;
+    var clone:HTMLElement = (this.lineClone.get(ObjectdtoLine) as HTMLElement).cloneNode(true) as HTMLElement;
+
+    clone.childNodes.forEach(item => {
+        let atributeName = (item.firstChild as HTMLElement).getAttribute('name')?.split(".")! ;
 
         (item.firstChild as HTMLElement).setAttribute('name',
         `${atributeName[0]}.${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`);
@@ -349,24 +319,13 @@ export class FormDynamicService {
         `${atributeName[1]}.${atributeName[2]}.${Number(atributeName[3])+1}`)
         this.setEventListenerForInput(item.firstChild as HTMLInputElement)
     })
-    this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
-
-    clone.addEventListener('keydown',(event)=> this.crudLineQuadro(event))
-    clone.addEventListener('keyup',(event)=> {
-      this.keyEvents = [] 
+      this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
+      this.eventKeyDownKeyUpLineFrame(clone as HTMLElement)
+      this.tableDependency?.createNewLine(clone.querySelector("input")!)
+      clone.querySelectorAll("select, input[type='checkbox']").forEach((element)=> {
+      this.tableDependency?.setDependency(element as HTMLInputElement|HTMLSelectElement)
     })
     return clone as HTMLElement;
   }
-  private createButtons(){
-    if(this.window.type.toLocaleUpperCase() == "CRUD"){
-      this.buttonOrLinkService!.prepareButtonsCRUD(this.window.button)
-    }
-  }
 
-  private setEventListenerForInput(element:HTMLSelectElement | HTMLInputElement){
-    element.addEventListener('focusout',(e) => {
-      this.factoryObject!.setPropertDto(e.target as HTMLInputElement);
-      this.tableDependency?.setDependency(e.target as HTMLInputElement)
-    })
-  }
 }

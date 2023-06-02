@@ -145,7 +145,9 @@ body{
 
 .quadro-list{
     margin-top: 10px;
-    overflow-x: auto ;
+    overflow-x: auto;
+    max-height: 400px;
+
 }
 .quadro-block,.quadro-list{
     box-shadow: 0px 0px 5px 0px #c4c4c4;
@@ -153,7 +155,6 @@ body{
     border: 0.5px solid #dbdada;
     border-radius: 5px;
 }
-
 .quadro-block h4,.quadro-list h4{
     margin: 10px;
     display: block;
@@ -172,8 +173,7 @@ body{
     align-items:center;
 }
 .table-form{
-    border-collapse: collapse;
-
+    border-collapse:collapse;
 }
 .table-form th,.table-form td{
     border: 1px solid #ddd;
@@ -183,9 +183,16 @@ body{
     background-color: #022940;
     color: var(--color-branco);
 }
+.table-form td:focus-within{
+    border-bottom: 2px solid #022940;
+}
 .table-form td input{
     border: none;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
 .form-dynamic{
     max-width: 100%;
 }
@@ -229,13 +236,13 @@ max-height: 100vh;
 width: 100%;
 }
 
-#form-dynamic::-webkit-scrollbar {
+*::-webkit-scrollbar {
 width: 8px;
 } 
-#form-dynamic::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
 background:  var(--color-branco);
 }  
-#form-dynamic::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
 background-color:#022940;
 border-radius: 20px;    
 }
