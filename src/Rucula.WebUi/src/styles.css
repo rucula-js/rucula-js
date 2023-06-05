@@ -173,7 +173,9 @@ body{
     align-items:center;
 }
 .table-form{
+    table-layout: fixed;
     border-collapse:collapse;
+    width: 100%;
 }
 .table-form th,.table-form td{
     border: 1px solid #ddd;
@@ -238,6 +240,7 @@ width: 100%;
 
 *::-webkit-scrollbar {
 width: 8px;
+height: 8px;
 } 
 *::-webkit-scrollbar-track {
 background:  var(--color-branco);

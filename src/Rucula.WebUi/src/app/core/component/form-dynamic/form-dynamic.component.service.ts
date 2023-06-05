@@ -54,12 +54,16 @@ export class FormDynamicService {
       })
     }
     private createFrameTypeBlock(frame:frame){
-      const _quadro = this.componentsDOM!.createFrame(frame)
-      const _fields = this.createElementsField(frame.fields!);
-      _fields.forEach(field => {
-        _quadro.appendChild(field)
+      const frameElement = this.componentsDOM!.createFrame(frame)
+      const inputs = this.createElementsField(frame.fields!);
+      const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.flexWrap = "wrap";
+      inputs.forEach(c => {
+        div.appendChild(c)
       })
-      this.form.appendChild(_quadro)
+      frameElement.appendChild(div)
+      this.form.appendChild(frameElement)
     }
     private createElementsField(fields:Array<field>):Array<HTMLDivElement>{
       let _fieldsElements: Array<HTMLDivElement> = new Array<HTMLDivElement>();
@@ -81,8 +85,10 @@ export class FormDynamicService {
       this.form.appendChild(line)
     }
     
-    private prepareLineHeaderTable(fields:Array<field>):HTMLTableRowElement{
+    private prepareLineHeaderTable(fields:Array<field>):HTMLTableSectionElement{
       let tr = document.createElement('tr');
+      let thead = document.createElement('thead');
+      thead.appendChild(tr);
       fields.forEach(field => {
         const th = document.createElement('th');
         th.textContent = field.description
@@ -93,11 +99,12 @@ export class FormDynamicService {
         this.componentsDOM!.alignColumnOfTable(field,th)
         tr.appendChild(th)
       })
-      return tr;
+      return thead;
     }
-    private prepareLineDetailTable(fields:Array<field>):HTMLTableRowElement{
-      
+    private prepareLineDetailTable(fields:Array<field>):HTMLTableSectionElement{
+      let tbody = document.createElement('tbody');
       let tr = document.createElement('tr');
+      tbody.appendChild(tr);
       tr.setAttribute('data-objecdto',this.frameInFocu.objectDto)
       fields.forEach(field =>{
         const td = document.createElement('td');
@@ -105,7 +112,7 @@ export class FormDynamicService {
         this.componentsDOM!.alignColumnOfTable(field,td)
         tr.appendChild(td)
       })
-      return tr;
+      return tbody;
     }
 
   private keyEvents:Array<string> = new Array<string>();
