@@ -142,12 +142,8 @@ body{
 }
 /* Navegação Documentador Rucula - Fim */
 
-
 .quadro-list{
     margin-top: 10px;
-    overflow-x: auto;
-    max-height: 400px;
-
 }
 .quadro-block,.quadro-list{
     box-shadow: 0px 0px 5px 0px #c4c4c4;
@@ -173,26 +169,44 @@ body{
     align-items:center;
 }
 .table-form{
+    margin: 0 auto;
+    display: inline-block;
     table-layout: fixed;
     border-collapse:collapse;
-    width: 100%;
+    background-color: #fff;
+    overflow: auto;
+    max-height: 500px;
+    border-spacing: 0;
 }
 .table-form th,.table-form td{
     border: 1px solid #ddd;
 }
+.table-form td{
+    padding: 0px;
+}
 
 .table-form th{
+    position: sticky;
+    top: 0;
     background-color: #022940;
+    padding-top: 5px ;
+    padding-bottom: 5px ;
     color: var(--color-branco);
 }
 .table-form td:focus-within{
     border-bottom: 2px solid #022940;
 }
+
 .table-form td input{
     border: none;
     padding: 0;
-    padding-left: 5px;
-    padding-right: 5px;
+}
+
+.table-form th,
+.table-form td{
+    margin-left: 5px;
+    margin-right: 5px;
+
 }
 
 .form-dynamic{
