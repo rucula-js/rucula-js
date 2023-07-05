@@ -8,6 +8,7 @@ export interface window{
     tela:string,
     type:string,
     urlRoot:string
+    pathController:string
     urlGetAll:string
     urlGetId: string
     frames?:Array<frame>,

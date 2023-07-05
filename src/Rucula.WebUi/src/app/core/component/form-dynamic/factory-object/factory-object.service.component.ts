@@ -19,7 +19,6 @@ export class FactoryObjectService{
     }
 
     public setPropertDto(propert:HTMLInputElement|HTMLSelectElement){
-
         let map =  propert.getAttribute("name")!.split(".")
         let type:string = map[0]
         let objectDto:string = map[1]
@@ -38,13 +37,19 @@ export class FactoryObjectService{
                 throw new Error("Rucula Error! Type Frame Incorrect");   
         }
     }
-    getObject():object{
-        this.PrepareObject()
-        return this.Object;
+    public deleteLine(propert:HTMLInputElement|HTMLSelectElement){
+        
+        let map =  propert.getAttribute("name")!.split(".")
+        let objectDto:string = map[1]
+        let lineNumber:number = Number(map[3])
+        delete this.Object[objectDto][lineNumber]
     }
 
-    public PrepareObject(){
-        let formatedObject:any  =  Object.prototype.constructor(this.Object)
+    get object(){
+        return this.PrepareObject()
+    }
+    private PrepareObject(){
+        let formatedObject:any = Object.assign({},this.Object);
         this.JoinChield!.forEach(item => {
           let key = item.key
           let cheild = item.value;
@@ -53,5 +58,6 @@ export class FactoryObjectService{
             delete formatedObject[cheild]
           }
         })
-      }
+        return formatedObject
+    }
 }

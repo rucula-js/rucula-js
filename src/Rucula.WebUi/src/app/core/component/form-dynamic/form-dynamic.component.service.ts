@@ -7,6 +7,8 @@ import { frame } from './entities/form/frame';
 import { ComponentsDOMFactoryService } from './elements/components-DOM.component.service'
 import { TableDependencyService } from './table-dependency/table-dependency.service.component';
 import { FactoryObjectService } from './factory-object/factory-object.service.component';
+import { ConsoleService } from './console/console.service.component';
+import { ConfigurationBaseGlobalService } from './configuration-base-global/configuration-base-global.component.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,13 +19,16 @@ export class FormDynamicService {
                 private buttonOrLinkService?:createButtonOrLinkService, 
                 private cps?:CreatePopperService,
                 private tableDependency?: TableDependencyService,
-                private factoryObject?:FactoryObjectService){}
+                private factoryObject?:FactoryObjectService,
+                private consoleService?:ConsoleService,
+                private configlobal?:ConfigurationBaseGlobalService){}
     
     private form!:HTMLElement;
     private window!:window;
     private frameInFocu!:frame; 
         
     domCreateForm(window:window){
+      this.configlobal?.setValues(window)
       this.tableDependency?.createTableDependency(window.frames!)
       this.factoryObject!.JoinChield = window.joinChield
       this.factoryObject?.createObject(window.frames)
@@ -32,6 +37,7 @@ export class FormDynamicService {
       this.createFrames()
       this.createButtons()
       this.setEvents()
+      this.consoleService!.set() 
     }
     private createFrames(){
       /*
@@ -287,8 +293,7 @@ export class FormDynamicService {
     }
     if (this.keyEvents[0] == "0" && this.keyEvents[1] == "Control"){
       event.preventDefault();
-
-      let nodeSuperiorIsHeader = currentLineElement.previousSibling?.firstChild?.nodeName == "TH" ? true:false;
+      let nodeSuperiorIsHeader = currentLineElement.previousSibling == undefined ? true:false;
       let nextSibling = currentLineElement.nextSibling?true:undefined;
       let previousSibling = currentLineElement.previousSibling?true:undefined;
 
@@ -307,7 +312,9 @@ export class FormDynamicService {
         }
         currentLineElement.remove();
       }
-      this.tableDependency!.deleteLine(currentLineElement.querySelector("input") as HTMLInputElement)
+      const input = currentLineElement.querySelector("input") as HTMLInputElement;
+      this.factoryObject!.deleteLine(input)
+      this.tableDependency!.deleteLine(input)
 
       this.keyEvents = []
     }
@@ -334,5 +341,4 @@ export class FormDynamicService {
     })
     return clone as HTMLElement;
   }
-
 }

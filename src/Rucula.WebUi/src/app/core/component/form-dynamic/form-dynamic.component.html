@@ -18,27 +18,42 @@
             <table id="list-data">
             </table>
         </div>
-        <gridjs [columns]="this.window.columns" 
+        <!-- <gridjs [columns]="this.window.columns" 
                 [data]="this.datagrid"
                 [columnsGridGet]="this.window.columnsGridGet"
                 (newItemEvent)="GetById($event)">
-        </gridjs>
+        </gridjs> -->
     </div>
 </div>
 <div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-fullscreen" data-bs-backdrop="static">
         <div class="modal-content">            
             <div class="modal-body" style="overflow: hidden;">
-                <div class="window-form-dynamic">
-                    <div id="box-window">
-                        <div class="form-dynamic-header mb-2 ms-2">
-                            <button class="btn bg-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <form id="form-dynamic" autocomplete="off" class="ms-2">
-                            </form>
-                            <div class="action-defaut ms-2" id="box-actions">
+                <div id="box-window">
+                    <div class="form-dynamic-header mb-2 ms-2" >
+                        <button class="btn bg-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="d-flex justify-content-between" style="height:95%">
+                        <div class="console-panel">
+                            <div class="console">                              
+                                <div class="console-panel-body" style="max-width: 300px;word-wrap: break-word; ">
+                                </div>
+                                <span class="command"> </span><input class="console-panel-command">  
+                                <div class="console-panel-footer">
+                                  
+                                </div>
+
                             </div>
+                            <div class="console-close-open">
+                              <button id="view-console">></button>
+                            </div>
+                          </div>
+                        <div>
+                            
+                        </div>
+                        <form id="form-dynamic" autocomplete="off" class="ms-2">
+                        </form>
+                        <div class="action-defaut ms-2" id="box-actions">
                         </div>
                     </div>
                 </div>

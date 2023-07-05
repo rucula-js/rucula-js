@@ -76,7 +76,7 @@ body{
     background-color: var(--color-write);
     justify-content: center;
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .form-group{
@@ -144,6 +144,10 @@ body{
 
 .quadro-list{
     margin-top: 10px;
+    overflow:auto;
+    display: grid;
+
+
 }
 .quadro-block,.quadro-list{
     box-shadow: 0px 0px 5px 0px #c4c4c4;
@@ -169,14 +173,14 @@ body{
     align-items:center;
 }
 .table-form{
-    margin: 0 auto;
-    display: inline-block;
+    display: block;
     table-layout: fixed;
     border-collapse:collapse;
     background-color: #fff;
     overflow: auto;
-    max-height: 500px;
+    max-height: 300px;
     border-spacing: 0;
+    padding-bottom:5px;
 }
 .table-form th,.table-form td{
     border: 1px solid #ddd;
@@ -208,11 +212,6 @@ body{
     margin-right: 5px;
 
 }
-
-.form-dynamic{
-    max-width: 100%;
-}
-
 .action-defaut{
 display: inline-block;
 }
@@ -237,84 +236,28 @@ display: inline-block;
     background-color: rgba(0,0,0,.4);
 
 }
-
-.window-form-dynamic {   
-width:100% ;
-}
 #form-dynamic input,.gridjs-search-input{
 box-shadow: none !important;
 }
 
 #form-dynamic {
-overflow-y: auto;
-padding-right: 5px;
-max-height: 100vh;
-width: 100%;
+    overflow-x:none;
+    padding-right: 5px;
+    width: 100%;
 }
 
 *::-webkit-scrollbar {
-width: 8px;
-height: 8px;
+    width: 8px;
+    height: 8px;
 } 
 *::-webkit-scrollbar-track {
-background:  var(--color-branco);
+    background:  var(--color-branco);
 }  
 *::-webkit-scrollbar-thumb {
-background-color:#022940;
-border-radius: 20px;    
+    background-color:#022940;
+    border-radius: 20px;    
 }
 
-.loader {
-    z-index: 10;
-    width: 16px;
-    height: 16px;
-    box-shadow: 0 30px, 0 -30px;
-    border-radius: 4px;
-    background: currentColor;
-    display: block;
-    margin: -50px auto 0;
-    position: relative;
-    color: #FFF;
-    transform: translateY(30px);
-    box-sizing: border-box;
-    animation: animloader 2s ease infinite;
-  }
-  .loader::after,
-  .loader::before {
-    content: '';  
-    box-sizing: border-box;
-    width: 16px;
-    height: 16px;
-    box-shadow: 0 30px, 0 -30px;
-    border-radius: 4px;
-    background: currentColor;
-    color: #FFF;
-    position: absolute;
-    left: 30px;
-    top: 0;
-    animation: animloader 2s 0.2s ease infinite;
-  }
-  .loader::before {
-    animation-delay: 0.4s;
-    left: 60px;
-  }
-  
-  @keyframes animloader {
-    0% {
-      top: 0;
-      color: #022940;
-    }
-    50% {
-      top: 30px;
-      color: rgba(255, 255, 255, 0.2);
-    }
-    100% {
-      top: 0;
-      color: white;
-    }
-  }
-
-  
 #tooltip {
     display: none;
     font-weight: bold;

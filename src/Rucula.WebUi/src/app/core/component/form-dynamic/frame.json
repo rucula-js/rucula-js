@@ -1,6 +1,7 @@
 {
   "name": "Frames",
   "urlRoot": "http://localhost:8080/Frame",
+  "pathController":"/Frame",
   "urlGetAll": "/GetAll",
   "urlGetId": "",
   "type": "crud",
@@ -313,7 +314,7 @@
       "type": "button",
       "color": "rgb(95 108 246)",
       "target": "",
-      "urlrelative": "/Frame",
+      "urlrelative": "",
       "windowFk": "7890q2wqq",
       "id": "8248"
     },
@@ -326,7 +327,7 @@
       "type": "button",
       "color": "rgb(95 152 246)",
       "target": "",
-      "urlrelative": "/Frame",
+      "urlrelative": "",
       "windowFk": "7890q2wqq",
       "id": "8418"
     },
@@ -339,7 +340,7 @@
       "type": "button",
       "color": "rgb(246 95 95)",
       "target": "",
-      "urlrelative": "/Frame",
+      "urlrelative": "",
       "windowFk": "7890q2wqq",
       "id": "er43"
     }

@@ -208,5 +208,10 @@ export class TableDependencyService{
         
         return result.split(":")[1] // 40
     }
-
+    getDependencies():string[] {
+        return this.resolvedDependency
+    }
+    get dependenciesCount(){
+        return this.resolvedDependency.length
+    }
 }
