@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { button } from '../entities/form/button';
 import { FactoryUrl } from '../http/factory-url.component.service';
 import { FactoryHttp } from '../http/factory-http.component.service';
-import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
 import { FactoryObjectService } from '../factory-object/factory-object.service.component';
+import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
+import { RuculaCommonService} from '../common/rucula-common.component.service'
 
 @Injectable({
     providedIn: 'root',
@@ -14,17 +15,18 @@ export class createButtonOrLinkService {
       private url:FactoryUrl, 
       private http:FactoryHttp,
       private dependencies:TableDependencyService,
-      private object:FactoryObjectService){}
+      private object:FactoryObjectService,
+      private common:RuculaCommonService){}
 
     public prepareButtonsCRUD(button:button[]){
       const ButtonsBox = document.getElementById("box-actions")
       button.forEach(b => {
         ButtonsBox?.appendChild(this.createButtonOrLink(b))  
       })
-      ButtonsBox?.appendChild(this.createButtonOrLink({id:"5454",method:"cancel",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"",target:""}))
+      ButtonsBox?.appendChild(this.createButtonOrLink({id:"5454",method:"reset",link:"",icon:"bi bi-x-lg",text:"",type:"button",color:"",target:""}))
     }
 
-    public createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
+    private createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
         let  buttonOrLink:HTMLButtonElement|HTMLAnchorElement      
         if(button.type != "button" && button.type != "link"){
           throw new Error("tipo do botão deve ser button ou link");
@@ -62,10 +64,16 @@ export class createButtonOrLinkService {
     private setEventButton( buttonOrLink:HTMLButtonElement|HTMLAnchorElement,button:button){
       buttonOrLink!.addEventListener("click", () => {
 
+
+        if(button.method == "reset"){
+          this.common.resetForm();
+          //! Precisa zerar o objeto e também precisa zerar as dependencias
+          return;
+        } 
         if(this.dependencies.dependenciesCount > 0){
           alert("existem dependencias não resolvidas");
           return;
-        } 
+        }
         let url = this.url.createUrl(button)
         if(button.method == "post") this.http.post(url,this.object.object)
         if(button.method == "put") this.http.put(url,this.object.object)
