@@ -62,13 +62,13 @@ export class ComponentsDOMFactoryService {
   createFieldCheckbox(field:field):HTMLInputElement{  
     var input = document.createElement("input")
     input.type = "checkbox";
-    input.value = "off"
+    input.value = field.checkbox.off
     input.addEventListener('click',(e) =>{
       var check = (e.target as HTMLInputElement); 
-      if(check.value == "on"){
-        check.value = "off"
+      if(check.value == field.checkbox.on){
+        check.value = field.checkbox.off
       }else{
-        check.value = "on"
+        check.value = field.checkbox.on
       }
     })
     return input;

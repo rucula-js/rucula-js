@@ -1,8 +1,9 @@
-export interface field{
+export interface field {
     id: string
     description: string
-    type: string,
-    combo?:[]
+    type: string
+    combo?:[],
+    checkbox:checkbox
     maxLength?: number
     max?: number
     min?: number
@@ -12,5 +13,8 @@ export interface field{
     value?: number|string|boolean|Date
     information?:string
     sequence:number
-
+}
+interface checkbox {
+    on:string,
+    off:string,
 }
