@@ -42,5 +42,6 @@ export class ConfigurationBaseGlobalService{
     this.urlBase = window.urlRoot;
     this.urlGetById = window.urlGetId;
     this.urlGetAll = window.urlGetAll;
+    this._pathController = window.pathController;
   }
 }
