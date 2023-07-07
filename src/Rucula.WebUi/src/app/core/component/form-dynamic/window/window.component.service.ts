@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { CreatePopperService } from './popper/createPopper';
-import { createButtonOrLinkService } from './buttons/createButtonOrLink.service';
-import { field } from './entities/form/field';
-import { window } from './entities/form/window';
-import { frame } from './entities/form/frame';
-import { ComponentsDOMFactoryService } from './elements/components-DOM.component.service'
-import { TableDependencyService } from './table-dependency/table-dependency.service.component';
-import { FactoryObjectService } from './factory-object/factory-object.service.component';
-import { ConsoleService } from './console/console.service.component';
-import { ConfigurationBaseGlobalService } from './configuration-base-global/configuration-base-global.component.service';
+import { CreatePopperService } from '../popper/createPopper';
+import { createButtonOrLinkService } from '../buttons/createButtonOrLink.service';
+import { ComponentsDOMFactoryService } from '../elements/components-DOM.component.service'
+import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
+import { FactoryObjectService } from '../factory-object/factory-object.service.component';
+import { ConsoleService } from '../console/console.service.component';
+import { ConfigurationBaseGlobalService } from '../configuration-base-global/configuration-base-global.component.service';
+import { field } from '../entities/form/field';
+import { window } from '../entities/form/window';
+import { frame } from '../entities/form/frame';
 
 @Injectable({
     providedIn: 'root',
 })
-export class FormDynamicService {
+export class WindowService {
 
    constructor( private componentsDOM?:ComponentsDOMFactoryService, 
                 private buttonOrLinkService?:createButtonOrLinkService, 
