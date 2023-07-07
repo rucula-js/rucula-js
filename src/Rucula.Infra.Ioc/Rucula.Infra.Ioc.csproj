@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rucula.Infra\Rucula.Infra.csproj" />
     <ProjectReference Include="..\Rucula.Domain\Rucula.Domain.csproj" />
-    <ProjectReference Include="..\Rucula.Aplication\Rucula.Aplication.csproj" />
+    <ProjectReference Include="..\Rucula.Application\Rucula.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Infra", "src\Rucula.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Infra.Ioc", "src\Rucula.Infra.Ioc\Rucula.Infra.Ioc.csproj", "{6668C94F-D8A5-446C-BEF2-6BC9214C44AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Aplication", "src\Rucula.Aplication\Rucula.Aplication.csproj", "{F3455FAC-CEA6-484E-96C8-433D8E743874}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rucula.Application", "src\Rucula.Application\Rucula.Application.csproj", "{F3455FAC-CEA6-484E-96C8-433D8E743874}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A473F10B-0606-478C-8E36-F402A440FC44}"
 EndProject

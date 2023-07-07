@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Rucula.Domain;
 using Rucula.Aplication;
 using Rucula.Aplication.WindowFactory;
 
