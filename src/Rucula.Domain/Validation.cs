@@ -1,3 +1,4 @@
+namespace Rucula.Domain;
 public static class Validation
 {
      public static bool IsRequerid(this string o){

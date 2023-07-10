@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Rucula.Domain;
-using Rucula.Domain.Window;
 
 public class ApplicationContext : DbContext
 {

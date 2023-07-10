@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Rucula.Aplication;
-using Rucula.Aplication.WindowFactory;
 
 namespace Rucula.Infra.Ioc;
 public static class StartupDependenci
@@ -12,11 +11,6 @@ public static class StartupDependenci
             config => config.UseNpgsql("Host=localhost;Database=rucula;Username=postgres;Password=Ronald33",
             b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName))
         );             
-        services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
-        services.AddScoped<UnitOfWork>();
-        services.AddScoped<WindowRepository>();
-        services.AddScoped<IWindowService,WindowService>();
-        services.AddScoped<IFieldService,FieldService>();
-        services.AddScoped<IFrameService,FrameService>();
+        services.AddAutoMapper(typeof(Mapping));
     }
 } 

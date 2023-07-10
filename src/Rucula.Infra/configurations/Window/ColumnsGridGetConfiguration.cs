@@ -1,4 +1,4 @@
-using Rucula.Domain.Window;
+using Rucula.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
