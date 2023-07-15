@@ -20,7 +20,6 @@ export class FactoryHttp{
         return value;
     }
     post(url:string="", data:any){
-      console.log(data);
       this.actionHttp!.post(url,data)
           .subscribe({
               complete:() => {
