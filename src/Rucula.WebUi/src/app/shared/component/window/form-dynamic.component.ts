@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, OnInit} from '@angular/core';
 import { window } from './entities/form/window';
 import { WindowService } from './window/window.component.service';
-import quadro from './frame.json'
+import quadro from '../tamplate-window/frame.json'
 import { InputValueService } from './input-value/input-value.service.component';
 @Component({
   templateUrl: './form-dynamic.component.html',

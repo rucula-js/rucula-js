@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, EventEmitter, Input, Output } from "@angular/core";
 import { Grid } from "gridjs";
-import { columnsGridGet } from "src/app/core/component/form-dynamic/entities/form/columnsGridGet";
-import { columnsGridjs } from "src/app/core/component/form-dynamic/entities/form/columnsGridjs";
+import { columnsGridGet } from "src/app/shared/component/window/entities/form/columnsGridGet";
+import { columnsGridjs } from "src/app/shared/component/window/entities/form/columnsGridjs";
 
 @Component({
   selector:"gridjs",
