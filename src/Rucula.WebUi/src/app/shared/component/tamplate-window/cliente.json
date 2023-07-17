@@ -1,6 +1,6 @@
 {
     "name": "Clientes",
-    "urlRoot": "http://localhost:5105",
+    "urlRoot": "https://localhost:7078",
     "pathController":"/Cliente",
     "urlGetAll": "",
     "urlGetId": "",

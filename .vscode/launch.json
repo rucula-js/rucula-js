@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Rucula.WebApi/bin/Debug/net6.0/Rucula.WebApi.dll",
+            "program": "${workspaceFolder}/src/apitest/bin/Debug/net7.0/apitest.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Rucula.WebApi",
+            "cwd": "${workspaceFolder}/src/apitest",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { button } from '../entities/form/button';
-import { FactoryUrl } from '../http/factory-url.component.service';
-import { FactoryHttp } from '../http/factory-http.component.service';
-import { FactoryObjectService } from '../factory-object/factory-object.service.component';
+import { FactoryUrl } from '../http/url.component.service';
+import { FactoryHttp } from '../http/http.component.service';
+import { FactoryObjectService } from '../object/object.service.component';
 import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
 import { RuculaCommonService} from '../common/rucula-common.component.service'
 

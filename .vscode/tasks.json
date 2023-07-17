@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Rucula.WebApi/Rucula.WebApi.csproj",
+                "${workspaceFolder}/src/apitest/apitest.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Rucula.WebApi/Rucula.WebApi.csproj",
+                "${workspaceFolder}/src/apitest/apitest.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Rucula.WebApi/Rucula.WebApi.csproj"
+                "${workspaceFolder}/src/apitest/apitest.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

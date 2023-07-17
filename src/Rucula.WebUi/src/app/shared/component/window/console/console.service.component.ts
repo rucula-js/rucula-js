@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { TableDependencyService } from "../table-dependency/table-dependency.service.component";
-import { FactoryObjectService } from "../factory-object/factory-object.service.component";
+import { FactoryObjectService } from "../object/object.service.component";
 
 @Injectable({
     providedIn: 'root',

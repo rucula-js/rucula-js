@@ -58,6 +58,6 @@ export class FactoryObjectService{
             delete formatedObject[cheild]
           }
         })
-        return formatedObject
+        return Object.values(formatedObject)[0]
     }
 }
