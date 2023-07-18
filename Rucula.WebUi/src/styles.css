@@ -1,0 +1,300 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
+*{
+    box-sizing:border-box;
+    outline: none;
+}
+:root{
+    --color-blue:#0083f8;
+    --color-write:#fff;
+    --color-green:#00bb77;
+    --color-black:#000000;
+    --color-red:#c60000;
+    --color-poll-blue:#00abee5e;
+    --color-gray:#e3e3e3;
+    --color-green-rucula:#388729;
+    --border-color-cinza:#c7c7c7;;
+    --color-branco:#fff;
+    --border-color-grey:#c7c7c7;;
+    --border-color-green:#00bb77;
+}
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+body{
+    margin: 0;
+}
+/*Base - Inicio*/
+.mt-20px{
+    margin-top: 20px;
+}
+.mb-50px{
+    margin-bottom: 50px;
+}
+/*Base - Fim*/
+
+
+/*Tabela de Registro do Formulario Dinamico - Inicio*/
+#list-data table{
+    border: 1px solid rgb(231, 231, 231);    
+}
+#list-data tr{
+    opacity: 90%;
+}
+
+#list-data tr:hover{
+    opacity: 100%;
+}
+#list-data th{
+    background-color: var(--color-blue);
+}
+#list-data td,th{
+    padding: 5px;
+}
+#list-data  td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}   
+#list-data button{
+    border: none;
+    background-color: inherit;
+}
+#list-data .bi {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+#list-data .bi-trash3{
+    color: var(--color-red);
+}
+#list-data tr:nth-child(odd) {background-color: var(--color-poll-blue);}
+/*Tabela de Registro do Formulario Dinamico - Fim*/
+
+/*Formulario Dinamico - Inicio*/
+
+#box-window{
+    z-index: 1;
+    background-color: var(--color-write);
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.form-group{
+    margin-bottom: 10px;
+}
+.form-group-item{
+    display: inline-block;
+    margin-right: 5px;
+}
+.form-group-item input,select{
+  border-radius: 2px;
+  border:1px solid var(--border-color-grey);
+  padding: 2px;
+}
+
+.form-group-label,.form-group-input{
+    display: block;
+}
+.form-group-label{
+    display: block;
+}
+.form-group-input{
+    padding: 4px;
+    outline: none;
+}
+.form-group-input:focus{
+    border: 2px solid var(--color-green-rucula);
+}
+/*Formulario Dinamico - Fim*/
+
+
+.toc ul li{
+    margin-top: 2px;
+    padding: 8px;
+}
+.toc ul li:hover{
+    background-color: rgb(149, 211, 177);
+
+}
+.toc ul li a {
+    text-decoration: none;
+    color: #383838;
+}
+
+
+/* Navegação Documentador Rucula - Inicio */
+.nav-left{
+    min-width: 300px;
+    max-width: 350px;
+    overflow-y:scroll;
+    height: 100Vh;
+}
+.nav-left ol {
+    list-style: none;
+}
+.nav-left ol li {
+    margin-bottom: 10px;
+    margin-left: 16px;
+}
+.nav-left ol a {
+    text-decoration: none;
+    color: rgb(175, 175, 175);
+}
+/* Navegação Documentador Rucula - Fim */
+
+.quadro-list{
+    margin-top: 10px;
+    overflow:auto;
+    display: grid;
+
+
+}
+.quadro-block,.quadro-list{
+    box-shadow: 0px 0px 5px 0px #c4c4c4;
+    padding: 5px;
+    border: 0.5px solid #dbdada;
+    border-radius: 5px;
+}
+.quadro-block h4,.quadro-list h4{
+    margin: 10px;
+    display: block;
+} 
+
+.quadro-block .form-group-item{
+    margin-left: 10px ;
+}
+
+.quadro-block .form-group-item label{
+    display: block;
+
+}
+.quadro-block{
+    margin-bottom: 10px;
+    align-items:center;
+}
+.table-form{
+    display: block;
+    table-layout: fixed;
+    border-collapse:collapse;
+    background-color: #fff;
+    overflow: auto;
+    max-height: 300px;
+    border-spacing: 0;
+    padding-bottom:5px;
+}
+.table-form th,.table-form td{
+    border: 1px solid #ddd;
+}
+.table-form td{
+    padding: 0px;
+}
+
+.table-form th{
+    position: sticky;
+    top: 0;
+    background-color: #022940;
+    padding-top: 5px ;
+    padding-bottom: 5px ;
+    color: var(--color-branco);
+}
+.table-form td:focus-within{
+    border-bottom: 2px solid #022940;
+}
+
+.table-form td input{
+    border: none;
+    padding: 0;
+}
+
+.table-form th,
+.table-form td{
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+.action-defaut{
+display: inline-block;
+}
+.item-inline-block{
+    width: auto;
+}
+/* Janela dos formularios dinamicos*/
+
+.block-fluid{
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.box-show{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1060;
+    background-color: rgba(0,0,0,.4);
+
+}
+#form-dynamic input,.gridjs-search-input{
+box-shadow: none !important;
+}
+
+#form-dynamic {
+    overflow-x:none;
+    padding-right: 5px;
+    width: 100%;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+} 
+*::-webkit-scrollbar-track {
+    background:  var(--color-branco);
+}  
+*::-webkit-scrollbar-thumb {
+    background-color:#022940;
+    border-radius: 20px;    
+}
+
+#tooltip {
+    display: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    background: #fff;
+    font-size: 13px;
+    border-radius: 4px;
+    border : 1px solid #022940;
+}
+  
+#arrow,
+#arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-bottom: 1px solid #022940;
+    border-right: 1px solid #022940;
+}
+#arrow {
+    visibility: hidden;
+}
+#arrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+}
+#tooltip[data-popper-placement^='top'] > #arrow {
+    bottom: -4px;
+}
+#tooltip[data-popper-placement^='bottom'] > #arrow {
+    top: -4px;
+}
+#tooltip[data-popper-placement^='left'] > #arrow {
+    right: -4px;
+}
+#tooltip[data-popper-placement^='right'] > #arrow {
+    left: -4px;
+}
+  

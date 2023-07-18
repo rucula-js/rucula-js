@@ -1,0 +1,131 @@
+{
+    "name": "Clientes",
+    "urlRoot": "https://localhost:7078",
+    "pathController":"/Cliente",
+    "urlGetAll": "",
+    "urlGetId": "",
+    "type": "crud",
+    "frames": [
+      {
+        "name": "cliente",
+        "type": "block",
+        "objectDto": "cliente",
+        "sequence": 0,
+        "fields": [
+          {
+            "propertDto": "id",
+            "description": "Id",
+            "information": "",
+            "type": "number",
+            "maxLength": 5,
+            "max": 0,
+            "min": 0,
+            "requerid": true,
+            "disable": false,
+            "sequence": 1,
+            "id": "1565165"
+          },
+          {
+            "propertDto": "nome",
+            "description": "Nome",
+            "information": null,
+            "type": "text",
+            "maxLength": 20,
+            "max": 0,
+            "min": 0,
+            "requerid": true,
+            "disable": false,
+            "sequence": 1,
+            "id": "5616"
+          },
+          {
+            "propertDto": "rg",
+            "description": "Rg",
+            "information": null,
+            "type": "text",
+            "maxLength": 20,
+            "max": 0,
+            "min": 0,
+            "requerid": true,
+            "disable": false,
+            "sequence": 3,
+            "id": "iscnscoin"
+          },
+          {
+            "propertDto": "cpf",
+            "description": "Cpf",
+            "information": null,
+            "type": "text",
+            "maxLength": 20,
+            "max": 0,
+            "min": 0,
+            "requerid": true,
+            "disable": false,
+            "sequence": 3,
+            "id": "wddwcw45"
+          }
+        ],
+        "id": "18544"
+      }
+    ],
+    "columns": [
+      {
+        "name": "name",
+        "id": "name"
+      }
+    ],
+    "columnsGridGet": [
+      {
+        "parameterUrl": "id",
+        "parameterGrid": "id",
+        "id": "180"
+      },
+      {
+        "parameterUrl": "windowFk",
+        "parameterGrid": "windowFk",
+        "windowFk": "7890q2wqq",
+        "id": "1505"
+      }
+    ],
+    "button": [
+      {
+        "method": "put",
+        "post": "",
+        "link": "",
+        "icon": "bi bi-wrench",
+        "text": "",
+        "type": "button",
+        "color": "rgb(95 108 246)",
+        "target": "",
+        "urlrelative": "",
+        "id": "8248"
+      },
+      {
+        "method": "post",
+        "post": "",
+        "link": "",
+        "icon": "bi bi-save",
+        "text": "",
+        "type": "button",
+        "color": "rgb(95 152 246)",
+        "target": "",
+        "urlrelative": "",
+        "id": "8418"
+      },
+      {
+        "method": "delete",
+        "post": "",
+        "link": "",
+        "icon": "bi bi-trash3",
+        "text": "",
+        "type": "button",
+        "color": "rgb(246 95 95)",
+        "target": "",
+        "urlrelative": "",
+        "id": "er43"
+      }
+    ],
+    "joinChield": [
+    ],
+    "id": "7890q2wqq"
+  }
