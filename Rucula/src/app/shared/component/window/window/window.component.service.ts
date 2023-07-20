@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CreatePopperService } from '../popper/createPopper';
-import { createButtonOrLinkService } from '../buttons/createButtonOrLink.service';
+import { ButtonService } from '../buttons/Button.service';
 import { ComponentsDOMFactoryService } from '../elements/components-DOM.component.service'
 import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
 import { FactoryObjectService } from '../object/object.service.component';
@@ -9,6 +9,7 @@ import { ConfigurationBaseGlobalService } from '../configuration-base-global/con
 import { field } from '../entities/form/field';
 import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
+import { EventButtonOrLink } from '../buttons/EventButton.service';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +17,8 @@ import { frame } from '../entities/form/frame';
 export class WindowService {
 
    constructor( private componentsDOM?:ComponentsDOMFactoryService, 
-                private buttonOrLinkService?:createButtonOrLinkService, 
+                private buttonService?:ButtonService,
+                private eventButtonOrLink?:EventButtonOrLink, 
                 private cps?:CreatePopperService,
                 private tableDependency?: TableDependencyService,
                 private factoryObject?:FactoryObjectService,
@@ -189,8 +191,9 @@ export class WindowService {
   }
   private createButtons(){
     if(this.window.type.toLocaleUpperCase() == "CRUD"){
-      this.buttonOrLinkService!.prepareButtonsCRUD(this.window.button)
+      this.buttonService!.prepareButtons(this.window.button)
     }
+      this.eventButtonOrLink?.setEvents(this.window.button)
   }
   private createFieldInput(field:field, isTypeLine:boolean = false):HTMLDivElement|HTMLInputElement|HTMLSelectElement{
     let element:HTMLSelectElement|HTMLInputElement
