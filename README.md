@@ -1,4 +1,386 @@
-<img src="./assets/png">
+# Rucula
+Um projeto que lê um objeto e o transforma em uma janela pronta para ser usada
+
+<img src="/assets/angular.png" style="width:50px">
+
+Exemplo Básico
+
+```json
+{
+  "name": "Frames",
+  "urlRoot": "http://localhost:8080",
+  "pathController":"/Frame",
+  "urlGetAll": "/GetAll",
+  "urlGetId": "",
+  "type": "crud",
+  "frames": [
+    {
+      "name": "Frame",
+      "type": "block",
+      "objectDto": "frame",
+      "sequence": 0,
+      "windowFk": "7890q2wqq",
+      "fields": [
+        {
+          "propertDto": "id",
+          "description": "Id",
+          "information": "",
+          "type": "text",
+          "maxLength": 32,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 1,
+          "frameFk": "18544",
+          "id": "1565165"
+        },
+        {
+          "propertDto": "Name",
+          "description": "Name",
+          "information": null,
+          "type": "text",
+          "maxLength": 40,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 1,
+          "frameFk": "18544",
+          "id": "5616"
+        },
+        {
+          "propertDto": "type",
+          "description": "type",
+          "information": null,
+          "type": "select",
+          "combo": [
+            {
+              "value": 1,
+              "representation": "block"
+            },
+            {
+              "value": 2,
+              "representation": "line"
+            }
+          ],
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 2,
+          "frameFk": "18544",
+          "id": "9849849"
+        },
+        {
+          "propertDto": "objectDto",
+          "description": "Object",
+          "information": null,
+          "type": "text",
+          "maxLength": 20,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 3,
+          "frameFk": "18544",
+          "id": "iscnscoin"
+        },
+        {
+          "propertDto": "sequence",
+          "description": "sequence",
+          "information": null,
+          "type": "number",
+          "maxLength": 20,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 3,
+          "frameFk": "18544",
+          "id": "wddwcw45"
+        },
+        {
+          "propertDto": "description",
+          "description": "description",
+          "information": null,
+          "type": "text",
+          "maxLength": 20,
+          "max": 0,
+          "min": 0,
+          "requerid": false,
+          "disable": false,
+          "sequence": 4,
+          "frameFk": "18544",
+          "id": "wddwcw45"
+        }
+      ],
+      "id": "18544"
+    },
+    {
+      "name": "Fields",
+      "type": "line",
+      "objectDto": "field",
+      "sequence": 0,
+      "windowFk": "7890q2wqq",
+      "fields": [
+        {
+          "id": "8978",
+          "frameFk": "16516",
+          "propertDto": "id",
+          "description": "id",
+          "information": null,
+          "type": "text",
+          "maxLength": 15,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 1
+        },
+        {
+          "id": "8498",
+          "frameFk": "16516",
+          "propertDto": "frameFk",
+          "description": "frame id",
+          "information": null,
+          "type": "text",
+          "maxLength": 15,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 2
+        },
+        {
+          "id": "5657s",
+          "frameFk": "16516",
+          "propertDto": "propertDto",
+          "description": "propert Dto",
+          "information": null,
+          "type": "text",
+          "maxLength": 30,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 3
+        },
+        {
+          "id": "78978",
+          "frameFk": "16516",
+          "propertDto": "description",
+          "description": "description",
+          "information": null,
+          "type": "text",
+          "maxLength": 30,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 4
+        },
+        {
+          "id": "ewfffe",
+          "frameFk": "16516",
+          "propertDto": "type",
+          "description": "type",
+          "information": null,
+          "type": "select",
+          "combo": [
+            {
+              "value": "text",
+              "representation": "text"
+            },
+            {
+              "value": "number",
+              "representation": "number"
+            },
+            {
+              "value": "select",
+              "representation": "select"
+            },
+            {
+              "value": "check",
+              "representation": "check"
+            },
+            {
+              "value": "radio",
+              "representation": "radio"
+            }
+          ],
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 5
+        },
+        {
+          "id": "dwddwf",
+          "frameFk": "16516",
+          "propertDto": "maxLength",
+          "description": "max Length",
+          "information": null,
+          "type": "number",
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 6
+        },
+        {
+          "id": "45fscf",
+          "frameFk": "16516",
+          "propertDto": "max",
+          "description": "max",
+          "information": null,
+          "type": "number",
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": false,
+          "disable": false,
+          "sequence": 7
+        },
+        {
+          "id": "efcws",
+          "frameFk": "16516",
+          "propertDto": "min",
+          "description": "min",
+          "information": null,
+          "type": "number",
+          "maxLength": 10,
+          "max": 0,
+          "min": 0,
+          "requerid": false,
+          "disable": false,
+          "sequence": 8
+        },
+        {
+          "id": "wdefw",
+          "frameFk": "16516",
+          "propertDto": "requerid",
+          "description": "requerid",
+          "information": null,
+          "type": "checkbox",
+          "checkbox":{"on":"true","off":"false"},
+          "maxLength": 5,
+          "max": 0,
+          "min": 0,
+          "requerid": false,
+          "disable": false,
+          "sequence": 9
+        },
+        {
+          "id": "wewdda",
+          "frameFk": "16516",
+          "propertDto": "disable",
+          "description": "disable",
+          "information": null,
+          "type": "checkbox",
+          "checkbox":{"on":"true","off":"false"},
+          "maxLength": 5,
+          "max": 0,
+          "min": 0,
+          "requerid": false,
+          "disable": false,
+          "sequence": 10
+        },
+        {
+          "id": "9dd4d",
+          "frameFk": "16516",
+          "propertDto": "sequence",
+          "description": "sequence",
+          "information": null,
+          "type": "number",
+          "maxLength": 5,
+          "max": 0,
+          "min": 0,
+          "requerid": true,
+          "disable": false,
+          "sequence": 11
+        }
+      ],
+      "id": "16516"
+    }
+  ],
+  "columns": [
+    {
+      "name": "name",
+      "windowFk": "7890q2wqq",
+      "id": "name"
+    }
+  ],
+  "columnsGridGet": [
+    {
+      "parameterUrl": "id",
+      "parameterGrid": "id",
+      "windowFk": "7890q2wqq",
+      "id": "180"
+    },
+    {
+      "parameterUrl": "windowFk",
+      "parameterGrid": "windowFk",
+      "windowFk": "7890q2wqq",
+      "id": "1505"
+    }
+  ],
+  "button": [
+    {
+      "method": "put",
+      "post": "",
+      "link": "",
+      "icon": "bi bi-wrench",
+      "text": "",
+      "type": "button",
+      "color": "rgb(95 108 246)",
+      "target": "",
+      "urlrelative": "",
+      "windowFk": "7890q2wqq",
+      "id": "8248"
+    },
+    {
+      "method": "post",
+      "post": "",
+      "link": "",
+      "icon": "bi bi-save",
+      "text": "",
+      "type": "button",
+      "color": "rgb(95 152 246)",
+      "target": "",
+      "urlrelative": "",
+      "windowFk": "7890q2wqq",
+      "id": "8418"
+    },
+    {
+      "method": "delete",
+      "post": "",
+      "link": "",
+      "icon": "bi bi-trash3",
+      "text": "",
+      "type": "button",
+      "color": "rgb(246 95 95)",
+      "target": "",
+      "urlrelative": "",
+      "windowFk": "7890q2wqq",
+      "id": "er43"
+    }
+  ],
+  "joinChield": [
+    {
+      "key": "frame",
+      "value": "field"
+    }
+  ],
+  "id": "7890q2wqq"
+}
+```
+Toda configuração acima é convertida em
+
+
 ## Por que esse Projeto?
 Você já parou para pensar em quanto tempo você gasta para criar uma interface que garanta todas as consistências necessárias a cada propriedade? E quanto a suas interfaces de API's, como você faria para desenvolver todo o front-end de modo que todo o suporte a solicitações HTTP siga o mesmo padrão? E se você deseja-se  utilizar mais de um projeto utilizando a mesma unidade de trabalho? E o padrão de interface, como você faria para garantir que todas as interfaces estão seguindo o mesmo padrão  de desenvolvimento?
 É pensando em tudo isso que o projeto Rucula está sendo desenvolvido. A seguir mostraremos os conceitos mais importantes do projeto Rucula.
