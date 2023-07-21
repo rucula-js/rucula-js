@@ -37,6 +37,7 @@ export class WindowService {
       this.window = window;
       this.form = this.componentsDOM!.getElementFormDynamic();
       this.createFrames()
+      this.setUrlrelativeInButtons()
       this.createButtons()
       this.setEvents()
       this.consoleService!.set() 
@@ -194,6 +195,11 @@ export class WindowService {
       this.buttonService!.prepareButtons(this.window.button)
     }
       this.eventButtonOrLink?.setEvents(this.window.button)
+  }
+  private setUrlrelativeInButtons(){
+    this.window.button.map(b => {
+      if(b.urlrelative == null || b.urlrelative == "") b.urlrelative = this.window.pathController;
+    })
   }
   private createFieldInput(field:field, isTypeLine:boolean = false):HTMLDivElement|HTMLInputElement|HTMLSelectElement{
     let element:HTMLSelectElement|HTMLInputElement
