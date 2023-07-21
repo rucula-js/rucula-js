@@ -1,33 +1,23 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Environment } from '../util/Envirment';
-import {Url} from '../util/url/Url';
-
+import windowGlobal from './window.global.json';
+import { Enviroment } from './entities/Enviroments';
 @Injectable({
   providedIn:'root',
 })
-
-export class GlobalWindowService implements OnInit{  
-  private _url!:Url;
-  private _environment!: Environment;
-
+export class GlobalWindowService implements OnInit {  
+  private _environments: Enviroment[] = [];
+  private _environment!: Enviroment;
+  
   ngOnInit(): void {
-      this.prepareUrl();
-  }
-  private prepareUrl(){
-    const url = new URL(location.href);
-    this._url.port = url.port;
-    this._url.protocol = url.protocol;
-  }
-  get url(): Url {
-    return this._url;
   }
 
-  preparaEnviroment(enviroment:Environment): void {
-    this._environment.enviroment = enviroment.enviroment;
-    this._environment.description = enviroment.description;
-   }
+  preparaEnviroment(enviroment:string = "developmen"): void {
+    this._environments = windowGlobal;
+    this._environment = this._environments.find(c => c.env === enviroment)!;     
+    console.log(this._environment)
+  }
 
-  get enviroment(): Environment {
+  get environment(){
     return this._environment;
   }
 }
