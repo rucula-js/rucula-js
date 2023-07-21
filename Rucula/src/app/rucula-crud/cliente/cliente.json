@@ -122,7 +122,8 @@
         "color": "rgb(246 95 95)",
         "target": "",
         "urlrelative": "",
-        "id": "er43"
+        "id": "er43",
+        "params":"id=cliente.id"
       }
     ],
     "joinChield": [
