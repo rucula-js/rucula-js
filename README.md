@@ -537,6 +537,9 @@ Além da criação e manipulação dos componentes da interface de usuário, o p
 
 ### As operações CRUD e os Links de Suporte
 
+|Contribuidores|
+|-|
+|<img src="https://avatars.githubusercontent.com/u/60780631?v=4" style="width:50px;">|
 
 
 
