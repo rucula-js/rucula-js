@@ -20,7 +20,7 @@
             "maxLength": 5,
             "max": 0,
             "min": 0,
-            "requerid": true,
+            "requerid": false,
             "disable": false,
             "sequence": 1,
             "id": "1565165"
@@ -33,7 +33,7 @@
             "maxLength": 20,
             "max": 0,
             "min": 0,
-            "requerid": true,
+            "requerid": false,
             "disable": false,
             "sequence": 1,
             "id": "5616"
@@ -46,7 +46,7 @@
             "maxLength": 20,
             "max": 0,
             "min": 0,
-            "requerid": true,
+            "requerid": false,
             "disable": false,
             "sequence": 3,
             "id": "iscnscoin"
@@ -59,7 +59,7 @@
             "maxLength": 20,
             "max": 0,
             "min": 0,
-            "requerid": true,
+            "requerid": false,
             "disable": false,
             "sequence": 3,
             "id": "wddwcw45"
@@ -123,7 +123,7 @@
         "target": "",
         "urlrelative": "",
         "id": "er43",
-        "params":"id=cliente.id"
+        "params":"id=cliente.id&id=cliente.nome&id=cliente.rg"
       }
     ],
     "joinChield": [

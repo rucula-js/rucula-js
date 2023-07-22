@@ -60,4 +60,10 @@ export class FactoryObjectService{
         })
         return Object.values(formatedObject)[0]
     }
+
+    getValuePropertTypeObject(prop:string):any{
+        const object = prop.split('.')[0]
+        const propert = prop.split('.')[1]
+        return this.Object[object][propert]
+    }
 }
