@@ -5,7 +5,7 @@ Rucula é capaz de...
 - Criar telas em minutos ✅
 - Consitir inputs de entradas de usuario ✅
 - Criar objetos JSON dinamicamente ✅
-- Genrenciar Inputs e saber quando há inconsistências na tela ✅
+- Gerenciar Inputs e saber quando há inconsistências na tela ✅
 - Consumir API's REST ✅
 - Gerenciar de URL's ✅
 - Controlar dependências pelo terminal web ✅
