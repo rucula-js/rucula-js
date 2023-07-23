@@ -2,14 +2,14 @@
 Rucula é um projeto que elimina grande parte da carga de trabalho repetitiva presente no desenvolvimento de novas interfaces de usuário.
 
 Rucula é capaz de...
-- Criar telas em minitos✅
-- Consitir inputs de entradas de usuario✅
-- Criar objetos JSON dinamicamente✅
-- Genrenciar Inputs e saber quando há inconsistências ta tela ✅
+- Criar telas em minutos ✅
+- Consitir inputs de entradas de usuario ✅
+- Criar objetos JSON dinamicamente ✅
+- Genrenciar Inputs e saber quando há inconsistências na tela ✅
 - Consumir API's REST ✅
-- Gerenciamento de URL's ✅
-- Painel de controle Web ✅
-- Controle de Ambiente de trabalho ✅
+- Gerenciar de URL's ✅
+- Controlar dependências pelo terminal web ✅
+- Controlar o ambiente do usuário ✅
 
 <img src="/assets/angular.png" style="width:50px;">
 
