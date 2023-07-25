@@ -35,9 +35,9 @@ export class ComponentsDOMFactoryService {
     if (frame.type == "block")div.classList.add("quadro-block")
     if (frame.type == "line")div.classList.add('quadro-list')
     div.setAttribute('data-objectDto',frame.objectDto)
-    const h4 = document.createElement('h4');
-    h4.textContent = frame.name
-    div.appendChild(h4)
+    const h5 = document.createElement('h5');
+    h5.textContent = frame.name
+    div.appendChild(h5)
     return div
   }
   alignColumnOfTable(field:field, cell: HTMLTableCellElement){
