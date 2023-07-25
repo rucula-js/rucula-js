@@ -63,7 +63,8 @@
             "requerid": false,
             "disable": false,
             "sequence": 3,
-            "id": "wddwcw45"
+            "id": "wddwcw45",
+            "value":"=cliente.nome"
           }
         ],
         "id": "18544"

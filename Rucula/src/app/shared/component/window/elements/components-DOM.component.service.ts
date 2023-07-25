@@ -21,7 +21,7 @@ export class ComponentsDOMFactoryService {
   createFieldTypeInputBasic(field:field):HTMLInputElement{
     const input = document.createElement('input');
     
-    if(field?.value)input.value = field?.value;  
+    if(field?.value &&  field?.value.substring(0,1) != "=")input.value = field?.value;  
     input.type = field.type;
     if (field.maxLength != undefined && field.maxLength > 0){
       input.style.width = `${field.maxLength * 10}px`  
