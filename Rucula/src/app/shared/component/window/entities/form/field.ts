@@ -10,7 +10,7 @@ export interface field {
     requerid: boolean
     disable: boolean
     propertDto?: string
-    value?: number|string|boolean|Date
+    value?: string
     information?:string
     sequence:number
 }

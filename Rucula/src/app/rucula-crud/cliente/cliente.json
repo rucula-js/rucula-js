@@ -1,6 +1,6 @@
 {
     "name": "Clientes",
-    "urlRoot": "https://localhost:7078",
+    "urlRoot": "",
     "pathController":"/Cliente",
     "urlGetAll": "",
     "urlGetId": "",
@@ -16,8 +16,8 @@
             "propertDto": "id",
             "description": "Id",
             "information": "",
-            "type": "number",
-            "maxLength": 5,
+            "type": "text",
+            "maxLength": 25,
             "max": 0,
             "min": 0,
             "requerid": false,
@@ -36,7 +36,8 @@
             "requerid": false,
             "disable": false,
             "sequence": 1,
-            "id": "5616"
+            "id": "5616",
+            "value":"Reginaldo"
           },
           {
             "propertDto": "rg",
@@ -123,10 +124,9 @@
         "target": "",
         "urlrelative": "",
         "id": "er43",
-        "params":"id=cliente.id&id=cliente.nome&id=cliente.rg"
+        "params":"id=cliente.id"
       }
     ],
     "joinChield": [
-    ],
-    "id": "7890q2wqq"
+    ]
   }

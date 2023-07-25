@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { frame } from '../entities/form/frame';
 import { field } from '../entities/form/field';
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -21,6 +20,8 @@ export class ComponentsDOMFactoryService {
   }
   createFieldTypeInputBasic(field:field):HTMLInputElement{
     const input = document.createElement('input');
+    
+    if(field?.value)input.value = field?.value;  
     input.type = field.type;
     if (field.maxLength != undefined && field.maxLength > 0){
       input.style.width = `${field.maxLength * 10}px`  
