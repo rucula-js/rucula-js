@@ -5,7 +5,6 @@ import { ComponentsDOMFactoryService } from '../elements/components-DOM.componen
 import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
 import { FactoryObjectService } from '../object/object.service.component';
 import { ConsoleService } from '../console/console.service.component';
-import { ConfigurationBaseGlobalService } from '../configuration-base-global/configuration-base-global.component.service';
 import { field } from '../entities/form/field';
 import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
@@ -22,15 +21,13 @@ export class WindowService {
                 private cps?:CreatePopperService,
                 private tableDependency?: TableDependencyService,
                 private factoryObject?:FactoryObjectService,
-                private consoleService?:ConsoleService,
-                private configlobal?:ConfigurationBaseGlobalService){}
+                private consoleService?:ConsoleService){}
     
     private form!:HTMLElement;
     private window!:window;
     private frameInFocu!:frame; 
         
     domCreateForm(window:window){
-      this.configlobal?.setValues(window)
       this.tableDependency?.createTableDependency(window.frames!)
       this.factoryObject!.JoinChield = window.joinChield
       this.factoryObject?.createObject(window.frames)
