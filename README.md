@@ -1,4 +1,4 @@
-# Rucula - Faça mais com menos 🚀
+# Rucula-js
 Rucula é um projeto que elimina grande parte da carga de trabalho repetitiva presente no desenvolvimento de novas interfaces de usuário.
 
 Rucula é capaz de...
