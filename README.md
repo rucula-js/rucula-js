@@ -1,4 +1,9 @@
-# Rucula-js
+<p align="center">
+  <img src="/assets/rucula.svg">
+</p>
+<h1 align="center">
+  Rucula-js
+</h1>
 Rucula é um projeto que elimina grande parte da carga de trabalho repetitiva presente no desenvolvimento de novas interfaces de usuário.
 
 Rucula é capaz de...
