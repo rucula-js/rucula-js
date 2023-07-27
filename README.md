@@ -1,5 +1,5 @@
-<p align="center">
-  <img src="/assets/rucula.svg">
+<p align="center" >
+  <img src="/assets/rucula.svg" style="width:200px">
 </p>
 <h1 align="center">
   Rucula-js
