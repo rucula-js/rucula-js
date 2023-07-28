@@ -29,10 +29,6 @@ Rucula é capaz de...
 - Controlar dependências pelo terminal web ✅
 - Controlar o ambiente do usuário ✅
 
-<img src="/assets/angular.png" style="width:50px;">
-
-<img src="/assets/frame.png">
-
 ## Por que esse Projeto?
 Você já parou para pensar em quanto tempo você gasta para criar uma interface que garanta todas as consistências necessárias a cada propriedade? E quanto a suas interfaces de API's, como você faria para desenvolver todo o front-end de modo que todo o suporte a solicitações HTTP siga o mesmo padrão? E se você deseja-se  utilizar mais de um projeto utilizando a mesma unidade de trabalho? E o padrão de interface, como você faria para garantir que todas as interfaces estão seguindo o mesmo padrão  de desenvolvimento?
 É pensando em tudo isso que o projeto Rucula está sendo desenvolvido. A seguir mostraremos os conceitos mais importantes do projeto Rucula.
