@@ -4,7 +4,20 @@
 <h1 align="center">
   Rucula-js
 </h1>
-Rucula é um projeto que elimina grande parte da carga de trabalho repetitiva presente no desenvolvimento de novas interfaces de usuário.
+
+## Informe a Configuração da Tela Desejada 💡
+
+<p align="center" >
+  <img src="/assets/Screenshot from 2023-07-27 23-53-09.png" style="width:80%">
+</p>
+
+## E Receba uma Tela Pronta Para Ser Usada! 👨🏻‍💻
+
+<p align="center" >
+  <img src="/assets/Screenshot from 2023-07-27 23-48-57.png" style="width:80%">
+</p>
+<hr>
+<br>
 
 Rucula é capaz de...
 - Criar telas em minutos ✅
