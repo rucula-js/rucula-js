@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import frame from './frame.json'
 
 @Component({
-  selector: 'app-frame',
-  templateUrl: './frame.component.html',
+  template: `<rucula [window]=(window)></rucula>`,
 })
 export class FrameComponent implements OnInit {
   window:any 

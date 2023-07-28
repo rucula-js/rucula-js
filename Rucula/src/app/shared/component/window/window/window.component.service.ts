@@ -1,26 +1,22 @@
 import { Injectable } from '@angular/core';
 import { CreatePopperService } from '../popper/createPopper';
 import { ButtonService } from '../buttons/button.service';
-import { ComponentsDOMFactoryService } from '../elements/components-DOM.component.service'
-import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
-import { FactoryObjectService } from '../object/object.service.component';
 import { ConsoleService } from '../console/console.service.component';
 import { field } from '../entities/form/field';
 import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
 import { EventButtonOrLink } from '../buttons/eventButton.service';
-
+import * as table  from '../table-dependency/TableDependency';
+import * as unitElement from '../elements/ElementsForm'
+import * as obj from '../object/ObjectManagment';
 @Injectable({
     providedIn: 'root',
 })
 export class WindowService {
 
-   constructor( private componentsDOM?:ComponentsDOMFactoryService, 
-                private buttonService?:ButtonService,
+   constructor( private buttonService?:ButtonService,
                 private eventButtonOrLink?:EventButtonOrLink, 
                 private cps?:CreatePopperService,
-                private tableDependency?: TableDependencyService,
-                private factoryObject?:FactoryObjectService,
                 private consoleService?:ConsoleService){}
     
     private form!:HTMLElement;
@@ -28,11 +24,11 @@ export class WindowService {
     private frameInFocu!:frame; 
         
     domCreateForm(window:window){
-      this.tableDependency?.createTableDependency(window.frames!)
-      this.factoryObject!.JoinChield = window.joinChield
-      this.factoryObject?.createObject(window.frames)
+      table.createTableDependency(window.frames!)
+      obj.joinChield(window.joinChield)  
+      obj.createObject(window.frames)
       this.window = window;
-      this.form = this.componentsDOM!.getElementFormDynamic();
+      this.form = unitElement.getElementFormDynamic();
       this.createFrames()
       this.setUrlrelativeInButtons()
       this.createButtons()
@@ -60,7 +56,7 @@ export class WindowService {
       })
     }
     private createFrameTypeBlock(frame:frame){
-      const frameElement = this.componentsDOM!.createFrame(frame)
+      const frameElement = unitElement.createFrame(frame)
       const inputs = this.createElementsField(frame.fields!);
       const div = document.createElement("div");
       div.style.display = "flex";
@@ -75,12 +71,13 @@ export class WindowService {
       let _fieldsElements: Array<HTMLDivElement> = new Array<HTMLDivElement>();
       let sortFields = fields.sort(c => c.sequence);
       sortFields.forEach(field => {
+        const input = 
         _fieldsElements.push(this.createFieldInput(field) as HTMLDivElement) 
       })
       return _fieldsElements;
     }
     private createQuadroList(frame:frame){
-      const line = this.componentsDOM!.createFrame(frame)
+      const line =  unitElement.createFrame(frame)
       const table = document.createElement('table');
       table.classList.add("table-form")
       const header = this.prepareLineHeaderTable(frame.fields!);
@@ -100,9 +97,9 @@ export class WindowService {
         th.textContent = field.description
         if(field.requerid == true){
           th.textContent = th.textContent
-          th.append(this.componentsDOM!.createSpanLabelIsRequerid().cloneNode(true))
+          th.append(unitElement.createSpanLabelIsRequerid().cloneNode(true))
         }
-        this.componentsDOM!.alignColumnOfTable(field,th)
+        unitElement.alignColumnOfTable(field,th)
         tr.appendChild(th)
       })
       return thead;
@@ -115,7 +112,7 @@ export class WindowService {
       fields.forEach(field =>{
         const td = document.createElement('td');
         td.appendChild(this.createFieldInput(field, true))
-        this.componentsDOM!.alignColumnOfTable(field,td)
+        unitElement.alignColumnOfTable(field,td)
         tr.appendChild(td)
       })
       return tbody;
@@ -206,10 +203,10 @@ export class WindowService {
         element = this.createInput(field);
         break;
       case 'select':
-        element = this.componentsDOM!.createFieldSelect(field);
+        element = unitElement.createFieldSelect(field);
         break;
         case 'checkbox':
-          element = this.componentsDOM!.createFieldCheckbox(field)
+          element = unitElement.createFieldCheckbox(field)
           break;
       default:
           throw new Error(`Field type "${field.type}" is not allowed`);     
@@ -222,25 +219,25 @@ export class WindowService {
     if(isTypeLine == true){
       this.addAtributesSetAndNameTypeLine(element,field)
     }
-    this.factoryObject!.setPropertDto(element);
-    this.tableDependency?.setDependency(element)
+    obj.setPropertDto(element);
+    table.setDependency(element)
     
     if(isTypeLine == false){
-      const formGroup = this.componentsDOM!.createGroupOfInput(field)
+      const formGroup = unitElement.createGroupOfInput(field)
       formGroup.appendChild(element)
       return formGroup;
     }
     return element; 
   }
   private createInput(field:field){
-    const input = this.componentsDOM!.createFieldTypeInputBasic(field)
-    this.componentsDOM!.setAtributesDataDefault(input,field)
+    const input = unitElement.createFieldTypeInputBasic(field)
+    unitElement.setAtributesDataDefault(input,field)
     return input
   }
   private setEventListenerForInput(element:HTMLSelectElement | HTMLInputElement){
     element.addEventListener('focusout',(e) => {
-        this.factoryObject!.setPropertDto(e.target as HTMLInputElement);
-        this.tableDependency?.setDependency(e.target as HTMLInputElement)
+        obj.setPropertDto(e.target as HTMLInputElement);
+        table.setDependency(e.target as HTMLInputElement)
     })
   }
   private addAtributesSetAndNameTypeBlock(node:HTMLElement,field:field){
@@ -319,8 +316,8 @@ export class WindowService {
         currentLineElement.remove();
       }
       const input = currentLineElement.querySelector("input") as HTMLInputElement;
-      this.factoryObject!.deleteLine(input)
-      this.tableDependency!.deleteLine(input)
+      obj.deleteLine(input)
+      table.deleteLine(input)
 
       this.keyEvents = []
     }
@@ -341,9 +338,9 @@ export class WindowService {
     })
       this.lineClone.set(ObjectdtoLine,(clone as HTMLElement).cloneNode(true) as HTMLElement)
       this.eventKeyDownKeyUpLineFrame(clone as HTMLElement)
-      this.tableDependency?.createNewLine(clone.querySelector("input")!)
+      table.createNewLine(clone.querySelector("input")!)
       clone.querySelectorAll("select, input[type='checkbox']").forEach((element)=> {
-      this.tableDependency?.setDependency(element as HTMLInputElement|HTMLSelectElement)
+      table.setDependency(element as HTMLInputElement|HTMLSelectElement)
     })
     return clone as HTMLElement;
   }

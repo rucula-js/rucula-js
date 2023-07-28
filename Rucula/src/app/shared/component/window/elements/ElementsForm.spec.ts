@@ -1,16 +1,12 @@
-import {ComponentsDOMFactoryService} from './components-DOM.component.service'
-
+import  * as unitElement from './ElementsForm'
 describe('ObjectsDOMBaseService',() => {
-  let service: ComponentsDOMFactoryService;
   
-  beforeEach(() => { service = new ComponentsDOMFactoryService(); });
-
   it('#LabelIsRequerid should return HTMLSpanElement', () => {
-    expect(service.createSpanLabelIsRequerid().outerHTML)
+    expect(unitElement.createSpanLabelIsRequerid().outerHTML)
     .toEqual('<span style="color: red;">*</span>')
   });
   it('#createFieldTypeInputBasic should return HTMLInputElement type input', () => {
-    let DOMQuadro = service.createFieldTypeInputBasic
+    let DOMQuadro = unitElement.createFieldTypeInputBasic
     ({
         propertDto: "window",
         description: "Code",
@@ -28,7 +24,7 @@ describe('ObjectsDOMBaseService',() => {
     .toEqual(`<input type="text" class="form-control" style="width: 100px;">`)
   });
   it('#createFieldCheckbox should return HTMLInputElement type checkbox', () => {
-    let DOMQuadro = service.createFieldCheckbox
+    let DOMQuadro = unitElement.createFieldCheckbox
     ({
       propertDto: "check teste",
       description: "Code",
@@ -46,7 +42,7 @@ describe('ObjectsDOMBaseService',() => {
     .toEqual(`<input type="checkbox" value="off">`)
   });
   it('#createFieldTypeInputBasic should return HTMLInputElement type select (combobox)', () => {
-    let DOMQuadro = service.createFieldSelect
+    let DOMQuadro = unitElement.createFieldSelect
     ({
       id: "ewfffe",
       propertDto: "type",
@@ -86,7 +82,7 @@ describe('ObjectsDOMBaseService',() => {
     .toEqual(`<select maxlength="10"><option value="text">text</option><option value="number">number</option><option value="select">select</option><option value="check">check</option><option value="radio">radio</option></select>`)
   });
   it('#createFrame should return HTMLDivElement type block', () => {
-    expect(service.createFrame
+    expect(unitElement.createFrame
     (
       {
         "name": "Frame",
@@ -100,10 +96,10 @@ describe('ObjectsDOMBaseService',() => {
     .toEqual('<div class="quadro-block" data-objectdto="frame"><h4>Frame</h4></div>')
   });
   it('#createFrame should return HTMLDivElement type line', () => {
-    expect(service.createFrame
+    expect(unitElement.createFrame
     (
       {
-        "name": "Frame",
+        "name":"frames",
         "type": "line",
         "objectDto": "frame",
         "sequence": 0,
@@ -114,7 +110,7 @@ describe('ObjectsDOMBaseService',() => {
     .toEqual('<div class="quadro-list" data-objectdto="frame"><h4>Frame</h4></div>')
   });
   it('#createGroupOfInput should return HTMLDivElement ', () => {
-    expect(service.createGroupOfInput
+    expect(unitElement.createGroupOfInput
       ({
         propertDto: "window",
         description: "Code",

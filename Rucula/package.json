@@ -19,8 +19,6 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "bootstrap": "^5.2.3",
-    "gridjs": "^4.0.0",
-    "gridjs-angular": "^1.2.0",
     "guid-typescript": "^1.0.9",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

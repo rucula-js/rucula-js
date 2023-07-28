@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import cliente from './cliente.json'
 
 @Component({
-  templateUrl: './cliente.component.html',
+  template:`<rucula [window]=(cliente)></rucula>`
 })
 export class ClienteComponent implements OnInit {
   cliente: any;

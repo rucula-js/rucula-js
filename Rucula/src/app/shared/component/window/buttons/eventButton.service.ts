@@ -1,8 +1,9 @@
 import { FactoryUrl } from '../http/url.component.service';
 import { FactoryHttp } from '../http/http.component.service';
-import { FactoryObjectService } from '../object/object.service.component';
-import { TableDependencyService } from '../table-dependency/table-dependency.service.component';
 import { button } from '../entities/form/button';
+import * as table  from '../table-dependency/TableDependency';
+import * as obj from '../object/ObjectManagment';
+
 import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,7 @@ export class EventButtonOrLink{
     
   constructor( 
     private url:FactoryUrl, 
-    private http:FactoryHttp,
-    private dependencies:TableDependencyService,
-    private object:FactoryObjectService){}
+    private http:FactoryHttp){}
     
     setEvents(buttons:button[]){
       buttons!.
@@ -21,14 +20,14 @@ export class EventButtonOrLink{
       forEach((button)=> {
         const element:HTMLButtonElement|HTMLAnchorElement = document.querySelector(`[data-id=${button.type}-${button.method}-${button.id}]`)!
         element.addEventListener("click", () => {
-          if(this.dependencies.dependenciesCount > 0){
+          if(table.dependenciesCount() > 0){
             alert("existem dependencias não resolvidas");
             return;
           }
           let url = this.url.createUrl(button)
-          if(button.method == "post") this.http.post(url,this.object.object)
-          if(button.method == "put") this.http.put(url,this.object.object)
-          if(button.method == "delete")  this.http.delete(url,this.object.object)
+          if(button.method == "post") this.http.post(url,obj.object())
+          if(button.method == "put") this.http.put(url,obj.object())
+          if(button.method == "delete")  this.http.delete(url,obj.object())
         })
       });
     }

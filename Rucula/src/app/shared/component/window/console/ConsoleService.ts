@@ -1,9 +1,6 @@
-import { Injectable } from "@angular/core";
 import * as table  from '../table-dependency/TableDependency';
 import * as  obj from '../object/ObjectManagment';
-@Injectable({
-    providedIn: 'root',
-})
+
 export class ConsoleService{
     
     private consolePanel!:HTMLDivElement

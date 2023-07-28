@@ -4,9 +4,7 @@ import { Injectable } from "@angular/core";
     providedIn: 'root',
 })
 export class InputValueService{
-    /*
-    Mapeia  objeto com a Janela
-    */
+    
     private setValueInForm(obj:any, objectDto:string=""){
         Object.keys(obj).forEach(key => {
         if (typeof obj[key] == "string" || typeof obj[key] == "number"){  

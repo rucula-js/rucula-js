@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from './../environments/environment';
-import { GlobalWindowService } from './shared/component/window/global/global.service.component';
+import  {preparaEnviroment}  from './shared/component/window/global/GlobalConfig';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +10,8 @@ import { GlobalWindowService } from './shared/component/window/global/global.ser
 
 export class AppComponent implements OnInit {
   
-  constructor(private global:GlobalWindowService) {}
   ngOnInit(): void {
-      this.global.preparaEnviroment(environment.env)
+      preparaEnviroment(environment.env)
   }
-
   title = 'Rucula';
 }

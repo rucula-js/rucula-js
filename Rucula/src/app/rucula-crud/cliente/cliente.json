@@ -20,7 +20,7 @@
             "maxLength": 25,
             "max": 0,
             "min": 0,
-            "requerid": false,
+            "requerid": true,
             "disable": false,
             "sequence": 1,
             "id": "1565165"

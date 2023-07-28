@@ -11,9 +11,9 @@ export interface window{
     pathController:string
     urlGetAll:string
     urlGetId: string
-    frames?:Array<frame>,
+    frames:Array<frame>
     columns:columnsGridjs[]
     button:button[]
     columnsGridGet:columnsGridGet[],
-    joinChield:Array<KeyValue<string,string>>
+    joinChield:{key:string, value:string}[]
 }
