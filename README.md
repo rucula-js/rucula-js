@@ -19,16 +19,17 @@
 <hr>
 <br>
 
-Rucula é capaz de...
-- Criar telas em minutos ✅
-- Consitir inputs de entradas de usuario ✅
-- Criar objetos JSON dinamicamente ✅
-- Gerenciar Inputs e saber quando há inconsistências na tela ✅
-- Consumir API's REST ✅
-- Gerenciar de URL's ✅
-- Controlar dependências pelo terminal web ✅
-- Controlar o ambiente do usuário ✅
-
+## Com o Rucula-JS Você... 
+- **Renderiza a Interface imediatamente** ✅
+- **Tem controle total das entradas de dados, mas tem liberdade para uma navegação agradavel** ✅
+- **Tem o Objeto que representa a entidade da Interface** ✅
+- **Consome API's REST** ✅
+- **Checa Dependências no Console Web** ✅
+- **Controla o ambiente do usuário** ✅
+- **Cria observações amigáveis em campos especificos** ✅
+- **Tem todo controle sendo aplicado fora do ambiente DOM** ✅
+- **Pode testar suas API's com uma tela agradavel**
+  
 ## Por que esse Projeto?
 Você já parou para pensar em quanto tempo você gasta para criar uma interface que garanta todas as consistências necessárias a cada propriedade? E quanto a suas interfaces de API's, como você faria para desenvolver todo o front-end de modo que todo o suporte a solicitações HTTP siga o mesmo padrão? E se você deseja-se  utilizar mais de um projeto utilizando a mesma unidade de trabalho? E o padrão de interface, como você faria para garantir que todas as interfaces estão seguindo o mesmo padrão  de desenvolvimento?
 É pensando em tudo isso que o projeto Rucula está sendo desenvolvido. A seguir mostraremos os conceitos mais importantes do projeto Rucula.
