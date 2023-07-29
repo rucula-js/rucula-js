@@ -1,7 +1,7 @@
 import { button } from '../entities/form/button';
 import { ElementBase } from './ElementBase';
 import { ElementStrategy } from './ElementEstrategy';
-import { IconElement } from './IconElement';
+import { createIcon } from './IconElement';
 
 export class ElementButton extends ElementBase implements ElementStrategy{
 
@@ -11,7 +11,7 @@ export class ElementButton extends ElementBase implements ElementStrategy{
         this.element.classList.add("mb-1");
         this.element.classList.add("d-block");
         this.element.textContent = String(button.text);
-        this.element.appendChild(new IconElement().createIcon(button));
+        this.element.appendChild(createIcon(button));
         this.addColor(button.color);
         this.addDataIdAttribute(button);
         return this.element;

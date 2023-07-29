@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class EventButtonOrLink{
-    
+    //! Essa estrutura será alterada para o formado padrão do TS. Isso só será possivel depois da implementação do AXIOS
   constructor( 
     private url:FactoryUrl, 
     private http:FactoryHttp){}

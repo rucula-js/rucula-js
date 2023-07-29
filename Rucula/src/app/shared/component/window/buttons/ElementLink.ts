@@ -1,7 +1,7 @@
 import { button } from '../entities/form/button';
 import { ElementBase } from './ElementBase';
 import { ElementStrategy } from './ElementEstrategy';
-import { IconElement } from './IconElement';
+import { createIcon } from './IconElement';
 
 export class ElementLink extends ElementBase implements ElementStrategy{
     
@@ -11,7 +11,7 @@ export class ElementLink extends ElementBase implements ElementStrategy{
         this.element.href = `${button.link}`
         this.element!.classList.add("btn-link")
         this.element!.setAttribute('target',"_blank")
-        this.element.appendChild(new IconElement().createIcon(button));    
+        this.element.appendChild(createIcon(button));    
         console.log(this.element)
         return this.element;
     }
