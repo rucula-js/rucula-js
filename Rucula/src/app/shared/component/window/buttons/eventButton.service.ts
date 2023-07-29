@@ -1,4 +1,5 @@
-import { FactoryUrl } from '../http/url.component.service';
+// import { FactoryUrl } from '../http/url.component.service';
+import {createUrl} from '../http/UrlHelper';
 import { FactoryHttp } from '../http/http.component.service';
 import { button } from '../entities/form/button';
 import * as table  from '../table-dependency/TableDependency';
@@ -11,7 +12,6 @@ import { Injectable } from '@angular/core';
 export class EventButtonOrLink{
     //! Essa estrutura será alterada para o formado padrão do TS. Isso só será possivel depois da implementação do AXIOS
   constructor( 
-    private url:FactoryUrl, 
     private http:FactoryHttp){}
     
     setEvents(buttons:button[]){
@@ -24,7 +24,7 @@ export class EventButtonOrLink{
             alert("existem dependencias não resolvidas");
             return;
           }
-          let url = this.url.createUrl(button)
+          let url = createUrl(button)
           if(button.method == "post") this.http.post(url,obj.object())
           if(button.method == "put") this.http.put(url,obj.object())
           if(button.method == "delete")  this.http.delete(url,obj.object())
