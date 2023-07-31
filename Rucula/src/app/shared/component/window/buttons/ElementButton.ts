@@ -16,5 +16,4 @@ export class ElementButton extends ElementBase implements ElementStrategy{
         this.addDataIdAttribute(button);
         return this.element;
     }
- 
 }

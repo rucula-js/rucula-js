@@ -1,22 +1,20 @@
-import { Injectable } from '@angular/core';
-import { EventButtonOrLink } from '../buttons/eventButton.service';
 import { field } from '../entities/form/field';
 import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
 import { prepareButtons } from '../buttons/Button';
+import { eventButton } from '../buttons/EventButton';
 import * as console  from '../console/Console'
 import * as table  from '../table-dependency/TableDependency';
 import * as unitElement from '../elements/ElementsForm'
 import * as obj from '../object/ObjectManagment';
 import { setWindow } from './Window';
 import { setEventListenerForInput, setEvents } from './WindowEvent';
+import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class WindowService {
-
-   constructor( private eventButtonOrLink?:EventButtonOrLink){}
     
     private form!:HTMLElement;
     private window!:window;
@@ -121,7 +119,7 @@ export class WindowService {
     if(this.window.type.toLocaleUpperCase() == "CRUD"){
       prepareButtons(this.window.button)
     }
-      this.eventButtonOrLink?.setEvents(this.window.button)
+      eventButton(this.window.button)
   }
   private setUrlrelativeInButtons(){
     this.window.button.map(b => {
