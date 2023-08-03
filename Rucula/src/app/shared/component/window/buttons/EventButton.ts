@@ -1,4 +1,4 @@
-import {createUrl} from '../http/UrlHelper';
+import {createUrl} from '../Helpers/UrlHelper';
 import { button } from '../entities/form/button';
 import * as table  from '../table-dependency/TableDependency';
 import * as obj from '../object/ObjectManagment';

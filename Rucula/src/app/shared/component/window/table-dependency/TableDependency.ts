@@ -115,8 +115,8 @@ function checkCreateSpanShot(propert:HTMLInputElement){
     let  split = propert.getAttribute("name")!.split(".")
     let frame:string = split[1]
 
-    const LINE_SNAPSHOT:string = "SS"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
-    const LINE_NUMBER:string = "0"; // ! O numero da linha deve ser sempre 0, isso garante a obtenção das dependencias em um unico nivel de linha
+    const LINE_SNAPSHOT:string = "SS"; 
+    const LINE_NUMBER:string = "0";
 
     var snapShot = _tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_SNAPSHOT);
     if(snapShot.length > 0) return;

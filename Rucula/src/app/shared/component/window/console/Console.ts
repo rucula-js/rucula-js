@@ -4,6 +4,7 @@ import * as  obj from '../object/ObjectManagment';
 let consolePanel!:HTMLDivElement
 
 function set(){
+    //todo: Se o ambiente for de produção,o console deve ser removido do tela
     consolePanel = document.querySelector('.console-panel-body') as HTMLDivElement;
     openCloseConsole();
     setCommand();

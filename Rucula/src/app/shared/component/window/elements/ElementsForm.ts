@@ -1,7 +1,7 @@
 import { frame } from '../entities/form/frame';
 import { field } from '../entities/form/field';
 
-function getElementFormDynamic():HTMLFormElement{
+function getForm():HTMLFormElement{
     const form = document.getElementById('form-dynamic') as HTMLFormElement;
     return form;
 }
@@ -90,8 +90,19 @@ function alignColumnOfTable(field:field, cell: HTMLTableCellElement){
         cell.style.textAlign = "center"
 }
 
+function addAttributesSetAndName(node:HTMLElement,type:string, object:string, propert:string){
+  let name = `${type}.${object}.${propert}`
+  let set = `${object}.${propert}`
+  if(type == "line"){
+    name+=".0";
+    set+=".0";
+  }
+  node.setAttribute('name',name);
+  node.setAttribute('set',set);
+}
+
 export {
-    getElementFormDynamic,
+    getForm,
     createSpanLabelIsRequerid,
     setAtributesDataDefault,
     createFieldTypeInputBasic,
@@ -99,6 +110,6 @@ export {
     createFieldCheckbox,
     createFieldSelect,
     createFrame,
-    alignColumnOfTable
-
+    alignColumnOfTable,
+    addAttributesSetAndName
 }

@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import { window } from './entities/form/window';
-import { WindowService } from './window/window.component.service';
-import { InputValueService } from './input-value/input-value.service.component';
+import { domCreateForm } from './window/WindowFactory';
+import { setValueInForm } from './input-value/InputValue';
 
 @Component({
   selector:'rucula',
@@ -12,13 +12,11 @@ import { InputValueService } from './input-value/input-value.service.component';
 export class FormDynamicComponent implements AfterContentInit	{  
 
   @Input() window = {};
-
-  constructor(private windowService: WindowService, 
-    private inputValueService: InputValueService){}
-
+  
   datagrid:any;
 
   ngAfterContentInit(): void {
-    this.windowService.domCreateForm(this.window as window)
+    console.log(this.window)
+    domCreateForm(this.window as window)
   } 
 }

@@ -15,8 +15,7 @@ function createObject(frames:Array<frame>){
 }
 function joinChield(cheilds:{key:string, value:string}[] ){
    _joinChield = cheilds; 
-   console.log(_joinChield)
-}
+    }
 function setPropertDto(propert:HTMLInputElement|HTMLSelectElement){
     let map =  propert.getAttribute("name")!.split(".")
     let type:string = map[0]
