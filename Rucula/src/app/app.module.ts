@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { FormDynamicComponent } from './shared/component/window/form-dynamic.component';
+import { FormDynamicComponent } from './shared/component/rucula/form-dynamic.component';
 import { ClienteComponent } from './rucula-crud/cliente/cliente.component';
 import { FrameComponent } from './rucula-crud/frame/frame.component';
 

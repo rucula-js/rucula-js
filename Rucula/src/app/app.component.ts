@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from './../environments/environment';
-import  {preparaEnviroment}  from './shared/component/window/global/GlobalConfig';
+import  {preparaEnviroment}  from './shared/component/rucula/global/GlobalConfig';
 
 @Component({
   selector: 'app-root',
