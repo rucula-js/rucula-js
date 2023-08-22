@@ -1,0 +1,17 @@
+{
+    "environments":[
+        {
+            "env":"development",
+            "hostname":"127.0.0.1",
+            "port": "0450"
+        }
+    ],
+    "localizations":[
+        {
+            "locales":"pt-BR",
+            "language":"Português",
+            "currency":"BRL",
+            "maxDecimal":5
+        }
+    ] 
+}   
