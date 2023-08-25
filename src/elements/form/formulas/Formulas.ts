@@ -13,9 +13,6 @@ function formulaGetValuePropert(formula:string,input:HTMLInputElement){
         input.addEventListener('focus',() => {
             input.value = getValuePropertTypeObject(matchObjectPropert![1]);  
         });
-        input.addEventListener('click',() => {
-            input.value = getValuePropertTypeObject(matchObjectPropert![1]);  
-        });
         return;
     }
 }
@@ -69,7 +66,7 @@ function formulaLine(formula:string,input:HTMLInputElement,field:field,frame:{ty
         }
         input.value = String(numberLine)
         let repField = representationField.prepareINPUTToField(input)
-        setPropertDto(repField); 
+        setPropertDto(repField);    
     }
 }
 
