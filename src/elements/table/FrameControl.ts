@@ -23,3 +23,8 @@ export function CountIsZero(objectDto:string): boolean {
     let length = suportLine.filter(c=> c.objectDto == objectDto).length
     return length == 0;
 }
+export function SetZero(objectDto:string){
+    let object = suportLine.find(c=> c.objectDto == objectDto)
+    let index = suportLine.indexOf(object!);
+    suportLine.splice(index, 1);
+}
