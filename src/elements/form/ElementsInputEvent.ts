@@ -14,13 +14,13 @@ export function setEventListenerForInput(element:HTMLSelectElement | HTMLInputEl
             input.value = String(valueFormated);
             let field = representationField.prepareINPUTToField(input);
             setPropertDto(field);
-            setDependency(input);
+            setDependency(field);
             input.value = formatNumberWithLocalization(input.value)
         }
         else{
             let field = representationField.prepareINPUTToField(input);
             setPropertDto(field);
-            setDependency(input);    
+            setDependency(field);    
         } 
     }
 }

@@ -1,5 +1,5 @@
 import { evaluate } from "mathjs";
-import { getValuePropertTypeObject, setPropertDto, sumPropert } from "../../../object/ObjectManagment";
+import { getMaxValue, getValuePropertTypeObject, setPropertDto, sumPropert } from "../../../object/ObjectManagment";
 import { representationField } from "../../../entities/form/representationField";
 import { field } from "../../../entities/form/field";
 import { setDependency } from "../../../table-dependency/TableDependency";
@@ -26,7 +26,6 @@ function formulaMath(formula:string,input:HTMLInputElement,frame:{type:string,ob
             try {
                 let evalue = args;
                 properts?.forEach(propert => {
-                    debugger;
                     let objectPropert = propert;
                     if(propert.indexOf(".") == -1){
                         objectPropert = `${frame.objectDto}.${propert}.${frame.line}`
@@ -60,29 +59,29 @@ function formulaLine(formula:string,input:HTMLInputElement,field:field,frame:{ty
         if(number != 0 && frame.line == 0){
             numberLine = number
         }
+        let repField = representationField.prepareINPUTToField(input)
         if(frame.line! > 0 ){
-            numberLine = parseInt(getValuePropertTypeObject(`${frame.objectDto}.${field.propertDto}.${frame.line!-1}`))
-            numberLine = numberLine!+number      
+            numberLine = getMaxValue(repField)
+            numberLine = numberLine!+number
         }
         input.value = String(numberLine)
-        let repField = representationField.prepareINPUTToField(input)
         setPropertDto(repField);    
     }
 }
 
 function formulaSUM(formula:string,input:HTMLInputElement,field:field,frame:{type:string,objectDto:string,line?:number}){
     let matchSum = formula.match(/=SUM\(([^)]+)\)/)
-        if(matchSum && matchSum[0] == formula){
-            let objectPropert  = `${frame.objectDto}.${field.propertDto}`
-            input.addEventListener('focusout', () => {
-                let sum = sumPropert(objectPropert)
-                var inputIn = document.querySelector(`[set='${matchSum![1]}']`)as HTMLInputElement
-                inputIn.value = formatNumberWithLocalization(String(sum))
-                let repField = representationField.prepareINPUTToField(inputIn)
-                setPropertDto(repField);   
-                setDependency(inputIn);
-            })
-        }
+    if(matchSum && matchSum[0] == formula){
+        let objectPropert  = `${frame.objectDto}.${field.propertDto}`
+        input.addEventListener('focusout', () => {
+            let sum = sumPropert(objectPropert)
+            var inputIn = document.querySelector(`[set='${matchSum![1]}']`)as HTMLInputElement
+            inputIn.value = formatNumberWithLocalization(String(sum))
+            let repField = representationField.prepareINPUTToField(inputIn)
+            setPropertDto(repField);   
+            setDependency(repField);
+        })
+    }
 }
 
 export {
