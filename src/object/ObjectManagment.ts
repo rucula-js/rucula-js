@@ -11,7 +11,7 @@ function createObject(frames:Array<frame>){
         if(frame.type == "block")
         _object[frame.objectDto] = {}
         if(frame.type == "line")
-        _object[frame.objectDto] = [{}]
+        _object[frame.objectDto] = []
     });
 }
 
@@ -24,18 +24,18 @@ function setPropertDto(rep:representationField){
         _object[rep.objectDto][rep.propertDto] = rep.value
     }
     else{
-        if(_object[rep.objectDto][rep.lineNumber] == undefined){
-            _object[rep.objectDto][rep.lineNumber] = {}
+        let line = (_object[rep.objectDto] as Array<any>).findIndex(c => c.inUi == rep.lineNumber)
+        if(line == -1){
+            line = _object[rep.objectDto].length
+            _object[rep.objectDto][line] = {inUi:rep.lineNumber}
         }
-        _object[rep.objectDto][rep.lineNumber][rep.propertDto]  = rep.value
+        _object[rep.objectDto][line][rep.propertDto] = rep.value
     }
 }
 
-function deleteLine(line:{objectDto:string, line:string}){
-    let object = _object[line.objectDto] as Array<any>
-    let lineObject = _object[line.objectDto][line.line]
-    let index = object.indexOf(lineObject)
-    object.splice(index,1)    
+function deleteLine(line:{objectDto:string, line:string}){ 
+    let index = (_object[line.objectDto] as Array<any>).findIndex(c => c.inUi == line.line)
+    _object[line.objectDto].splice(index,1)
 }
 
 function object(){
@@ -64,6 +64,7 @@ function getValuePropertTypeObject(prop:string):any{
     }    
     return _object[object][propert]
 }
+
 function sumPropert(objectPropert:string){
     const object = objectPropert.split('.')[0]
     const propert = objectPropert.split('.')[1]
