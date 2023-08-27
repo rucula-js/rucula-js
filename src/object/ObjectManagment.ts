@@ -41,8 +41,10 @@ function getValuePropertTypeObject(prop:string):any{
     const object = prop.split('.')[0]
     const propert = prop.split('.')[1]
     const line = prop.split('.')[2]
+    //Todo melhorar parametro com tipo objeto
     if(line){
-        return _object[object][line][propert]
+        let obj = (_object[object] as Array<any>).find(c => c.zzRowUi == line)
+        return obj[propert]
     }    
     return _object[object][propert]
 }
