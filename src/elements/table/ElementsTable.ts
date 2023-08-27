@@ -1,7 +1,7 @@
 import { field } from "../../entities/form/field";
-import { createNewLine } from "../../table-dependency/TableDependency";
+import { getNextzzRowCount } from "../../object/ObjectManagment";
+import { createNewLineDependecy } from "../../table-dependency/TableDependency";
 import { createField, createSpanLabelIsRequerid } from "../form/ElementsInput";
-import { CountIsZero, getLine, setLine } from "./FrameControl";
 
 export function prepareLineHeaderTable(fields:Array<field>):HTMLTableSectionElement{
     let tr = document.createElement('tr');
@@ -23,15 +23,9 @@ export  function prepareTBody(){
     return document.createElement('tbody');
 }
 export function prepareTR(fields:Array<field>,frame:{type:string,objectDto:string,line?:number}){
-    if(CountIsZero(frame.objectDto)){
-        frame.line = 0;
-        setLine({objectDto:frame.objectDto, row:0})
-    }else{
-        let line = getLine(frame.objectDto);
-        frame.line = line?.row!+1
-        setLine({objectDto:frame.objectDto, row:line?.row!+1})
-    }
-    createNewLine({
+
+    frame.line = getNextzzRowCount(frame.objectDto)
+    createNewLineDependecy({
         type:frame.type,
         objectDto:frame.objectDto,
         line:frame.line!

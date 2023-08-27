@@ -1,4 +1,5 @@
 import { frame } from "../entities/form/frame";
+import { representationField } from "../entities/form/representationField";
 import { messageDangerMaxValue, messageDangerRequerid } from "../message/Message";
 
 'use strict';
@@ -43,19 +44,16 @@ function valueDependency(requerid:boolean, maxLength:number, max:number, min:num
     return valueDependency;
 }
 
-function  setDependency(input:HTMLInputElement|HTMLSelectElement){
-    let split = input.getAttribute("name")!.split(".")
-    let type = split[0]
-    let object = split[1]
-    let propert = split[2]
-    let line = split[3]
-
+function  setDependency(rep:representationField){
     var key = ""
-    if(type == "block") key = keyDependency(object,propert,"");
-    if(type == "line") key = keyDependency(object,propert,line);
-
+    
+    if(rep.lineNumber == undefined){
+        key = keyDependency(rep.objectDto,rep.propertDto,"");
+    }else{
+        key = keyDependency(rep.objectDto,rep.propertDto,String(rep.lineNumber));
+    }
     var lineDependency = _tableDependency.find(c => c.key == key)!;
-    checkPropertDependency(lineDependency, input.value)
+    checkPropertDependency(lineDependency, rep.value)
     resolveDependecy(lineDependency.key,lineDependency.value)
 }
 
@@ -87,7 +85,7 @@ function checkPropertDependency(dependency:{key:string, value:string}, value:str
     dependency.value = `${todoist}.${resolved}`    
 }
 
-function createNewLine(keyLine:{type:string,objectDto:string,line:number}){
+function createNewLineDependecy(keyLine:{type:string,objectDto:string,line:number}){
         
     checkCreateSpanShot(keyLine.objectDto);
     let frame:string = keyLine.objectDto
@@ -203,7 +201,7 @@ function dependenciesCount(){
 export {
     createTableDependency,
     setDependency,
-    createNewLine,
+    createNewLineDependecy,
     deleteLine,
     getDependencies,
     dependenciesCount

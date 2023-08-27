@@ -52,16 +52,13 @@ function crudLineQuadro(event:Event){
         let varttt = nextLine?.querySelector(atribute);
         (varttt as HTMLInputElement)?.focus()
     }
-    if (KeyEventGetIndex(0) == undefined || KeyEventGetIndex(1) == undefined) return
 
-    if (KeyEventGetIndex(0) == "Control" && KeyEventGetIndex(1) ==  "Enter"){
+    if (KeyEventGetIndex(0) == "Enter"){
         event.preventDefault();
-        addLine(currentLineElement,inputTargetEvent);
-        KeyEventClear();
+        currentLineElement.after(addLine(inputTargetEvent));
     }
-    if (KeyEventGetIndex(0) == "0" && KeyEventGetIndex(1) == "Control"){
+    if (KeyEventGetIndex(0) == "Control"){
         event.preventDefault();
         removeLine(currentLineElement,inputTargetEvent);
-        KeyEventClear();
     }
 }

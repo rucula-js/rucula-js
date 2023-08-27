@@ -8,7 +8,6 @@ import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
 import { FieldSelect } from "./Field/FieldSelect";
 import { FieldStrategy } from "./Field/FieldStrategy";
-import { evaluate } from 'mathjs'
 import { formulaGetValuePropert, formulaLine, formulaMath, formulaSUM } from "./formulas/Formulas";
 
 export function createField(field:field,frame:{type:string,objectDto:string,line?:number}):HTMLDivElement|HTMLSelectElement|HTMLInputElement{
@@ -35,10 +34,10 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     })
     let repField = representationField.prepareINPUTToField(element)
     setPropertDto(repField);
-    setDependency(element);
+    setDependency(repField);
     if( typeof(FieldStrategy) == typeof(FieldCommon))
     setValueOrFormula(field,element as HTMLInputElement,frame)
-        if(frame.type == "block"){
+    if(frame.type == "block"){
         const formGroup = createGroupOfInput(field)
         formGroup.appendChild(element)
         return formGroup as HTMLDivElement
@@ -139,7 +138,7 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
         input.value = field.value;        
         let repField = representationField.prepareINPUTToField(input)
         setPropertDto(repField);
-        setDependency(input);
+        setDependency(repField);
         return;
     }
 
@@ -150,7 +149,7 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
         formulaSUM(formula, input,field,frame)
         let repField = representationField.prepareINPUTToField(input)
         setPropertDto(repField);
-        setDependency(input);
+        setDependency(repField);
         
     })
     
