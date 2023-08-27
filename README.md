@@ -1,5 +1,5 @@
 <p align="center" >
-  <img src="/docs/assets/rucula.svg" style="width:200px">
+  <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
 <p align="center">
   Uma biblioteca Javascript desenvolvida para criar interfaces de usuário padronizadas e com maior produtividade  
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center" >
-  <img src="/docs/assets/Screenshot from 2023-07-27 23-48-57.png" style="width:80%">
+  <img src="https://github.com/reginaldo-marinho/rucula-js/blob/main/docs/assets/Screenshot%20from%202023-07-27%2023-48-57.png?raw=true" style="width:100%">
 </p>
 
 
