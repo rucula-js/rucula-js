@@ -1,7 +1,7 @@
 {
     "name": "@reginaldo-marinho/rucula-js",
-    "version": "0.0.8",
-    "description": "Um criador de telas padronizado",
+    "version": "0.0.9",
+    "description": "Crie telas em Minutos! 🚀",
     "homepage": "https://github.com/reginaldo-marinho/rucula-js",
     "main": "./dist/window/WindowFactory.js",
     "directories": {
@@ -9,9 +9,11 @@
     },
     "scripts": {
         "test": "karma start",
-        "compile": "tsc",
+        "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
         "build": "webpack --config webpack.prod.js",
-        "start": "webpack serve --open --config webpack.dev.js"
+        "start": "webpack serve --open --config webpack.dev.js",
+        "clean": "rimraf dist/",
+        "publish": "tsc && copyfiles -u 1  public/**/*.css dist/style && publish"
     },
     "author": "reginaldo-marinho",
     "bugs": {
@@ -28,7 +30,7 @@
         "Open Source",
         "MIT",
         "Produtividade",
-        "Ui"
+        "UI"
     ],
     "dependencies": {
         "@popperjs/core": "^2.11.8",
@@ -38,6 +40,7 @@
         "package": "^1.0.1"
     },
     "devDependencies": {
+        "copyfiles": "^2.4.1",
         "css-loader": "^6.8.1",
         "html-webpack-plugin": "^5.5.3",
         "jasmine": "^5.1.0",
@@ -49,6 +52,7 @@
         "karma-requirejs": "^1.1.0",
         "karma-typescript-preprocessor": "^0.4.0",
         "mini-css-extract-plugin": "^2.7.6",
+        "rimraf": "^5.0.1",
         "style-loader": "^3.3.3",
         "ts-loader": "^9.4.4",
         "typescript": "^5.1.6",
