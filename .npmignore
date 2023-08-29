@@ -1,5 +1,12 @@
-./exemples
-./dist
+.vscode
+docs
+exemples
 ./node_modules/
-./index.ts
-./public
+public
+src
+test
+index.ts
+karma.conf.*
+LICENSE
+tsconfig.json
+webpack.*

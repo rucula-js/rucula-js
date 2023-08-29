@@ -13,6 +13,10 @@ import { hiddenPopper } from '../popper/PopperEvent';
 
 'use strict';
 
+if (process.env.NODE_ENV !== 'production') {
+    console.log('Rucula - Looks like we are in development mode!');
+}
+
 let _form = document.getElementById('form-dynamic') as HTMLFormElement;        
 export function domCreateForm(windowConfiguration:window){
     createTableDependency(windowConfiguration.frames!)
