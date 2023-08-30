@@ -1,13 +1,14 @@
 ## O Conceito de Janelas 🗔
 
-No Rucula, tudo que é relacionado a interface de usuário está dentro de uma Janela. Abaixo da janela o componente mais inferior é o **Frame**, uma janela pode ter um ou mais Frames. 
+No Rucula, tudo que é relacionado a interface de usuário está dentro de uma `Janela`. Abaixo da `Janela` o componente mais inferior é o `Frame`, uma janela é composta de um ou mais `Frames`. 
 
 #### Os Frames 🏖️🏝️🏜️
 
 Os Frames são a representação gráfica dos Objetos. Assim como os objetos tem nome, propriedades, tipos e cardinalidade, os Frames também.  
-#### Os Objetos <--> Os Frames
 
-Como mencionado, os Frames são a representação gráfica dos objetos, logo, cada atributo de um objeto equivale ao mesmo atributo do Frame.  Está entendendo? Se eu configurar uma janela para três Objetos, terei na UI, uma janela com três Frames. Isso é ótimo!
+#### As características dos Frames e dos Objetos 
+
+Como mencionado, os Frames são a representação gráfica dos objetos, logo, cada atributo de um objeto equivale ao mesmo atributo do Frame.  Está entendendo? Se eu configurar uma janela para três Objetos, terei na UI, uma janela com três Frames. Isso é incrível!
 
 Vejamos a tabela de para entre Objeto e Frame
 
@@ -16,11 +17,12 @@ Vejamos a tabela de para entre Objeto e Frame
 |Nome|Usuario|Usuario|
 |Propriedade|Id|Id|
 |Tipo|string,numero,boolean,data|input(text, number, checkbox) select(lista de seleção), radios|
-|Propriedade|1-1 ou 1-1*N|`block ou line`|
+|Cardinalidade|1-1 ou 1-1*N|`block ou line`|
 
 ## Conceito de Objeto Soft 🧩
+
 Como o nome diz, os objetos no Rucula são leves, e o que isso significa? Significa que durante a inicialização da janela, os objetos são criados sem 
-propriedades. vejamos a representação:
+propriedades, com exceção daqueles campos que tem valores default. vejamos a representação:
 
 Estrutura do Objeto
 ```json
@@ -35,9 +37,10 @@ Objeto Soft Criado
 {}
 ```
 ### A Criação das Propriedades🐣🥚
+
 Após a criação dos Objetos, as propriedades já estão aptas a serem criadas. Essas propriedades são criadas com base em eventos que ocorrem na interface de usuario, mais precisamente quando há perda de foco no **input** do usuário. Esse evento da inicio a uma serie de verificações que no meio de uma das suas instruções, a Propriedade é criada no seu devido Objeto.
 
-**Nota:** Você deve estar se perguntando, **"Ok, mas se o objeto é criado a cada evento no input, isso não deixa o objeto anêmico e com risco de ser enviado com propriedades inexistentes?** A resposta para isso é NÂO! A seguir mostraremos o conceito da **Tabela de Dependncia**, que é sem duvidas o que dá sentido para as demais checagens das propriedades. 
+**Nota:** Você deve estar se perguntando, **"Ok, mas se o objeto é criado a cada evento no input, isso não deixa o objeto anêmico e com risco de ser enviado com propriedades inexistentes?** A resposta para isso é NÂO! A seguir mostraremos o conceito da **Tabela de Dependencia**, que é sem duvidas o que dá sentido para as demais checagens das propriedades. 
 
 ## Conceito da Tabela de Dependência ⛔🔒 ✅🔓
 Manter o controle sobre as propriedades de uma janela deve ser uma tarefa obrigatória e isso deve ser consistente. A tabela de dependência fornece tudo que é necessário para o correto funcionamento de cada input na janela, além de prestar suporte até que o Objeto esteja 100% criado.
