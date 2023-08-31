@@ -1,6 +1,5 @@
 import { frame } from "../entities/form/frame";
 import { representationField } from "../entities/form/representationField";
-import { messageDangerMaxValue, messageDangerRequerid } from "../message/Message";
 
 'use strict';
 
@@ -169,7 +168,7 @@ function consistRequerid(value:string|number|boolean):boolean{
     
     if( value == undefined ||
         value as number == 0){
-            messageDangerRequerid()
+            //todo Implementar Messagem
             return false;
     }
     return true;
@@ -178,7 +177,7 @@ function consistRequerid(value:string|number|boolean):boolean{
 function consistMaxLen(todoist:string,value:string|number|boolean){
     let max = getDependecy(todoist,MAX_LENGHT)
     if ((value as string).length > Number(max)){
-        messageDangerMaxValue()
+        //todo Implementar Messagem
         return  false;
     }
     return true;
