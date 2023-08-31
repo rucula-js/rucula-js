@@ -12,13 +12,10 @@ import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
 
 'use strict';
+let _form:HTMLFormElement
 
-if (process.env.NODE_ENV !== 'production') {
-    console.log('Rucula - Looks like we are in development mode!');
-}
-
-let _form = document.getElementById('form-dynamic') as HTMLFormElement;        
-export function domCreateForm(windowConfiguration:window){
+export function createWindow(windowConfiguration:window,id:string = 'form-dynamic'){
+    _form = document.getElementById(id) as HTMLFormElement; 
     createTableDependency(windowConfiguration.frames!)
     joinChield(windowConfiguration.joinChield)  
     createObject(windowConfiguration.frames)
