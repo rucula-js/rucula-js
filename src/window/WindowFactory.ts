@@ -16,6 +16,7 @@ let _form:HTMLFormElement
 
 export function createWindow(windowConfiguration:window,id:string = 'form-dynamic'){
     _form = document.getElementById(id) as HTMLFormElement; 
+    _form.classList.add('r-w');
     createTableDependency(windowConfiguration.frames!)
     joinChield(windowConfiguration.joinChield)  
     createObject(windowConfiguration.frames)

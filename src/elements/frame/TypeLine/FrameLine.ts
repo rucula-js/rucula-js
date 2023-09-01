@@ -10,7 +10,7 @@ import { eventKeyDownKeyUpLineFrame } from "./FrameLineEvent";
 export function createFrameLine(frame:frame){
     const line =  createFrame(frame)
     const table = document.createElement('table');
-    table.classList.add("table-form")
+    table.classList.add("f-t-line")
     const header = prepareLineHeaderTable(frame.fields!);
     table.appendChild(header)
     const tbody = prepareTBody();

@@ -66,7 +66,7 @@ export function createFieldTypeInputBasic(field:field):HTMLInputElement{
     }else{
         input.style.width = "90px"  
     }
-    input.classList.add("form-control")
+    input.classList.add("r-i-control")
     
     return input;
 }
@@ -86,8 +86,7 @@ export function createFieldCheckbox(field:field):HTMLInputElement{
 }
 function createGroupOfInput(field:field):HTMLDivElement{
     const div = document.createElement('div');
-    div.classList.add('form-group-item');
-
+    div.classList.add('r-g-i-i');
     const label = document.createElement('label');
     label.setAttribute('for',field.id)
     
@@ -101,7 +100,7 @@ function createGroupOfInput(field:field):HTMLDivElement{
 }
 export function createSpanLabelIsRequerid():HTMLSpanElement{
     const span = document.createElement('span'); 
-    span.innerText = "*"
+    span.innerText = " *"
     span.style.color = "red";
     return span
 }
