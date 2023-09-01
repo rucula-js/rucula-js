@@ -8,7 +8,7 @@ Para melhorar a performace na utilização do rucula, temos alguns atalhos que n
 |--|--|
 |`Ctrl+y`|Abre e fecha o terminal do rucula|
 
-## Atalhos Param Frames do tipo `Line`
+## Atalhos Para Frames do tipo `Line`
 
 |Comando|Objetivo|
 |--|--|
