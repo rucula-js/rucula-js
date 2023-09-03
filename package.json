@@ -1,6 +1,6 @@
 {
     "name": "@reginaldo-marinho/rucula-js",
-    "version": "0.0.9",
+    "version": "0.0.19",
     "description": "Crie telas em Minutos! 🚀",
     "homepage": "https://github.com/reginaldo-marinho/rucula-js",
     "main": "./dist/window/WindowFactory.js",
@@ -12,8 +12,7 @@
         "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
-        "clean": "rimraf dist/",
-        "publish": "tsc && copyfiles -u 1  public/**/*.css dist/style && publish"
+        "clean": "rimraf dist/"
     },
     "author": "reginaldo-marinho",
     "bugs": {
@@ -34,8 +33,10 @@
     ],
     "dependencies": {
         "@popperjs/core": "^2.11.8",
+        "@reginaldo-marinho/rucula-js": "^0.0.19",
         "@types/jasmine": "^4.3.5",
         "axios": "^1.4.0",
+        "bootstrap-icons": "^1.10.5",
         "mathjs": "^11.9.1",
         "package": "^1.0.1"
     },

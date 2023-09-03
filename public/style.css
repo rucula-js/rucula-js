@@ -93,11 +93,30 @@ h3{
     margin-right: 5px;
 }
 /* Window */
-.r-w {
+.r-f { 
     overflow-x:none;
-    padding: 5px;
     width: 100%;
 }
+.r-w{
+    display: flex;
+    margin: 0;
+}
+.r-b,
+.r-f {
+    padding: 5px;
+} 
+/*Buttons*/
+.r-b-i{
+    display: block;
+    margin-bottom: 5px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0.5px solid #dbdada;
+}
+
 *::-webkit-scrollbar {
     width: 8px;
     height: 8px;

@@ -6,7 +6,7 @@ import { ElementLink } from './ElementLink';
 let elementStrategy!:ElementStrategy;
 
 function prepareButtons(button:button[]){
-    const ButtonsBox = document.getElementById("box-actions")
+    const ButtonsBox = document.getElementById("r-b")
     button.forEach(b => {
     ButtonsBox?.appendChild(createButtonOrLink(b))  
     })

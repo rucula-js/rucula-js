@@ -10,13 +10,15 @@ import { setWindow } from './Window';
 import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
+import { createWindowBase } from '../elements/window-base/WindowBase';
 
 'use strict';
 let _form:HTMLFormElement
 
-export function createWindow(windowConfiguration:window,id:string = 'form-dynamic'){
-    _form = document.getElementById(id) as HTMLFormElement; 
-    _form.classList.add('r-w');
+export function createWindow(windowConfiguration:window,id:string = 'rucula-js'){
+    createWindowBase(id);
+    _form = document.getElementById("form-rucula-js") as HTMLFormElement; 
+    _form.classList.add('r-f');
     createTableDependency(windowConfiguration.frames!)
     joinChield(windowConfiguration.joinChield)  
     createObject(windowConfiguration.frames)
