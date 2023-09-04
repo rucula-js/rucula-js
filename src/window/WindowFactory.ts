@@ -19,6 +19,7 @@ let _form:HTMLFormElement
 export function createWindow(windowConfiguration:window,id:string = 'rucula-js'){
     
     var window = document.getElementById(id);
+    window?.appendChild(consoleUi.createPanel())
     window?.appendChild(createTitle(windowConfiguration.name))
     createWindowBase(id);
     _form = document.getElementById("form-rucula-js") as HTMLFormElement; 

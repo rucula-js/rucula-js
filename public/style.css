@@ -1,3 +1,69 @@
+/* Estilize o painel */
+.box-panel {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffffb3;
+    z-index: 10;
+}
+.panel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-left: 300px;
+    margin-right: 300px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #181717;
+}
+.content-panel pre {
+    margin:0;
+    padding-top: 50px;
+}
+/* Estilize o título do painel */
+.panel h2 {
+    font-size: 24px;
+    display: block;
+    color: #cecece;
+    background-color: inherit;
+}
+/* Estilize o conteúdo do painel */
+.panel p {
+    font-size: 16px;
+    color: #dbdbdb;
+}
+.content-panel{
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: #ffffff;
+}
+.panel input {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background-color: inherit;
+    margin: auto;
+    font-size: 1.25rem;
+    border-radius: 0px 0px 10px 10px;
+    padding: 10px;
+    color: #ffffff;
+    border: 1px solid #dbdbdb;
+}
 *{
     box-sizing:border-box;
     outline: none;
@@ -15,7 +81,11 @@ h2{
     margin: 0;
     font-weight: bold;
 }
-
+/* Console */
+.r-c {
+    width: 250px;
+    height: 100%;
+}
 /* inputs */
 .r-i-control{
     border-radius: 2px;
@@ -126,7 +196,7 @@ h2{
     height: 8px;
 } 
 *::-webkit-scrollbar-track {
-    background:  var(--color-branco);
+    background: inherit
 }  
 *::-webkit-scrollbar-thumb {
     background-color:#022940;

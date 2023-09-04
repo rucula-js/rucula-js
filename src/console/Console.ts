@@ -4,15 +4,32 @@ import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from '../global/KeyEvent
     
 let consolePanel!:HTMLDivElement
 
+const PANEL_CONSOLE = `
+<div class="box-panel">
+    <div class="panel">
+        <span>🔴 🟡 🟢</span>    
+        <div class="content-panel">
+            <code id="content-panel">
+            </code>
+        </div>
+        <input class="console-panel-command-js" type="text">
+    </div>    
+</div>
+`;
+export function createPanel():HTMLDivElement{
+    const div = document.createElement('div');
+    div.innerHTML = PANEL_CONSOLE;
+    return div;
+} 
 function set(){
     //todo: Se o ambiente for de produção,o console deve ser removido do tela
-    consolePanel = document.querySelector('.console-panel-body') as HTMLDivElement;
+    consolePanel = document.getElementById('content-panel') as HTMLDivElement;
     openCloseConsole();
     setCommand();
 }
 function  openCloseConsole(): void {
     let OpenClose: boolean = false;
-    let cons = document.querySelector(".console") as HTMLDivElement
+    let cons = document.querySelector(".box-panel") as HTMLDivElement
     document.addEventListener('keydown',(event) =>{
        
         const key = (event as KeyboardEvent).key;
@@ -35,7 +52,7 @@ function  openCloseConsole(): void {
 
 }   
 function setCommand(){
-    let command = document.querySelector(".console-panel-command") as HTMLInputElement;
+    let command = document.querySelector(".console-panel-command-js") as HTMLInputElement;
 
     command.addEventListener("keydown",(event) => {  
         if(event.key != 'Enter') return;
@@ -95,7 +112,7 @@ function outputCommandNotFound(){
 function outputDependencies(){
     let dependecies = table.getDependencies();
     let output ='<br>'; 
-    output += '<h6>Dependências não Resolvidas</h6>';
+    output += '<h2>Dependências não Resolvidas</h2>';
     output+='<br>'
     dependecies.forEach(c => {           
         output+=`<div>${c} ⛔</div>`
@@ -103,10 +120,9 @@ function outputDependencies(){
     consolePanel.innerHTML = output
 }
 function outputGetObject(){
-    let dependecies = table.getDependencies();
     let output ='<br>'; 
-    output += '<h6>Objeto Atual</h6>';
-        output+=`<div style="color:#0b6ca5;">${JSON.stringify(obj.object())}</div>`
+    output += '<h2>Objeto Atual</h2>';
+        output+=`<div style="margin-top:10px;">${JSON.stringify(obj.object())}</div>`
     consolePanel.innerHTML = output
 }
 
