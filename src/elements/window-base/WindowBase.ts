@@ -10,6 +10,10 @@ export function createWindowBase(id:string){
     buttons.classList.add("r-b");
     buttons.id = "r-b";
     
+    const console = document.createElement("div");
+    console.classList.add("r-c");
+        
+    window.appendChild(console)
     window.appendChild(form)
     window.appendChild(buttons)
     

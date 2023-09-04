@@ -10,8 +10,8 @@
     --color-branco:#fff;
     --border-color-grey:#c7c7c7;;
 }
-.r-w h3,
-.r-w h2{
+h3,
+h2{
     margin: 0;
     font-weight: bold;
 }

@@ -17,10 +17,12 @@ import { createTitle } from '../elements/form/Title';
 let _form:HTMLFormElement
 
 export function createWindow(windowConfiguration:window,id:string = 'rucula-js'){
+    
+    var window = document.getElementById(id);
+    window?.appendChild(createTitle(windowConfiguration.name))
     createWindowBase(id);
     _form = document.getElementById("form-rucula-js") as HTMLFormElement; 
     _form.classList.add('r-f');
-    _form.appendChild(createTitle(windowConfiguration.name))
     createTableDependency(windowConfiguration.frames!)
     joinChield(windowConfiguration.joinChield)  
     createObject(windowConfiguration.frames)
