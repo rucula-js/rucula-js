@@ -10,13 +10,14 @@
     --color-branco:#fff;
     --border-color-grey:#c7c7c7;;
 }
-h3{
+.r-w h3,
+.r-w h2{
     margin: 0;
     font-weight: bold;
 }
+
 /* inputs */
 .r-i-control{
-    padding: 4px;
     border-radius: 2px;
     border:1px solid var(--border-color-grey);
 }
@@ -28,7 +29,10 @@ h3{
     display: inline-block;
     margin-right: 5px;
 }
-/* Titles Frames */
+/* Titles */
+.r-w-t {
+    margin-bottom: 5px;
+}
 .r-t-f{
     font-size: 1.25rem;
 }

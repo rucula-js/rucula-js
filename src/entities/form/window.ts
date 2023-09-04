@@ -4,7 +4,7 @@ import { columnsGridjs } from "./columnsGridjs";
 import { frame } from "./frame";
 
 export interface window{
-    tela:string,
+    name:string;
     type:string,
     urlRoot:string
     pathController:string

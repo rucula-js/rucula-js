@@ -11,6 +11,7 @@ import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
 import { createWindowBase } from '../elements/window-base/WindowBase';
+import { createTitle } from '../elements/form/Title';
 
 'use strict';
 let _form:HTMLFormElement
@@ -19,6 +20,7 @@ export function createWindow(windowConfiguration:window,id:string = 'rucula-js')
     createWindowBase(id);
     _form = document.getElementById("form-rucula-js") as HTMLFormElement; 
     _form.classList.add('r-f');
+    _form.appendChild(createTitle(windowConfiguration.name))
     createTableDependency(windowConfiguration.frames!)
     joinChield(windowConfiguration.joinChield)  
     createObject(windowConfiguration.frames)
