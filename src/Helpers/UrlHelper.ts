@@ -1,10 +1,18 @@
 import { button } from "../entities/form/button";
+import { window } from "../entities/form/window";
 import { getEnvironment } from "../global/GlobalConfig";
 import * as  obj from '../object/ObjectManagment';
+import { getWindow } from "../window/Window";
 
 export function  createUrl(button:button){
     let environment = getEnvironment(); 
-    let url = `${environment.hostname}:${environment.port}${button.urlrelative}` 
+    let window = getWindow() as window
+    let pathController = window.pathController
+    let pathButton = button.urlrelative;
+    let path = pathController;
+    if(pathButton != undefined && pathButton != "") path = pathButton
+    let url = `${environment.hostname}:${environment.port}${path}` 
+    
     //TODO Implementar verificação se a  hostname está vazio e aplicar a url do href caso necessário
     if(button.params) url+=`?${prepareParams(button.params)}`        
     return url;

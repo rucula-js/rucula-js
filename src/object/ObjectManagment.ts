@@ -87,6 +87,7 @@ function object(){
 }
 
 function PrepareObject(){
+
     let formatedObject:any = Object.assign({},_object);
     _joinChield?.forEach(item => {
         let key = item.key
@@ -96,9 +97,13 @@ function PrepareObject(){
         delete formatedObject[cheild]
         }
     })
-    return Object.values(formatedObject)
+    delete formatedObject["zzRowCount"]
+    const object = Object.values(formatedObject);
+    if(object.length > 1){
+        throw new Error ("Rucula - only one object should be returned !!!")
+    }
+    return object[0]
 }
-
 function joinChield(cheilds:{key:string, value:string}[] ){
     _joinChield = cheilds; 
  }
