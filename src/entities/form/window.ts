@@ -6,7 +6,6 @@ import { frame } from "./frame";
 export interface window{
     name:string;
     type:string,
-    urlRoot:string
     pathController:string
     urlGetAll:string
     urlGetId: string

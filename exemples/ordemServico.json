@@ -1,6 +1,5 @@
 {
   "name": "Ordem de Serviço",
-  "urlRoot": "http://localhost:8080",
   "pathController":"/Os",
   "urlGetAll": "",
   "urlGetId": "",
@@ -230,6 +229,18 @@
   ],
   "button": [
     {
+        "method": "post",
+        "post": "",
+        "link": "",
+        "icon": "bi bi-save",
+        "text": "",
+        "type": "button",
+        "color": "rgb(95 152 246)",
+        "target": "",
+        "urlrelative": "",
+        "id": "8418"
+    },
+    {
       "method": "put",
       "post": "",
       "link": "",
@@ -240,18 +251,6 @@
       "target": "",
       "urlrelative": "",
       "id": "8248"
-    },
-    {
-      "method": "post",
-      "post": "",
-      "link": "",
-      "icon": "bi bi-save",
-      "text": "",
-      "type": "button",
-      "color": "rgb(95 152 246)",
-      "target": "",
-      "urlrelative": "",
-      "id": "8418"
     },
     {
       "method": "delete",

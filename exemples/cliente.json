@@ -1,6 +1,5 @@
 {
     "name": "Clientes",
-    "urlRoot": "",
     "pathController":"/Cliente",
     "urlGetAll": "",
     "urlGetId": "",

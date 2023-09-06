@@ -1,6 +1,5 @@
 {
   "name": "Frames",
-  "urlRoot": "http://localhost:8080",
   "pathController":"/Frame",
   "urlGetAll": "/GetAll",
   "urlGetId": "",
