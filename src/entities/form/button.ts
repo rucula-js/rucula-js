@@ -9,4 +9,6 @@ export interface button{
     target:string
     urlrelative?:string
     params?:string
+    headers?: object
+    auth?:"none"|"basic"|"token"
 }

@@ -1,7 +1,6 @@
 .vscode
 docs
 exemples
-./node_modules/
 public
 src
 test
@@ -10,3 +9,4 @@ karma.conf.*
 LICENSE
 tsconfig.json
 webpack.*
+node_modules

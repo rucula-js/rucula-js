@@ -15,9 +15,7 @@ buttons!.
                 return;
             }
             let url = createUrl(button)
-            axios.ax({
-            method:button.method,
-            url:url,data:obj.object()})
+            axios.ax({method:button.method,url:url,data:obj.object()})
         })
     });
 }
