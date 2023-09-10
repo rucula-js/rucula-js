@@ -4,7 +4,7 @@ import { representationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
 import { setDependency } from "../../table-dependency/TableDependency";
 
-export function setEventListenerForInput(element:HTMLSelectElement | HTMLInputElement, field?:field){
+export function setEventListenerForInput(element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement, field?:field){
     element.addEventListener('focusout',(e) => {
         setValue(e.target as HTMLInputElement)
     })

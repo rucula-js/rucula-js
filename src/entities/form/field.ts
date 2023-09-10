@@ -4,6 +4,7 @@ export interface field {
     type: string
     combo?:[],
     checkbox?:checkbox
+    textarea:textarea
     maxLength?: number
     max?: number
     min?: number
@@ -13,9 +14,14 @@ export interface field {
     value?: string
     information?:string
     sequence:number
+    width:number
     formula?:string[]
 }
 interface checkbox {
     on:string,
     off:string,
+}
+interface textarea {
+    rows:number
+    cols:number
 }

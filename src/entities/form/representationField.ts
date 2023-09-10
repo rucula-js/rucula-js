@@ -5,7 +5,7 @@ export class representationField{
     public lineNumber?:number
     public value!:string|number
 
-    public static prepareINPUTToField(input:HTMLInputElement|HTMLSelectElement):representationField{
+    public static prepareINPUTToField(input:HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement):representationField{
         let representation = new representationField()
         let map =  input.getAttribute("name")!.split(".")
         representation.type = map[0]

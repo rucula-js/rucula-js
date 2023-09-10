@@ -6,7 +6,7 @@ export class FieldStrategy{
     public setStrategy(field:FieldInput){
         this.field = field;
     }
-    public create(field:field):HTMLInputElement|HTMLSelectElement{
+    public create(field:field):HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement{
         return this.field.create(field);
     }
 }

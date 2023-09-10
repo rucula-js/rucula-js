@@ -8,11 +8,12 @@ import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
 import { FieldSelect } from "./Field/FieldSelect";
 import { FieldStrategy } from "./Field/FieldStrategy";
+import { FieldTextArea } from "./Field/FieldTextArea";
 import { formulaGetValuePropert, formulaLine, formulaMath, formulaSUM } from "./formulas/Formulas";
 
-export function createField(field:field,frame:{type:string,objectDto:string,line?:number}):HTMLDivElement|HTMLSelectElement|HTMLInputElement{
+export function createField(field:field,frame:{type:string,objectDto:string,line?:number}):HTMLDivElement|HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement{
   
-    let element:HTMLSelectElement|HTMLInputElement
+    let element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement
     let fieldStrategy:FieldStrategy = new FieldStrategy();
     checkTypeField(field.type)
     if( field.type == "text" || 
@@ -22,6 +23,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         ) fieldStrategy.setStrategy(new FieldCommon())
     if(field.type == "select") fieldStrategy.setStrategy(new FieldSelect())
     if(field.type == "checkbox") fieldStrategy.setStrategy(new FieldCheckbox())
+    if(field.type == "textarea") fieldStrategy.setStrategy(new FieldTextArea())
     element = fieldStrategy.create(field);
     setEventListenerForInput(element,field)
     setEventForInformationInputQuadro(element)
@@ -46,7 +48,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 }
 
 function checkTypeField(type: string){
-    let types = ["text","number","select","checkbox","date","currency"]
+    let types = ["text","number","select","checkbox","date","currency","textarea"]
     if(types.indexOf(type) == -1)
         throw new Error(`Field type "${type}" is not allowed`);
 }
@@ -57,17 +59,30 @@ export function createFieldTypeInputBasic(field:field):HTMLInputElement{
 
     if(field.type == "currency"){
         input.type = "text";
-    }else{
+    }
+    else{
         input.type = field.type;
     }
-    
-    if (field.maxLength != undefined && field.maxLength > 0){
-        input.style.width = `${field.maxLength * 10}px`  
-    }else{
-        input.style.width = "90px"  
+    if (field.width > 0){
+        input.style.width = `${field.width}px`  
     }
+
     input.classList.add("r-i-control")
     
+    return input;
+}
+export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
+    const input = document.createElement('textarea');
+    if(field?.disable) input.setAttribute("disabled","")
+
+    input.setAttribute("rows", String(field.textarea?.rows))
+
+    if(field.textarea?.cols){
+        input.setAttribute("cols", String(field.textarea?.cols))
+    }
+    else {
+        input.style.width = "100%";
+    }
     return input;
 }
 export function createFieldCheckbox(field:field):HTMLInputElement{  
