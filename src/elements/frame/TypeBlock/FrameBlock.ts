@@ -9,7 +9,9 @@ export function createFrameBlock(frame:frame){
     const div = document.createElement("div");
     div.style.display = "flex";
     div.style.flexWrap = "wrap";
-    
+    if(frame.vertical){
+        div.style.flexDirection = "column"
+    }
     sortFields.forEach(field => {
         let f = createField(field,{type:frame.type,objectDto:frame.objectDto}); 
         div.appendChild(f)

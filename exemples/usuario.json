@@ -10,6 +10,7 @@
         "type": "block",
         "objectDto": "usuario",
         "sequence": 0,
+        "vertical":true,
         "fields": [
           {
             "propertDto": "id",
