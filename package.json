@@ -33,7 +33,6 @@
     ],
     "dependencies": {
         "@popperjs/core": "^2.11.8",
-        "@reginaldo-marinho/rucula-js": "^0.0.19",
         "@types/jasmine": "^4.3.5",
         "axios": "^1.4.0",
         "bootstrap-icons": "^1.10.5",
