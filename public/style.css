@@ -99,6 +99,7 @@ h2{
 .r-g-i-i{
     display: inline-block;
     margin-right: 5px;
+    margin-bottom: 5px;
 }
 /* Titles */
 .r-w-t {
@@ -106,6 +107,7 @@ h2{
 }
 .r-t-f{
     font-size: 1.25rem;
+    margin-bottom: 8px;
 }
 /*Frames*/
 .r-q-b{
@@ -208,4 +210,7 @@ h2{
 .r-i-control::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+textarea {
+    resize: none;
 }
