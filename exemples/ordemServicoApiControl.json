@@ -6,7 +6,7 @@
     "type":"crud",
     "frames":[
        {
-          "name":"Header",
+          "name":"📝 Header OS",
           "type":"block",
           "objectDto":"ordem_de_servico",
           "sequence":0,
@@ -16,15 +16,15 @@
                 "description":"Código",
                 "information":"",
                 "type":"text",
-                "maxLength":20,
-                "width":150,
+                "maxLength":32,
+                "width":300,
                 "max":0,
                 "min":0,
                 "requerid":true,
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":"scwnn98fn38nf389jwd298"
+                "value":""
              },
              {
                 "propertDto":"data_abertura",
@@ -32,7 +32,6 @@
                 "information":"",
                 "type":"date",
                 "maxLength":0,
-                "width":150,
                 "max":0,
                 "min":0,
                 "requerid":true,
@@ -45,16 +44,16 @@
                 "propertDto":"total_servico",
                 "description":"Total de Serviço",
                 "information":"",
-                "type":"number",
-                "maxLength":0,
-                "width":150,
+                "type":"currency",
+                "maxLength":55,
+                "width":350,
                 "max":0,
                 "min":0,
                 "requerid":true,
                 "disable":false,
                 "sequence":3,
                 "id":"1565167",
-                "value":350.00
+                "value":0
              },
              {
                 "propertDto":"observacoes",
@@ -69,15 +68,13 @@
                 "disable":false,
                 "sequence":4,
                 "id":"1565168",
-                "value":"Cliente solicitou troca do filtro de ar."
+                "value":""
              },
              {
                 "propertDto":"data_conclusao",
                 "description":"Data de Conclusão",
                 "information":"",
                 "type":"date",
-                "maxLength":0,
-                "width":150,
                 "max":0,
                 "min":0,
                 "requerid":true,
@@ -90,7 +87,8 @@
                 "propertDto":"status",
                 "description":"Status",
                 "information":"",
-                "type":"text",
+                "type":"checkbox",
+                "checkbox":{"on":true,"off":false},
                 "maxLength":20,
                 "width":150,
                 "max":0,
@@ -143,7 +141,7 @@
           "id":"981981"
        },
        {
-          "name":"Cliente",
+          "name":"🤴 Cliente",
           "type":"block",
           "objectDto":"cliente",
           "sequence":0,
@@ -153,7 +151,7 @@
                 "description":"Nome",
                 "information":"",
                 "type":"text",
-                "maxLength":36,
+                "maxLength":80,
                 "width":500,
                 "max":0,
                 "min":0,
@@ -168,7 +166,7 @@
                 "description":"Telefone",
                 "information":null,
                 "type":"text",
-                "maxLength":15,
+                "maxLength":12,
                 "requerid":true,
                 "disable":false,
                 "sequence":5,
@@ -178,22 +176,23 @@
              {
                 "propertDto":"email",
                 "description":"Email",
-                "information":null,
+                "information":"e-mail do responsavel. Exemplo: reginaldo@gmail.com",
                 "type":"text",
-                "maxLength":100,
+                "width":700,
+                "maxLength":150,
                 "max":0,
                 "min":0,
                 "requerid":true,
                 "disable":false,
                 "sequence":2,
                 "id":"9849849",
-                "value":"2023-05-01"
+                "value":""
              }
           ],
           "id":"981981"
        },
        {
-          "name":"Endereço",
+          "name":"🌎 Cliente - Endereço ",
           "type":"block",
           "objectDto":"endereco",
           "sequence":1,
@@ -203,8 +202,8 @@
                 "description":"Logradouro",
                 "information":"",
                 "type":"text",
-                "maxLength":50,
-                "width":200,
+                "maxLength":150,
+                "width":400,
                 "max":0,
                 "min":0,
                 "requerid":true,
@@ -222,7 +221,7 @@
                 "width":150,
                 "max":0,
                 "min":0,
-                "requerid":true,
+                "requerid":false,
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
@@ -307,7 +306,7 @@
           "id":"981981"
        },
        {
-          "name":"Servicos",
+          "name":"🛠️ Serviços Prestados",
           "type":"line",
           "objectDto":"itens_servico",
           "sequence":0,
@@ -318,21 +317,21 @@
                 "information":"",
                 "type":"text",
                 "maxLength":100,
-                "width":400,
+                "width":500,
                 "max":0,
                 "min":0,
                 "requerid":true,
                 "disable":false,
                 "sequence":1,
                 "id":"1565180",
-                "value":"Substituição de peça"
+                "value":""
              },
              {
                 "propertDto":"valor_unitario",
                 "description":"Valor Unitário",
                 "information":"",
-                "type":"number",
-                "maxLength":0,
+                "type":"currency",
+                "maxLength":20,
                 "width":150,
                 "max":0,
                 "min":0,
@@ -347,7 +346,7 @@
                 "description":"Quantidade",
                 "information":"",
                 "type":"number",
-                "maxLength":0,
+                "maxLength":20,
                 "width":150,
                 "max":0,
                 "min":0,
@@ -361,22 +360,22 @@
                 "propertDto":"subtotal",
                 "description":"Subtotal",
                 "information":"",
-                "type":"number",
-                "maxLength":0,
+                "type":"currency",
+                "maxLength":50,
                 "width":150,
                 "max":0,
                 "min":0,
+                "formula":["=MATH(quantidade*valor_unitario)"],
                 "requerid":true,
                 "disable":false,
                 "sequence":4,
-                "id":"1565183",
-                "value":50.00
+                "id":"1565183"
              }
           ],
           "id":"16516"
        },
        {
-          "name":"Técnico Responsavel",
+          "name":"🧑‍🔧 Técnico Responsavel",
           "type":"block",
           "objectDto":"tecnico_responsavel",
           "sequence":0,
@@ -429,7 +428,7 @@
           ]
        },
        {
-          "name":"Pagamento",
+          "name":"💵 Pagamento",
           "type":"block",
           "objectDto":"pagamento",
           "sequence":0,
