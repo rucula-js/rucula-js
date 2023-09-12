@@ -103,11 +103,18 @@ h2{
 }
 /* Titles */
 .r-w-t {
-    margin-bottom: 5px;
+    padding-left: 5px;
+    font-weight: bold;
 }
 .r-t-f{
     font-size: 1.25rem;
-    margin-bottom: 8px;
+    background-color: #00202a;
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    font-weight: bold;
+    border-radius: 5px 5px 5px 5px;
 }
 /*Frames*/
 .r-q-b{
@@ -122,9 +129,10 @@ h2{
 }
 .r-q-b,
 .r-q-l{
-    padding: 5px;
-    border: 0.5px solid #dbdada;
+    border: 0.5px solid #919191;
     border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 2px 0px #919191;
 }
 .r-q-b .r-g-i-i{
     margin-left: 10px ;
@@ -139,7 +147,7 @@ h2{
     border-collapse:collapse;
     background-color: #fff;
     overflow: auto;
-    height: 300px;
+    max-height: 300px;
     border-spacing: 0;
     padding-bottom:5px;
     margin-left: 10px;
