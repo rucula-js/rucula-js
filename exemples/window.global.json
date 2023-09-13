@@ -2,7 +2,7 @@
     "environments":[
         {
             "env":"development",
-            "hostname":"https://127.0.0.1",
+            "hostname":"https://localhost",
             "port": "7299"
         }
     ],

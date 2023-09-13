@@ -56,21 +56,6 @@
                 "value":0
              },
              {
-                "propertDto":"observacoes",
-                "description":"Observações",
-                "information":"",
-                "type":"text",
-                "maxLength":100,
-                "width":400,
-                "max":0,
-                "min":0,
-                "requerid":true,
-                "disable":false,
-                "sequence":4,
-                "id":"1565168",
-                "value":""
-             },
-             {
                 "propertDto":"data_conclusao",
                 "description":"Data de Conclusão",
                 "information":"",
@@ -108,7 +93,7 @@
                    "rows":5,
                    "cols":150
                 },
-                "maxLength":20,
+                "maxLength":500,
                 "width":150,
                 "max":0,
                 "min":0,
@@ -127,7 +112,7 @@
                    "rows":5,
                    "cols":150
                 },
-                "maxLength":20,
+                "maxLength":500,
                 "width":150,
                 "max":0,
                 "min":0,
@@ -330,7 +315,7 @@
                 "propertDto":"valor_unitario",
                 "description":"Valor Unitário",
                 "information":"",
-                "type":"currency",
+                "type":"currency",      
                 "maxLength":20,
                 "width":150,
                 "max":0,
