@@ -8,7 +8,7 @@
        {
           "name":"📝 Header OS",
           "type":"block",
-          "objectDto":"ordem_de_servico",
+          "objectDto":"ordemDeServico",
           "sequence":0,
           "fields":[
              {
@@ -16,7 +16,7 @@
                 "description":"Código",
                 "information":"",
                 "type":"text",
-                "maxLength":32,
+                "maxLength":40,
                 "width":300,
                 "max":0,
                 "min":0,
@@ -24,10 +24,10 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"bb00eb36-1ec6-4e89-8183-8215735998e6"
              },
              {
-                "propertDto":"data_abertura",
+                "propertDto":"dataAbertura",
                 "description":"Data de Abertura",
                 "information":"",
                 "type":"date",
@@ -41,7 +41,7 @@
                 "value":"2023-09-08"
              },
              {
-                "propertDto":"total_servico",
+                "propertDto":"totalServico",
                 "description":"Total de Serviço",
                 "information":"",
                 "type":"currency",
@@ -53,10 +53,10 @@
                 "disable":false,
                 "sequence":3,
                 "id":"1565167",
-                "value":0
+                "value":500.897
              },
              {
-                "propertDto":"data_conclusao",
+                "propertDto":"dataConclusao",
                 "description":"Data de Conclusão",
                 "information":"",
                 "type":"date",
@@ -81,8 +81,7 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":6,
-                "id":"1565170",
-                "value":"Concluída"
+                "id":"1565170"
              },
              {
                 "propertDto":"observacoes",
@@ -101,10 +100,10 @@
                 "disable":false,
                 "sequence":6,
                 "id":"1565170",
-                "value":""
+                "value":"Observação 1"
              },
              {
-                "propertDto":"observacoes_cliente",
+                "propertDto":"observacoesCliente",
                 "description":"Observações Cliente",
                 "information":"",
                 "type":"textarea",
@@ -120,7 +119,7 @@
                 "disable":false,
                 "sequence":6,
                 "id":"1565170",
-                "value":""
+                "value":"Observação 2"
              }
           ],
           "id":"981981"
@@ -144,7 +143,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"Reginaldo"
              },
              {
                 "propertDto":"telefone",
@@ -156,7 +155,7 @@
                 "disable":false,
                 "sequence":5,
                 "id":"5616",
-                "value":""
+                "value":"Marinho"
              },
              {
                 "propertDto":"email",
@@ -171,7 +170,7 @@
                 "disable":false,
                 "sequence":2,
                 "id":"9849849",
-                "value":""
+                "value":"reginaldo@hotmail.com"
              }
           ],
           "id":"981981"
@@ -195,7 +194,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"rua aurelio dias"
              },
              {
                 "propertDto":"complemento",
@@ -210,7 +209,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"ap 39"
              },
              {
                 "propertDto":"bairro",
@@ -225,7 +224,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"cecilia antunes"
              },
              {
                 "propertDto":"cidade",
@@ -240,7 +239,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"jundiai"
              },
              {
                 "propertDto":"estado",
@@ -255,7 +254,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"SP"
              },
              {
                 "propertDto":"cep",
@@ -270,7 +269,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"13785-99"
              },
              {
                 "propertDto":"pais",
@@ -285,7 +284,7 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565165",
-                "value":""
+                "value":"BR"
              }
           ],
           "id":"981981"
@@ -293,7 +292,7 @@
        {
           "name":"🛠️ Serviços Prestados",
           "type":"line",
-          "objectDto":"itens_servico",
+          "objectDto":"itensServico",
           "sequence":0,
           "fields":[
              {
@@ -309,10 +308,10 @@
                 "disable":false,
                 "sequence":1,
                 "id":"1565180",
-                "value":""
+                "value":"Tróca de óleo"
              },
              {
-                "propertDto":"valor_unitario",
+                "propertDto":"valorUnitario",
                 "description":"Valor Unitário",
                 "information":"",
                 "type":"currency",      
@@ -324,7 +323,7 @@
                 "disable":false,
                 "sequence":2,
                 "id":"1565181",
-                "value":50.00
+                "value":45.88
              },
              {
                 "propertDto":"quantidade",
@@ -350,7 +349,7 @@
                 "width":150,
                 "max":0,
                 "min":0,
-                "formula":["=MATH(quantidade*valor_unitario)"],
+                "formula":["=MATH(quantidade*valorUnitario)"],
                 "requerid":true,
                 "disable":false,
                 "sequence":4,
@@ -362,7 +361,7 @@
        {
           "name":"🧑‍🔧 Técnico Responsavel",
           "type":"block",
-          "objectDto":"tecnico_responsavel",
+          "objectDto":"tecnicoResponsavel",
           "sequence":0,
           "fields":[
              {
@@ -419,7 +418,7 @@
           "sequence":0,
           "fields":[
              {
-                "propertDto":"forma_de_pagamento",
+                "propertDto":"formaDePagamento",
                 "description":"Forma de Pagamento",
                 "information":"",
                 "type":"text",
@@ -434,7 +433,7 @@
                 "value":"Cartão de Crédito"
              },
              {
-                "propertDto":"valor_total_pago",
+                "propertDto":"valorTotalPago",
                 "description":"Valor Total Pago",
                 "information":"",
                 "type":"number",
@@ -449,7 +448,7 @@
                 "value":350.00
              },
              {
-                "propertDto":"data_pagamento",
+                "propertDto":"dataPagamento",
                 "description":"Data de Pagamento",
                 "information":"",
                 "type":"date",
@@ -492,7 +491,7 @@
           "icon":"bi bi-save",
           "text":"",
           "type":"button",
-          "color":"rgb(95 152 246)",
+          "color":"",
           "target":"",
           "urlrelative":"",
           "id":"8418"
@@ -504,7 +503,7 @@
           "icon":"bi bi-wrench",
           "text":"",
           "type":"button",
-          "color":"rgb(95 108 246)",
+          "color":"",
           "target":"",
           "urlrelative":"",
           "id":"8248"
@@ -516,7 +515,7 @@
           "icon":"bi bi-trash3",
           "text":"",
           "type":"button",
-          "color":"rgb(246 95 95)",
+          "color":"",
           "target":"",
           "urlrelative":"",
           "id":"er43",
@@ -529,19 +528,19 @@
           "value":"endereco"
        },
        {
-          "key":"ordem_de_servico",
+          "key":"ordemDeServico",
           "value":"cliente"
        },
        {
-          "key":"ordem_de_servico",
-          "value":"itens_servico"
+          "key":"ordemDeServico",
+          "value":"itensServico"
        },
        {
-          "key":"ordem_de_servico",
-          "value":"tecnico_responsavel"
+          "key":"ordemDeServico",
+          "value":"tecnicoResponsavel"
        },
        {
-          "key":"ordem_de_servico",
+          "key":"ordemDeServico",
           "value":"pagamento"
        }
     ],
