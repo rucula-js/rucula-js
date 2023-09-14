@@ -7,8 +7,8 @@ export function createFrameBlock(frame:frame){
     let sortFields = frame.fields!.sort(c => c.sequence);
 
     const div = document.createElement("div");
-    div.style.display = "flex";
-    div.style.flexWrap = "wrap";
+    
+    div.classList.add("r-q-i")
     if(frame.vertical){
         div.style.flexDirection = "column"
     }

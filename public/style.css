@@ -1,3 +1,21 @@
+*{
+    box-sizing:border-box;
+    outline: none;
+}
+:root{
+    --color-blue:#0083f8;
+    --color-write:#fff;
+    --color-red:#c60000;
+    --color-poll-blue:#00abee5e;
+    --color-branco:#fff;
+    --color-grey:#c7c7c7;;
+}
+.r-w-t h2,
+.r-w h3
+{
+    margin: 0 !important;
+}
+
 /* Estilize o painel */
 .box-panel {
     display: none;
@@ -33,6 +51,7 @@
 .content-panel pre {
     margin:0;
     padding-top: 50px;
+    padding-bottom: 50px;
 }
 /* Estilize o título do painel */
 .panel h2 {
@@ -51,6 +70,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   color: #ffffff;
+  padding-bottom:60px
 }
 .panel input {
     bottom: 0;
@@ -65,23 +85,6 @@
     color: #ffffff;
     border: 1px solid #dbdbdb;
 }
-*{
-    box-sizing:border-box;
-    outline: none;
-}
-:root{
-    --color-blue:#0083f8;
-    --color-write:#fff;
-    --color-red:#c60000;
-    --color-poll-blue:#00abee5e;
-    --color-branco:#fff;
-    --border-color-grey:#c7c7c7;;
-}
-h3,
-h2{
-    margin: 0;
-    font-weight: bold;
-}
 /* Console */
 .r-c {
     width: 250px;
@@ -90,7 +93,10 @@ h2{
 /* inputs */
 .r-i-control{
     border-radius: 2px;
-    border:1px solid var(--border-color-grey);
+    border:1px solid var(--color-grey);
+}
+.r-i-control:focus-within{
+    border-bottom: 2px solid #022940;
 }
 /* Firefox */
 .r-i-control[type=number] {
@@ -107,14 +113,12 @@ h2{
     font-weight: bold;
 }
 .r-t-f{
-    font-size: 1.25rem;
-    background-color: #00202a;
+    font-size: 1.2rem;
+    background-color: #00354a;
     color: #fff;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 2px;
     padding-left: 5px;
-    font-weight: bold;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
 }
 /*Frames*/
 .r-q-b{
@@ -129,10 +133,16 @@ h2{
 }
 .r-q-b,
 .r-q-l{
-    border: 0.5px solid #919191;
+    border: 1px solid #00354a;
     border-radius: 5px;
-    margin-bottom: 30px;
-    box-shadow: 0px 0px 2px 0px #919191;
+    margin-bottom: 40px;
+    box-shadow: 0px 0px 4px 0px #00354a;
+}
+.r-q-i{
+    display: flex; 
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .r-q-b .r-g-i-i{
     margin-left: 10px ;
@@ -202,6 +212,9 @@ h2{
     cursor: pointer;
     border: 0.5px solid #dbdada;
 }
+.r-b-i:active{
+    opacity: 50%;
+}
 
 *::-webkit-scrollbar {
     width: 8px;
@@ -221,4 +234,5 @@ h2{
 }
 textarea {
     resize: none;
+    border:1px solid var(--color-grey);
 }
