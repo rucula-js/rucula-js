@@ -5,7 +5,7 @@ jobs:
   Deploy-Mkdocs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: 'rucula-js/rucula-js.github.io'
-          ref: 'main'
+      - uses: actions/setup-python@v4.7.0
+      - run: pip install mkdocs
+      - run: mkdocs new my-project
+      - run: cd my-project
