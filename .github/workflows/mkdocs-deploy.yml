@@ -1,0 +1,10 @@
+name: deploy documentação
+run-name: manutenção do site
+on: [push]
+jobs:
+  Deploy-Mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4.7.0
+      - run: python --version
