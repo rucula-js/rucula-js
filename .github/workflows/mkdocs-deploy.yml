@@ -7,5 +7,4 @@ jobs:
     steps:
       - uses: actions/setup-python@v4.7.0
       - run: pip install mkdocs
-      - run: mkdocs new my-project
-      - run: cd my-project
+      - run: ls -la
