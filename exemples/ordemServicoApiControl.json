@@ -82,44 +82,6 @@
                 "disable":false,
                 "sequence":6,
                 "id":"1565170"
-             },
-             {
-                "propertDto":"observacoes",
-                "description":"Observações",
-                "information":"",
-                "type":"textarea",
-                "textarea":{
-                   "rows":5,
-                   "cols":150
-                },
-                "maxLength":500,
-                "width":150,
-                "max":0,
-                "min":0,
-                "requerid":true,
-                "disable":false,
-                "sequence":6,
-                "id":"1565170",
-                "value":"Observação 1"
-             },
-             {
-                "propertDto":"observacoesCliente",
-                "description":"Observações Cliente",
-                "information":"",
-                "type":"textarea",
-                "textarea":{
-                   "rows":5,
-                   "cols":150
-                },
-                "maxLength":500,
-                "width":150,
-                "max":0,
-                "min":0,
-                "requerid":true,
-                "disable":false,
-                "sequence":6,
-                "id":"1565170",
-                "value":"Observação 2"
              }
           ],
           "id":"981981"
@@ -519,7 +481,7 @@
           "target":"",
           "urlrelative":"",
           "id":"er43",
-          "params":"nome=os.nome"
+          "params":"codigo=ordemDeServico.codigo"
        }
     ],
     "joinChield":[

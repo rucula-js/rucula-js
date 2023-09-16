@@ -1,0 +1,17 @@
+site_name: rucula-js
+nav:
+  - Home: index.md
+  - Guia de Instalação: instalacao.md 
+  - Guia do Usuario: 
+    - Projeto hello word: crud.md 
+    - Criando Botões e Eventos: botoes.md
+    - Trabalhando com Atalhos: Atalhos.md
+  - Guia do Desenvolvedor:
+    - Estilo: style.md
+
+theme:
+  name: material
+  
+extra_css:
+  - ./css/extra-style.css
+
