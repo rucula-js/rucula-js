@@ -9,6 +9,6 @@ jobs:
       - uses: actions/setup-python@v4.7.0
       - run: pip install mkdocs
       - run: cd ./docs
-      - run: mkdocs build
+      - run: la -la
 
       
