@@ -7,8 +7,6 @@ jobs:
     steps:
       - run: "Esse é o repositório atual: ${{ github.repository }}"
       - uses: actions/checkout@v4.0.0
-      - run: "Esse é o repositório atual: ${{ github.repository }}"
-      - uses: actions/checkout@v4.0.0
         with:
          repository: '/rucula-js/rucula-js.github.io'
       - run: "Agora mudou para: ${{ github.repository }}"
