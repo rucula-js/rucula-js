@@ -4,11 +4,12 @@ on: [push]
 jobs:
   Deploy-Mkdocs:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4.0.0
       - uses: actions/setup-python@v4.7.0
       - run: pip install mkdocs
-      - working-directory: ./app  
+      - working-directory: ./docs  
       - run: ls -la
 
       
