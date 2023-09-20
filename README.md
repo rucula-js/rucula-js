@@ -5,7 +5,7 @@
   Uma biblioteca Javascript desenvolvida para criar interfaces de usuário padronizadas e com maior produtividade  
 </p>
 <p align="center">
-  Sua documentação pode ser encontrada <a href="">Aqui💡</a> 
+  Sua documentação pode ser encontrada <a href="http://rucula-js.github.io/">Aqui💡</a> 
 </p>
 
 <p align="center" >
