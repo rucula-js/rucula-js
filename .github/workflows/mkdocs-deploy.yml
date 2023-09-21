@@ -13,5 +13,10 @@ jobs:
 
       - run: mkdocs build
         working-directory: docs
+      - uses: actions/upload-artifact@v2
+      - with:
+          name: docs
+          path: ./docs/site/
+
 
       
