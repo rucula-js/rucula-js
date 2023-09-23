@@ -7,6 +7,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4.0.0
+      
       - uses: actions/setup-python@v4.7.0
       - run: pip install mkdocs  
       - run: pip install mkdocs-material
@@ -25,7 +26,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docs
+      - run: git push origin
+        
           
-      - run: ls -R
-        #working-directory: docs/teste/doc
-      
