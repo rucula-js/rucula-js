@@ -1,6 +1,8 @@
 name: deploy documentação
 run-name: manutenção do site
 on: [push]
+permissions:
+  contents: write
 jobs:
   Deploy-Mkdocs:
     runs-on: ubuntu-latest
