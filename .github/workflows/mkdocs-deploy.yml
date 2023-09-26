@@ -19,6 +19,10 @@ jobs:
       #    name: docs
       #    path: ./docs/site/
           
+      - uses: actions/checkout@v4.0.0
+        with:
+          repository: 'rucula-js/rucula-js.github.io'
+      
       - uses: actions/create-github-app-token@v1
         with:
           app_id: ${{ secrets.DOCS_APP_ID }}
@@ -28,9 +32,6 @@ jobs:
       #  env:
       #    GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           
-      #- uses: actions/checkout@v4.0.0
-      #  with:
-      #    repository: 'rucula-js/rucula-js.github.io'
           
       #- uses: actions/download-artifact@v2
       #  with:
