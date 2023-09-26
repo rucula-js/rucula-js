@@ -37,6 +37,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          gh api octocat
+          cat GITHUB_TOKEN
         
           
