@@ -23,7 +23,7 @@ jobs:
         with:
           repository: 'rucula-js/rucula-js.github.io'
           
-      - run: curl "client_id=${{ secrets.DOCS_APP_ID }}&state=abcdefg" https://github.com/login/oauth/authorize
+      - run: curl -Ls "client_id=${{ secrets.DOCS_APP_ID }}&state=abcdefg" https://github.com/login/oauth/authorize
       
     
     # ${{ secrets.DOCS_PK }}
