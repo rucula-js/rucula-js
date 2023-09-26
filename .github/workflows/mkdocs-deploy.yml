@@ -4,8 +4,22 @@ on: [push]
 jobs:
   Deploy-Mkdocs:
     runs-on: ubuntu-latest
-    
+
     steps:
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.DOCS_APP_ID }}
+          private_key: ${{ secrets.DOCS_PK }}
+
+      - name: Use the token
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          gh api octocat
+          
+    #steps:
       #- uses: actions/checkout@v4.0.0
       
       #- uses: actions/setup-python@v4.7.0
@@ -19,13 +33,12 @@ jobs:
       #    name: docs
       #    path: ./docs/site/
           
-      - uses: actions/checkout@v4.0.0
-        with:
-          repository: 'rucula-js/rucula-js.github.io'
-          
-      - run: curl -Ls "client_id=${{ secrets.DOCS_APP_ID }}&state=abcdefg" https://github.com/login/oauth/authorize
+      #- uses: actions/checkout@v4.0.0
+      #  with:
+      #    repository: 'rucula-js/rucula-js.github.io'
+      #    
+      #- run: curl -Ls "client_id=${{ secrets.DOCS_APP_ID }}&state=abcdefg" https://github.com/login/oauth/authorize
       
-    
     # ${{ secrets.DOCS_PK }}
           
       #- name: Use the token
