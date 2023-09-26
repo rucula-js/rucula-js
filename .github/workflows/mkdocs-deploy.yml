@@ -20,10 +20,6 @@ jobs:
         with:
           name: docs
           path: ./docs/site/
-
-      - uses: actions/checkout@v4.0.0
-        with:
-          repository: 'rucula-js/rucula-js.github.io'
           
       - uses: actions/download-artifact@v2
         with:
@@ -36,7 +32,9 @@ jobs:
       - name: Use the token
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          cat GITHUB_TOKEN
-        
+          
+      - uses: actions/checkout@v4.0.0
+        with:
+          repository: 'rucula-js/rucula-js.github.io'
+          
           
