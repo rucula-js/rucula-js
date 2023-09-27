@@ -34,18 +34,21 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docs
-
-      - name: Commit files
-        run: |
-         git config --local user.email "teste.gmail.com"
-         git config --local user.name "github-actions[bot]"
-         git add .
-         git commit -m "commmit automatic"
-
-      - run: echo ${{ github.ref }}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - run: cat $GITHUB_REPOSITORY
+      - uses: EndBug/add-and-commit@v9
         with:
-          github_token: ${{ steps.generate_token.outputs.token }}
+          push: true
+
+
+
+
+
+
+
+
+
+
+
+      
 
         
