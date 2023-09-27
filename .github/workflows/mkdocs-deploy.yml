@@ -5,6 +5,18 @@ jobs:
   Deploy-Mkdocs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4.0.0
+      - uses: actions/setup-python@v4.7.0
+      - run: pip install mkdocs  
+      - run: pip install mkdocs-material
+      - run: mkdocs build
+        working-directory: docs
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: ./docs/site/
+          
       - name: Generate a token
         id: generate_token  
         uses: actions/create-github-app-token@v1
@@ -18,31 +30,11 @@ jobs:
         with:
           repository: 'rucula-js/rucula-js.github.io'
           persist-credentials: false
-      #- uses: actions/setup-python@v4.7.0
-      #- run: pip install mkdocs  
-      #- run: pip install mkdocs-material
+          
+      - uses: actions/download-artifact@v2
+        with:
+          name: docs
 
-      #- run: mkdocs build
-      #  working-directory: docs
-      #- uses: actions/upload-artifact@v2
-      #  with:
-      #    name: docs
-      #    path: ./docs/site/
-          
-      #- uses: actions/checkout@v4.0.0
-      #  with:
-      #    repository: 'rucula-js/rucula-js.github.io'
-      #    
-      #- run: curl -Ls "client_id=${{ secrets.DOCS_APP_ID }}&state=abcdefg" https://github.com/login/oauth/authorize
-      
-    # ${{ secrets.DOCS_PK }}
-          
-      #- name: Use the token
-      #  env:
-      #    GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          
-          
-      #- uses: actions/download-artifact@v2
-      #  with:
-      #    name: docs
+      - run: git add .
+      - run: git commit -m "commit actions"
       
