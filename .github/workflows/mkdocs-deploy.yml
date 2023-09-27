@@ -11,7 +11,8 @@ jobs:
         with:
           app_id: ${{ secrets.DOCS_APP_ID }}
           private_key: ${{ secrets.DOCS_PK }}
-          
+        env:
+          GITHUB_REPOSITORY: 'rucula-js/rucula-js.github.io'
       #- name: Use the token
       #  env:
       #    GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
