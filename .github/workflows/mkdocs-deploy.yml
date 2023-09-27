@@ -7,9 +7,10 @@ jobs:
     
 
     steps:
-      - run: ${{ github.GITHUB_REPOSITORY }}='rucula-js/rucula-js.github.io'
       - name: Generate a token
         id: generate_token  
+        env:
+          GITHUB_API_URL: https://api.github.com/repos/rucula-js/rucula-js.github.io/installation
         uses: actions/create-github-app-token@v1
         with:
           app_id: ${{ secrets.DOCS_APP_ID }}
