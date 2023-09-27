@@ -28,8 +28,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         with:
-          repository: 'rucula-js/rucula-js.github.io'
+          repository: rucula-js/rucula-js.github.io
           persist-credentials: false
+          token: $GITHUB_TOKEN
           
       - uses: actions/download-artifact@v2
         with:
