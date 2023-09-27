@@ -41,9 +41,12 @@ jobs:
          git config --local user.name "github-actions[bot]"
          git add .
          git commit -m "commmit automatic"
-      
+
+      - run: echo ${{ github.ref }}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ steps.generate_token.outputs.token }}
           branch: ${{ github.ref }}
+
+        
