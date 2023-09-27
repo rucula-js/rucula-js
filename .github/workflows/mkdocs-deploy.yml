@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Generate a token
         id: generate_token  
+        uses: actions/create-github-app-token@v1
         env:
           GITHUB_REPOSITORY: 'rucula-js/rucula-js.github.io'
-        uses: actions/create-github-app-token@v1
         with:
           app_id: ${{ secrets.DOCS_APP_ID }}
           private_key: ${{ secrets.DOCS_PK }}
