@@ -35,20 +35,4 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docs
-      - uses: EndBug/add-and-commit@v9
-        with:
-          push: true
-
-
-
-
-
-
-
-
-
-
-
-      
-
-        
+      - run: ls -R
