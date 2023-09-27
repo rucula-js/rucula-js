@@ -35,9 +35,10 @@ jobs:
         with:
           name: docs
 
-      - run: ls -R
-      #- run: git add .
-      #- run: git config --global user.email "you@example.com"
-      #- run: git config --global user.name "Your Name"
-      #- run: git commit -m "commit actions"
+      - run: git config --global user.email "you@example.com"
+      - run: git config --global user.name "Your Name"
+      - run: git status
+      - run: git add .
+      - run: git status
+      - run: git commit -m "commit actions"
       
