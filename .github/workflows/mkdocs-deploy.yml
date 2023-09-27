@@ -39,6 +39,6 @@ jobs:
       - run: git config --global user.name "Your Name"
       - run: git status
       - run: git add .
-      - run: git status
       - run: git commit -m "commit actions"
+      - run: git push
       
