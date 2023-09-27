@@ -4,15 +4,17 @@ on: [push]
 jobs:
   Deploy-Mkdocs:
     runs-on: ubuntu-latest
+    
 
     steps:
+      - run: ${{ github.GITHUB_REPOSITORY }}='rucula-js/rucula-js.github.io'
       - name: Generate a token
-        id: generate_token
+        id: generate_token  
         uses: actions/create-github-app-token@v1
         with:
           app_id: ${{ secrets.DOCS_APP_ID }}
           private_key: ${{ secrets.DOCS_PK }}
-
+          
       - name: Use the token
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
