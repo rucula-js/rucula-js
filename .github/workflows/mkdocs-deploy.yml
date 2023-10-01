@@ -37,6 +37,7 @@ jobs:
           name: docs
       - run: git remote set-url origin https://${{ secrets.USER }}:${{ secrets.SECRET_UTK }}@github.com/rucula-js/rucula-js.github.io.git
       - run: git push
+      
 
 
 
