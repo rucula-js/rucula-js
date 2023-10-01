@@ -98,10 +98,10 @@ O rucula funciona em três níveis, cada nivel representa um etapa e o limite do
  }
 ```
 
-**2° Nivel**
+**3° Nivel**
 <img src="./assets/2023-09-15 23-40-52.png" style="width:100%;">
 
-**3° Nivel**
+**4° Nivel**
 
 ```json
 {
