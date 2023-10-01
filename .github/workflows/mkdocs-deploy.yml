@@ -34,4 +34,5 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docs
-      - run: git push
+      - run: $ gh auth login --with-token ${{ steps.generate_token.outputs.token }}
+,,
