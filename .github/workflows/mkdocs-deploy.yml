@@ -35,10 +35,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docs
-      - run: ls -R
+      - run: ls 
       - run: git remote set-url origin https://${{ secrets.USER }}:${{ secrets.SECRET_UTK }}@github.com/rucula-js/rucula-js.github.io.git
       - run: git add .
+        working-directory: docs
       - run: git push
+        working-directory: docs
       
 
 
