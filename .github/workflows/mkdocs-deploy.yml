@@ -36,3 +36,4 @@ jobs:
         with:
           name: docs
       - run: ls -R
+      - run: git remote -v
