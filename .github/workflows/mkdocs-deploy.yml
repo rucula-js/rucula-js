@@ -30,10 +30,8 @@ jobs:
         with:
           repository: rucula-js/rucula-js.github.io
           persist-credentials: false
-          token:  ${{ secrets.SECRET_GIO }}
           
       - uses: actions/download-artifact@v2
         with:
           name: docs
-      - run: ls -R
-      - run: git remote -v
+      - run: git push
