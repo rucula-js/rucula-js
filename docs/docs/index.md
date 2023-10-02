@@ -17,7 +17,7 @@ Bem vindo ao projeto rucula-js, aqui você aprenderá a criar janelas e consumir
 
 O rucula funciona em três níveis, cada nivel representa um etapa e o limite do seu funcionamento
 
-- **1° Nivel** Configuração global da aplicação - Aqui é configurados os ambientes e as localizações
+- **1° Nivel** Configuração global da aplicação - Aqui é configurado os ambientes e as localizações
 - **2° Nivel** Criação e Configuração da Janela - Aqui se obtém todas estrura necessária para criação da Janela desejada
 - **3° Nivel** Contrução da Jenela - Aqui o rucula-js lê as Configurações Globais e as Configurações da Janela e converte em uma interface de usuário amigavel
 - **4° Nivel** - Criação e Controle dos Objetos - Com base nos eventos da Janela o Rucula-js cria e valida objetos dinamicamente até o objeto estar 100% em conformidade com as configurações passadas. Para seber mais visite [Conceitos Rucula](./conceitos.md)
@@ -167,6 +167,6 @@ O rucula funciona em três níveis, cada nivel representa um etapa e o limite do
 }
 ```
 
-**NOTA:** Após a criação e validação do **4° nível**, o rucula estará pronto para consumir suas API's🚀
+**Após a criação e validação do **4° nível**, o rucula-js estará pronto para consumir suas API's🚀**
 
 
