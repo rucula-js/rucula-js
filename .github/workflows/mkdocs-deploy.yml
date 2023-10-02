@@ -6,10 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.0.0
-      - uses: actions/setup-python@v4.7.0
-      - run: pip install mkdocs  
-      - run: pip install mkdocs-material
-      - run: mkdocs build
+
+      - name: setup python
+        uses: actions/setup-python@v4.7.0
+      
+      - name: install mkdocs
+        run: |
+          pip install mkdocs  
+          pip install mkdocs-material
+          
+      - name: build mkdocs
+        run: mkdocs build
         working-directory: docs
         
       - uses: actions/upload-artifact@v2
@@ -36,21 +43,9 @@ jobs:
         with:
           name: docs
       - run: |
-           git config --global user.email "you@example.com"
-           git config --global user.name "Your Name"
-      - run: git remote set-url origin https://${{ secrets.USER }}:${{ secrets.SECRET_UTK }}@github.com/rucula-js/rucula-js.github.io.git
-      - run: git status
-      - run: git add .
-      - run: git commit -m "automatic"
-      - run: git push
-      
-
-
-
-
-
-
-
-
-
-      
+          git config --global user.email "automatic-action@automatic.com"
+          git config --global user.name "automatic-action" 
+          git remote set-url origin https://${{ secrets.USER }}:${{ secrets.SECRET_UTK }}@github.com/rucula-js/rucula-js.github.io.git
+          git add .
+          git commit -m "automatic actions "
+          git push
