@@ -8,11 +8,6 @@
   Sua documentação pode ser encontrada <a href="http://rucula-js.github.io/">Aqui💡</a> 
 </p>
 
-<p align="center" >
-  <img src="https://github.com/reginaldo-marinho/rucula-js/blob/main/docs/assets/Screenshot%20from%202023-07-27%2023-48-57.png?raw=true" style="width:100%">
-</p>
-
-
 ###  O Rucula-Js 
 
 - ✅ Renderiza a interface de usuário imediatamente 
@@ -27,16 +22,9 @@
 ### Por que esse Projeto?
 Esse projeto tem como objetivo a criação de UI's e consumo de API's de uma forma bem mais rápida e mais segura. Aqui você só se preocupa com o que é mais importante, as características que são triviais para o desenvolvimento de telas.
 
-### Versões
-Esse projeto encontra-se em uma versão inicial 0.0.xxxx, logo devemos nos atentar que ele é um projeto em fase de testes
-
 ### Configuração
 
 ## NPM 
 ```
 npm i @reginaldo-marinho/rucula-js
 ```
-
-|Contribuidores|
-|-|
-|<img src="https://avatars.githubusercontent.com/u/60780631?v=4" style="width:50px;">|
