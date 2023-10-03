@@ -11,7 +11,7 @@ date: 2023-09-15
   <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
 
-Bem vindo ao projeto rucula-js, aqui você aprenderá a criar janelas e consumir API's Rest de uma forma mais rápida e mais consistente.  Esqueça o problema de ter que se preucupar em validar campos, efetuar cálculos matemáticos, criar e mapear objetos do tipo array e por ultimo o mais redundante, criar div's e mais div's para representar formularios que estão passiveis de erros e de falta de padronização.
+**Bem vindo ao projeto rucula-js, aqui você aprenderá a criar janelas e consumir API's Rest de uma forma mais rápida e mais consistente.  Esqueça o problema de ter que se preucupar em validar campos, efetuar cálculos matemáticos, criar e mapear objetos do tipo array e por ultimo o mais redundante, criar div's e mais div's para representar formularios que estão passiveis de erros e de falta de padronização.**
 
 ## Os Níveis de Atuação do Rucula-js
 
