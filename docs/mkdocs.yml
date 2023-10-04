@@ -1,7 +1,7 @@
 site_name: rucula-js
 nav:
   - Home: index.md
-  - Guia de Instalação: instalacao.md 
+  - Configuração: configuracao.md 
   - Guia do Usuario: 
     - Projeto hello word: crud.md 
     - Criando Botões e Eventos: botoes.md
