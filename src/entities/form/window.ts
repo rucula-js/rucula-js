@@ -5,10 +5,12 @@ import { frame } from "./frame";
 
 export interface window{
     name:string;
-    type:string,
-    pathController:string
-    urlGetAll:string
-    urlGetId: string
+    type:string;
+    messageHome:string;
+    iconHome:string;
+    pathController:string;
+    urlGetAll:string;
+    urlGetId: string;
     frames:Array<frame>
     columns:columnsGridjs[]
     button:button[]
