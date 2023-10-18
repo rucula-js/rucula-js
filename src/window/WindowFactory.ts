@@ -10,27 +10,26 @@ import { setWindow } from './Window';
 import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
-import { createWindowBase } from '../elements/window-base/WindowBase';
-import { createTitle } from '../elements/form/Title';
+import { clearContainer, createComponentCreateOrEdit, createWindowBase } from '../elements/window-base/WindowBase';
 
 'use strict';
 let _form:HTMLFormElement
+let _windowConfiguration:window;
 
 export function createWindow(windowConfiguration:window,id:string = 'rucula-js'){
     
+    _windowConfiguration = windowConfiguration;
     var window = document.getElementById(id);
     window?.appendChild(consoleUi.createPanel())
-    window?.appendChild(createTitle(windowConfiguration.name))
     createWindowBase(id);
-    _form = document.getElementById("form-rucula-js") as HTMLFormElement; 
-    _form.classList.add('r-f');
-    createTableDependency(windowConfiguration.frames!)
-    joinChield(windowConfiguration.joinChield)  
-    createObject(windowConfiguration.frames)
-    setWindow(windowConfiguration);
-    createFrames(windowConfiguration.frames)
-    setUrlrelativeInButtons(windowConfiguration.button)
-    createButtons(windowConfiguration.button)
+    createHome();
+    (window?.querySelector(".r-w-t") as HTMLElement).innerHTML = _windowConfiguration.name
+    createTableDependency(_windowConfiguration.frames!)
+    joinChield(_windowConfiguration.joinChield)  
+    createObject(_windowConfiguration.frames)
+    setWindow(_windowConfiguration);
+    prepareEventsDefatult()
+    setUrlrelativeInButtons(_windowConfiguration.button)
     hiddenPopper()
     consoleUi.set() 
 }
@@ -50,7 +49,25 @@ function createFrames(frames:frame[]){
     }
   })
 }
+
+function prepareEventsDefatult(){
+  let newDocument = document.getElementById("r-a-new")
+  newDocument?.addEventListener("click", () => {
+    createComponentCreateOrEdit()
+    _form = document.getElementById("form-rucula-js") as HTMLFormElement; 
+    createFrames(_windowConfiguration.frames)
+    createButtons(_windowConfiguration.button)
+
+    let cancel = document.getElementById("r-a-cancel")
+    cancel?.addEventListener("click", () => {
+      clearContainer()
+      createHome()
+    })
+  })  
+
+}
 function createButtons(buttons:button[],type:string="CRUD"){
+
     if(type == "CRUD"){
         prepareButtons(buttons)
     }
@@ -60,5 +77,17 @@ function setUrlrelativeInButtons(buttons:button[],pathController:string = ""){
     buttons.map(b => {
         if(b.urlrelative == null || b.urlrelative == "") b.urlrelative = pathController;
     })
+}
+
+function createHome(){
+    if(_windowConfiguration?.iconHome){
+      let icon = document.getElementById("r-f-home-icon")
+      icon?.classList.add(_windowConfiguration.iconHome)
+    }
+
+    if(_windowConfiguration?.messageHome){
+      let title = document.getElementById("r-f-home-title")
+      title!.textContent = _windowConfiguration?.messageHome
+    }
 }
 
