@@ -11,6 +11,7 @@ import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
 import { clearContainer, createComponentCreateOrEdit, createWindowBase } from '../elements/window-base/WindowBase';
+import {TabulatorFull as Tabulator} from 'tabulator-tables';
 
 'use strict';
 let _form:HTMLFormElement
@@ -22,6 +23,60 @@ export function createWindow(windowConfiguration:window,id:string = 'rucula-js')
     var window = document.getElementById(id);
     window?.appendChild(consoleUi.createPanel())
     createWindowBase(id);
+
+    var tableData = [
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary Mayxaaxaxxxxxxxxxxxxxxxx",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      {id:1, name:"Billy Bob", data:"2020-01-02"},
+      {id:2, name:"Mary May",data:"2029-09-09"},
+      
+  ]
+
+    var table = new Tabulator("#w-grid",{
+      layout:"fitColumns",
+      data:tableData,
+      pagination:true, 
+      columns:[
+      {title:"Código Os", field:"name"},
+      {title:"Data", field:"data"}],
+    });
+
+    table.on("rowClick", function(e, row){
+  });
+
+
     createHome();
     (window?.querySelector(".r-w-t") as HTMLElement).innerHTML = _windowConfiguration.name
     createTableDependency(_windowConfiguration.frames!)

@@ -4,7 +4,7 @@
     "urlGetAll":"",
     "urlGetId":"",
     "type":"crud",
-    "messageHome":"Olá Mundo",
+    "messageHome":"Ordem de Serviço",
     "iconHome":"bi-rocket-takeoff",
     "frames":[
        {
