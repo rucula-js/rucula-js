@@ -85,7 +85,6 @@ export function createComponentCreateOrEdit(){
 export function createComponentDetails(){
     const  DETAILS =  
         `<div class="r-f-datail">
-            
             <div class="form">
             </div>
         </div>`

@@ -11,7 +11,7 @@ import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
 import { clearContainer, createComponentCreateOrEdit, createWindowBase } from '../elements/window-base/WindowBase';
-import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import { createLeftGrid } from '../tabulator/Tabulator';
 
 'use strict';
 let _form:HTMLFormElement
@@ -23,61 +23,8 @@ export function createWindow(windowConfiguration:window,id:string = 'rucula-js')
     var window = document.getElementById(id);
     window?.appendChild(consoleUi.createPanel())
     createWindowBase(id);
-
-    var tableData = [
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary Mayxaaxaxxxxxxxxxxxxxxxx",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      {id:1, name:"Billy Bob", data:"2020-01-02"},
-      {id:2, name:"Mary May",data:"2029-09-09"},
-      
-  ]
-
-    var table = new Tabulator("#w-grid",{
-      layout:"fitColumns",
-      data:tableData,
-      pagination:true, 
-      columns:[
-      {title:"Código Os", field:"name"},
-      {title:"Data", field:"data"}],
-    });
-
-    table.on("rowClick", function(e, row){
-  });
-
-
     createHome();
+    createLeftGrid();
     (window?.querySelector(".r-w-t") as HTMLElement).innerHTML = _windowConfiguration.name
     createTableDependency(_windowConfiguration.frames!)
     joinChield(_windowConfiguration.joinChield)  
@@ -90,17 +37,15 @@ export function createWindow(windowConfiguration:window,id:string = 'rucula-js')
 }
 function createFrames(frames:frame[]){
     frames?.forEach(frame => {
-    switch (frame.type) {
-      case 'block':
-        const block = createFrameBlock(frame)
-        _form.appendChild(block)
-        break;
-      case 'line':
-        const line = createFrameLine(frame)
-        _form.appendChild(line)
-          break;
-      default:
-        throw new Error(`Frame type "${frame.type}" is not allowed`); 
+    
+    if(frame.type == 'block'){
+      const block = createFrameBlock(frame)
+      _form.appendChild(block)
+    }
+    else
+    if(frame.type == 'line'){
+      const line = createFrameLine(frame)
+      _form.appendChild(line)
     }
   })
 }

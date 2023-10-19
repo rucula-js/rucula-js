@@ -163,6 +163,7 @@
     border-spacing: 0;
     padding-bottom:5px;
     margin-left: 10px;
+    margin-top: 10px;
 }
 .f-t-line th,.f-t-line td{
     border: 1px solid #ddd;
@@ -173,7 +174,7 @@
 .f-t-line th{
     position: sticky;
     top: 0;
-    background-color: #022940;
+    background-color: var(--color-green-primary);
     padding-top: 5px ;
     padding-bottom: 5px ;
     color: var(--color-write);
@@ -189,6 +190,10 @@
 .f-t-line td{
     margin-left: 5px;
     margin-right: 5px;
+}
+.f-t-line thead {
+    border-radius: 10px;
+
 }
 /* Window */
 .r-f { 
@@ -222,14 +227,14 @@
 }
 
 *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
 } 
 *::-webkit-scrollbar-track {
     background: inherit
 }  
 *::-webkit-scrollbar-thumb {
-    background-color:#022940;
+    background-color:#0c0c0c;
     border-radius: 20px;    
 }
 .r-i-control::-webkit-outer-spin-button,
@@ -245,6 +250,7 @@ textarea {
 .r-act{
     width: 500px;
     max-width: 500px;
+    border-right: 1px solid #978282
 }
 .r-head{
     height: var(--heigth-read);
@@ -304,18 +310,18 @@ textarea {
     background-color: var(--color-green-primary);
     border-radius: 50px;
     padding: 15px;
+    margin-bottom: 10px;
 }
 .r-f-home i {
     font-size: 60px;
 }
-
 
 .searh-items-grid {
     display: flex;
     justify-content: space-between;
     width: 96%;
     border-radius: 20px;
-    border: 2px solid;
+    border: 2px solid var(--color-green-secundary);
     margin:auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -354,6 +360,7 @@ textarea {
     margin: auto;
     height: calc(100% - 100px);
 }
+
 .tabulator .tabulator-header .tabulator-col,
 .tabulator .tabulator-footer .tabulator-footer-contents {
     background-color: var(--color-green-secundary);
@@ -361,6 +368,8 @@ textarea {
 }
 .tabulator-row .tabulator-cell{
     border-right: 1px solid #e7e7e7;
+    padding: auto;
+    margin: 0;
 }
 .tabulator .tabulator-header .tabulator-col{
     border-right: 1px solid transparent;
@@ -368,11 +377,16 @@ textarea {
 
 .tabulator .tabulator-footer .tabulator-page{
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     color: var(--color-write);
 }
 
 .tabulator-row.tabulator-selectable:hover {
     background-color: var(--color-green-secundary);
         cursor: pointer;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
+    cursor: pointer;
+    background-color: var(--color-green-primary);
 }
