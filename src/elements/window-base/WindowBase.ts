@@ -48,8 +48,8 @@ function componentActions(){
                 <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
             </div>
             <div class="searh-items-grid">
+            <button><i class="bi bi-search"></i></button>
                 <input type="text"/>
-                <button><i class="bi bi-search"></i></button>
             </div>
             <div class="r-act-grid" id="w-grid">
             </div>
