@@ -16,6 +16,11 @@ export function createWindowBase(id:string){
     div?.appendChild(window);
 }
 
+export function createNameWindow(name:string){
+    let window = document.querySelector(".r-w-t") as HTMLElement
+    window.innerHTML = name
+}
+
 function container(){
     
     const CONTAINER_FORM = 
@@ -39,6 +44,7 @@ export function clearContainer(){
 }
 
 function componentActions(){
+
     const ACTIONS = 
         `<div class="r-act">
             <div class="r-act-opt r-head" id="w-title">
@@ -54,10 +60,12 @@ function componentActions(){
             <div class="r-act-grid" id="w-grid">
             </div>
         </div>` 
+
     return ACTIONS;
 }
 
 export function createComponentCreateOrEdit(){
+
     const CREATE_OR_EDIT =  
     `<div autocomplete="off" class="r-f">
         <div class="r-head r-read-new">
@@ -78,11 +86,13 @@ export function createComponentCreateOrEdit(){
         <div class="r-f-items" id="form-rucula-js">
         </div>
     </div>`
+
     let container = document.getElementById("container-r-f") as HTMLDivElement
     container.innerHTML = CREATE_OR_EDIT;
 }
 
 export function createComponentDetails(){
+    
     const  DETAILS =  
         `<div class="r-f-datail">
             <div class="form">

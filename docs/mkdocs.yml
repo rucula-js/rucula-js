@@ -12,7 +12,6 @@ nav:
     - Criando Botões e Eventos: botoes.md
     - Trabalhando com Atalhos: Atalhos.md
   - Guia do Desenvolvedor:
-    - Estilo: style.md
 
 theme:
   name: material

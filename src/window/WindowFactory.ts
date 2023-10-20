@@ -5,29 +5,32 @@ import { prepareButtons } from '../buttons/Button';
 import { eventButton } from '../buttons/EventButton';
 import * as consoleUi  from '../console/Console'
 import {createTableDependency}  from '../table-dependency/TableDependency';
-import {createObject,joinChield} from '../object/ObjectManagment';
+import {createObject,setJoinChield} from '../object/ObjectManagment';
 import { setWindow } from './Window';
 import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
-import { clearContainer, createComponentCreateOrEdit, createWindowBase } from '../elements/window-base/WindowBase';
+import { clearContainer, createComponentCreateOrEdit, createWindowBase, createNameWindow } from '../elements/window-base/WindowBase';
 import { createLeftGrid } from '../tabulator/Tabulator';
 
 'use strict';
+
 let _form:HTMLFormElement
 let _windowConfiguration:window;
 
-export function createWindow(windowConfiguration:window,id:string = 'rucula-js'){
-    
+export function createWindow(windowConfiguration:window,idWindow:string = 'rucula-js'){
+
+    let window = document.getElementById(idWindow);
     _windowConfiguration = windowConfiguration;
-    var window = document.getElementById(id);
-    window?.appendChild(consoleUi.createPanel())
-    createWindowBase(id);
+    let panel = consoleUi.createPanel();
+
+    window?.appendChild(panel)
+    createWindowBase(idWindow);
     createHome();
     createLeftGrid();
-    (window?.querySelector(".r-w-t") as HTMLElement).innerHTML = _windowConfiguration.name
+    createNameWindow(_windowConfiguration.name)
     createTableDependency(_windowConfiguration.frames!)
-    joinChield(_windowConfiguration.joinChield)  
+    setJoinChield(_windowConfiguration.joinChield)  
     createObject(_windowConfiguration.frames)
     setWindow(_windowConfiguration);
     prepareEventsDefatult()
@@ -35,6 +38,7 @@ export function createWindow(windowConfiguration:window,id:string = 'rucula-js')
     hiddenPopper()
     consoleUi.set() 
 }
+
 function createFrames(frames:frame[]){
     frames?.forEach(frame => {
     
@@ -64,8 +68,8 @@ function prepareEventsDefatult(){
       createHome()
     })
   })  
-
 }
+
 function createButtons(buttons:button[],type:string="CRUD"){
 
     if(type == "CRUD"){
@@ -73,6 +77,7 @@ function createButtons(buttons:button[],type:string="CRUD"){
     }
     eventButton(buttons)
 }
+
 function setUrlrelativeInButtons(buttons:button[],pathController:string = ""){
     buttons.map(b => {
         if(b.urlrelative == null || b.urlrelative == "") b.urlrelative = pathController;

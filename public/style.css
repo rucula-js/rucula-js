@@ -3,6 +3,24 @@
     outline: none;
 }
 
+*::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+} 
+*::-webkit-scrollbar-track {
+    background: inherit
+}  
+*::-webkit-scrollbar-thumb {
+    background-color:#0c0c0c;
+    border-radius: 20px;    
+}
+
+.r-i-control::-webkit-outer-spin-button,
+.r-i-control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 :root{
     --color-teme-primary:#027847;
     --color-teme-secundary:#30976c;
@@ -255,24 +273,6 @@
 
 .r-b-i:active{
     opacity: 50%;
-}
-
-*::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-} 
-*::-webkit-scrollbar-track {
-    background: inherit
-}  
-*::-webkit-scrollbar-thumb {
-    background-color:#0c0c0c;
-    border-radius: 20px;    
-}
-
-.r-i-control::-webkit-outer-spin-button,
-.r-i-control::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 textarea {

@@ -104,14 +104,14 @@ function PrepareObject(){
     }
     return object[0]
 }
-function joinChield(cheilds:{key:string, value:string}[] ){
+function setJoinChield(cheilds:{key:string, value:string}[] ){
     _joinChield = cheilds; 
  }
 
 export {
     createObject,
     setPropertDto,
-    joinChield,
+    setJoinChield,
     object,
     getValuePropertTypeObject,
     deleteLine,
