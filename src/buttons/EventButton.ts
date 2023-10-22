@@ -3,6 +3,7 @@ import { button } from '../entities/form/button';
 import * as table  from '../table-dependency/TableDependency';
 import * as obj from '../object/ObjectManagment';
 import * as axios from '../axios/Axios';
+import { getEvent } from '../window/Window';
 
 export function eventButton(buttons:button[]){
     
@@ -15,7 +16,8 @@ buttons!.
             element = document.getElementById(button.target) as HTMLElement
         }
         else{
-            element = document.querySelector(`[data-id=${button.type}-${button.method}-${button.id}]`) as Element
+            let event = getEvent(button.event)
+            element = document.querySelector(`[data-id=${button.type}-${event.method}-${button.id}]`) as Element
         }
         element?.addEventListener("click", () => {
             if(table.dependenciesCount() > 0){
@@ -23,9 +25,8 @@ buttons!.
                 return;
             }
             let url = createUrl(button)
-
-            alert(url)
-            axios.ax({method:button.method,url:url,data:obj.object()})
+            let event = getEvent(button.event) 
+            axios.ax({method:event.method,url:url,data:obj.object()})
         })
     });
 }

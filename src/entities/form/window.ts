@@ -1,6 +1,7 @@
 import { button } from "./button";
 import { columnsGridGet } from "./columnsGridGet";
 import { columnsGridjs } from "./columnsGridjs";
+import { events } from "./events";
 import { frame } from "./frame";
 
 export interface window{
@@ -16,4 +17,6 @@ export interface window{
     button:button[]
     columnsGridGet:columnsGridGet[],
     joinChield:{key:string, value:string}[]
+    events:events[]
+    
 }

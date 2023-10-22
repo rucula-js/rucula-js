@@ -1,6 +1,6 @@
 {
     "name":"Ordem de Serviço",
-    "pathController":"/api/OrdemServico",
+    "pathController":"/OrdemServico",
     "urlGetAll":"",
     "urlGetId":"",
     "type":"crud",
@@ -26,7 +26,8 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":1,
-                "id":"1565165"
+                "id":"1565165",
+                "value":"12"
              },
              {
                 "propertDto":"dataAbertura",
@@ -39,7 +40,8 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":2,
-                "id":"1565166"
+                "id":"1565166",
+                "value":"2023-01-01"
              },
              {
                 "propertDto":"totalServico",
@@ -53,7 +55,8 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":3,
-                "id":"1565167"
+                "id":"1565167",
+                "value":"12"
              },
              {
                 "propertDto":"dataConclusao",
@@ -65,7 +68,8 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":5,
-                "id":"1565169"
+                "id":"1565169",
+                "value":"2023-01-01"
              },
              {
                 "propertDto":"status",
@@ -80,7 +84,8 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":6,
-                "id":"1565170"
+                "id":"1565170",
+                "value":true
              },
              {
                 "propertDto":"infIni",
@@ -90,8 +95,9 @@
                 "maxLength":20,
                 "max":0,
                 "min":0,
-                "requerid":false,
-                "sequence":6
+                "requerid":true,
+                "sequence":6,
+                "value":"12"
              }
           ],
           "id":"981981"
@@ -115,7 +121,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
             },
             {
                "propertDto":"telefone",
@@ -126,7 +133,8 @@
                "requerid":true,
                "disable":false,
                "sequence":5,
-               "id":"5616"
+               "id":"5616",
+                "value":"12"
             },
             {
                "propertDto":"email",
@@ -140,7 +148,8 @@
                "requerid":true,
                "disable":false,
                "sequence":2,
-               "id":"9849849"
+               "id":"9849849",
+                "value":"12"
             }
          ],
          "id":"981981"
@@ -164,7 +173,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
             
             },
             {
@@ -176,10 +186,11 @@
                "width":150,
                "max":0,
                "min":0,
-               "requerid":false,
+               "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
            
             },
             {
@@ -194,7 +205,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
            
             },
             {
@@ -209,7 +221,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
              
             },
             {
@@ -224,7 +237,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
            
             },
             {
@@ -239,7 +253,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
              
             },
             {
@@ -254,7 +269,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165"
+               "id":"1565165",
+                "value":"12"
              
             }
          ],
@@ -324,7 +340,8 @@
                "requerid":true,
                "disable":false,
                "sequence":4,
-               "id":"1565183"
+               "id":"1565183",
+                "value":"12"
             }
          ],
          "id":"16516"
@@ -458,19 +475,15 @@
     ],
     "button":[
        {
-          "method":"post",
-          "post":"",
-          "link":"",
-          "icon":"bi bi-save",
-          "text":"",
-          "type":"button",
-          "color":"",
-          "target":"r-a-Save",
-          "urlrelative":"",
-          "id":"8418"
+         "id":"8418",
+         "link":"",
+         "icon":"bi bi-save",
+         "text":"",
+         "type":"button",
+         "target":"r-a-save",
+         "event":"create-os"
        },
        {
-          "method":"put",
           "post":"",
           "link":"",
           "icon":"bi bi-wrench",
@@ -478,21 +491,17 @@
           "type":"button",
           "color":"",
           "target":"r-a-alter",
-          "urlrelative":"",
           "id":"8248"
        },
        {
-          "method":"delete",
-          "post":"",
           "link":"",
           "icon":"bi bi-trash3",
           "text":"",
           "type":"button",
           "color":"",
           "target":"r-a-delete",
-          "urlrelative":"",
           "id":"er43",
-          "params":"codigo=ordemDeServico.codigo"
+          "event":"delete-os"
        }     
     ],
     "joinChield":[
@@ -516,6 +525,22 @@
           "key":"ordemDeServico",
           "value":"pagamento"
        }
+    ],
+    "events":[
+      {
+         "name":"create-os",
+         "method":"post",
+         "urlrelative":"",
+         "params":"",
+         "body": ""
+      },
+      {
+         "name":"delete-os",
+         "method":"delete",
+         "urlrelative":"",
+         "params":"/{{ordemDeServico.codigo}}",
+         "body": ""
+      }
     ],
     "id":"7890q2wqq"
  }

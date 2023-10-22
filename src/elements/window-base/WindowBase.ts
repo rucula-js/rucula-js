@@ -71,7 +71,7 @@ export function createComponentCreateOrEdit(){
         <div class="r-head r-read-new">
             <button id="r-a-cancel" class="r-a-b r-a-cancel">Cancelar</button>
             <div class="r-head r-read-edit">
-                <button id="r-a-Save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
+                <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                 <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
                 <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
                 <button id="r-a-menu-vertical" class="r-a-b"><i class="bi bi-three-dots-vertical"></i></button>

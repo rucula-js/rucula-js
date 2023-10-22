@@ -14,7 +14,7 @@ function prepareButtons(button:button[]){
         })
 
     function isNotTarget(target:string){
-        return target != "r-a-Save" && target != "r-a-alter" && target != "r-a-delete"
+        return target != "r-a-save" && target != "r-a-alter" && target != "r-a-delete"
     }
 }
 function createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
