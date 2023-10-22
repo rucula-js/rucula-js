@@ -9,9 +9,10 @@ export function ax(config:Configuration)
         data: config.data,
     })
     .then(function (response) {
-        console.log(response.status);
+        
+        alert(response.statusText);
     })
     .catch(function (error) {
-        console.log(error.status);
+        alert("ERROR")
     })
 }
