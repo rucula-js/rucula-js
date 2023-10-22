@@ -6,7 +6,7 @@ import { eventButton } from '../buttons/EventButton';
 import * as consoleUi  from '../console/Console'
 import {createTableDependency}  from '../table-dependency/TableDependency';
 import {createObject,setJoinChield} from '../object/ObjectManagment';
-import { setWindow } from './Window';
+import { getEvent, setWindow } from './Window';
 import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
@@ -34,7 +34,6 @@ export function createWindow(windowConfiguration:window,idWindow:string = 'rucul
     createObject(_windowConfiguration.frames)
     setWindow(_windowConfiguration);
     prepareEventsDefatult()
-    setUrlrelativeInButtons(_windowConfiguration.button)
     hiddenPopper()
     consoleUi.set() 
 }
@@ -76,12 +75,6 @@ function createButtons(buttons:button[],type:string="CRUD"){
         prepareButtons(buttons)
     }
     eventButton(buttons)
-}
-
-function setUrlrelativeInButtons(buttons:button[],pathController:string = ""){
-    buttons.map(b => {
-        if(b.urlrelative == null || b.urlrelative == "") b.urlrelative = pathController;
-    })
 }
 
 function createHome(){
