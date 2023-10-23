@@ -26,7 +26,16 @@ buttons!.
             }
             let url = createUrl(button)
             let event = getEvent(button.event) 
-            axios.ax({method:event.method,url:url,data:obj.object()})
+            
+            let body:unknown  = {};
+
+            if(event.body === "this"){
+                body = obj.object()
+            }
+            if(event?.body?.trim().length > 0){
+               // Todo! Implementar logica para obter objeto especifico
+            }
+            axios.ax({method:event.method,url:url,data:body})
         })
     });
 }
