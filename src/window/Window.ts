@@ -1,4 +1,4 @@
-import { events } from '../entities/form/events';
+import { endPoint } from '../entities/form/endPoint';
 import { window } from '../entities/form/window';
 
 'use strict';
@@ -13,9 +13,9 @@ export function getWindow(){
     return _window;
 }
 
-export function getEvent(event:string):events{
+export function getEvent(event:string):endPoint{
 
-    let evt = _window.events.find(ev => ev.name == event)
+    let evt = _window.endPoints.find(ev => ev.name == event)
     if(evt){
         return evt;
     }
