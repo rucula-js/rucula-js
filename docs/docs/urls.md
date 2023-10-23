@@ -28,9 +28,9 @@ Durante o processo de criação de url, o ruculs-js cria a url global padrão na
 
 ## Path Controller da Janela
 
-Normalmente teremos janelas que fazem acesso um controller especifico, por exemplo, ao criar uma janela chamada `Ordem de Servico` é provável que o path de serviço utilizado pela janela seja `/OrdemServico` ou algo muito semelhante, o fato é que a janela de fato terá os serviços que utiliza dentro de `/OrdemServico`, a propriedade da janela que guarda o path controller é `pathController`.
+Normalmente teremos janelas que fazem acesso à controllers especificos, por exemplo, ao criar uma janela chamada `Ordem de Servico` é provável que o path de serviço utilizado pela janela seja `/OrdemServico` ou algo muito semelhante, o fato é que a janela de fato terá os serviços que utiliza dentro de `/OrdemServico`. A propriedade da janela que guarda o path controller é `pathController`.
 
-Para esse caso a url seria crida utilizando a url de dominio do ambiente atual, tendo o apoio do exemplo de cima, teriamos uma url completa na seguinte forma: `http://localhost:5016/OrdemServico`
+Para esse caso a url seria criada utilizando a url de dominio do ambiente atual, tendo o apoio do exemplo acima, teriamos uma url completa na seguinte forma: `http://localhost:5016/OrdemServico`
 
 
 ## Path Relativo de Maior Precedência
@@ -38,11 +38,11 @@ Para esse caso a url seria crida utilizando a url de dominio do ambiente atual, 
 
 Os path's de maior precedencia tem o mesmo comportamento do `pathController`, entretanto, o **Path Relativo de Maior Precedência**, se existir, substitui o `pathController`. Isso ocorre porque diferente do exemplo acima, existem casos em que é necessário criar url's completas que fazem sentidos para casos mais especificos, por exemplo, mantendo o foco no caso anterior da `Ordem de Servico`, poderia existir um botão chamado `ChecarSaldoCliente`. Ao se tratar do cliente, provavelmente o path da url terá algo como `/Cliente`, nesse caso, ao chamar o botão `ChecarSaldoCliente`, a url completa criada seria `http://localhost:5016/Cliente`.
 
-A proriedade representante chama-se `urlrelative`, propriedade que está presente no objeto `events`.
+A proriedade representante chama-se `urlrelative`, propriedade que está presente no objeto `endPoint`.
 
 ## Observação importante
 
-Para ambos os casos [Path Controller da Janela](PathControllerdaJanela) e [Path Relativo de Maior Precedência](PathRelativodeMaiorPrecedência), é importante entender os dois casos se complementam, por exemplo, uma janela  de **Ordem de Serviço** ultilizada `/OrdemServico` para criar, alterar, excluir, e consultar mas também pode trabalhar com quaisquer outros path, como é o caso do `ChecarSaldoCliente`
+Para ambos os casos [Path Controller da Janela](PathControllerdaJanela) e [Path Relativo de Maior Precedência](PathRelativodeMaiorPrecedência), é importante entender que os dois casos se complementam, por exemplo, uma janela  de **Ordem de Serviço** ultilizada `/OrdemServico` para criar, alterar, excluir e consultar mas também pode trabalhar com quaisquer outros path's, como é o caso do `ChecarSaldoCliente`
 
 ## Os Parametros de Url's
 
@@ -51,6 +51,9 @@ Existem casos em que as url's devem ser criadas com parametros, para esses casos
 
 Com a url quase pronta  `http://localhost:5016/OrdemServico`, podemos passar os parametros em duas formas: 
 
-- Com `?` seguido de `parametro={{objeto.nome}}`, caso tenha mais de um parametro, teriamos `parametro={{objeto.nome}}&parametro={{objeto.nome2}}`. Esse construção resultaria em algo como `?id={{orderServico.id}}`
+- `?` seguido de `parametro={{objeto.nome}}`, caso tenha mais de um parametro, teriamos `parametro={{objeto.nome}}&parametro={{objeto.nome2}}`. Esse construção resultaria em algo como `?id={{orderServico.id}}`
 - Com `/` seguido de objeto `{{objeto.nome}}`, aqui a construção seria `/{{orderServico.id}}` 
 
+**Nota: A sintaxe de objeto propriedade {{objeto.propriedade}}, pode ser substituida por constantes, exemplo: `?id=12345` ou `/12345`**
+
+Após a construção completa da url, teriamos `http://localhost:5016/OrdemServico?id=12345` ou `http://localhost:5016/OrdemServico/12345` 
