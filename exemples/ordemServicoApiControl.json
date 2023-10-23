@@ -487,11 +487,10 @@
           "post":"",
           "link":"",
           "icon":"bi bi-wrench",
-          "text":"",
           "type":"button",
-          "color":"",
           "target":"r-a-alter",
-          "id":"8248"
+          "id":"8248",
+          "event":"update-os"
        },
        {
           "link":"",
@@ -526,20 +525,22 @@
           "value":"pagamento"
        }
     ],
-    "events":[
+    "endPoints":[
       {
          "name":"create-os",
          "method":"post",
-         "urlrelative":"",
-         "params":"",
-         "body": ""
+         "body": "this"
       },
       {
          "name":"delete-os",
          "method":"delete",
-         "urlrelative":"",
+         "params":"/{{ordemDeServico.codigo}}"
+      },
+      {
+         "name":"update-os",
+         "method":"put",
          "params":"/{{ordemDeServico.codigo}}",
-         "body": ""
+         "body": "this"
       }
     ],
     "id":"7890q2wqq"
