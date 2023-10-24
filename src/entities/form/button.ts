@@ -6,5 +6,5 @@ export interface button{
     type:string
     color?:string
     target:"r-a-save"|"r-a-alter"|"r-a-delete"|""
-    event:string
+    endPoint:string
 }

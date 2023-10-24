@@ -2,23 +2,23 @@ import { button } from "../entities/form/button";
 import { window } from "../entities/form/window";
 import { getEnvironment } from "../global/GlobalConfig";
 import * as  obj from '../object/ObjectManagment';
-import { getEvent, getWindow } from "../window/Window";
+import { getEndPoint, getWindow } from "../window/Window";
 
-export function  createUrl(button:button){
+export function  createUrl(endPointName:string){
     
-    let evt = getEvent(button.event)
-    let pathButton = evt.urlrelative;
+    let endPoint = getEndPoint(endPointName)
+    let PathEndPoint = endPoint.urlrelative;
 
     let path = getPathControllerDefault();
 
-    if(pathButton != undefined && pathButton != "") {
-        path = pathButton // Path do precedencia sob o path default da janela
+    if(PathEndPoint != undefined && PathEndPoint != "") {
+        path = PathEndPoint // Path do precedencia sob o path default da janela
     }
-
+    
     let url = `${creteDomain()}${path}` 
     
     //! TODO Implementar verificação se a  hostname está vazio e aplicar a url do href caso necessário. Sem host, implementa loopback
-    if(evt.params) url+=`${prepareParams(evt.params)}`        
+    if(endPoint.params) url+=`${prepareParams(endPoint.params)}`        
     return url;
 }
 

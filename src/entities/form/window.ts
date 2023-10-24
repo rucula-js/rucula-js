@@ -1,6 +1,5 @@
 import { button } from "./button";
-import { columnsGridGet } from "./columnsGridGet";
-import { columnsGridjs } from "./columnsGridjs";
+import { columnsGrid } from "./columnsGrid";
 import { endPoint } from "./endPoint";
 import { frame } from "./frame";
 
@@ -13,9 +12,8 @@ export interface window{
     urlGetAll:string;
     urlGetId: string;
     frames:Array<frame>
-    columns:columnsGridjs[]
+    columnsGrid:columnsGrid[]
     button:button[]
-    columnsGridGet:columnsGridGet[],
     joinChield:{key:string, value:string}[]
     endPoints:endPoint[]
     

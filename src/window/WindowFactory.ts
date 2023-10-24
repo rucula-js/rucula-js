@@ -6,7 +6,7 @@ import { eventButton } from '../buttons/EventButton';
 import * as consoleUi  from '../console/Console'
 import {createTableDependency}  from '../table-dependency/TableDependency';
 import {createObject,setJoinChield} from '../object/ObjectManagment';
-import { getEvent, setWindow } from './Window';
+import { setWindow } from './Window';
 import { createFrameBlock } from '../elements/frame/TypeBlock/FrameBlock';
 import { createFrameLine } from '../elements/frame/TypeLine/FrameLine';
 import { hiddenPopper } from '../popper/PopperEvent';
@@ -27,7 +27,6 @@ export function createWindow(windowConfiguration:window,idWindow:string = 'rucul
     window?.appendChild(panel)
     createWindowBase(idWindow);
     createHome();
-    createLeftGrid();
     createNameWindow(_windowConfiguration.name)
     createTableDependency(_windowConfiguration.frames!)
     setJoinChield(_windowConfiguration.joinChield)  
@@ -36,6 +35,7 @@ export function createWindow(windowConfiguration:window,idWindow:string = 'rucul
     prepareEventsDefatult()
     hiddenPopper()
     consoleUi.set() 
+    createLeftGrid();
 }
 
 function createFrames(frames:frame[]){

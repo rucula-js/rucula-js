@@ -455,23 +455,15 @@
          ]
       }
     ],
-    "columns":[
-       {
-          "name":"name",
-          "id":"name"
-       }
-    ],
-    "columnsGridGet":[
-       {
-          "parameterUrl":"id",
-          "parameterGrid":"id",
-          "id":"180"
-       },
-       {
-          "parameterUrl":"windowFk",
-          "parameterGrid":"windowFk",
-          "id":"1505"
-       }
+    "columnsGrid":[
+      {
+         "title":"codigo",
+         "field":"codigo"
+      },
+      {
+         "title":"data Abertura",
+         "field":"dataAbertura"
+      }
     ],
     "button":[
        {
@@ -481,7 +473,7 @@
          "text":"",
          "type":"button",
          "target":"r-a-save",
-         "event":"create-os"
+         "endPoint":"create-os"
        },
        {
           "post":"",
@@ -490,7 +482,7 @@
           "type":"button",
           "target":"r-a-alter",
           "id":"8248",
-          "event":"update-os"
+          "endPoint":"update-os"
        },
        {
           "link":"",
@@ -500,7 +492,7 @@
           "color":"",
           "target":"r-a-delete",
           "id":"er43",
-          "event":"delete-os"
+          "endPoint":"delete-os"
        }     
     ],
     "joinChield":[
@@ -541,6 +533,15 @@
          "method":"put",
          "params":"/{{ordemDeServico.codigo}}",
          "body": "this"
+      },
+      {
+         "name":"get-all-grid",
+         "method":"get"
+      },
+      {
+         "name":"get-by-id-grid",
+         "method":"get",
+         "params":"/{{ordemDeServico.codigo}}"
       }
     ],
     "id":"7890q2wqq"

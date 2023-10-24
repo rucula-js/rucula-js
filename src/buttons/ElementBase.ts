@@ -1,11 +1,11 @@
 import { button } from "../entities/form/button";
-import { getEvent } from "../window/Window";
+import { getEndPoint } from "../window/Window";
 
 export class ElementBase{
     element!:HTMLButtonElement|HTMLAnchorElement; 
 
     addDataIdAttribute(button:button){
-        let event = getEvent(button.event)
+        let event = getEndPoint(button.endPoint)
         this.element.setAttribute("data-id",`${button.type}-${event.method}-${button.id}`);
     }
     addColor(color?:string){
