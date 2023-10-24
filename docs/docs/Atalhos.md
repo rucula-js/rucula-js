@@ -1,6 +1,6 @@
 # Atalhos
 
-Para melhorar a performace na utilização do rucula, temos alguns atalhos que nos ajudam no nosso dia-a-dia
+Para melhorar a performace na utilização do rucula, temos alguns atalhos
 
 ## Atalhos Globais
 
