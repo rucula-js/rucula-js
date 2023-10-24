@@ -2,7 +2,7 @@
 
 ## Amarração dos Objetos
 
-No rucula, todos os objetos são criados isoladamente um dos outros, isso facilita o desenvolvimento e manutenção da ferramente, além de facilitar no gerenciamento da obtenção e inserção de dados. Para que cada objeto filho fique dentro do seu respectivo pai, é necessário fazer a amarração entre objetos hierarquicamente, isso garante que quando um objeto filho for passado para seu pai, ele já tenha recebido seus possiveis filhos.
+No rucula, todos os objetos são criados isoladamente um dos outros, isso facilita o desenvolvimento e manutenção da ferramenta, além de facilitar no gerenciamento da obtenção e inserção de dados. Para que cada objeto filho fique dentro do seu respectivo pai, é necessário fazer a amarração entre objetos hierarquicamente, isso garante que quando um objeto filho for passado para seu pai, ele já tenha recebido seus possiveis filhos.
 
 ``` json
 {
