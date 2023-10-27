@@ -24,18 +24,18 @@ buttons!.
                 alert("existem dependencias não resolvidas");
                 return;
             }
-            let url = createUrl(button.endPoint)
-            let event = getEndPoint(button.endPoint) 
+            let endPoint = getEndPoint(button.endPoint)
+            let url = createUrl(endPoint)
             
             let body:unknown  = {};
 
-            if(event.body === "this"){
+            if(endPoint.body === "this"){
                 body = obj.object()
             }
-            if(event?.body?.trim().length > 0){
+            if(endPoint?.body?.trim().length > 0){
                // Todo! Implementar logica para obter objeto especifico
             }
-            axios.ax({method:event.method,url:url,data:body})
+            axios.ax({method:endPoint.method,url:url,data:body})
         })
     });
 }
