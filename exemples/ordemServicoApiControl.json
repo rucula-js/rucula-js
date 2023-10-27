@@ -6,6 +6,7 @@
     "type":"crud",
     "messageHome":"Ordem de Serviço",
     "iconHome":"bi-rocket-takeoff",
+    "this":"ordemDeServico",
     "frames":[
        {
           "name":"Header OS",
@@ -26,8 +27,7 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":1,
-                "id":"1565165",
-                "value":"12"
+                "id":"1565165"
              },
              {
                 "propertDto":"dataAbertura",
@@ -40,8 +40,7 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":2,
-                "id":"1565166",
-                "value":"2023-01-01"
+                "id":"1565166"
              },
              {
                 "propertDto":"totalServico",
@@ -55,8 +54,8 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":3,
-                "id":"1565167",
-                "value":"12"
+                "id":"1565167"
+
              },
              {
                 "propertDto":"dataConclusao",
@@ -68,8 +67,7 @@
                 "requerid":true,
                 "disable":false,
                 "sequence":5,
-                "id":"1565169",
-                "value":"2023-01-01"
+                "id":"1565169"
              },
              {
                 "propertDto":"status",
@@ -96,8 +94,7 @@
                 "max":0,
                 "min":0,
                 "requerid":true,
-                "sequence":6,
-                "value":"12"
+                "sequence":6
              }
           ],
           "id":"981981"
@@ -121,8 +118,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
             },
             {
                "propertDto":"telefone",
@@ -133,8 +130,8 @@
                "requerid":true,
                "disable":false,
                "sequence":5,
-               "id":"5616",
-                "value":"12"
+               "id":"5616"
+
             },
             {
                "propertDto":"email",
@@ -148,8 +145,7 @@
                "requerid":true,
                "disable":false,
                "sequence":2,
-               "id":"9849849",
-                "value":"12"
+               "id":"9849849"
             }
          ],
          "id":"981981"
@@ -173,8 +169,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
             
             },
             {
@@ -189,8 +185,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
            
             },
             {
@@ -205,8 +201,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
            
             },
             {
@@ -221,8 +217,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
              
             },
             {
@@ -237,8 +233,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
            
             },
             {
@@ -253,8 +249,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
              
             },
             {
@@ -269,8 +265,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565165",
-                "value":"12"
+               "id":"1565165"
+
              
             }
          ],
@@ -294,8 +290,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565180",
-               "value":"Tróca de óleo"
+               "id":"1565180"
+              
             },
             {
                "propertDto":"valorUnitario",
@@ -309,8 +305,7 @@
                "requerid":true,
                "disable":false,
                "sequence":2,
-               "id":"1565181",
-               "value":45.88
+               "id":"1565181"
             },
             {
                "propertDto":"quantidade",
@@ -324,8 +319,7 @@
                "requerid":true,
                "disable":false,
                "sequence":3,
-               "id":"1565182",
-               "value":1
+               "id":"1565182"
             },
             {
                "propertDto":"subtotal",
@@ -340,8 +334,8 @@
                "requerid":true,
                "disable":false,
                "sequence":4,
-               "id":"1565183",
-                "value":"12"
+               "id":"1565183"
+
             }
          ],
          "id":"16516"
@@ -365,8 +359,7 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565184",
-               "value":"Carlos Santos"
+               "id":"1565184"
             },
             {
                "propertDto":"telefone",
@@ -380,8 +373,7 @@
                "requerid":true,
                "disable":false,
                "sequence":2,
-               "id":"1565185",
-               "value":"(11) 9876-5432"
+               "id":"1565185"
             },
             {
                "propertDto":"email",
@@ -395,8 +387,7 @@
                "requerid":true,
                "disable":false,
                "sequence":3,
-               "id":"1565186",
-               "value":"carlos@email.com"
+               "id":"1565186"
             }
          ]
       },
@@ -419,8 +410,8 @@
                "requerid":true,
                "disable":false,
                "sequence":1,
-               "id":"1565187",
-               "value":"Cartão de Crédito"
+               "id":"1565187"
+        
             },
             {
                "propertDto":"valorTotalPago",
@@ -434,8 +425,8 @@
                "requerid":true,
                "disable":false,
                "sequence":2,
-               "id":"1565188",
-               "value":350.00
+               "id":"1565188"
+               
             },
             {
                "propertDto":"dataPagamento",
@@ -449,8 +440,8 @@
                "requerid":true,
                "disable":false,
                "sequence":3,
-               "id":"1565189",
-               "value":"2023-09-10"
+               "id":"1565189"
+               
             }
          ]
       }
@@ -465,6 +456,7 @@
          "field":"dataAbertura"
       }
     ],
+    "paramsGrid":"/{{codigo}}",
     "button":[
        {
          "id":"8418",
@@ -539,9 +531,8 @@
          "method":"get"
       },
       {
-         "name":"get-by-id-grid",
-         "method":"get",
-         "params":"/{{ordemDeServico.codigo}}"
+         "name":"get-by-id",
+         "method":"get"
       }
     ],
     "id":"7890q2wqq"
