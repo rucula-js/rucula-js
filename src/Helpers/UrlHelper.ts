@@ -1,14 +1,12 @@
-import { button } from "../entities/form/button";
+import { endPoint } from "../entities/form/endPoint";
 import { window } from "../entities/form/window";
 import { getEnvironment } from "../global/GlobalConfig";
 import * as  obj from '../object/ObjectManagment';
-import { getEndPoint, getWindow } from "../window/Window";
+import { getWindow } from "../window/Window";
 
-export function  createUrl(endPointName:string){
+export function  createUrl(endPoint:endPoint, paramsManual:string=""){
     
-    let endPoint = getEndPoint(endPointName)
     let PathEndPoint = endPoint.urlrelative;
-
     let path = getPathControllerDefault();
 
     if(PathEndPoint != undefined && PathEndPoint != "") {
@@ -18,7 +16,10 @@ export function  createUrl(endPointName:string){
     let url = `${creteDomain()}${path}` 
     
     //! TODO Implementar verificação se a  hostname está vazio e aplicar a url do href caso necessário. Sem host, implementa loopback
-    if(endPoint.params) url+=`${prepareParams(endPoint.params)}`        
+    if(endPoint.params) {
+        url+=`${prepareParams(endPoint.params)}` 
+    }
+    url+=paramsManual
     return url;
 }
 
@@ -43,6 +44,8 @@ function  prepareParams(params:string){
             return obj.getValuePropertTypeObject(param.replace("{{","").replace("}}",""));
         })
     }
-    // TODO Implementar preparo de url sem paramentros exemplo: CLIENTE/cliente.id -> CLIENTE/45064 
     return params;
 }
+
+
+

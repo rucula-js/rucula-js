@@ -14,6 +14,10 @@ export function getWindow(){
     return _window;
 }
 
+export function getThis(){
+    return _window.this;
+}
+
 export function getEndPoint(endPoint:string):endPoint{
 
     let evt = _window.endPoints.find(ev => ev.name == endPoint)
@@ -25,4 +29,8 @@ export function getEndPoint(endPoint:string):endPoint{
 
 export function getColumnsGrid():columnsGrid[]{
     return _window.columnsGrid
+}
+
+export function getParamsGrid():string{
+    return _window.paramsGrid
 }
