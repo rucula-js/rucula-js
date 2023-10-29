@@ -34,11 +34,12 @@ export function addLine(red: RepresentationField){
 
 export function cleanFrame(representation: RepresentationField){
     
-    let frameLine = document.querySelectorAll(`[data-objectdto="${representation.objectDto}"] tbody tr`)
+    let frameLine = document.querySelector(`[data-objectdto="${representation.objectDto}"] tbody`)
     
-    frameLine.forEach(item => 
-        item.remove()
-    );
+    if(frameLine){
+        frameLine.innerHTML = "";
+    }
+    
     zeroNextzzRowCount(representation.objectDto)
 }
 
