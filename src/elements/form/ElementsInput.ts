@@ -1,5 +1,5 @@
 import { field } from "../../entities/form/field";
-import { representationField } from "../../entities/form/representationField";
+import { RepresentationField } from "../../entities/form/representationField";
 import { getValuePropertTypeObject, setPropertDto, sumPropert } from "../../object/ObjectManagment";
 import { setEventForInformationInputQuadro } from "../../popper/PopperEvent";
 import { setDependency } from "../../table-dependency/TableDependency";
@@ -34,7 +34,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         propert:String(field.propertDto),
         line:frame.line
     })
-    let repField = representationField.prepareINPUTToField(element)
+    let repField = RepresentationField.prepareINPUTToField(element)
     setPropertDto(repField);
     setDependency(repField);
     if( typeof(FieldStrategy) == typeof(FieldCommon))
@@ -150,7 +150,7 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
 
     if(field.value){
         input.value = field.value;        
-        let repField = representationField.prepareINPUTToField(input)
+        let repField = RepresentationField.prepareINPUTToField(input)
         setPropertDto(repField);
         setDependency(repField);
         return;
@@ -161,7 +161,7 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
         formulaMath(formula, input,frame)
         formulaLine(formula, input,field,frame)
         formulaSUM(formula, input,field,frame)
-        let repField = representationField.prepareINPUTToField(input)
+        let repField = RepresentationField.prepareINPUTToField(input)
         setPropertDto(repField);
         setDependency(repField);
         

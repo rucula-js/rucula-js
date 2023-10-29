@@ -1,5 +1,5 @@
 import { frame } from "../entities/form/frame";
-import { representationField } from "../entities/form/representationField";
+import { RepresentationField } from "../entities/form/representationField";
 
 'use strict';
 
@@ -43,7 +43,7 @@ function valueDependency(requerid:boolean, maxLength:number, max:number, min:num
     return valueDependency;
 }
 
-function  setDependency(rep:representationField){
+function  setDependency(rep:RepresentationField){
     var key = ""
     
     if(rep.lineNumber == undefined){

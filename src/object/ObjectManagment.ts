@@ -1,5 +1,5 @@
 import { frame } from "../entities/form/frame";
-import { representationField } from "../entities/form/representationField";
+import { RepresentationField } from "../entities/form/representationField";
 
 'use strict';
 
@@ -7,8 +7,11 @@ let _object:any = {};
 let _joinChield:{key:string, value:string}[] = []
 
 function createObject(frames:Array<frame>){
+    
+    _object = {}
     _object["zzRowCount"] = {} 
-    frames!.forEach(frame => {
+    
+    frames?.forEach(frame => {
         if(frame.type == "block"){
             _object[frame.objectDto] = {}
         }
@@ -19,11 +22,14 @@ function createObject(frames:Array<frame>){
     });
 }
 
+function zeroNextzzRowCount(objectDto:string):number{
+    return _object["zzRowCount"][objectDto] = -1;
+}
 function getNextzzRowCount(objectDto:string):number{
     return _object["zzRowCount"][objectDto] += 1;
 }
 
-function setPropertDto(rep:representationField){
+function setPropertDto(rep:RepresentationField){
     if(rep.lineNumber == null || rep.lineNumber == undefined){
         _object[rep.objectDto][rep.propertDto] = rep.value
     }
@@ -59,7 +65,7 @@ function sumPropert(objectPropert:string){
     return sum;
 }
 
-function getMaxValue(rep:representationField):number{
+function getMaxValue(rep:RepresentationField):number{
     const VALOR_ULTIMA_LINHA_ADICIONADA_NO_OBJETO = '';
     if(rep.lineNumber == null || rep.lineNumber == undefined){
         throw new Error("Rucula - lineNumber is Required")
@@ -117,5 +123,6 @@ export {
     deleteLine,
     sumPropert,
     getMaxValue,
-    getNextzzRowCount
+    getNextzzRowCount,
+    zeroNextzzRowCount
 }

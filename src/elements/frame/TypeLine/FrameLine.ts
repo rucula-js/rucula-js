@@ -1,6 +1,6 @@
 import { frame } from "../../../entities/form/frame";
-import { representationField } from "../../../entities/form/representationField";
-import { deleteLine as objectDeleteLine } from "../../../object/ObjectManagment";
+import { RepresentationField } from "../../../entities/form/representationField";
+import { deleteLine as objectDeleteLine, zeroNextzzRowCount } from "../../../object/ObjectManagment";
 import { deleteLine as tableDependencyDeleteLine , setDependency } from "../../../table-dependency/TableDependency";
 import { getWindow } from "../../../window/Window";
 import { prepareLineHeaderTable, prepareTBody, prepareTR } from "../../table/ElementsTable";
@@ -22,15 +22,24 @@ export function createFrameLine(frame:frame){
     return line
 }
 
-export function addLine(inputTargetEvent:HTMLInputElement){
-    let objectDto = inputTargetEvent.getAttribute("name")?.split(".")[1];
+export function addLine(red: RepresentationField){
     let window = getWindow();
-    let frame = window.frames.find(c=> c.objectDto == objectDto)!
+    let frame = window.frames.find(c=> c.objectDto == red.objectDto)!
     let row = prepareTR(frame.fields!,{type:frame.type, objectDto:frame.objectDto})
     setDependencyforInputSpecial(row)
     row.querySelector("input")?.focus()
     eventKeyDownKeyUpLineFrame(row)
     return row;
+}
+
+export function cleanFrame(representation: RepresentationField){
+    
+    let frameLine = document.querySelectorAll(`[data-objectdto="${representation.objectDto}"] tbody tr`)
+    
+    frameLine.forEach(item => 
+        item.remove()
+    );
+    zeroNextzzRowCount(representation.objectDto)
 }
 
 export function removeLine(currentLineElement:HTMLElement,inputTargetEvent:HTMLInputElement){
@@ -45,7 +54,7 @@ export function removeLine(currentLineElement:HTMLElement,inputTargetEvent:HTMLI
     currentLineElement.remove();
     remove();
     if(Tbody?.childNodes.length == 0){
-        let newLine = addLine(inputTargetEvent);
+        let newLine = addLine(RepresentationField.prepareINPUTToField(inputTargetEvent));
         Tbody.appendChild(newLine)
         return;
     }
@@ -63,7 +72,7 @@ export function removeLine(currentLineElement:HTMLElement,inputTargetEvent:HTMLI
 function setDependencyforInputSpecial(row:HTMLTableRowElement){
     row.querySelectorAll("select, input[type='checkbox']").forEach((element)=> {    
         var elem = element as HTMLInputElement|HTMLSelectElement
-        let repField = representationField.prepareINPUTToField(elem)
+        let repField = RepresentationField.prepareINPUTToField(elem)
         setDependency(repField)
     })
 }

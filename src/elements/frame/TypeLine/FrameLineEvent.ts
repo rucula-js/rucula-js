@@ -1,3 +1,4 @@
+import { RepresentationField } from "../../../entities/form/representationField";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../../global/KeyEvents";
 import { addLine, removeLine } from "./FrameLine";
 
@@ -57,7 +58,7 @@ function crudLineQuadro(event:Event){
 
     if (KeyEventGetIndex(0) == "Control" && KeyEventGetIndex(1) ==  "Enter"){
         event.preventDefault();
-        currentLineElement.after(addLine(inputTargetEvent));
+        currentLineElement.after(addLine(RepresentationField.prepareINPUTToField(inputTargetEvent)));
     }
     if (KeyEventGetIndex(0) == "0" && KeyEventGetIndex(1) == "Control"){
         event.preventDefault();

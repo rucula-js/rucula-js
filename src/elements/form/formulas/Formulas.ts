@@ -1,6 +1,6 @@
 import { evaluate } from "mathjs";
 import { getMaxValue, getValuePropertTypeObject, setPropertDto, sumPropert } from "../../../object/ObjectManagment";
-import { representationField } from "../../../entities/form/representationField";
+import { RepresentationField } from "../../../entities/form/representationField";
 import { field } from "../../../entities/form/field";
 import { setDependency } from "../../../table-dependency/TableDependency";
 import { formatNumberWithLocalization } from "../../../Helpers/CurrencyHelper";
@@ -59,7 +59,7 @@ function formulaLine(formula:string,input:HTMLInputElement,field:field,frame:{ty
         if(number != 0 && frame.line == 0){
             numberLine = number
         }
-        let repField = representationField.prepareINPUTToField(input)
+        let repField = RepresentationField.prepareINPUTToField(input)
         if(frame.line! > 0 ){
             numberLine = getMaxValue(repField)
             numberLine = numberLine!+number
@@ -77,7 +77,7 @@ function formulaSUM(formula:string,input:HTMLInputElement,field:field,frame:{typ
             let sum = sumPropert(objectPropert)
             var inputIn = document.querySelector(`[set='${matchSum![1]}']`)as HTMLInputElement
             inputIn.value = formatNumberWithLocalization(String(sum))
-            let repField = representationField.prepareINPUTToField(inputIn)
+            let repField = RepresentationField.prepareINPUTToField(inputIn)
             setPropertDto(repField);   
             setDependency(repField);
         })
