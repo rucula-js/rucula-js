@@ -28,7 +28,7 @@ export function createWindow(windowConfiguration:window,idWindow:string = 'rucul
     createWindowBase(idWindow);
     createHome();
     createNameWindow(_windowConfiguration.name)
-    createTableDependency(_windowConfiguration.frames!)
+    createTableDependency(_windowConfiguration.frames)
     setJoinChield(_windowConfiguration.joinChield)  
     createObject(_windowConfiguration.frames)
     setWindow(_windowConfiguration);
@@ -39,17 +39,19 @@ export function createWindow(windowConfiguration:window,idWindow:string = 'rucul
 }
 
 function createFrames(frames:frame[]){
+    
     frames?.forEach(frame => {
     
-    if(frame.type == 'block'){
-      const block = createFrameBlock(frame)
-      _form.appendChild(block)
-    }
-    else
-    if(frame.type == 'line'){
-      const line = createFrameLine(frame)
-      _form.appendChild(line)
-    }
+      if(frame.type == 'block'){
+        const block = createFrameBlock(frame)
+        _form.appendChild(block)
+      }
+
+      if(frame.type == 'line'){
+        const line = createFrameLine(frame)
+        _form.appendChild(line)
+      }
+      
   })
 }
 

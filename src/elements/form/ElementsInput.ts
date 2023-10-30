@@ -1,6 +1,6 @@
 import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
-import { getValuePropertTypeObject, setPropertDto, sumPropert } from "../../object/ObjectManagment";
+import { setPropertDto } from "../../object/ObjectManagment";
 import { setEventForInformationInputQuadro } from "../../popper/PopperEvent";
 import { setDependency } from "../../table-dependency/TableDependency";
 import { setEventListenerForInput } from "./ElementsInputEvent";
@@ -89,14 +89,6 @@ export function createFieldCheckbox(field:field):HTMLInputElement{
     var input = document.createElement("input")
     input.type = "checkbox";
     input.value = field.checkbox!.off
-    input.addEventListener('click',(e) =>{
-      var check = (e.target as HTMLInputElement); 
-      if(check.value == field.checkbox!.on){
-        check.value = field.checkbox!.off
-      }else{
-        check.value = field.checkbox!.on
-      }
-    })
     return input;
 }
 function createGroupOfInput(field:field):HTMLDivElement{

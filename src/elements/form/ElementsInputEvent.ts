@@ -5,22 +5,48 @@ import { setPropertDto } from "../../object/ObjectManagment";
 import { setDependency } from "../../table-dependency/TableDependency";
 
 export function setEventListenerForInput(element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement, field?:field){
-    element.addEventListener('focusout',(e) => {
+    
+    element.addEventListener('input',(e) => {
+        
         setValue(e.target as HTMLInputElement)
     })
+    
     function setValue(input:HTMLInputElement){
+
         if(field?.type == "currency"){
+
+            setValueTypeCurrency();
+            return;
+        }
+
+        if(field?.type == "checkbox"){
+            
+            if (input.checked == true){
+                input.value = field.checkbox!.on
+            }
+
+            if (input.checked == false){
+                input.value = field.checkbox!.off
+            }
+        }
+
+        set();
+        
+        function setValueTypeCurrency(){
+
             let valueFormated = formatCurrencyForNumber(input.value);
             input.value = String(valueFormated);
-            let field = RepresentationField.prepareINPUTToField(input);
-            setPropertDto(field);
-            setDependency(field);
+            
+            set();
+            
             input.value = formatNumberWithLocalization(input.value)
         }
-        else{
-            let field = RepresentationField.prepareINPUTToField(input);
-            setPropertDto(field);
-            setDependency(field);    
-        } 
+
+        function set(){
+            
+            let representation = RepresentationField.prepareINPUTToField(input);
+            setPropertDto(representation);
+            setDependency(representation)
+        }
     }
 }
