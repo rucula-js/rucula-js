@@ -1,3 +1,4 @@
+import { constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
@@ -15,15 +16,36 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
   
     let element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement
     let fieldStrategy:FieldStrategy = new FieldStrategy();
+
     checkTypeField(field.type)
-    if( field.type == "text" || 
-        field.type == "number" || 
-        field.type == "date" ||
-        field.type == "currency"
-        ) fieldStrategy.setStrategy(new FieldCommon())
-    if(field.type == "select") fieldStrategy.setStrategy(new FieldSelect())
-    if(field.type == "checkbox") fieldStrategy.setStrategy(new FieldCheckbox())
-    if(field.type == "textarea") fieldStrategy.setStrategy(new FieldTextArea())
+    
+    if(isSimple()){
+        fieldStrategy.setStrategy(new FieldCommon())
+    }
+
+    function isSimple(){
+        
+        let condition =  
+            field.type == constTypeInput.TEXT ||
+            field.type == constTypeInput.NUMBER || 
+            field.type == constTypeInput.DATE ||
+            field.type == constTypeInput.CURRENCY
+        
+        return condition;
+    }
+        
+    if(field.type == constTypeInput.SELECT) {
+        fieldStrategy.setStrategy(new FieldSelect())
+    }
+
+    if(field.type == constTypeInput.CHECKBOX){
+        fieldStrategy.setStrategy(new FieldCheckbox())
+    }
+
+    if(field.type == constTypeInput.TEXT_AREA) {
+        fieldStrategy.setStrategy(new FieldTextArea())
+    }
+    
     element = fieldStrategy.create(field);
     setEventListenerForInput(element,field)
     setEventForInformationInputQuadro(element)
@@ -34,12 +56,16 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         propert:String(field.propertDto),
         line:frame.line
     })
+
     let repField = RepresentationField.prepareINPUTToField(element)
     setPropertDto(repField);
     setDependency(repField);
-    if( typeof(FieldStrategy) == typeof(FieldCommon))
-    setValueOrFormula(field,element as HTMLInputElement,frame)
-    if(frame.type == "block"){
+
+    if( typeof(FieldStrategy) == typeof(FieldCommon)){    
+        setValueOrFormula(field,element as HTMLInputElement,frame)
+    }
+
+    if(frame.type == constTypeFrame.BLOCK){
         const formGroup = createGroupOfInput(field)
         formGroup.appendChild(element)
         return formGroup as HTMLDivElement
@@ -48,21 +74,36 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 }
 
 function checkTypeField(type: string){
-    let types = ["text","number","select","checkbox","date","currency","textarea"]
-    if(types.indexOf(type) == -1)
+
+    let types = [
+        "text",
+        "number",
+        "select",
+        "checkbox",
+        "date",
+        "currency",
+        "textarea"
+    ]
+
+    if(types.indexOf(type) == -1){
         throw new Error(`Field type "${type}" is not allowed`);
+    }
 }
 
-export function createFieldTypeInputBasic(field:field):HTMLInputElement{
-    const input = document.createElement('input');
-    if(field?.disable) input.setAttribute("disabled","")
+export function createFieldTypeInputBasic(field:field): HTMLInputElement{
 
+    const input = document.createElement('input');
+
+    if(field?.disable){
+        input.setAttribute("disabled","")
+    }
+
+    input.type = field.type;
+    
     if(field.type == "currency"){
         input.type = "text";
     }
-    else{
-        input.type = field.type;
-    }
+    
     if (field.width > 0){
         input.style.width = `${field.width}px`  
     }
@@ -71,10 +112,15 @@ export function createFieldTypeInputBasic(field:field):HTMLInputElement{
     
     return input;
 }
-export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
-    const input = document.createElement('textarea');
-    if(field?.disable) input.setAttribute("disabled","")
 
+export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
+    
+    const input = document.createElement('textarea');
+    
+    if(field?.disable){
+        input.setAttribute("disabled","")
+    }
+    
     input.setAttribute("rows", String(field.textarea?.rows))
 
     if(field.textarea?.cols){
@@ -83,72 +129,100 @@ export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
     else {
         input.style.width = "100%";
     }
+
     return input;
 }
+
 export function createFieldCheckbox(field:field):HTMLInputElement{  
+    
     var input = document.createElement("input")
     input.type = "checkbox";
     input.value = field.checkbox!.off
+    
     return input;
 }
+
 function createGroupOfInput(field:field):HTMLDivElement{
+    
     const div = document.createElement('div');
     div.classList.add('r-g-i-i');
+
     const label = document.createElement('label');
-    label.setAttribute('for',field.id)
-    
+    label.setAttribute('for',field.id)    
     label.textContent = field.description
+
     if (field.requerid == true){
       label.textContent = label.textContent
       label.append(createSpanLabelIsRequerid().cloneNode(true))
     }
+    
     div.appendChild(label)
+    
     return div;
 }
+
 export function createSpanLabelIsRequerid():HTMLSpanElement{
+
     const span = document.createElement('span'); 
     span.innerText = " *"
     span.style.color = "red";
+
     return span
 }
+
 export function createFieldSelect(field:field):HTMLSelectElement{  
+    
     const select = document.createElement('select');
-      setAtributesDataDefault(select,field)
-        field.combo?.forEach(item => {
-          const option = document.createElement('option')
-          option.text = item["representation"]
-          option.value = item["value"]
-          select.appendChild(option)
-        })
-      return select
+    
+    setAtributesDataDefault(select,field)
+    
+    field.combo?.forEach(item => {
+          
+        const option = document.createElement('option')
+        option.text = item["representation"]
+        option.value = item["value"]
+        select.appendChild(option)
+        
+    })
+    return select
 }
+
 export function setAtributesDataDefault(node:HTMLElement,field:field){
     node.setAttribute('maxlength',`${field.maxLength}`); 
 }
 
 function addAttributesSetAndName(node:HTMLElement,frame:{type:string, object:string, propert:string,line?:number}){
+    
     let name = `${frame.type}.${frame.object}.${frame.propert}`
     let set = `${frame.object}.${frame.propert}`
 
     if(frame.type == "line"){
-            name+=`.${frame.line}`;
-            set+=`.${frame.line}`;
+        name+=`.${frame.line}`;
+        set+=`.${frame.line}`;
     }
+
     node.setAttribute('name',name);
     node.setAttribute('set',set);
 }
+
 export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type:string,objectDto:string,line?:number}){
-    if(field.value == undefined && field.formula == undefined) return;
+    
+    if(field.value == undefined && field.formula == undefined){
+        return;
+    } 
 
     if(field.value){
+        
         input.value = field.value;        
         let repField = RepresentationField.prepareINPUTToField(input)
         setPropertDto(repField);
         setDependency(repField);
+        
         return;
     }
 
     field.formula?.forEach(formula => {
+
         formulaGetValuePropert(formula, input);
         formulaMath(formula, input,frame)
         formulaLine(formula, input,field,frame)
@@ -158,7 +232,5 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
         setDependency(repField);
         
     })
-    
-
 }
 
