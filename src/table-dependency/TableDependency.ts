@@ -1,3 +1,4 @@
+import { constTypeFrame } from "../const";
 import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
 import { RepresentationField } from "../entities/form/representationField";
@@ -22,11 +23,11 @@ function  createTableDependency(frames:Array<frame>){
             let key = "" 
             let value = "" 
 
-            if(frame.type == "block"){
+            if(frame.type == constTypeFrame.BLOCK){
                 key = keyDependency(frame.objectDto,field.propertDto)
             }
 
-            if(frame.type == "line"){
+            if(frame.type == constTypeFrame.LINE){
                 key = keyDependency(frame.objectDto,field.propertDto,"0")
             } 
 

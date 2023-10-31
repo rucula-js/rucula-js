@@ -1,3 +1,4 @@
+import { constTypeFrame } from "../const";
 import { frame } from "../entities/form/frame";
 import { RepresentationField } from "../entities/form/representationField";
 
@@ -12,13 +13,16 @@ function createObject(frames:Array<frame>){
     _object["zzRowCount"] = {} 
     
     frames?.forEach(frame => {
-        if(frame.type == "block"){
+
+        if(frame.type == constTypeFrame.BLOCK){
             _object[frame.objectDto] = {}
         }
-        if(frame.type == "line"){
+
+        if(frame.type == constTypeFrame.LINE){
             _object[frame.objectDto] = []
             _object["zzRowCount"][frame.objectDto] = -1
         }
+
     });
 }
 
@@ -30,38 +34,49 @@ function getNextzzRowCount(objectDto:string):number{
 }
 
 function setPropertDto(rep:RepresentationField){
+
     if(rep.lineNumber == null || rep.lineNumber == undefined){
         _object[rep.objectDto][rep.propertDto] = rep.value
     }
     else{
+
         let line = (_object[rep.objectDto] as Array<any>).findIndex(c => c.zzRowUi == rep.lineNumber)
+        
         if(line == -1){
             line = _object[rep.objectDto].length
             _object[rep.objectDto][line] = {zzRowUi:rep.lineNumber}       
         }
+        
         _object[rep.objectDto][line][rep.propertDto] = rep.value
     }
 }
 
 function getValuePropertTypeObject(prop:string):any{
+    
     const object = prop.split('.')[0]
     const propert = prop.split('.')[1]
     const line = prop.split('.')[2]
     //Todo melhorar parametro com tipo objeto
+    
     if(line){
         let obj = (_object[object] as Array<any>).find(c => c.zzRowUi == line)
         return obj[propert]
     }    
+    
     return _object[object][propert]
 }
 
 function sumPropert(objectPropert:string){
+    
     const object = objectPropert.split('.')[0]
     const propert = objectPropert.split('.')[1]
     let sum = 0;
     let val = _object[object] as Array<any>
-    for (let i = 0; i < val.length; i++)    
+    
+    for (let i = 0; i < val.length; i++){
         sum+=Number(val[i][propert]) 
+    }    
+    
     return sum;
 }
 

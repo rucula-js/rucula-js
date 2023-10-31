@@ -196,7 +196,7 @@ function addAttributesSetAndName(node:HTMLElement,frame:{type:string, object:str
     let name = `${frame.type}.${frame.object}.${frame.propert}`
     let set = `${frame.object}.${frame.propert}`
 
-    if(frame.type == "line"){
+    if(frame.type == constTypeFrame.LINE){
         name+=`.${frame.line}`;
         set+=`.${frame.line}`;
     }
