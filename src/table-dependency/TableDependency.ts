@@ -132,6 +132,7 @@ function checkPropertDependency(dependency:{key:string, value:string}, value:str
 function createNewLineDependecy(keyLine:{type:string,objectDto:string,line:number}){
         
     checkCreateSpanShot(keyLine.objectDto);
+
     let frame:string = keyLine.objectDto
     const LINE_SNAPSHOT:string = "SS"; 
     var dependecyes = _tableDependency.filter( c=> c.key.split(".")[0] == frame && c.key.split(".")[2] == LINE_SNAPSHOT);
@@ -210,8 +211,9 @@ function  resolveDependecy(key:string,value:string){
 
     dependecies.split(",").forEach(numberDependecy => {
         
-        if(resolveds.search(numberDependecy+",") == -1) 
+        if(resolveds.search(numberDependecy+",") == -1){
             dependeciesNotResolveds+=1
+        }
     })
 
     let exist = _resolvedDependency.indexOf(key)
@@ -227,21 +229,23 @@ function  resolveDependecy(key:string,value:string){
 
 function consistRequerid(value:string|number|boolean):boolean{
     
-    if( value == undefined ||
-        value as number == 0){
-            //todo Implementar Messagem
-            return false;
+    if( value == undefined || value as number == 0){
+        //todo Implementar Messagem
+        return false;
     }
+
     return true;
 }
 
 function consistMaxLen(todoist:string,value:string|number|boolean){
     
     let max = getDependecy(todoist,MAX_LENGHT)
+    
     if ((value as string).length > Number(max)){
         //todo Implementar Messagem
         return  false;
     }
+    
     return true;
 }
 
