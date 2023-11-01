@@ -32,13 +32,17 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         fieldStrategy.setStrategy(new FieldCheckbox())
     }
 
-    if(field.type == constTypeInput.TEXT_AREA) {
+    if(isTextArea()) {
         fieldStrategy.setStrategy(new FieldTextArea())
     }
     
     element = fieldStrategy.create(field);
 
     if(isSimple()){
+        setEventListenerTypeSimple(element,field)
+    }
+
+    if(isTextArea()){
         setEventListenerTypeSimple(element,field)
     }
 
@@ -76,8 +80,8 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     function isSimple(){
             
         let condition =  
-        field.type == constTypeInput.TEXT ||
         field.type == constTypeInput.NUMBER || 
+        field.type == constTypeInput.TEXT || 
         field.type == constTypeInput.DATE ||
         field.type == constTypeInput.CURRENCY
         
@@ -90,6 +94,10 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 
     function isCurrency(){
         return field.type == constTypeInput.CURRENCY
+    }
+    
+    function isTextArea(){
+        return field.type == constTypeInput.TEXT_AREA
     }
 
     return element as HTMLSelectElement|HTMLInputElement

@@ -7,7 +7,8 @@ import { setDependency } from "../../table-dependency/TableDependency";
 export function setEventListenerTypeSimple(element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement, field?:field){
     
     element.addEventListener('input',(e) => {
-        let input = e.target as HTMLInputElement
+        let input = e.target as HTMLInputElement | HTMLTextAreaElement
+        
         set(input)
     })
 }
@@ -50,7 +51,7 @@ export function setEventListenerTypeCurrency(element:HTMLInputElement, field:fie
     
 }
 
-function set(input:HTMLInputElement){
+function set(input:HTMLInputElement|HTMLTextAreaElement){
 
     let representation = RepresentationField.prepareINPUTToField(input);
     setPropertDto(representation);

@@ -29,8 +29,6 @@ export function createWindow(windowConfiguration:window,idWindow:string = 'rucul
     createHome();
     createNameWindow(_windowConfiguration.name)
     createTableDependency(_windowConfiguration.frames)
-    setJoinChield(_windowConfiguration.joinChield)  
-    createObject(_windowConfiguration.frames)
     setWindow(_windowConfiguration);
     prepareEventsDefatult()
     hiddenPopper()
@@ -56,10 +54,16 @@ function createFrames(frames:frame[]){
 }
 
 function prepareEventsDefatult(){
+
   let newDocument = document.getElementById("r-a-new")
+  
   newDocument?.addEventListener("click", () => {
+  
     createComponentCreateOrEdit()
     _form = document.getElementById("form-rucula-js") as HTMLFormElement; 
+    
+    setJoinChield(_windowConfiguration.joinChield)  
+    createObject(_windowConfiguration.frames)
     createFrames(_windowConfiguration.frames)
     createButtons(_windowConfiguration.button)
 

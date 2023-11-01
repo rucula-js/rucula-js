@@ -43,7 +43,6 @@ export function createLeftGrid(){
     }
 }
 
-
 function GetById(row:RowComponent){
 
   let endPoint = getEndPoint("get-by-id")
@@ -70,9 +69,8 @@ function GetById(row:RowComponent){
             return row.getCell(math[1]).getValue()
         })
     }
+    
     return params;
   }
-  
-
 }
 
