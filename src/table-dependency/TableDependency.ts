@@ -95,7 +95,6 @@ function  setDependency(rep:RepresentationField){
 }
 
 function checkPropertDependency(dependency:{key:string, value:string}, value:string|number|boolean){
-    
     let dependecies = dependency.value.split(".")[0]
     let todoist = dependency.value.split(".")[0]
     let resolved = dependency.value.split(".")[1]

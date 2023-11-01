@@ -1,8 +1,10 @@
 import { addLine, cleanFrame } from "../elements/frame/TypeLine/FrameLine";
 import { RepresentationField } from "../entities/form/representationField";
+import { setPropertDto } from "../object/ObjectManagment";
+import { setDependency } from "../table-dependency/TableDependency";
 import { getThis } from "../window/Window";
 
-export function setValueInForm(obj:any, objectDto:string="", line:string = ""){
+export function setValueInForm(obj:any, objectDto:string = "", line:number = -1){
 
     if(objectDto == ""){
         objectDto = getThis()
@@ -11,8 +13,9 @@ export function setValueInForm(obj:any, objectDto:string="", line:string = ""){
     for (let propert in obj){
         
         if(Array.isArray(obj[propert])){
-            
+
             let representation = new RepresentationField()
+            representation.objectDto = propert;
             representation.objectDto = propert;
             
             cleanFrame(representation)
@@ -23,10 +26,10 @@ export function setValueInForm(obj:any, objectDto:string="", line:string = ""){
 
                 representation.lineNumber = index 
                 
-                const line = addLine(representation)
-                frameLine?.appendChild(line)
+                const lineAdd = addLine(representation)
+                frameLine?.appendChild(lineAdd)
 
-                setValueInForm(item,propert,`.${index}`)
+                setValueInForm(item,propert,index)
             
             })
         }
@@ -37,13 +40,33 @@ export function setValueInForm(obj:any, objectDto:string="", line:string = ""){
 
         if (typeof obj[propert] == "string" || typeof obj[propert] == "number"){ 
 
-            let atribute = `[set="${objectDto}.${propert}${line}"]`;
+            let lineAttr = "";
+            
+            if(line >= 0){
+                lineAttr = `.${String(line)}`
+            }
+
+            let atribute = `[set="${objectDto}.${propert}${lineAttr}"]`;
             
             let input = document.querySelector(atribute) as HTMLInputElement;
             
             if(input){
 
-                input.value = obj[propert]
+                const value = obj[propert]
+
+                input.value = value
+
+                let representation = new RepresentationField()
+                representation.objectDto = objectDto;
+                representation.propertDto = propert
+                
+                if(line >= 0){
+                    representation.lineNumber = line
+                }
+                representation.value = value
+
+                setDependency(representation)
+                setPropertDto(representation);
             } 
         }
         

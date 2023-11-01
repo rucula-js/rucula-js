@@ -25,10 +25,10 @@ function createObject(frames:Array<frame>){
 
     });
 }
-
-function zeroNextzzRowCount(objectDto:string):number{
+export function zeroNextzzRowCount(objectDto:string):number{
     return _object["zzRowCount"][objectDto] = -1;
 }
+
 function getNextzzRowCount(objectDto:string):number{
     return _object["zzRowCount"][objectDto] += 1;
 }
@@ -138,6 +138,5 @@ export {
     deleteLine,
     sumPropert,
     getMaxValue,
-    getNextzzRowCount,
-    zeroNextzzRowCount
+    getNextzzRowCount
 }

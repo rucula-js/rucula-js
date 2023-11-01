@@ -1,8 +1,8 @@
 import * as axios from '../axios/Axios';
 import { createUrl } from '../Helpers/UrlHelper';
-import {columnsGrid} from '../entities/form/columnsGrid'
+import { columnsGrid} from '../entities/form/columnsGrid'
 import { getColumnsGrid, getEndPoint, getParamsGrid } from '../window/Window';
-import {RowComponent, TabulatorFull as Tabulator} from 'tabulator-tables';
+import { RowComponent, TabulatorFull as Tabulator} from 'tabulator-tables';
 import { setValueInForm } from '../input-value/InputValue';
 
 export function createLeftGrid(){
