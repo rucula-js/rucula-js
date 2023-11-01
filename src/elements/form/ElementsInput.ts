@@ -4,7 +4,7 @@ import { RepresentationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
 import { setEventForInformationInputQuadro } from "../../popper/PopperEvent";
 import { setDependency } from "../../table-dependency/TableDependency";
-import { setEventListenerForInput } from "./ElementsInputEvent";
+import { setEventListenerTypeCheckbox, setEventListenerTypeCurrency, setEventListenerTypeSimple } from "./ElementsInputEvent";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
 import { FieldSelect } from "./Field/FieldSelect";
@@ -19,26 +19,16 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 
     checkTypeField(field.type)
     
+    //! Esses if's podem ser substituidos por factory abstract, quando possível tentar implementar!
     if(isSimple()){
         fieldStrategy.setStrategy(new FieldCommon())
     }
-
-    function isSimple(){
-        
-        let condition =  
-            field.type == constTypeInput.TEXT ||
-            field.type == constTypeInput.NUMBER || 
-            field.type == constTypeInput.DATE ||
-            field.type == constTypeInput.CURRENCY
-        
-        return condition;
-    }
-        
+    
     if(field.type == constTypeInput.SELECT) {
         fieldStrategy.setStrategy(new FieldSelect())
     }
 
-    if(field.type == constTypeInput.CHECKBOX){
+    if(isCheckBox()){
         fieldStrategy.setStrategy(new FieldCheckbox())
     }
 
@@ -47,9 +37,21 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     }
     
     element = fieldStrategy.create(field);
-    setEventListenerForInput(element,field)
+
+    if(isSimple()){
+        setEventListenerTypeSimple(element,field)
+    }
+
+    if(isCheckBox()){
+        setEventListenerTypeCheckbox(element as HTMLInputElement, field)
+    }
+
+    if(isCurrency()){
+        setEventListenerTypeCurrency(element as HTMLInputElement, field)
+    }
+
     setEventForInformationInputQuadro(element)
-    
+
     addAttributesSetAndName(element,{   
         type:frame.type,
         object:frame.objectDto,
@@ -70,6 +72,26 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         formGroup.appendChild(element)
         return formGroup as HTMLDivElement
     }
+
+    function isSimple(){
+            
+        let condition =  
+        field.type == constTypeInput.TEXT ||
+        field.type == constTypeInput.NUMBER || 
+        field.type == constTypeInput.DATE ||
+        field.type == constTypeInput.CURRENCY
+        
+        return condition;
+    }
+        
+    function isCheckBox(){
+        return field.type == constTypeInput.CHECKBOX
+    }
+
+    function isCurrency(){
+        return field.type == constTypeInput.CURRENCY
+    }
+
     return element as HTMLSelectElement|HTMLInputElement
 }
 
@@ -136,8 +158,12 @@ export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
 export function createFieldCheckbox(field:field):HTMLInputElement{  
     
     var input = document.createElement("input")
+    
     input.type = "checkbox";
-    input.value = field.checkbox!.off
+
+    if(field.value == field.checkbox!.on){
+        input.checked = true
+    }
     
     return input;
 }
