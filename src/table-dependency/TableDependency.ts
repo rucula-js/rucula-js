@@ -15,7 +15,10 @@ let MIN:string = "4" as const;
 let DEPENDENCIES_AND_TODOIST_TAB:string = "." as const;
 
 function  createTableDependency(frames:Array<frame>){
-    
+
+    _tableDependency = []
+    _resolvedDependency = new Array();
+
     frames?.forEach(frame => 
 
         frame.fields?.forEach(field => {

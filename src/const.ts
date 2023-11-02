@@ -1,5 +1,3 @@
-
-
 export let constTypeInput = {
     
     TEXT: "text",   
@@ -13,6 +11,14 @@ export let constTypeInput = {
 }
 
 export let constTypeFrame = {
+
     BLOCK: "block",
     LINE: "line"
+}
+
+
+export let constIdBaseWindow =  {
+
+    NEW: "r-a-new",
+    FORM_RUCULA_JS:"form-rucula-js"
 }

@@ -1,3 +1,5 @@
+import { constIdBaseWindow } from "../../const";
+
 export function createWindowBase(id:string){
 
     const window = document.createElement("div");
@@ -38,7 +40,7 @@ function container(){
     return CONTAINER_FORM;
 }
 
-export function clearContainer(){
+export function cleanContainer(){
     let element = document.getElementById("container-r-f") as HTMLDivElement
     element.outerHTML = container(); 
 }
@@ -48,7 +50,7 @@ function componentActions(){
     const ACTIONS = 
         `<div class="r-act">
             <div class="r-act-opt r-head" id="w-title">
-                <button id="r-a-new" class="r-a-b"><i class="bi bi-plus-lg"></i></button>
+                <button id="${constIdBaseWindow.NEW}" class="r-a-b"><i class="bi bi-plus-lg"></i></button>
                 <div class="r-w-t">
                 </div>
                 <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
@@ -83,8 +85,9 @@ export function createComponentCreateOrEdit(){
                 </ol>    
             </div>
         </div>
-        <div class="r-f-items" id="form-rucula-js">
-        </div>
+        <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}">
+        
+        </form>
     </div>`
 
     let container = document.getElementById("container-r-f") as HTMLDivElement
