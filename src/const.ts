@@ -20,5 +20,8 @@ export let constTypeFrame = {
 export let constIdBaseWindow =  {
 
     NEW: "r-a-new",
+    REPEAT:"r-a-repeat",
+    ERASE_WINDOW: "erase-window",
+    MAXIMIZE_WINDOW: "maximize-window",
     FORM_RUCULA_JS:"form-rucula-js"
 }

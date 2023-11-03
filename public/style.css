@@ -29,6 +29,28 @@
     --heigth-read: 45px;
 }
 
+.r-f-hidden{
+    display: none;
+}
+
+.r-btn-new-convert-close{
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+.r-btn-new-cancel-close{
+    transition: transform 0.3s ease;
+}
+
+.r-f-visible{
+    display: auto;
+}
+
+.r-close-grid {
+    width: 0 !important;
+    overflow: hidden;
+    transition: width 0.6s ease;
+}
+
 .r-w-t h2,
 .r-w h3
 {
@@ -283,6 +305,7 @@ textarea {
 .r-act{
     width: 500px;
     max-width: 500px;
+    transition: width 0.6s ease;
 }
 
 .r-head{

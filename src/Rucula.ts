@@ -3,7 +3,7 @@ import { createObject, setJoinChield } from "./object/ObjectManagment";
 import { createTableDependency } from "./table-dependency/TableDependency";
 
 import {createPanel,set}  from './console/Console'
-import { cleanContainer, createComponentCreateOrEdit, createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
+import { createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame } from "./const";
 import { hiddenPopper } from "./popper/PopperEvent";
 import { createLeftGrid } from "./tabulator/Tabulator";
@@ -24,34 +24,35 @@ export class Rucula{
         
         this.window = window
         this.elementRucula = document.getElementById(id)!
-        setJoinChield(this.window.joinChield) 
         this.initWindow()
     }
 
-    private resetWindow():void{
-        createTableDependency(this.window.frames)
-        createObject(this.window.frames);
-    }
 
     private initWindow(){
         
+        setWindow(this.window);
+        
         let panel = createPanel();
         this.elementRucula.appendChild(panel)
+
+
         createWindowBase(this.elementRucula.id);
-        this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
         this.addHomeWindow();
-        createNameWindow(this.window.name)
+        
+        setJoinChield(this.window.joinChield);
+        createObject(this.window.frames)
         createTableDependency(this.window.frames)
-        setWindow(this.window);
-        this.prepareEventsButtonsCrud()
+        createNameWindow(this.window.name)
+        this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+        this.createFrames()
         hiddenPopper()
         set() 
         createLeftGrid();
-    
+        this.createButtons()
     }
 
     private addHomeWindow(){
-        
+     
         if(this.window?.iconHome){
             
             let icon = document.getElementById("r-f-home-icon")
@@ -73,28 +74,6 @@ export class Rucula{
         eventButton(this.window.button)
     }
 
-    private prepareEventsButtonsCrud(){
-
-        let buttonNew = document.getElementById(constIdBaseWindow.NEW)
-        
-        buttonNew?.addEventListener("click", () => {
-        
-          createComponentCreateOrEdit()
-          this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement; 
-           
-          createObject(this.window.frames)
-          this.createFrames()
-          this.createButtons()
-      
-          let cancel = document.getElementById("r-a-cancel")
-          cancel?.addEventListener("click", () => {
-            cleanContainer()
-            this.addHomeWindow()
-          })
-        })  
-    }
-
-
     private createFrames(){
     
         this.window.frames?.forEach(frame => {
@@ -102,6 +81,7 @@ export class Rucula{
             if(frame.type == constTypeFrame.BLOCK){
 
                 const block = createFrameBlock(frame)
+                console.log(this.elementFormRucula)
                 this.elementFormRucula.appendChild(block)
           
             }
@@ -113,11 +93,6 @@ export class Rucula{
             
             }  
         })
-    }
-
-    private resetWindowUi(){
-        const form = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
-        form.reset();
     }
 }
 

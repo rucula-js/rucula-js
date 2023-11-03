@@ -5,17 +5,21 @@ export function createWindowBase(id:string){
     const window = document.createElement("div");
     window.classList.add("r-w");
 
-    const contentForm = document.createElement("div");
     const actions = document.createElement("div");
-    
+    actions.innerHTML = componentActions();    
     window.appendChild(actions)
-    window.appendChild(contentForm)
 
-    contentForm.outerHTML = container();    
-    actions.outerHTML = componentActions();
-
+    const contentForm = document.createElement("div");
+    contentForm.innerHTML = createComponentCreateOrEdit()
+    
+    window.appendChild(contentForm.childNodes[0] as HTMLDivElement)
+    window.appendChild(contentForm.childNodes[1] as HTMLDivElement)
+        
     const div = document.getElementById(id)
     div?.appendChild(window);
+    prepareEventsButtonsCrud()
+    maximizeWindow()
+    eraseWindow();
 }
 
 export function createNameWindow(name:string){
@@ -23,34 +27,12 @@ export function createNameWindow(name:string){
     window.innerHTML = name
 }
 
-function container(){
-    
-    const CONTAINER_FORM = 
-    `<div id="container-r-f" class="container-r-f">
-        <div class="r-act-opt r-head" id="w-title">
-        </div>
-        <div class="r-f-items r-f-home">
-            <div class="r-f-home-round">
-                <i id="r-f-home-icon"class="bi" ></i>
-            </div>
-            <h3 id="r-f-home-title"></h3>
-        </div>
-    </div>`
-    
-    return CONTAINER_FORM;
-}
-
-export function cleanContainer(){
-    let element = document.getElementById("container-r-f") as HTMLDivElement
-    element.outerHTML = container(); 
-}
-
 function componentActions(){
 
     const ACTIONS = 
-        `<div class="r-act">
+        `<div class="r-act" id="actions">
             <div class="r-act-opt r-head" id="w-title">
-                <button id="${constIdBaseWindow.NEW}" class="r-a-b"><i class="bi bi-plus-lg"></i></button>
+                <button id="${constIdBaseWindow.NEW}" class="r-a-b r-btn-new-cancel-close"><i class="bi bi-plus-lg"></i></button>
                 <div class="r-w-t">
                 </div>
                 <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
@@ -66,12 +48,26 @@ function componentActions(){
     return ACTIONS;
 }
 
-export function createComponentCreateOrEdit(){
+function createComponentCreateOrEdit(){
 
     const CREATE_OR_EDIT =  
-    `<div autocomplete="off" class="r-f">
+    `<div class="container-r-f  js-open-close-container">
+        <div class="r-act-opt r-head" id="w-title">
+        </div>
+        <div class="r-f-items r-f-home">
+            <div class="r-f-home-round">
+                <i id="r-f-home-icon"class="bi" ></i>
+            </div>
+            <h3 id="r-f-home-title"></h3>
+        </div>
+    </div>
+    <div autocomplete="off" class="r-f container-r-f r-f-hidden js-open-close-container">
         <div class="r-head r-read-new">
-            <button id="r-a-cancel" class="r-a-b r-a-cancel">Cancelar</button>
+            <div>
+                <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
+                <button id="${constIdBaseWindow.REPEAT}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
+                <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
+            </div>
             <div class="r-head r-read-edit">
                 <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                 <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
@@ -90,18 +86,51 @@ export function createComponentCreateOrEdit(){
         </form>
     </div>`
 
-    let container = document.getElementById("container-r-f") as HTMLDivElement
-    container.innerHTML = CREATE_OR_EDIT;
+    return CREATE_OR_EDIT;
 }
 
-export function createComponentDetails(){
+function prepareEventsButtonsCrud(){
+
+    let rNew = document.getElementById(constIdBaseWindow.NEW)
     
-    const  DETAILS =  
-        `<div class="r-f-datail">
-            <div class="form">
-            </div>
-        </div>`
- 
-    let container = document.getElementById("container-r-f") as HTMLDivElement
-    container.innerHTML = DETAILS;
+    
+    rNew!.addEventListener("click", () => {
+        openCloseContainer();
+        rNew!.classList.toggle("r-btn-new-convert-close")
+        rNew!.classList.toggle("r-btn-new-cancel-close")
+    })
+    
+    let rCancel = document.getElementById(constIdBaseWindow.REPEAT)
+    
+    rCancel!.addEventListener("click", () => {
+        
+    })
+}
+
+function openCloseContainer(){
+    
+    let itemContainer = document.querySelectorAll(".js-open-close-container")
+    
+    itemContainer.forEach(item => {
+        item.classList.toggle("r-f-hidden")
+    })
+}
+
+function maximizeWindow(){
+    let maximize = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
+    
+    maximize?.addEventListener('click',() => {
+        let actions = document.getElementById("actions");
+        actions?.classList.toggle("r-close-grid");
+    })
+}
+
+function eraseWindow(){
+
+    let erase = document.getElementById(constIdBaseWindow.ERASE_WINDOW)
+    let form = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+    
+    erase?.addEventListener('click', () => {
+        form.reset();
+    })
 }
