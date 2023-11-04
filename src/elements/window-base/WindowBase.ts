@@ -1,4 +1,5 @@
 import { constIdBaseWindow } from "../../const";
+import { setValueInForm } from "../../input-value/InputValue";
 
 export function createWindowBase(id:string){
 
@@ -65,7 +66,7 @@ function createComponentCreateOrEdit(){
         <div class="r-head r-read-new">
             <div>
                 <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
-                <button id="${constIdBaseWindow.REPEAT}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
+                <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
                 <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
             </div>
             <div class="r-head r-read-edit">
@@ -99,12 +100,8 @@ function prepareEventsButtonsCrud(){
         rNew!.classList.toggle("r-btn-new-convert-close")
         rNew!.classList.toggle("r-btn-new-cancel-close")
     })
-    
-    let rCancel = document.getElementById(constIdBaseWindow.REPEAT)
-    
-    rCancel!.addEventListener("click", () => {
-        
-    })
+
+    reload()
 }
 
 function openCloseContainer(){
@@ -133,4 +130,24 @@ function eraseWindow(){
     erase?.addEventListener('click', () => {
         form.reset();
     })
+}
+
+
+let objectReload:any = {}
+
+export function setObjecReload(obj:any){
+    objectReload = obj
+    console.log(objectReload)
+}
+
+function reload(){
+
+    let reload = document.getElementById(constIdBaseWindow.RELOAD)
+    let form = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+
+    reload?.addEventListener('click', () => {
+        form.reset();
+        ;
+        setValueInForm(objectReload)
+    })    
 }

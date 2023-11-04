@@ -4,6 +4,7 @@ import { columnsGrid} from '../entities/form/columnsGrid'
 import { getColumnsGrid, getEndPoint, getParamsGrid } from '../window/Window';
 import { RowComponent, TabulatorFull as Tabulator} from 'tabulator-tables';
 import { setValueInForm } from '../input-value/InputValue';
+import { setObjecReload } from '../elements/window-base/WindowBase';
 
 export function createLeftGrid(){
 
@@ -55,7 +56,9 @@ function GetById(row:RowComponent){
     data:endPoint.method
   })
   .then((response:any) => {
-      setValueInForm(JSON.parse(response.request.response))
+      let obj = JSON.parse(response.request.response)
+      setObjecReload(obj)
+      setValueInForm(obj)
   })
 
   function prepareParamsGrid(){

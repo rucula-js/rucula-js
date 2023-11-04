@@ -1,7 +1,6 @@
 import { window } from "./entities/form/window";
 import { createObject, setJoinChield } from "./object/ObjectManagment";
 import { createTableDependency } from "./table-dependency/TableDependency";
-
 import {createPanel,set}  from './console/Console'
 import { createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame } from "./const";
@@ -26,8 +25,7 @@ export class Rucula{
         this.elementRucula = document.getElementById(id)!
         this.initWindow()
     }
-
-
+    
     private initWindow(){
         
         setWindow(this.window);
@@ -81,7 +79,6 @@ export class Rucula{
             if(frame.type == constTypeFrame.BLOCK){
 
                 const block = createFrameBlock(frame)
-                console.log(this.elementFormRucula)
                 this.elementFormRucula.appendChild(block)
           
             }
