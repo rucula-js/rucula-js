@@ -2,12 +2,23 @@ site_name: rucula-js
 nav:
   - Home: index.md
   - Configuração: configuracao.md 
+  - Objetos:
+    - Janelas: janelas.md
+    - Frames: frames.md
+    - Inputs: inputs.md
+    - Botões: botoes.md
+    - Objetos: objetos.md
+    
   - Guia do Usuario: 
     - Projeto hello word: crud.md 
     - Criando Botões e Eventos: botoes.md
     - Trabalhando com Atalhos: Atalhos.md
-  - Guia do Desenvolvedor:
-    - Estilo: style.md
+
+  - Grids: grids.md
+  - Urls: urls.md
+  - End Points: endPoints.md
+  - Formulas: formulas.md
+  - Terminal: terminal.md
 
 theme:
   name: material

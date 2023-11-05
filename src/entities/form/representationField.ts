@@ -1,12 +1,13 @@
-export class representationField{
+export class RepresentationField{
     public type?:string
     public objectDto!:string
     public propertDto!:string
     public lineNumber?:number
     public value!:string|number
 
-    public static prepareINPUTToField(input:HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement):representationField{
-        let representation = new representationField()
+    
+    public static prepareINPUTToField(input:HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement):RepresentationField{
+        let representation = new RepresentationField()
         let map =  input.getAttribute("name")!.split(".")
         representation.type = map[0]
         representation.objectDto = map[1]

@@ -2,8 +2,8 @@
     "environments":[
         {
             "env":"development",
-            "hostname":"https://localhost",
-            "port": "7299"
+            "hostname":"http://localhost",
+            "port": "5016"
         }
     ],
     "localizations":[

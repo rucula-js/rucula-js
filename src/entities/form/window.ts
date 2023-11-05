@@ -1,17 +1,22 @@
 import { button } from "./button";
-import { columnsGridGet } from "./columnsGridGet";
-import { columnsGridjs } from "./columnsGridjs";
+import { columnsGrid } from "./columnsGrid";
+import { endPoint } from "./endPoint";
 import { frame } from "./frame";
 
 export interface window{
     name:string;
-    type:string,
-    pathController:string
-    urlGetAll:string
-    urlGetId: string
+    type:string;
+    messageHome:string;
+    iconHome:string;
+    this:string;
+    pathController:string;
+    urlGetAll:string;
+    urlGetId: string;
     frames:Array<frame>
-    columns:columnsGridjs[]
+    columnsGrid:columnsGrid[]
+    paramsGrid:string
     button:button[]
-    columnsGridGet:columnsGridGet[],
     joinChield:{key:string, value:string}[]
+    endPoints:endPoint[]
+    
 }

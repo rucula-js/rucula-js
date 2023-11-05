@@ -1,13 +1,77 @@
-export function setValueInForm(obj:any, objectDto:string=""){
-    Object.keys(obj).forEach(key => {
-        if (typeof obj[key] == "string" || typeof obj[key] == "number"){  
-            let atribute = "";
-            objectDto == "" ? atribute = `[set=".${key}"]` : atribute = `[set="${objectDto}.${key}"]`;
-            (document.querySelector(atribute) as HTMLInputElement).value = obj[key] 
+import { addLine, cleanFrame } from "../elements/frame/TypeLine/FrameLine";
+import { RepresentationField } from "../entities/form/representationField";
+import { setPropertDto } from "../object/ObjectManagment";
+import { setDependency } from "../table-dependency/TableDependency";
+import { getThis } from "../window/Window";
+
+export function setValueInForm(obj:any, objectDto:string = "", line:number = -1){
+
+    if(objectDto == ""){
+        objectDto = getThis()
+    }
+
+    for (let propert in obj){
+        
+        if(Array.isArray(obj[propert])){
+
+            let representation = new RepresentationField()
+            representation.objectDto = propert;
+            representation.objectDto = propert;
+            
+            cleanFrame(representation)
+
+            let frameLine = document.querySelector(`[data-objectdto="${representation.objectDto}"] tbody`)
+
+            obj[propert].forEach((item:any,index:any) => {
+
+                representation.lineNumber = index 
+                
+                const lineAdd = addLine(representation)
+                frameLine?.appendChild(lineAdd)
+
+                setValueInForm(item,propert,index)
+            
+            })
         }
-        if(typeof obj[key] == "object"){
-            setValueInForm(obj[key],key);
+        
+        if(obj[propert] == null){
+            return;
         }
-    });
-    (document.getElementById("create-new") as HTMLButtonElement).click();
+
+        if (typeof obj[propert] == "string" || typeof obj[propert] == "number"){ 
+
+            let lineAttr = "";
+            
+            if(line >= 0){
+                lineAttr = `.${String(line)}`
+            }
+
+            let atribute = `[set="${objectDto}.${propert}${lineAttr}"]`;
+            
+            let input = document.querySelector(atribute) as HTMLInputElement;
+            
+            if(input){
+
+                const value = obj[propert]
+
+                input.value = value
+
+                let representation = new RepresentationField()
+                representation.objectDto = objectDto;
+                representation.propertDto = propert
+                
+                if(line >= 0){
+                    representation.lineNumber = line
+                }
+                representation.value = value
+
+                setDependency(representation)
+                setPropertDto(representation);
+            } 
+        }
+        
+        if(typeof obj[propert] == "object"){
+            setValueInForm(obj[propert],propert);
+        }
+    }
 }
