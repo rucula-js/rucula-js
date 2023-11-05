@@ -146,7 +146,6 @@ function reload(){
 
     reload?.addEventListener('click', () => {
         form.reset();
-        ;
         setValueInForm(objectReload)
     })    
 }
