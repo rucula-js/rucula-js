@@ -137,7 +137,6 @@ let objectReload:any = {}
 
 export function setObjecReload(obj:any){
     objectReload = obj
-    console.log(objectReload)
 }
 
 function reload(){

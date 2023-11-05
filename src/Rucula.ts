@@ -3,7 +3,7 @@ import { createObject, setJoinChield } from "./object/ObjectManagment";
 import { createTableDependency } from "./table-dependency/TableDependency";
 import {createPanel,set}  from './console/Console'
 import { createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
-import { constIdBaseWindow, constTypeFrame } from "./const";
+import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
 import { hiddenPopper } from "./popper/PopperEvent";
 import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
@@ -46,8 +46,10 @@ export class Rucula{
         hiddenPopper()
         set() 
         createLeftGrid();
-        this.createButtons()
+        this.createButtons();
+        this.resetBackground()
     }
+
 
     private addHomeWindow(){
      
@@ -89,6 +91,18 @@ export class Rucula{
                 this.elementFormRucula.appendChild(line)
             
             }  
+        })
+    }
+
+    private resetBackground(){
+
+        let rucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS)
+
+        rucula?.addEventListener(eventRucula.RESET_BACKGROUND,() => {
+
+            createObject(this.window.frames)
+            createTableDependency(this.window.frames)
+
         })
     }
 }

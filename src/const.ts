@@ -1,4 +1,4 @@
-export let constTypeInput = {
+export const constTypeInput = {
     
     TEXT: "text",   
     NUMBER: "number", 
@@ -10,18 +10,26 @@ export let constTypeInput = {
 
 }
 
-export let constTypeFrame = {
+export const constTypeFrame = {
 
     BLOCK: "block",
     LINE: "line"
 }
 
 
-export let constIdBaseWindow =  {
+export const constIdBaseWindow =  {
 
     NEW: "r-a-new",
     RELOAD:"r-a-reload",
     ERASE_WINDOW: "erase-window",
     MAXIMIZE_WINDOW: "maximize-window",
     FORM_RUCULA_JS:"form-rucula-js"
+}
+
+
+
+export const eventRucula = {
+
+    RESET_BACKGROUND:"reset-background",
+    RESET_BACKGROUND_EVENT: new Event("reset-background")
 }
