@@ -1,4 +1,5 @@
 import { constTypeFrame } from "../const";
+import { setDefaultFrame } from "../elements/Defaults";
 import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
 import { RepresentationField } from "../entities/form/representationField";
@@ -19,14 +20,16 @@ function  createTableDependency(frames:Array<frame>){
     _tableDependency = []
     _resolvedDependency = new Array();
 
-    frames?.forEach(frame => 
+    frames?.forEach(frame => {
+    
+        setDefaultFrame(frame)            
 
         frame.fields?.forEach(field => {
 
             let key = "" 
             let value = "" 
 
-            if(frame.type == constTypeFrame.BLOCK || frame.type == null){
+            if(frame.type == constTypeFrame.BLOCK){
                 key = keyDependency(frame.objectDto,field.propertDto)
             }
 
@@ -38,7 +41,7 @@ function  createTableDependency(frames:Array<frame>){
             _tableDependency.push({key:key, value:value})
             resolveDependecy(key,value)
         })
-    )
+    })
 }
 
 function keyDependency(frame:string,propert:string, line:string = ""):string {                

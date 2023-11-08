@@ -5,7 +5,7 @@ export function createFrame(frame:frame){
 
     const div = document.createElement('div');
     
-    if(frame.type == constTypeFrame.BLOCK || frame.type == null){
+    if(frame.type == constTypeFrame.BLOCK){
         div.classList.add("r-q-b")
     }
     

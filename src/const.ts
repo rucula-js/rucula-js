@@ -1,3 +1,9 @@
+
+export const eventRucula = {
+
+    RESET_BACKGROUND:"reset-background",
+    RESET_BACKGROUND_EVENT: new Event("reset-background")
+}
 export const constTypeInput = {
     
     TEXT: "text",   
@@ -24,12 +30,4 @@ export const constIdBaseWindow =  {
     ERASE_WINDOW: "erase-window",
     MAXIMIZE_WINDOW: "maximize-window",
     FORM_RUCULA_JS:"form-rucula-js"
-}
-
-
-
-export const eventRucula = {
-
-    RESET_BACKGROUND:"reset-background",
-    RESET_BACKGROUND_EVENT: new Event("reset-background")
 }

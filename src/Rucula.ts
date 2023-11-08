@@ -11,6 +11,7 @@ import { createFrameLine } from "./elements/frame/TypeLine/FrameLine";
 import { prepareButtons } from "./buttons/Button";
 import { eventButton } from "./buttons/EventButton";
 import { setWindow } from "./window/Window";
+import { setDefaultFrame } from "./elements/Defaults";
 
 
 export class Rucula{
@@ -78,8 +79,8 @@ export class Rucula{
     
         this.window.frames?.forEach(frame => {
 
-            
-            if(frame.type == constTypeFrame.BLOCK || frame.type == null){
+            setDefaultFrame(frame)            
+            if(frame.type == constTypeFrame.BLOCK){
 
                 const block = createFrameBlock(frame)
                 this.elementFormRucula.appendChild(block)

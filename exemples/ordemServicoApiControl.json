@@ -10,19 +10,13 @@
           "name":"Header OS",
           "objectDto":"ordemDeServico",
           "sequence":0,
-          "vertical":true,
           "fields":[
              {
                 "propertDto":"codigo",
                 "description":"Código",
                 "information":"",
-                "type":"text",
                 "maxLength":40,
                 "width":300,
-                "max":0,
-                "min":0,
-                "requerid":true,
-                "disable":false,
                 "sequence":1,
                 "id":"1565165"
              },
@@ -32,10 +26,6 @@
                 "information":"",
                 "type":"date",
                 "maxLength":0,
-                "max":0,
-                "min":0,
-                "requerid":true,
-                "disable":false,
                 "sequence":2,
                 "id":"1565166"
              },
@@ -48,11 +38,8 @@
                 "width":350,
                 "max":0,
                 "min":0,
-                "requerid":true,
-                "disable":false,
                 "sequence":3,
                 "id":"1565167"
-
              },
              {
                 "propertDto":"dataConclusao",
@@ -61,8 +48,6 @@
                 "type":"date",
                 "max":0,
                 "min":0,
-                "requerid":true,
-                "disable":false,
                 "sequence":5,
                 "id":"1565169"
              },
@@ -76,8 +61,6 @@
                 "width":150,
                 "max":0,
                 "min":0,
-                "requerid":true,
-                "disable":false,
                 "sequence":6,
                 "id":"1565170",
                 "value":true
@@ -98,16 +81,13 @@
        },
        {
          "name":"🤴 Cliente",
-         "type":"block",
          "objectDto":"cliente",
-         "vertical":true,
          "sequence":0,
          "fields":[
             {
                "propertDto":"nome",
                "description":"Nome",
                "information":"",
-               "type":"text",
                "maxLength":80,
                "width":500,
                "max":0,
@@ -122,7 +102,6 @@
                "propertDto":"telefone",
                "description":"Telefone",
                "information":null,
-               "type":"text",
                "maxLength":12,
                "requerid":true,
                "disable":false,
@@ -134,7 +113,6 @@
                "propertDto":"email",
                "description":"Email",
                "information":"e-mail do responsavel. Exemplo: reginaldo@gmail.com",
-               "type":"text",
                "width":700,
                "maxLength":150,
                "max":0,
@@ -149,64 +127,48 @@
       },
       {
          "name":"🌎 Cliente - Endereço ",
-         "type":"block",
+         
          "objectDto":"endereco",
-         "vertical":true,
+
          "sequence":1,
          "fields":[
             {
                "propertDto":"logradouro",
                "description":"Logradouro",
                "information":"",
-               "type":"text",
                "maxLength":150,
                "width":400,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565165"
-
-            
             },
             {
                "propertDto":"complemento",
                "description":"Complemento",
                "information":"",
-               "type":"text",
                "maxLength":20,
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565165"
-
-           
             },
             {
                "propertDto":"bairro",
                "description":"Bairro",
                "information":"",
-               "type":"text",
                "maxLength":30,
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565165"
-
-           
             },
             {
                "propertDto":"cidade",
                "description":"Cidade",
                "information":"",
-               "type":"text",
                "maxLength":40,
                "width":180,
                "max":0,
@@ -215,56 +177,40 @@
                "disable":false,
                "sequence":1,
                "id":"1565165"
-
-             
             },
             {
                "propertDto":"estado",
                "description":"Estado",
                "information":"",
-               "type":"text",
                "maxLength":30,
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565165"
-
-           
             },
             {
                "propertDto":"cep",
                "description":"CEP",
                "information":"",
-               "type":"text",
                "maxLength":9,
                "width":120,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565165"
-
-             
             },
             {
                "propertDto":"pais",
                "description":"País",
                "information":"",
-               "type":"text",
+
                "maxLength":50,
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565165"
-
-             
             }
          ],
          "id":"981981"
@@ -279,13 +225,10 @@
                "propertDto":"descricao",
                "description":"Descrição",
                "information":"",
-               "type":"text",
                "maxLength":100,
                "width":500,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565180"
               
@@ -299,8 +242,6 @@
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":2,
                "id":"1565181"
             },
@@ -313,8 +254,6 @@
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":3,
                "id":"1565182"
             },
@@ -328,8 +267,6 @@
                "max":0,
                "min":0,
                "formula":["=MATH(quantidade*valorUnitario)"],
-               "requerid":true,
-               "disable":false,
                "sequence":4,
                "id":"1565183"
 
@@ -338,23 +275,19 @@
          "id":"16516"
       },
       {
-         "name":"🧑‍🔧 Técnico Responsavel",
-         "type":"block",
+         "name":"🧑‍🔧 Técnico Responsavel",         
          "objectDto":"tecnicoResponsavel",
-         "vertical":true,
          "sequence":0,
          "fields":[
             {
                "propertDto":"nome",
                "description":"Nome",
                "information":"",
-               "type":"text",
+
                "maxLength":100,
                "width":200,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565184"
             },
@@ -362,13 +295,11 @@
                "propertDto":"telefone",
                "description":"Telefone",
                "information":"",
-               "type":"text",
+
                "maxLength":15,
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":2,
                "id":"1565185"
             },
@@ -376,13 +307,11 @@
                "propertDto":"email",
                "description":"Email",
                "information":"",
-               "type":"text",
+
                "maxLength":100,
                "width":200,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":3,
                "id":"1565186"
             }
@@ -390,22 +319,17 @@
       },
       {
          "name":"💵 Pagamento",
-         "type":"block",
          "objectDto":"pagamento",
-         "vertical":true,
          "sequence":0,
          "fields":[
             {
                "propertDto":"formaDePagamento",
                "description":"Forma de Pagamento",
                "information":"",
-               "type":"text",
                "maxLength":100,
                "width":200,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":1,
                "id":"1565187"
         
@@ -419,8 +343,6 @@
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":2,
                "id":"1565188"
                
@@ -434,11 +356,8 @@
                "width":150,
                "max":0,
                "min":0,
-               "requerid":true,
-               "disable":false,
                "sequence":3,
-               "id":"1565189"
-               
+               "id":"1565189"        
             }
          ]
       }
