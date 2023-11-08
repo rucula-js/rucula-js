@@ -1,24 +1,16 @@
 {
     "name": "@reginaldo-marinho/rucula-js",
-    "version": "0.0.19",
+    "version": "0.0.23",
     "description": "Crie telas em Minutos! 🚀",
-    "homepage": "https://github.com/reginaldo-marinho/rucula-js",
-    "main": "./dist/window/WindowFactory.js",
-    "directories": {
-        "lib": "lib"
-    },
-    "scripts": {
-        "test": "karma start",
-        "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
-        "build": "webpack --config webpack.prod.js",
-        "start": "webpack serve --open --config webpack.dev.js",
-        "clean": "rimraf dist/"
-    },
+    "homepage": "https://rucula-js.github.io/",
+    "bugs": "https://github.com/rucula-js/rucula-js/issues",
+    "main": "./dist/Rucula.js",
     "author": "reginaldo-marinho",
-    "bugs": {
-        "url": "https://github.com/reginaldo-marinho/rucula-js/issues"
-    },
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rucula-js/rucula-js.git"
+    },
     "keywords": [
         "Javascript",
         "Typescript",
@@ -29,6 +21,16 @@
         "MIT",
         "UI"
     ],
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "karma start",
+        "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
+        "build": "webpack --config webpack.prod.js",
+        "start": "webpack serve --open --config webpack.dev.js",
+        "clean": "rimraf dist/"
+    },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
         "@types/jasmine": "^4.3.5",
