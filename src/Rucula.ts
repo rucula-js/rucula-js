@@ -77,8 +77,9 @@ export class Rucula{
     private createFrames(){
     
         this.window.frames?.forEach(frame => {
-        
-            if(frame.type == constTypeFrame.BLOCK){
+
+            
+            if(frame.type == constTypeFrame.BLOCK || frame.type == null){
 
                 const block = createFrameBlock(frame)
                 this.elementFormRucula.appendChild(block)

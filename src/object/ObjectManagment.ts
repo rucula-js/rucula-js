@@ -14,7 +14,7 @@ function createObject(frames:Array<frame>){
     
     frames?.forEach(frame => {
 
-        if(frame.type == constTypeFrame.BLOCK){
+        if(frame.type == constTypeFrame.BLOCK || frame.type == null){
             _object[frame.objectDto] = {}
         }
 

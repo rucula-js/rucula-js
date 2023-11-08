@@ -71,7 +71,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         setValueOrFormula(field,element as HTMLInputElement,frame)
     }
 
-    if(frame.type == constTypeFrame.BLOCK){
+    if(frame.type == constTypeFrame.BLOCK || frame.type == null){
         const formGroup = createGroupOfInput(field)
         formGroup.appendChild(element)
         return formGroup as HTMLDivElement

@@ -10,8 +10,6 @@ export interface window{
     iconHome:string;
     this:string;
     pathController:string;
-    urlGetAll:string;
-    urlGetId: string;
     frames:Array<frame>
     columnsGrid:columnsGrid[]
     paramsGrid:string

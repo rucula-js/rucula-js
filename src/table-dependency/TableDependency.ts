@@ -26,7 +26,7 @@ function  createTableDependency(frames:Array<frame>){
             let key = "" 
             let value = "" 
 
-            if(frame.type == constTypeFrame.BLOCK){
+            if(frame.type == constTypeFrame.BLOCK || frame.type == null){
                 key = keyDependency(frame.objectDto,field.propertDto)
             }
 

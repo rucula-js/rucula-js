@@ -1,8 +1,6 @@
 {
     "name":"Ordem de Serviço",
     "pathController":"/OrdemServico",
-    "urlGetAll":"",
-    "urlGetId":"",
     "type":"crud",
     "messageHome":"Ordem de Serviço",
     "iconHome":"bi-rocket-takeoff",
@@ -10,7 +8,6 @@
     "frames":[
        {
           "name":"Header OS",
-          "type":"block",
           "objectDto":"ordemDeServico",
           "sequence":0,
           "vertical":true,
