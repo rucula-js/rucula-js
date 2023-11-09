@@ -89,7 +89,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     }
         
     function isCheckBox(){
-        return field.type == constTypeInput.CHECKBOX
+        return field.type[0] == constTypeInput.CHECKBOX
     }
 
     function isCurrency(){
@@ -103,8 +103,13 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     return element as HTMLSelectElement|HTMLInputElement
 }
 
-function checkTypeField(type: string){
+function checkTypeField(type: string|string[2]){
 
+    let option = type;
+    
+    if(Array.isArray(type)){
+        option = type[1]
+    }
     let types = [
         "text",
         "number",
@@ -112,11 +117,12 @@ function checkTypeField(type: string){
         "checkbox",
         "date",
         "currency",
-        "textarea"
+        "textarea",
+        "bool"
     ]
 
-    if(types.indexOf(type) == -1){
-        throw new Error(`Field type "${type}" is not allowed`);
+    if(types.indexOf(option) == -1){
+        throw new Error(`Field type "${option}" is not allowed`);
     }
 }
 
@@ -182,7 +188,7 @@ function createGroupOfInput(field:field):HTMLDivElement{
     div.classList.add('r-g-i-i');
 
     const label = document.createElement('label');
-    label.setAttribute('for',field.id)    
+
     label.textContent = field.description
 
     if (field.requerid == true){

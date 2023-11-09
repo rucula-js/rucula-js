@@ -1,4 +1,4 @@
-{
+{    
     "name": "@reginaldo-marinho/rucula-js",
     "version": "0.0.23",
     "description": "Crie telas em Minutos! 🚀",
@@ -45,14 +45,11 @@
         "copyfiles": "^2.4.1",
         "css-loader": "^6.8.1",
         "html-webpack-plugin": "^5.5.3",
-        "jasmine": "^5.1.0",
         "jasmine-core": "^5.1.1",
         "karma": "^6.4.2",
         "karma-chrome-launcher": "^3.2.0",
+        "karma-firefox-launcher": "^2.1.2",
         "karma-jasmine": "^5.1.0",
-        "karma-jasmine-html-reporter": "^2.1.0",
-        "karma-requirejs": "^1.1.0",
-        "karma-typescript-preprocessor": "^0.4.0",
         "mini-css-extract-plugin": "^2.7.6",
         "rimraf": "^5.0.1",
         "style-loader": "^3.3.3",

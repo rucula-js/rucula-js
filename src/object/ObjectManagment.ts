@@ -1,5 +1,6 @@
-import { constTypeFrame } from "../const";
+import { constTypeFrame, constTypeInput } from "../const";
 import { setDefaultFrame } from "../elements/Defaults";
+import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
 import { RepresentationField } from "../entities/form/representationField";
 
@@ -35,7 +36,6 @@ export function zeroNextzzRowCount(objectDto:string):number{
 function getNextzzRowCount(objectDto:string):number{
     return _object["zzRowCount"][objectDto] += 1;
 }
-
 function setPropertDto(rep:RepresentationField){
 
     if(rep.lineNumber == null || rep.lineNumber == undefined){
@@ -128,8 +128,14 @@ function PrepareObject(){
     }
     return object[0]
 }
-function setJoinChield(cheilds:{key:string, value:string}[] ){
-    _joinChield = cheilds; 
+function setJoinChield(cheilds:string[] ){
+    
+    cheilds.forEach(item => {
+
+        let join = item.split(".") 
+        _joinChield.push({key:join[0], value:join[1]}); 
+    
+    })
  }
 
 export {

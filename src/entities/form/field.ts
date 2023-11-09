@@ -1,7 +1,7 @@
 export interface field {
-    id: string
+
     description: string
-    type: string
+    type: string|string[2]
     combo?:[],
     checkbox?:checkbox
     textarea:textarea

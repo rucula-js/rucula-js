@@ -14,7 +14,7 @@ export interface window{
     columnsGrid:columnsGrid[]
     paramsGrid:string
     button:button[]
-    joinChield:{key:string, value:string}[]
+    joinChield:string[]
     endPoints:endPoint[]
     
 }

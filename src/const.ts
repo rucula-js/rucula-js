@@ -8,6 +8,7 @@ export const constTypeInput = {
     
     TEXT: "text",   
     NUMBER: "number", 
+    BOOLEAN: "bool", 
     DATE: "date",
     CURRENCY: "currency",
     SELECT: "select",

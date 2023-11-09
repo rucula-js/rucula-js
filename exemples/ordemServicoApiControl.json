@@ -1,455 +1,332 @@
 {
-    "name":"Ordem de Serviço",
-    "pathController":"/OrdemServico",
-    "type":"crud",
-    "messageHome":"Ordem de Serviço",
-    "iconHome":"bi-rocket-takeoff",
-    "this":"ordemDeServico",
-    "frames":[
-       {
-          "name":"Header OS",
-          "objectDto":"ordemDeServico",
-          "sequence":0,
-          "fields":[
-             {
-                "propertDto":"codigo",
-                "description":"Código",
-                "information":"",
-                "maxLength":40,
-                "width":300,
-                "sequence":1,
-                "id":"1565165"
-             },
-             {
-                "propertDto":"dataAbertura",
-                "description":"Data de Abertura",
-                "information":"",
-                "type":"date",
-                "maxLength":0,
-                "sequence":2,
-                "id":"1565166"
-             },
-             {
-                "propertDto":"totalServico",
-                "description":"Total de Serviço",
-                "information":"",
-                "type":"currency",
-                "maxLength":55,
-                "width":350,
-                "max":0,
-                "min":0,
-                "sequence":3,
-                "id":"1565167"
-             },
-             {
-                "propertDto":"dataConclusao",
-                "description":"Data de Conclusão",
-                "information":"",
-                "type":"date",
-                "max":0,
-                "min":0,
-                "sequence":5,
-                "id":"1565169"
-             },
-             {
-                "propertDto":"status",
-                "description":"Status",
-                "information":"",
-                "type":"checkbox",
-                "checkbox":{"on":true,"off":false},
-                "maxLength":20,
-                "width":150,
-                "max":0,
-                "min":0,
-                "sequence":6,
-                "id":"1565170",
-                "value":true
-             },
-             {
-                "propertDto":"infIni",
-                "description":"Informações Iniciais",
-                "information":"",
-                "type":"textarea",
-                "maxLength":20,
-                "max":0,
-                "min":0,
-                "requerid":true,
-                "sequence":6
-             }
-          ],
-          "id":"981981"
-       },
-       {
-         "name":"🤴 Cliente",
-         "objectDto":"cliente",
-         "sequence":0,
-         "fields":[
-            {
-               "propertDto":"nome",
-               "description":"Nome",
-               "information":"",
-               "maxLength":80,
-               "width":500,
-               "max":0,
-               "min":0,
-               "requerid":true,
-               "disable":false,
-               "sequence":1,
-               "id":"1565165"
-
-            },
-            {
-               "propertDto":"telefone",
-               "description":"Telefone",
-               "information":null,
-               "maxLength":12,
-               "requerid":true,
-               "disable":false,
-               "sequence":5,
-               "id":"5616"
-
-            },
-            {
-               "propertDto":"email",
-               "description":"Email",
-               "information":"e-mail do responsavel. Exemplo: reginaldo@gmail.com",
-               "width":700,
-               "maxLength":150,
-               "max":0,
-               "min":0,
-               "requerid":true,
-               "disable":false,
-               "sequence":2,
-               "id":"9849849"
-            }
-         ],
-         "id":"981981"
-      },
-      {
-         "name":"🌎 Cliente - Endereço ",
-         
-         "objectDto":"endereco",
-
-         "sequence":1,
-         "fields":[
-            {
-               "propertDto":"logradouro",
-               "description":"Logradouro",
-               "information":"",
-               "maxLength":150,
-               "width":400,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565165"
-            },
-            {
-               "propertDto":"complemento",
-               "description":"Complemento",
-               "information":"",
-               "maxLength":20,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565165"
-            },
-            {
-               "propertDto":"bairro",
-               "description":"Bairro",
-               "information":"",
-               "maxLength":30,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565165"
-            },
-            {
-               "propertDto":"cidade",
-               "description":"Cidade",
-               "information":"",
-               "maxLength":40,
-               "width":180,
-               "max":0,
-               "min":0,
-               "requerid":true,
-               "disable":false,
-               "sequence":1,
-               "id":"1565165"
-            },
-            {
-               "propertDto":"estado",
-               "description":"Estado",
-               "information":"",
-               "maxLength":30,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565165"
-            },
-            {
-               "propertDto":"cep",
-               "description":"CEP",
-               "information":"",
-               "maxLength":9,
-               "width":120,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565165"
-            },
-            {
-               "propertDto":"pais",
-               "description":"País",
-               "information":"",
-
-               "maxLength":50,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565165"
-            }
-         ],
-         "id":"981981"
-      },
-      {
-         "name":"🛠️ Serviços Prestados",
-         "type":"line",
-         "objectDto":"itensServico",
-         "sequence":0,
-         "fields":[
-            {
-               "propertDto":"descricao",
-               "description":"Descrição",
-               "information":"",
-               "maxLength":100,
-               "width":500,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565180"
-              
-            },
-            {
-               "propertDto":"valorUnitario",
-               "description":"Valor Unitário",
-               "information":"",
-               "type":"currency",      
-               "maxLength":20,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":2,
-               "id":"1565181"
-            },
-            {
-               "propertDto":"quantidade",
-               "description":"Quantidade",
-               "information":"",
-               "type":"number",
-               "maxLength":20,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":3,
-               "id":"1565182"
-            },
-            {
-               "propertDto":"subtotal",
-               "description":"Subtotal",
-               "information":"",
-               "type":"currency",
-               "maxLength":50,
-               "width":150,
-               "max":0,
-               "min":0,
-               "formula":["=MATH(quantidade*valorUnitario)"],
-               "sequence":4,
-               "id":"1565183"
-
-            }
-         ],
-         "id":"16516"
-      },
-      {
-         "name":"🧑‍🔧 Técnico Responsavel",         
-         "objectDto":"tecnicoResponsavel",
-         "sequence":0,
-         "fields":[
-            {
-               "propertDto":"nome",
-               "description":"Nome",
-               "information":"",
-
-               "maxLength":100,
-               "width":200,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565184"
-            },
-            {
-               "propertDto":"telefone",
-               "description":"Telefone",
-               "information":"",
-
-               "maxLength":15,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":2,
-               "id":"1565185"
-            },
-            {
-               "propertDto":"email",
-               "description":"Email",
-               "information":"",
-
-               "maxLength":100,
-               "width":200,
-               "max":0,
-               "min":0,
-               "sequence":3,
-               "id":"1565186"
-            }
-         ]
-      },
-      {
-         "name":"💵 Pagamento",
-         "objectDto":"pagamento",
-         "sequence":0,
-         "fields":[
-            {
-               "propertDto":"formaDePagamento",
-               "description":"Forma de Pagamento",
-               "information":"",
-               "maxLength":100,
-               "width":200,
-               "max":0,
-               "min":0,
-               "sequence":1,
-               "id":"1565187"
-        
-            },
-            {
-               "propertDto":"valorTotalPago",
-               "description":"Valor Total Pago",
-               "information":"",
-               "type":"number",
-               "maxLength":0,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":2,
-               "id":"1565188"
-               
-            },
-            {
-               "propertDto":"dataPagamento",
-               "description":"Data de Pagamento",
-               "information":"",
-               "type":"date",
-               "maxLength":0,
-               "width":150,
-               "max":0,
-               "min":0,
-               "sequence":3,
-               "id":"1565189"        
-            }
-         ]
-      }
-    ],
-    "columnsGrid":[
-      {
-         "title":"codigo",
-         "field":"codigo"
-      },
-      {
-         "title":"data Abertura",
-         "field":"dataAbertura"
-      }
-    ],
-    "paramsGrid":"/{{codigo}}",
-    "button":[
-       {
-         "id":"8418",
-         "link":"",
-         "icon":"bi bi-save",
-         "text":"",
-         "type":"button",
-         "target":"r-a-save",
-         "endPoint":"create-os"
-       },
-       {
-          "post":"",
-          "link":"",
-          "icon":"bi bi-wrench",
-          "type":"button",
-          "target":"r-a-alter",
-          "id":"8248",
-          "endPoint":"update-os"
-       },
-       {
-          "link":"",
-          "icon":"bi bi-trash3",
-          "text":"",
-          "type":"button",
-          "color":"",
-          "target":"r-a-delete",
-          "id":"er43",
-          "endPoint":"delete-os"
-       }     
-    ],
-    "joinChield":[
-       {
-          "key":"cliente",
-          "value":"endereco"
-       },
-       {
-          "key":"ordemDeServico",
-          "value":"cliente"
-       },
-       {
-          "key":"ordemDeServico",
-          "value":"itensServico"
-       },
-       {
-          "key":"ordemDeServico",
-          "value":"tecnicoResponsavel"
-       },
-       {
-          "key":"ordemDeServico",
-          "value":"pagamento"
-       }
-    ],
-    "endPoints":[
-      {
-         "name":"create-os",
-         "method":"post",
-         "body": "this"
-      },
-      {
-         "name":"delete-os",
-         "method":"delete",
-         "params":"/{{ordemDeServico.codigo}}"
-      },
-      {
-         "name":"update-os",
-         "method":"put",
-         "params":"/{{ordemDeServico.codigo}}",
-         "body": "this"
-      },
-      {
-         "name":"get-all-grid",
-         "method":"get"
-      },
-      {
-         "name":"get-by-id",
-         "method":"get"
-      }
-    ],
-    "id":"7890q2wqq"
+   "name": "Ordem de Serviço",
+   "pathController": "/OrdemServico",
+   "type": "crud",
+   "messageHome": "Ordem de Serviço",
+   "iconHome": "bi-rocket-takeoff",
+   "this": "ordemDeServico",
+   "frames": [
+     {
+       "name": "Header OS",
+       "objectDto": "ordemDeServico",
+       "sequence": 0,
+       "fields": [
+         {
+           "propertDto": "codigo",
+           "description": "Código",
+           "information": "",
+           "maxLength": 40,
+           "width": 300,
+           "sequence": 1
+         },
+         {
+           "propertDto": "dataAbertura",
+           "description": "Data de Abertura",
+           "information": "",
+           "type": "date",
+           "maxLength": 0,
+           "sequence": 2
+         },
+         {
+           "propertDto": "totalServico",
+           "description": "Total de Serviço",
+           "information": "",
+           "type": "currency",
+           "maxLength": 55,
+           "width": 350,
+           "sequence": 3
+         },
+         {
+           "propertDto": "dataConclusao",
+           "description": "Data de Conclusão",
+           "information": "",
+           "type": "date",
+           "sequence": 5
+         },
+         {
+           "propertDto": "status",
+           "description": "Status",
+           "information": "",
+           "type": ["checkbox","bool"],
+           "checkbox": {
+             "on": true,
+             "off": false
+           },
+           "width": 150,
+           "sequence": 6,
+           "value": false
+         },
+         {
+           "propertDto": "infIni",
+           "description": "Informações Iniciais",
+           "information": "",
+           "type": "textarea",
+           "maxLength": 20,
+           "sequence": 6
+         }
+       ],
+       "id": "981981"
+     },
+     {
+       "name": "🤴 Cliente",
+       "objectDto": "cliente",
+       "sequence": 0,
+       "fields": [
+         {
+           "propertDto": "nome",
+           "description": "Nome",
+           "maxLength": 80,
+           "width": 500,
+           "sequence": 1
+         },
+         {
+           "propertDto": "telefone",
+           "description": "Telefone",
+           "maxLength": 12,
+           "sequence": 5
+         },
+         {
+           "propertDto": "email",
+           "description": "Email",
+           "information": "e-mail do responsavel. Exemplo: reginaldo@gmail.com",
+           "width": 700,
+           "maxLength": 150,
+           "sequence": 2
+         }
+       ],
+       "id": "981981"
+     },
+     {
+       "name": "Cliente - Endereço",
+       "objectDto": "endereco",
+       "sequence": 1,
+       "fields": [
+         {
+           "propertDto": "logradouro",
+           "description": "Logradouro",
+           "maxLength": 150,
+           "width": 400,
+           "sequence": 1
+         },
+         {
+           "propertDto": "complemento",
+           "description": "Complemento",
+           "information": "",
+           "maxLength": 20,
+           "width": 150,
+           "sequence": 1
+         },
+         {
+           "propertDto": "bairro",
+           "description": "Bairro",
+           "maxLength": 30,
+           "width": 150,
+           "sequence": 1
+         },
+         {
+           "propertDto": "cidade",
+           "description": "Cidade",
+           "maxLength": 40,
+           "width": 180,
+           "sequence": 1
+         },
+         {
+           "propertDto": "estado",
+           "description": "Estado",
+           "maxLength": 30,
+           "width": 150,
+           "sequence": 1
+         },
+         {
+           "propertDto": "cep",
+           "description": "CEP",
+           "maxLength": 9,
+           "width": 120,
+           "sequence": 1
+         },
+         {
+           "propertDto": "pais",
+           "description": "País",
+           "maxLength": 50,
+           "width": 150,
+           "sequence": 1
+         }
+       ],
+       "id": "981981"
+     },
+     {
+       "name": "Serviços Prestados",
+       "type": "line",
+       "objectDto": "itensServico",
+       "sequence": 0,
+       "fields": [
+         {
+           "propertDto": "descricao",
+           "description": "Descrição",
+           "maxLength": 100,
+           "width": 500,
+           "sequence": 1
+         },
+         {
+           "propertDto": "valorUnitario",
+           "description": "Valor Unitário",
+           "type": "currency",
+           "maxLength": 20,
+           "width": 150,
+           "sequence": 2
+         },
+         {
+           "propertDto": "quantidade",
+           "description": "Quantidade",
+           "type": "number",
+           "maxLength": 20,
+           "width": 150,
+           "sequence": 3
+         },
+         {
+           "propertDto": "subtotal",
+           "description": "Subtotal",
+           "type": "currency",
+           "maxLength": 50,
+           "width": 150,
+           "formula": [
+             "=MATH(quantidade*valorUnitario)"
+           ],
+           "sequence": 4
+         }
+       ],
+       "id": "16516"
+     },
+     {
+       "name": "🧑‍🔧 Técnico Responsavel",
+       "objectDto": "tecnicoResponsavel",
+       "sequence": 0,
+       "fields": [
+         {
+           "propertDto": "nome",
+           "description": "Nome",
+           "maxLength": 100,
+           "width": 200,
+           "sequence": 1
+         },
+         {
+           "propertDto": "telefone",
+           "description": "Telefone",
+           "maxLength": 15,
+           "width": 150,
+           "sequence": 2
+         },
+         {
+           "propertDto": "email",
+           "description": "Email",
+           "maxLength": 100,
+           "width": 200,
+           "sequence": 3
+         }
+       ]
+     },
+     {
+       "name": "💵 Pagamento",
+       "objectDto": "pagamento",
+       "sequence": 0,
+       "fields": [
+         {
+           "propertDto": "formaDePagamento",
+           "description": "Forma de Pagamento",
+           "maxLength": 100,
+           "width": 200,
+           "sequence": 1
+         },
+         {
+           "propertDto": "valorTotalPago",
+           "description": "Valor Total Pago",
+           "type": "number",
+           "width": 150,
+           "sequence": 2
+         },
+         {
+           "propertDto": "dataPagamento",
+           "description": "Data de Pagamento",
+           "type": "date",
+           "width": 150,
+           "sequence": 3
+         }
+       ]
+     }
+   ],
+   "columnsGrid": [
+     {
+       "title": "codigo",
+       "field": "codigo"
+     },
+     {
+       "title": "data Abertura",
+       "field": "dataAbertura"
+     }
+   ],
+   "paramsGrid": "/{{codigo}}",
+   "button": [
+     {
+       "id": "8418",
+       "link": "",
+       "icon": "bi bi-save",
+       "text": "",
+       "type": "button",
+       "target": "r-a-save",
+       "endPoint": "create-os"
+     },
+     {
+       "post": "",
+       "link": "",
+       "icon": "bi bi-wrench",
+       "type": "button",
+       "target": "r-a-alter",
+       "id": "8248",
+       "endPoint": "update-os"
+     },
+     {
+       "link": "",
+       "icon": "bi bi-trash3",
+       "text": "",
+       "type": "button",
+       "color": "",
+       "target": "r-a-delete",
+       "id": "er43",
+       "endPoint": "delete-os"
+     }
+   ],
+   "joinChield": [
+      "cliente.endereco",
+      "ordemDeServico.cliente",
+      "ordemDeServico.itensServico",
+      "ordemDeServico.tecnicoResponsavel",
+      "ordemDeServico.pagamento"
+   ],
+   "endPoints": [
+     {
+       "name": "create-os",
+       "method": "post",
+       "body": "this"
+     },
+     {
+       "name": "delete-os",
+       "method": "delete",
+       "params": "/{{ordemDeServico.codigo}}"
+     },
+     {
+       "name": "update-os",
+       "method": "put",
+       "params": "/{{ordemDeServico.codigo}}",
+       "body": "this"
+     },
+     {
+       "name": "get-all-grid",
+       "method": "get"
+     },
+     {
+       "name": "get-by-id",
+       "method": "get"
+     }
+   ],
+   "id": "7890q2wqq"
  }
