@@ -2,7 +2,6 @@
 
 Para se obter a melhor experiência ao trabalhar com grid, o tabular foi a escolha perfeita. Com um rico conjunto de configurações e desempenho, o tabulator se mostra  efetivo ao mostrar suas funcionalides atreladas ao rucula-js. Veja seu site oficial em [tabulator.info](http://tabulator.info/).
 
-
 ## Configurando as Colunas do Grid  
 
 Ao iniciar uma janela no  rucula-js, uma  das etapas que ocorrem é a consulta e preenchimento dos dados iniciais ao grid esquerdo da janela, essa consulta se dá pela configuração do [ponto de entrada](endPoints.md) `get-all-grid`, esse é um identificador reservado especialmente para o grid que é solicitado no array de pontos de entrada no processo de construção do grid. Além  desse identificador reservado, também temos o `get-by-id`, que falaremos mais à frente.
