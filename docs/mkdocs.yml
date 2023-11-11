@@ -2,6 +2,7 @@ site_name: rucula-js
 nav:
   - Home: index.md
   - Configuração: configuracao.md 
+  - Hello World: hello-world.md
   - Objetos:
     - Janelas: janelas.md
     - Frames: frames.md
