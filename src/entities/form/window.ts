@@ -16,5 +16,5 @@ export interface window{
     button:button[]
     joinChield:string[]
     endPoints:endPoint[]
-    
+
 }
