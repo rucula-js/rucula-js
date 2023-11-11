@@ -26,13 +26,6 @@ jobs:
           name: docs
           path: ./docs/site/
           
-      - name: Generate a token
-        id: generate_token  
-        uses: actions/create-github-app-token@v1
-        with:
-          app_id: ${{ secrets.DOCS_APP_ID }}
-          private_key: ${{ secrets.DOCS_PK }}  
-          
       - uses: actions/checkout@v4.0.0
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
