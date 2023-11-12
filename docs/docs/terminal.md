@@ -1,6 +1,6 @@
 # O Terminal
 
-Desenvolver e observar o que o rucula faz por baixo dos panos pode ser um pouco confuso no começo, mas para reduzir ao maxímo essa possivel situação, estamos desenvolvendo o terminal do rucula, como ele você pode digitar alguns comandos e ter informações valiosas.
+Desenvolver e observar o que o rucula faz por baixo dos panos pode ser um pouco confuso no começo, mas para reduzir ao maxímo essa possivel situação, estamos desenvolvendo o terminal do rucula-js, com ele você pode digitar alguns comandos e ter informações valiosas.
 
 ## Comandos contidos no Terminal
 
