@@ -31,5 +31,5 @@ export function setDefaultInput(field: field){
     field.type ??= configInputDefault.TYPE
     field.requerid ??= configInputDefault.REQUERID
     field.disable ??= configInputDefault.DISABLE
-
+    
 }
