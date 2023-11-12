@@ -32,7 +32,7 @@ jobs:
         with:
           repository: rucula-js/rucula-js.github.io
           persist-credentials: false
-          token: ${{ secrets.SECRET_UTK }}
+          token: ${{ secrets.PASS_RUC_DOC }}
           
       - uses: actions/download-artifact@v2
         with:
@@ -40,7 +40,7 @@ jobs:
       - run: |
           git config --global user.email "automatic-action@automatic.com"
           git config --global user.name "automatic-action" 
-          git remote set-url origin https://${{ secrets.USER }}:${{ secrets.SECRET_UTK }}@github.com/rucula-js/rucula-js.github.io.git
+          git remote set-url origin https://${{ secrets.USER }}:${{ secrets.PASS_RUC_DOC }}@github.com/rucula-js/rucula-js.github.io.git
           git add .
           git commit -m "automatic actions"
           git push
