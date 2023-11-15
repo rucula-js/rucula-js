@@ -1,3 +1,5 @@
+import { formatNumberWithLocalization } from "../Helpers/CurrencyHelper";
+import { constAttrInput, constTypeInput } from "../const";
 import { addLine, cleanFrame } from "../elements/frame/TypeLine/FrameLine";
 import { RepresentationField } from "../entities/form/representationField";
 import { setPropertDto } from "../object/ObjectManagment";
@@ -52,9 +54,15 @@ export function setValueInForm(obj:any, objectDto:string = "", line:number = -1)
             
             if(input){
 
+                const type = input.getAttribute(constAttrInput.ATTR_TYPE)
+
                 const value = obj[propert]
 
                 input.value = value
+                
+                if(type == constTypeInput.CURRENCY){
+                    input.value = formatNumberWithLocalization(input.value)
+                }
 
                 let representation = new RepresentationField()
                 representation.objectDto = objectDto;

@@ -1,4 +1,4 @@
-import { constTypeFrame, constTypeInput } from "../../const";
+import { constAttrInput, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
@@ -129,6 +129,8 @@ function checkTypeField(type: string|string[2]){
 export function createFieldTypeInputBasic(field:field): HTMLInputElement{
 
     const input = document.createElement('input');
+
+    input.setAttribute(constAttrInput.ATTR_TYPE,field.type)
 
     if(field?.disable){
         input.setAttribute("disabled","")

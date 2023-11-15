@@ -32,3 +32,8 @@ export const constIdBaseWindow =  {
     MAXIMIZE_WINDOW: "maximize-window",
     FORM_RUCULA_JS:"form-rucula-js"
 }
+
+
+export const constAttrInput = {
+    ATTR_TYPE: "ruc-type"
+}
