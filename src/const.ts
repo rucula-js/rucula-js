@@ -1,9 +1,11 @@
+export const DOT_DOT_SEPARATOR = "..";
 
 export const eventRucula = {
 
     RESET_BACKGROUND:"reset-background",
     RESET_BACKGROUND_EVENT: new Event("reset-background")
 }
+
 export const constTypeInput = {
     
     TEXT: "text",   

@@ -1,4 +1,4 @@
-import { constTypeFrame, constTypeInput } from "../const";
+import { DOT_DOT_SEPARATOR, constTypeFrame, constTypeInput } from "../const";
 import { setDefaultFrame } from "../elements/Defaults";
 import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
@@ -132,9 +132,17 @@ function setJoinChield(cheilds:string[] ){
     
     cheilds.forEach(item => {
 
-        let join = item.split(".") 
+        let join = item.split(DOT_DOT_SEPARATOR) 
+        
+        if(isUndefined()){
+            throw new Error("JoinChield invalid")
+        }
+
         _joinChield.push({key:join[0], value:join[1]}); 
-    
+                
+        function isUndefined(){
+            return join[0] == undefined || join[1] == undefined
+        }
     })
  }
 

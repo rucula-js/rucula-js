@@ -240,7 +240,7 @@
         {
           "propertDto": "valorTotalPago",
           "description": "Valor Total Pago",
-          "type": "number",
+          "type": "currency",
           "width": 150,
           "sequence": 2
         },
@@ -296,11 +296,11 @@
     }
   ],
   "joinChield": [
-     "cliente.endereco",
-     "ordemDeServico.cliente",
-     "ordemDeServico.itensServico",
-     "ordemDeServico.tecnicoResponsavel",
-     "ordemDeServico.pagamento"
+     "cliente..endereco",
+     "ordemDeServico..cliente",
+     "ordemDeServico..itensServico",
+     "ordemDeServico..tecnicoResponsavel",
+     "ordemDeServico..pagamento"
   ],
   "endPoints": [
     {
