@@ -1,4 +1,5 @@
 import { constTypeInput } from "../const"
+import { field } from "../entities/form/field";
 
 export function convertValueType(value:string, type:string):string|number|boolean{   
     
@@ -36,4 +37,19 @@ export function convertValueType(value:string, type:string):string|number|boolea
         }        
     }
 
+}
+
+export function alignItem(field:field, item: HTMLTableCellElement | HTMLInputElement){
+    
+    if(field.type == constTypeInput.TEXT || field.type == undefined){
+        item.style.textAlign = "left"
+    }
+
+    if(field.type == constTypeInput.NUMBER || field.type == constTypeInput.CURRENCY){
+        item.style.textAlign = "right"
+    }
+
+    if(field.type == constTypeInput.SELECT || field.type == constTypeInput.CHECKBOX){
+        item.style.textAlign = "center"
+    }
 }
