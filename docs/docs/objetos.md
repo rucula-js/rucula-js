@@ -34,3 +34,7 @@ No exemplo acima haveria um erro, porque a hierarquia não está sendo respeitad
 Agora aqui não teria erro porque primero foi passado a instrução de que o objeto endereco deve ser atribuido ao cliente que por sua vez é atruido à order_de_servico
 
 `order_de_servico:cliente:endereco`
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|

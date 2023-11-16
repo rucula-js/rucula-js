@@ -29,3 +29,7 @@ let rucula = new Rucula(input as any,"js");
 ```
 
 Para a devida estilização, o css pode ser obtido em `./public/style.css`, caso queira saber mais sobre os estilos rucula-ls, acesse [Guia do Desenvolvedo/Estilo](./style.md).
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|

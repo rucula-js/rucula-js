@@ -26,7 +26,7 @@ Mas voltando ao ponto prícipal, configurações das colunas, quando iniciado a 
 Após a criação do grid, o rucula-js da inicio a escuta de eventos `click` no nível de linha, isso é necessário porque como qualquer outra aplicação, ao saber a linha desejada pelo usuário, uma nova solicitação no nível de linha deve ser feita ao backend, o que resulta em um objeto completo que é preenchido corretamente na interface do usuário. Esses eventos dizem ao rucula-js para executar o [ponto de entrada](endPoints.md), cuja identificação é `get-by-id`.
 
 
-**Observação**: Note que  `get-all-grid` e `get-by-id` são reservados exclusivamente para o caso do grid, e que devem ser configuradas de modo que faça sentido para cada janela.
+> **Observação**: Note que  `get-all-grid` e `get-by-id` são reservados exclusivamente para o caso do grid, e que devem ser configuradas de modo que faça sentido para cada janela.
 
 ```json
 "endPoints":[
@@ -61,3 +61,7 @@ Caso não entenda porque `get-all-grid` e `get-by-id`, mesmo quase que vazios s�
 
 
 **Encontrou algum erro? Sugestão de melhorias? Crie um relatório de bug em [rucula-js](https://github.com/rucula-js/rucula-js/issues)**
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|

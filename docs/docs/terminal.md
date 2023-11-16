@@ -11,3 +11,7 @@ Desenvolver e observar o que o rucula faz por baixo dos panos pode ser um pouco 
 |`clear` ou `-c`| Limpa as informações presentes no Terminal|
 
 **OBSERVAÇÃO IMPORTANTE: É com base nas dependências que o rucula sabe se o objeto que está sendo criado, está em perfeitas condições para ser utilizado para outros fins, como por exemplo: Um envio `post` para uma API de terceiro.**
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|

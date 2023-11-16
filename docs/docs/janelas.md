@@ -31,3 +31,7 @@ export interface window{
 |`button`|`Array`||Guarda um array de botões que serão inputados na janela|
 |`joinChield`|`Array`||Para Janelas mais complexas, força o relacionamento entre objetos pai e filho|
 |`endPoints`|`Array`||Configura e faz intermédio entre os botões a rotina de consumo REST|
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|

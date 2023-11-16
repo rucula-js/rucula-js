@@ -57,3 +57,7 @@ Com a url quase pronta  `http://localhost:5016/OrdemServico`, podemos passar os 
 **Nota: A sintaxe de objeto propriedade {{objeto.propriedade}}, pode ser substituida por constantes, exemplo: `?id=12345` ou `/12345`**
 
 Após a construção completa da url, teriamos `http://localhost:5016/OrdemServico?id=12345` ou `http://localhost:5016/OrdemServico/12345` 
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|
