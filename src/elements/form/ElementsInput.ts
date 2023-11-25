@@ -1,4 +1,4 @@
-import { constAttrInput, constTypeFrame, constTypeInput } from "../../const";
+import { constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
@@ -127,77 +127,6 @@ function checkTypeField(type: string|string[2]){
     }
 }
 
-export function createFieldTypeInputBasic(field:field): HTMLInputElement{
-
-    const input = document.createElement('input');
-
-    input.setAttribute(constAttrInput.ATTR_TYPE,field.type)
-
-    if(field?.disable){
-        input.setAttribute("disabled","")
-    }
-
-    input.type = field.type;
-    
-    if(field.type == "currency"){
-        input.type = "text";
-    }
-    
-    if (field.width > 0){
-        input.style.width = `${field.width}px`  
-    }
-    if (field.width === undefined && allowsStandardWidth() ){
-        input.classList.add("r-input-width-default")
-    }
-    
-    input.classList.add("r-i-control")
-    
-
-    function allowsStandardWidth():boolean{
-        
-        let condition = 
-            input.type == constTypeInput.TEXT ||
-            input.type == constTypeInput.NUMBER ||
-            input.type == constTypeInput.CHECKBOX
-
-            return condition;
-        }
-
-    return input;
-}
-export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
-    
-    const input = document.createElement('textarea');
-    
-    if(field?.disable){
-        input.setAttribute("disabled","")
-    }
-    
-    input.setAttribute("rows", String(field.textarea?.rows))
-
-    if(field.textarea?.cols){
-        input.setAttribute("cols", String(field.textarea?.cols))
-    }
-    else {
-        input.style.width = "100%";
-    }
-
-    return input;
-}
-
-export function createFieldCheckbox(field:field):HTMLInputElement{  
-    
-    var input = document.createElement("input")
-    
-    input.type = "checkbox";
-
-    if(field.value == field.checkbox!.on){
-        input.checked = true
-    }
-    
-    return input;
-}
-
 function createGroupOfInput(field:field):HTMLDivElement{
     
     const div = document.createElement('div');
@@ -224,23 +153,6 @@ export function createSpanLabelIsRequerid():HTMLSpanElement{
     span.style.color = "red";
 
     return span
-}
-
-export function createFieldSelect(field:field):HTMLSelectElement{  
-    
-    const select = document.createElement('select');
-    
-    setAtributesDataDefault(select,field)
-    
-    field.combo?.forEach(item => {
-          
-        const option = document.createElement('option')
-        option.text = item["representation"]
-        option.value = item["value"]
-        select.appendChild(option)
-        
-    })
-    return select
 }
 
 export function setAtributesDataDefault(node:HTMLElement,field:field){
