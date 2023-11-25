@@ -16,8 +16,8 @@
           "description": "Código",
           "information": "",
           "maxLength": 40,
-          "width": 300,
-          "sequence": 1
+          "width": 300
+
         },
         {
           "propertDto": "dataAbertura",
@@ -76,8 +76,8 @@
           "propertDto": "nome",
           "description": "Nome",
           "maxLength": 80,
-          "width": 500,
-          "sequence": 1
+          "width": 500
+
         },
         {
           "propertDto": "telefone",
@@ -105,51 +105,51 @@
           "propertDto": "logradouro",
           "description": "Logradouro",
           "maxLength": 150,
-          "width": 400,
-          "sequence": 1
+          "width": 400
+
         },
         {
           "propertDto": "complemento",
           "description": "Complemento",
           "information": "",
           "maxLength": 20,
-          "width": 150,
-          "sequence": 1
+          "width": 150
+
         },
         {
           "propertDto": "bairro",
           "description": "Bairro",
           "maxLength": 30,
-          "width": 150,
-          "sequence": 1
+          "width": 150
+
         },
         {
           "propertDto": "cidade",
           "description": "Cidade",
           "maxLength": 40,
-          "width": 180,
-          "sequence": 1
+          "width": 180
+
         },
         {
           "propertDto": "estado",
           "description": "Estado",
           "maxLength": 30,
-          "width": 150,
-          "sequence": 1
+          "width": 150
+
         },
         {
           "propertDto": "cep",
           "description": "CEP",
           "maxLength": 9,
-          "width": 120,
-          "sequence": 1
+          "width": 120
+
         },
         {
           "propertDto": "pais",
           "description": "País",
           "maxLength": 50,
-          "width": 150,
-          "sequence": 1
+          "width": 150
+
         }
       ],
       "id": "981981"
@@ -164,8 +164,8 @@
           "propertDto": "descricao",
           "description": "Descrição",
           "maxLength": 100,
-          "width": 500,
-          "sequence": 1
+          "width": 500
+
         },
         {
           "propertDto": "valorUnitario",
@@ -206,8 +206,8 @@
           "propertDto": "nome",
           "description": "Nome",
           "maxLength": 100,
-          "width": 200,
-          "sequence": 1
+          "width": 200
+
         },
         {
           "propertDto": "telefone",
@@ -234,8 +234,8 @@
           "propertDto": "formaDePagamento",
           "description": "Forma de Pagamento",
           "maxLength": 100,
-          "width": 200,
-          "sequence": 1
+          "width": 200
+
         },
         {
           "propertDto": "valorTotalPago",

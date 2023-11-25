@@ -1,4 +1,3 @@
-import { constTypeInput } from "../../../const";
 import { frame } from "../../../entities/form/frame";
 import { setDefaultInput } from "../../Defaults";
 import { createField } from "../../form/ElementsInput";
@@ -6,15 +5,14 @@ import { createFrame } from "../ElementFrame";
 
 export function createFrameBlock(frame:frame){
     const frameElement = createFrame(frame)
-    let sortFields = frame.fields!.sort(c => c.sequence);
-
+    
     const div = document.createElement("div");
     
     div.classList.add("r-q-i")
     if(frame.vertical){
         div.style.flexDirection = "column"
     }
-    sortFields.forEach(field => {
+    frame.fields?.forEach(field => {
         
         setDefaultInput(field)
         

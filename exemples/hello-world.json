@@ -1,29 +1,28 @@
 {
-   "name": "Hello World",
-   "pathController": "/HelloWorld",
-   "type": "crud",
-   "messageHome": "Hello  World",
-   "iconHome": "bi-rocket-takeoff",
-   "this": "hello",
-   "frames": [
-     {
-       "name": "Header",
-       "objectDto": "hello",
-       "sequence": 0,
-       "fields": [
-         {
-           "propertDto": "codigo",
-           "description": "Código",
-           "maxLength": 40,
-           "width": 300,
-           "sequence": 1,
-           "value":"Hello world"
-         }
-       ]
-    }
-   ],
-   "joinChield": [
-   ],
-   "endPoints": [
-   ]
- }
+  "name": "Hello World",
+  "pathController": "/HelloWorld",
+  "type": "crud",
+  "messageHome": "Hello  World",
+  "iconHome": "bi-rocket-takeoff",
+  "this": "hello",
+  "frames": [
+    {
+      "name": "Header",
+      "objectDto": "hello",
+      "sequence": 0,
+      "fields": [
+        {
+          "propertDto": "codigo",
+          "description": "Código",
+          "maxLength": 40,
+          "width": 300,
+          "value":"Hello world"
+        }
+      ]
+   }
+  ],
+  "joinChield": [
+  ],
+  "endPoints": [
+  ]
+}

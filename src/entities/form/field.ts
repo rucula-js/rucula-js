@@ -13,7 +13,6 @@ export interface field {
     propertDto: string
     value?: string
     information?:string
-    sequence:number
     width:number
     formula?:string[]
 }
