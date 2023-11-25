@@ -110,6 +110,7 @@ function checkTypeField(type: string|string[2]){
     if(Array.isArray(type)){
         option = type[1]
     }
+    
     let types = [
         "text",
         "number",
@@ -145,12 +146,25 @@ export function createFieldTypeInputBasic(field:field): HTMLInputElement{
     if (field.width > 0){
         input.style.width = `${field.width}px`  
     }
-
+    if (field.width === undefined && allowsStandardWidth() ){
+        input.classList.add("r-input-width-default")
+    }
+    
     input.classList.add("r-i-control")
     
+
+    function allowsStandardWidth():boolean{
+        
+        let condition = 
+            input.type == constTypeInput.TEXT ||
+            input.type == constTypeInput.NUMBER ||
+            input.type == constTypeInput.CHECKBOX
+
+            return condition;
+        }
+
     return input;
 }
-
 export function createFieldTypeTextArea(field:field):HTMLTextAreaElement{
     
     const input = document.createElement('textarea');

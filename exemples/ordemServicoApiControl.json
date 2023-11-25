@@ -9,39 +9,31 @@
     {
       "name": "Header OS",
       "objectDto": "ordemDeServico",
-      "sequence": 0,
       "fields": [
         {
           "propertDto": "codigo",
           "description": "Código",
           "information": "",
-          "maxLength": 40,
-          "width": 300
-
+          "maxLength": 40
         },
         {
           "propertDto": "dataAbertura",
           "description": "Data de Abertura",
           "information": "",
           "type": "date",
-          "maxLength": 0,
-          "sequence": 2
+          "maxLength": 0
         },
         {
           "propertDto": "totalServico",
           "description": "Total de Serviço",
           "information": "",
-          "type": "currency",
-          "maxLength": 55,
-          "width": 350,
-          "sequence": 3
+          "type": "currency"
         },
         {
           "propertDto": "dataConclusao",
           "description": "Data de Conclusão",
           "information": "",
-          "type": "date",
-          "sequence": 5
+          "type": "date"
         },
         {
           "propertDto": "status",
@@ -52,204 +44,152 @@
             "on": true,
             "off": false
           },
-          "width": 150,
-          "sequence": 6,
           "value": false
         },
         {
           "propertDto": "infIni",
           "description": "Informações Iniciais",
           "information": "",
-          "type": "textarea",
-          "maxLength": 20,
-          "sequence": 6
+          "type": "textarea"
         }
-      ],
-      "id": "981981"
+      ]
     },
     {
-      "name": "🤴 Cliente",
+      "name": "Cliente",
       "objectDto": "cliente",
-      "sequence": 0,
       "fields": [
         {
           "propertDto": "nome",
           "description": "Nome",
-          "maxLength": 80,
-          "width": 500
-
+          "maxLength": 80
         },
         {
           "propertDto": "telefone",
           "description": "Telefone",
-          "maxLength": 12,
-          "sequence": 5
+          "maxLength": 12
         },
         {
           "propertDto": "email",
           "description": "Email",
           "information": "e-mail do responsavel. Exemplo: reginaldo@gmail.com",
-          "width": 700,
-          "maxLength": 150,
-          "sequence": 2
+          "maxLength": 150
         }
-      ],
-      "id": "981981"
+      ]
     },
     {
       "name": "Cliente - Endereço",
       "objectDto": "endereco",
-      "sequence": 1,
       "fields": [
         {
           "propertDto": "logradouro",
           "description": "Logradouro",
-          "maxLength": 150,
-          "width": 400
-
+          "maxLength": 150
         },
         {
           "propertDto": "complemento",
           "description": "Complemento",
           "information": "",
-          "maxLength": 20,
-          "width": 150
-
+          "maxLength": 20
         },
         {
           "propertDto": "bairro",
           "description": "Bairro",
-          "maxLength": 30,
-          "width": 150
-
+          "maxLength": 30
         },
         {
           "propertDto": "cidade",
           "description": "Cidade",
-          "maxLength": 40,
-          "width": 180
-
+          "maxLength": 40
         },
         {
           "propertDto": "estado",
           "description": "Estado",
-          "maxLength": 30,
-          "width": 150
-
+          "maxLength": 30
         },
         {
           "propertDto": "cep",
           "description": "CEP",
-          "maxLength": 9,
-          "width": 120
-
+          "maxLength": 9
         },
         {
           "propertDto": "pais",
           "description": "País",
-          "maxLength": 50,
-          "width": 150
-
+          "maxLength": 50
         }
-      ],
-      "id": "981981"
+      ]
     },
     {
       "name": "Serviços Prestados",
       "type": "line",
       "objectDto": "itensServico",
-      "sequence": 0,
       "fields": [
         {
           "propertDto": "descricao",
           "description": "Descrição",
-          "maxLength": 100,
-          "width": 500
-
+          "maxLength": 100
         },
         {
           "propertDto": "valorUnitario",
           "description": "Valor Unitário",
           "type": "currency",
-          "maxLength": 20,
-          "width": 150,
-          "sequence": 2
+          "maxLength": 20
         },
         {
           "propertDto": "quantidade",
           "description": "Quantidade",
           "type": "number",
-          "maxLength": 20,
-          "width": 150,
-          "sequence": 3
+          "maxLength": 20
         },
         {
           "propertDto": "subtotal",
           "description": "Subtotal",
           "type": "currency",
           "maxLength": 50,
-          "width": 150,
           "formula": [
             "=MATH(quantidade*valorUnitario)"
-          ],
-          "sequence": 4
+          ]
         }
-      ],
-      "id": "16516"
+      ]
     },
     {
       "name": "🧑‍🔧 Técnico Responsavel",
       "objectDto": "tecnicoResponsavel",
-      "sequence": 0,
       "fields": [
         {
           "propertDto": "nome",
           "description": "Nome",
-          "maxLength": 100,
-          "width": 200
-
+          "maxLength": 100
         },
         {
           "propertDto": "telefone",
           "description": "Telefone",
-          "maxLength": 15,
-          "width": 150,
-          "sequence": 2
+          "maxLength": 15
         },
         {
           "propertDto": "email",
           "description": "Email",
-          "maxLength": 100,
-          "width": 200,
-          "sequence": 3
+          "maxLength": 100
         }
       ]
     },
     {
       "name": "💵 Pagamento",
       "objectDto": "pagamento",
-      "sequence": 0,
       "fields": [
         {
           "propertDto": "formaDePagamento",
           "description": "Forma de Pagamento",
-          "maxLength": 100,
-          "width": 200
-
+          "maxLength": 100
         },
         {
           "propertDto": "valorTotalPago",
           "description": "Valor Total Pago",
-          "type": "currency",
-          "width": 150,
-          "sequence": 2
+          "type": "currency"
         },
         {
           "propertDto": "dataPagamento",
           "description": "Data de Pagamento",
-          "type": "date",
-          "width": 150,
-          "sequence": 3
+          "type": "date"        
         }
       ]
     }
@@ -327,6 +267,5 @@
       "name": "get-by-id",
       "method": "get"
     }
-  ],
-  "id": "7890q2wqq"
+  ]
 }
