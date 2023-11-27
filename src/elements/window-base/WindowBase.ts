@@ -82,7 +82,7 @@ function createComponentCreateOrEdit(){
                 </ol>    
             </div>
         </div>
-        <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}">
+        <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
         
         </form>
     </div>`
