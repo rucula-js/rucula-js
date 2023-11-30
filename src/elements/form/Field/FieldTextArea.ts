@@ -21,7 +21,7 @@ export class FieldTextArea extends FieldInput{
         else {
             input.style.width = "100%";
         }
-
+        this.setEvents()
         return input;
     }
     
