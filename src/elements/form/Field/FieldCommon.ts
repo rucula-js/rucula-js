@@ -1,45 +1,42 @@
 
 import { FieldInput } from "./FieldInput";
-import { field } from "../../../entities/form/field";
-import { setAtributesDataDefault } from "../ElementsInput";
 import { constAttrInput, constTypeInput } from "../../../const";
+import { FileEventCommon } from "../event/FileEventCommon";
+import { FileEventCurrency } from "../event/FileEventCurrency";
 
-export class FieldCommon implements FieldInput{
-    create(field:field): HTMLInputElement|HTMLSelectElement {
-        const input = createFieldTypeInputBasic(field)
-        setAtributesDataDefault(input,field)
-        return input as HTMLInputElement
-    }
-}
-
-function createFieldTypeInputBasic(field:field): HTMLInputElement{
-
-    const input = document.createElement('input');
-
-    input.setAttribute(constAttrInput.ATTR_TYPE,field.type)
-
-    if(field?.disable){
-        input.setAttribute("disabled","")
-    }
-
-    input.type = field.type;
+export class FieldCommon extends FieldInput{
     
-    if(field.type == "currency"){
-        input.type = "text";
-    }
-    
-    if (field.width > 0){
-        input.style.width = `${field.width}px`  
-    }
-    if (field.width === undefined && allowsStandardWidth() ){
-        input.classList.add("r-input-width-default")
-    }
-    
-    input.classList.add("r-i-control")
-    
-
-    function allowsStandardWidth():boolean{
+    create(){
         
+
+        const input = document.createElement('input');
+        
+        this.input = input;
+
+        input.setAttribute(constAttrInput.ATTR_TYPE,this.field.type)
+
+        if(this.field?.disable){
+            input.setAttribute("disabled","")
+        }
+
+        input.type = this.field.type;
+        
+        if(this.field.type == "currency"){
+            input.type = "text";
+        }
+        
+        if (this.field.width > 0){
+            input.style.width = `${this.field.width}px`  
+        }
+        if (this.field.width === undefined && allowsStandardWidth() ){
+            input.classList.add("r-input-width-default")
+        }
+        
+        input.classList.add("r-i-control")
+        
+
+        function allowsStandardWidth():boolean{
+            
         let condition = 
             input.type == constTypeInput.TEXT ||
             input.type == constTypeInput.NUMBER ||
@@ -47,6 +44,15 @@ function createFieldTypeInputBasic(field:field): HTMLInputElement{
 
             return condition;
         }
+        this.setEvents()
+    }
 
-    return input;
+    protected setEvents(): void {
+
+        new FileEventCommon(this.input, this.field);
+        
+        if(this.input.type == constTypeInput.CURRENCY){
+            new FileEventCurrency(this.input, this.field);    
+        }
+    }
 }

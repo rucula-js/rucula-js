@@ -1,3 +1,4 @@
+import { filter } from "mathjs";
 import { constTypeFrame, constTypeInput } from "../const";
 import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
@@ -11,7 +12,8 @@ const configFrameDefault = {
 
 const configInputDefault = {
     TYPE: constTypeInput.TEXT,
-    REQUERID: true,
+    REQUERID_TRUE: true,
+    REQUERID_FALSE: false,
     DISABLE: false
 }
 
@@ -29,7 +31,13 @@ export function setDefaultFrame(frame: frame){
 export function setDefaultInput(field: field){
 
     field.type ??= configInputDefault.TYPE
-    field.requerid ??= configInputDefault.REQUERID
     field.disable ??= configInputDefault.DISABLE
+    
+    if(field.type[0] == constTypeInput.CHECKBOX || field.type[0] == constTypeInput.RADIO){   
+        field.requerid ??= configInputDefault.REQUERID_FALSE    
+    }
+    else{
+        field.requerid ??= configInputDefault.REQUERID_TRUE
+    }
     
 }

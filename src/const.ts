@@ -15,8 +15,8 @@ export const constTypeInput = {
     CURRENCY: "currency",
     SELECT: "select",
     CHECKBOX: "checkbox",
-    TEXT_AREA: "textarea"
-
+    TEXT_AREA: "textarea",
+    RADIO: "radio"
 }
 
 export const constTypeFrame = {

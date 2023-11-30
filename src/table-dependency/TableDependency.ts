@@ -38,8 +38,15 @@ function  createTableDependency(frames:Array<frame>){
             } 
 
             value = valueDependency(field);
-            _tableDependency.push({key:key, value:value})
-            resolveDependecy(key,value)
+            
+            let dependecy = {key:key, value:value};
+
+            let indexDependency  = _tableDependency.findIndex(c => c.key == dependecy.key && c.value == dependecy.value)
+            
+            if(indexDependency == -1){
+                _tableDependency.push(dependecy)
+                resolveDependecy(key,value)
+            }
         })
     })
 }
@@ -87,7 +94,7 @@ function valueDependency(field:field):string {
 function  setDependency(rep:RepresentationField){
     
     var key = ""
-    
+    debugger;
     if(rep.lineNumber == undefined){
         key = keyDependency(rep.objectDto,rep.propertDto,"");
     }
@@ -118,7 +125,6 @@ function checkPropertDependency(dependency:{key:string, value:string}, value:str
         }
         
         function SetOrRemoveResolved(status:boolean, dependency:string, resolved:string ){
-            
             if (status == true){
                 resolved = resolved.replace(dependency+",","")
                 resolved+=dependency+","
@@ -222,6 +228,10 @@ function  resolveDependecy(key:string,value:string){
     })
 
     let exist = _resolvedDependency.indexOf(key)
+
+    if(value == "." && exist != -1){ //? Indica que não existe nenhuma consistência a ser feita, logo, a possivel depêndencia deve ser removida.
+        _resolvedDependency.splice(exist,1); 
+    }
     
     if(exist == -1 && dependeciesNotResolveds > 0){
         _resolvedDependency.push(key);

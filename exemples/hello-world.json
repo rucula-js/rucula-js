@@ -9,14 +9,25 @@
     {
       "name": "Header",
       "objectDto": "hello",
-      "sequence": 0,
       "fields": [
+        {
+          "propertDto": "radio",
+          "description":"Janeiro",
+          "type":["radio","bool"],
+          "value":true
+        },
+        {
+          "propertDto": "radio",
+          "description":"Fevereiro",
+          "type":["radio","bool"],
+          "value":false
+        },
         {
           "propertDto": "codigo",
           "description": "Código",
           "maxLength": 40,
-          "width": 300,
-          "value":"Hello world"
+          "value":"Hello world",
+          "requerid":true
         }
       ]
    }

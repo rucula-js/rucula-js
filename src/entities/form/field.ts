@@ -2,7 +2,6 @@ export interface field {
 
     description: string
     type: string|string[2]
-    combo?:[],
     checkbox?:checkbox
     textarea:textarea
     maxLength?: number
@@ -15,6 +14,8 @@ export interface field {
     information?:string
     width:number
     formula?:string[]
+    combo?:[],
+    radio?:string[]
 }
 interface checkbox {
     on:string,

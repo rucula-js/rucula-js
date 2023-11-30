@@ -4,9 +4,9 @@ import { RepresentationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
 import { setEventForInformationInputQuadro } from "../../popper/PopperEvent";
 import { setDependency } from "../../table-dependency/TableDependency";
-import { setEventListenerTypeCheckbox, setEventListenerTypeCurrency, setEventListenerTypeSimple } from "./ElementsInputEvent";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
+import { FieldRadio } from "./Field/FieldRadio";
 import { FieldSelect } from "./Field/FieldSelect";
 import { FieldStrategy } from "./Field/FieldStrategy";
 import { FieldTextArea } from "./Field/FieldTextArea";
@@ -19,40 +19,28 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 
     checkTypeField(field.type)
     
-    //! Esses if's podem ser substituidos por factory abstract, quando possível tentar implementar!
     if(isSimple()){
-        fieldStrategy.setStrategy(new FieldCommon())
+        fieldStrategy.setStrategy(new FieldCommon(field))
     }
     
     if(field.type == constTypeInput.SELECT) {
-        fieldStrategy.setStrategy(new FieldSelect())
+    fieldStrategy.setStrategy(new FieldSelect(field))
     }
 
     if(isCheckBox()){
-        fieldStrategy.setStrategy(new FieldCheckbox())
-    }
-
-    if(isTextArea()) {
-        fieldStrategy.setStrategy(new FieldTextArea())
-    }
-    
-    element = fieldStrategy.create(field);
-
-    if(isSimple()){
-        setEventListenerTypeSimple(element,field)
+        fieldStrategy.setStrategy(new FieldCheckbox(field))
     }
 
     if(isTextArea()){
-        setEventListenerTypeSimple(element,field)
+        fieldStrategy.setStrategy(new FieldTextArea(field))
+    }
+    
+    if(isRadio()) {
+        fieldStrategy.setStrategy(new FieldRadio(field))
     }
 
-    if(isCheckBox()){
-        setEventListenerTypeCheckbox(element as HTMLInputElement, field)
-    }
+    element = fieldStrategy.create();
 
-    if(isCurrency()){
-        setEventListenerTypeCurrency(element as HTMLInputElement, field)
-    }
 
     setEventForInformationInputQuadro(element)
 
@@ -76,7 +64,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         formGroup.appendChild(element)
         return formGroup as HTMLDivElement
     }
-
+    
     function isSimple(){
             
         let condition =  
@@ -87,13 +75,13 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         
         return condition;
     }
-        
-    function isCheckBox(){
-        return field.type[0] == constTypeInput.CHECKBOX
+
+    function isRadio(){
+        return field.type[0]  == constTypeInput.RADIO
     }
 
-    function isCurrency(){
-        return field.type == constTypeInput.CURRENCY
+    function isCheckBox(){
+        return field.type[0] == constTypeInput.CHECKBOX
     }
     
     function isTextArea(){
@@ -119,7 +107,8 @@ function checkTypeField(type: string|string[2]){
         "date",
         "currency",
         "textarea",
-        "bool"
+        "bool",
+        "radio"
     ]
 
     if(types.indexOf(option) == -1){

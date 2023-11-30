@@ -1,26 +1,31 @@
 import { FieldInput } from "./FieldInput";
-import { field } from "../../../entities/form/field";
 import { setAtributesDataDefault } from "../ElementsInput";
+import { FileEventCommon } from "../event/FileEventCommon";
 
-export class FieldSelect implements FieldInput{
-    create(field:field): HTMLInputElement|HTMLSelectElement {
-        return createFieldSelect(field) as HTMLSelectElement;
-    }
-}
+export class FieldSelect extends FieldInput{
+    
+    create() {
 
-export function createFieldSelect(field:field):HTMLSelectElement{  
+        const select = document.createElement('select');
     
-    const select = document.createElement('select');
-    
-    setAtributesDataDefault(select,field)
-    
-    field.combo?.forEach(item => {
-          
-        const option = document.createElement('option')
-        option.text = item["representation"]
-        option.value = item["value"]
-        select.appendChild(option)
+        this.input = select;
+
+        setAtributesDataDefault(select,this.field)
         
-    })
-    return select
+        this.field.combo?.forEach(item => {
+            
+            const option = document.createElement('option')
+            option.text = item["representation"]
+            option.value = item["value"]
+            select.appendChild(option)
+            
+        })
+        this.setEvents();
+        
+        return select
+    }
+
+    protected setEvents(): void {
+        new FileEventCommon(this.input, this.field)
+    }
 }

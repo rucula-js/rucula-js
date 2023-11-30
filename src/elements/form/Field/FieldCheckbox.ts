@@ -1,21 +1,28 @@
 import { FieldInput } from "./FieldInput";
-import { field } from "../../../entities/form/field";
+import { FileEventCheckBox } from "../event/FileEventCheckBox";
 
-export class FieldCheckbox implements FieldInput{
-    create(field:field):HTMLInputElement|HTMLSelectElement {
-        return createFieldCheckbox(field) as HTMLInputElement
+export class FieldCheckbox extends FieldInput{
+    
+    create(){
+        
+        var input = document.createElement("input")
+    
+        this.input = input;
+        
+        input.type = "checkbox";
+    
+        if(this.field.value == this.field.checkbox!.on){
+            input.checked = true
+        }
+
+        this.setEvents()
+        return input;
     }
+    protected setEvents(): void {
+        new FileEventCheckBox(this.input, this.field)
+    }
+
 }
 
-function createFieldCheckbox(field:field):HTMLInputElement{  
-    
-    var input = document.createElement("input")
-    
-    input.type = "checkbox";
 
-    if(field.value == field.checkbox!.on){
-        input.checked = true
-    }
-    
-    return input;
-}
+
