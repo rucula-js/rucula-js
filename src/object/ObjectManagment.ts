@@ -1,6 +1,4 @@
-import { DOT_DOT_SEPARATOR, constTypeFrame, constTypeInput } from "../const";
-import { setDefaultFrame } from "../elements/Defaults";
-import { field } from "../entities/form/field";
+import { DOT_DOT_SEPARATOR, constTypeFrame } from "../const";
 import { frame } from "../entities/form/frame";
 import { RepresentationField } from "../entities/form/representationField";
 
@@ -15,9 +13,7 @@ function createObject(frames:Array<frame>){
     _object["zzRowCount"] = {} 
     
     frames?.forEach(frame => {
-        
-        setDefaultFrame(frame)            
-        
+                
         if(frame.type == constTypeFrame.BLOCK){
             _object[frame.objectDto] = {}
         }

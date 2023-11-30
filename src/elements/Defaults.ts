@@ -1,4 +1,3 @@
-import { filter } from "mathjs";
 import { constTypeFrame, constTypeInput } from "../const";
 import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
@@ -18,26 +17,37 @@ const configInputDefault = {
 }
 
 
-export function setDefaultWindow(window: window){
+function setDefaultWindow(window: window){
     
 }
 
-export function setDefaultFrame(frame: frame){
+function setDefaultFrame(frame: frame){
     
     frame.type ??= configFrameDefault.TYPE_FRAME
     frame.vertical ??= configFrameDefault.VERTICAL
 }
 
-export function setDefaultInput(field: field){
-
+function setDefaultInput(field: field){
+        
     field.type ??= configInputDefault.TYPE
     field.disable ??= configInputDefault.DISABLE
     
-    if(field.type[0] == constTypeInput.CHECKBOX || field.type[0] == constTypeInput.RADIO){   
+    if(field.type[0] == constTypeInput.CHECKBOX || field.type[0] == constTypeInput.RADIO){
         field.requerid ??= configInputDefault.REQUERID_FALSE    
     }
     else{
         field.requerid ??= configInputDefault.REQUERID_TRUE
     }
-    
+}
+
+export function setDefault(window: window){
+    window.frames.forEach(frame => {
+
+        setDefaultFrame(frame)
+
+        frame.fields?.forEach(field => {
+            setDefaultInput(field)
+        })
+
+    })
 }

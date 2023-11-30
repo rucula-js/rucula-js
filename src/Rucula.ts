@@ -11,8 +11,7 @@ import { createFrameLine } from "./elements/frame/TypeLine/FrameLine";
 import { prepareButtons } from "./buttons/Button";
 import { eventButton } from "./buttons/EventButton";
 import { setWindow } from "./window/Window";
-import { setDefaultFrame } from "./elements/Defaults";
-
+import { setDefault } from "./elements/Defaults";
 
 export class Rucula{
     
@@ -29,12 +28,11 @@ export class Rucula{
     
     private initWindow(){
         
+        setDefault(this.window)
         setWindow(this.window);
         
         let panel = createPanel();
         this.elementRucula.appendChild(panel)
-
-
         createWindowBase(this.elementRucula.id);
         this.addHomeWindow();
         
@@ -79,7 +77,6 @@ export class Rucula{
     
         this.window.frames?.forEach(frame => {
 
-            setDefaultFrame(frame)            
             if(frame.type == constTypeFrame.BLOCK){
 
                 const block = createFrameBlock(frame)
