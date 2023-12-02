@@ -1,4 +1,4 @@
-import { constTypeFrame, constTypeInput } from "../../const";
+import { constGroupFormat, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
 import { setPropertDto } from "../../object/ObjectManagment";
@@ -41,7 +41,10 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 
     element = fieldStrategy.create();
 
-
+    if(field.maxLength){
+        element.setAttribute('maxlength',`${field.maxLength}`);
+    }
+    
     setEventForInformationInputQuadro(element)
 
     addAttributesSetAndName(element,{   
@@ -60,9 +63,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     }
 
     if(frame.type == constTypeFrame.BLOCK){
-        const formGroup = createGroupOfInput(field)
-        formGroup.appendChild(element)
-        return formGroup as HTMLDivElement
+        return  createGroupOfInput(field,element) as HTMLDivElement
     }
     
     function isSimple(){
@@ -116,7 +117,7 @@ function checkTypeField(type: string|string[2]){
     }
 }
 
-function createGroupOfInput(field:field):HTMLDivElement{
+function createGroupOfInput(field:field, element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement):HTMLDivElement{
     
     const div = document.createElement('div');
     div.classList.add('r-g-i-i');
@@ -124,14 +125,38 @@ function createGroupOfInput(field:field):HTMLDivElement{
     const label = document.createElement('label');
 
     label.textContent = field.description
-
+    
     if (field.requerid == true){
       label.textContent = label.textContent
       label.append(createSpanLabelIsRequerid().cloneNode(true))
     }
     
-    div.appendChild(label)
+    if(field.groupFormat == undefined){
+        label.classList.add('r-label-block')
+        div.appendChild(label)
+        div.appendChild(element)
+    }
+
+    if(field.groupFormat == constGroupFormat.DOWN){
+        label.classList.add('r-label-block')
+        div.appendChild(element)
+        div.appendChild(label)
+    }
+
+    if(field.groupFormat  == constGroupFormat.LEFT){
+        label.classList.add('r-label-inline')
+        element.style.marginRight = "8px"
+        div.appendChild(element)   
+        div.appendChild(label)
+    }
     
+    if(field.groupFormat  == constGroupFormat.RIGTH){
+        label.classList.add('r-label-inline')
+        element.style.marginLeft = "8px"
+        div.appendChild(label)
+        div.appendChild(element)
+    }
+
     return div;
 }
 
@@ -144,9 +169,6 @@ export function createSpanLabelIsRequerid():HTMLSpanElement{
     return span
 }
 
-export function setAtributesDataDefault(node:HTMLElement,field:field){
-    node.setAttribute('maxlength',`${field.maxLength}`); 
-}
 
 function addAttributesSetAndName(node:HTMLElement,frame:{type:string, object:string, propert:string,line?:number}){
     

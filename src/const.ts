@@ -19,6 +19,13 @@ export const constTypeInput = {
     RADIO: "radio"
 }
 
+export const constGroupFormat = {
+
+    DOWN : "down",
+    LEFT : "left",
+    RIGTH: "right"
+}
+
 export const constTypeFrame = {
 
     BLOCK: "block",

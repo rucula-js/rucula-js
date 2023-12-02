@@ -13,36 +13,32 @@
         {
           "propertDto": "codigo",
           "description": "Código",
-          "information": "",
-          "maxLength": 40
+          "maxLength": 40 
         },
         {
           "propertDto": "dataAbertura",
           "description": "Data de Abertura",
-          "information": "",
           "type": "date"
         },
         {
           "propertDto": "totalServico",
           "description": "Total de Serviço",
-          "information": "",
           "type": "currency"
         },
         {
           "propertDto": "dataConclusao",
           "description": "Data de Conclusão",
-          "information": "",
           "type": "date"
         },
         {
           "propertDto": "status",
           "description": "Status",
-          "information": "",
           "type": ["checkbox","bool"],
           "checkbox": {
             "on": true,
             "off": false
           },
+          "groupFormat":"right",
           "value": false
         },
         {
@@ -70,7 +66,6 @@
         {
           "propertDto": "email",
           "description": "Email",
-          "information": "e-mail do responsavel. Exemplo: reginaldo@gmail.com",
           "maxLength": 150
         }
       ]

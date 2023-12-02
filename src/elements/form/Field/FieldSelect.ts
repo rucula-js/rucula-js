@@ -1,5 +1,4 @@
 import { FieldInput } from "./FieldInput";
-import { setAtributesDataDefault } from "../ElementsInput";
 import { FileEventCommon } from "../event/FileEventCommon";
 
 export class FieldSelect extends FieldInput{
@@ -9,8 +8,6 @@ export class FieldSelect extends FieldInput{
         const select = document.createElement('select');
     
         this.input = select;
-
-        setAtributesDataDefault(select,this.field)
         
         this.field.combo?.forEach(item => {
             

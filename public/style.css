@@ -212,9 +212,15 @@
     margin-left: 10px ;
 }
 
-.r-q-b .r-g-i-i label{
-    display: block !important;
+.r-q-b .r-g-i-i .r-label-block{
+    display: block;
 }
+
+.r-q-b .r-g-i-i .r-label-inline{
+    display: inline;
+}
+
+
 
 /*frame type line*/
 .f-t-line{
