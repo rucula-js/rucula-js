@@ -46,7 +46,6 @@ function  createTableDependency(frames:Array<frame>){
             }
         })      
     })
-    console.log(_tableDependency)
 }
 
 function keyDependency(frame:string,propert:string, line:string = ""):string {                
