@@ -16,7 +16,8 @@ export const constTypeInput = {
     SELECT: "select",
     CHECKBOX: "checkbox",
     TEXT_AREA: "textarea",
-    RADIO: "radio"
+    RADIO: "radio",
+    PASS: "password"
 }
 
 export const constGroupFormat = {

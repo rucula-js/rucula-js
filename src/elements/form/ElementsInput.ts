@@ -72,7 +72,8 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         field.type == constTypeInput.NUMBER || 
         field.type == constTypeInput.TEXT || 
         field.type == constTypeInput.DATE ||
-        field.type == constTypeInput.CURRENCY
+        field.type == constTypeInput.CURRENCY ||
+        field.type == constTypeInput.PASS
         
         return condition;
     }
@@ -109,7 +110,8 @@ function checkTypeField(type: string|string[2]){
         "currency",
         "textarea",
         "bool",
-        "radio"
+        "radio",
+        "password"
     ]
 
     if(types.indexOf(option) == -1){
