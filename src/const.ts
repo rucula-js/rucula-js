@@ -3,7 +3,20 @@ export const DOT_DOT_SEPARATOR = "..";
 export const eventRucula = {
 
     RESET_BACKGROUND:"reset-background",
-    RESET_BACKGROUND_EVENT: new Event("reset-background")
+    RESET_BACKGROUND_EVENT: new Event("reset-background"),
+
+    BEFORE_SEND_OBJECT_HTTP:"before-send-object-http",
+    EVENT_BEFORE_SEND_OBJECT_HTTP: new Event("before-send-object-http"),
+
+    AFTER_SEND_OBJECT_HTTP:"after-send-object-http",
+    EVENT_AFTER_SEND_OBJECT_HTTP: new Event("after-send-object-http"),
+
+    SEND_OBJECT_HTTP_OK:"send-object-http-ok",
+    EVENT_SEND_OBJECT_HTTP_OK: new Event("send-object-http-ok"),
+
+    SEND_OBJECT_HTTP_ERROR:"send-object-http-error",
+    EVENT_SEND_OBJECT_HTTP_ERROR: new Event("send-object-http-error")
+
 }
 
 export const constTypeInput = {

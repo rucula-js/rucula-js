@@ -106,6 +106,13 @@ function object(){
     return PrepareObject()
 }
 
+function getObject(obj:string){
+    
+    let result = PrepareObject() as any;
+
+    return result[obj as string]
+}
+
 function PrepareObject(){
 
     let formatedObject:any = Object.assign({},_object);
@@ -147,6 +154,7 @@ export {
     setPropertDto,
     setJoinChield,
     object,
+    getObject,
     getValuePropertTypeObject,
     deleteLine,
     sumPropert,

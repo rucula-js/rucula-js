@@ -1,6 +1,6 @@
 import { window } from "./entities/form/window";
-import { createObject, setJoinChield } from "./object/ObjectManagment";
-import { createTableDependency } from "./table-dependency/TableDependency";
+import { createObject, getObject, object, setJoinChield, setPropertDto } from "./object/ObjectManagment";
+import { createTableDependency, setDependency } from "./table-dependency/TableDependency";
 import {createPanel,set}  from './console/Console'
 import { createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
@@ -12,6 +12,7 @@ import { prepareButtons } from "./buttons/Button";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { setWindow } from "./window/Window";
 import { setDefault } from "./elements/Defaults";
+import { RepresentationField } from "./entities/form/representationField";
 
 export class Rucula{
     
@@ -104,6 +105,20 @@ export class Rucula{
             createTableDependency(this.window.frames)
 
         })
+    }
+
+    public get(obj:string=""):any{
+        
+        if(obj == ""){
+            return object();
+        }
+        
+        return getObject(obj)
+    }
+
+    public set(rep:RepresentationField){
+        setPropertDto(rep)
+        setDependency(rep)
     }
 }
 
