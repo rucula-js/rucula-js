@@ -36,6 +36,10 @@
     display: none;
 }
 
+.r-display-none{
+    display: none;
+}
+
 .r-btn-new-convert-close{
     transform: rotate(45deg);
     transition: transform 0.3s ease;
@@ -295,10 +299,7 @@
 
 /*Buttons*/
 .r-b-i{
-    display: block;
     margin-bottom: 5px;
-    width: 35px;
-    height: 35px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -414,7 +415,6 @@ textarea {
 }
 
 #r-a-menu-vertical-list{
-    display: none;
     position: absolute;
     top:40px;
     right: 10px;

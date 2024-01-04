@@ -47,3 +47,12 @@ export const constIdBaseWindow =  {
 export const constAttrInput = {
     ATTR_TYPE: "ruc-type"
 }
+
+
+export const constTargetButtonCrudDefault = {
+
+    SAVE:"r-a-save",
+    ALTER: "r-a-alter",
+    DELETE:"r-a-delete"
+    
+}

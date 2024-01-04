@@ -74,11 +74,7 @@ function createComponentCreateOrEdit(){
                 <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
                 <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
                 <button id="r-a-menu-vertical" class="r-a-b"><i class="bi bi-three-dots-vertical"></i></button>
-                <ol id="r-a-menu-vertical-list">
-                    <li>Documentação</li>    
-                    <li>Menu Item 1</li>    
-                    <li>Menu Item 2</li>    
-                    <li>Menu Item 3</li>    
+                <ol id="r-a-menu-vertical-list" class="r-display-none">  
                 </ol>    
             </div>
         </div>

@@ -2,21 +2,23 @@ import { button } from '../entities/form/button';
 import { ElementStrategy } from './ElementEstrategy';
 import { ElementButton } from './ElementButton';
 import { ElementLink } from './ElementLink';
+import { constTargetButtonCrudDefault } from '../const';
 
 let elementStrategy!:ElementStrategy;
 
 function prepareButtons(button:button[]){
-    const ButtonsBox = document.getElementById("r-a-many")
+    const ListRightButtons = document.getElementById("r-a-menu-vertical-list")
     button
-        .filter(c=> isNotTarget(c.target))
+        .filter(c=> buttonIsNotDefault(c.target))
         .forEach(b => {
-            ButtonsBox?.appendChild(createButtonOrLink(b))  
-        })
+            
+            const li = document.createElement("li")
+            li.appendChild(createButtonOrLink(b))
 
-    function isNotTarget(target:string){
-        return target != "r-a-save" && target != "r-a-alter" && target != "r-a-delete"
-    }
+            ListRightButtons?.appendChild(li)  
+        })
 }
+
 function createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
     if(button.type != "button" && button.type != "link"){
         throw new Error("tipo do botão deve ser button ou link");
@@ -30,4 +32,10 @@ function createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
     return elementStrategy.createElement(button);
 } 
 
-export{prepareButtons}
+function buttonIsNotDefault(endPoint:string){
+    return endPoint != constTargetButtonCrudDefault.SAVE && 
+    endPoint != constTargetButtonCrudDefault.ALTER && 
+    endPoint != constTargetButtonCrudDefault.DELETE
+}
+
+export{prepareButtons, buttonIsNotDefault}
