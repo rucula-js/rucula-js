@@ -13,7 +13,8 @@
         {
           "propertDto": "codigo",
           "description": "Código",
-          "maxLength": 40 
+          "maxLength": 40,
+          "requerid":true
         },
         {
           "propertDto": "dataAbertura",
@@ -201,31 +202,35 @@
   "paramsGrid": "/{{codigo}}",
   "button": [
     {
-      "id": "8418",
-      "link": "",
       "icon": "bi bi-save",
-      "text": "",
       "type": "button",
       "target": "r-a-save",
       "endPoint": "create-os"
     },
     {
-      "post": "",
-      "link": "",
       "icon": "bi bi-wrench",
       "type": "button",
       "target": "r-a-alter",
-      "id": "8248",
       "endPoint": "update-os"
     },
     {
-      "link": "",
       "icon": "bi bi-trash3",
-      "text": "",
       "type": "button",
-      "color": "",
       "target": "r-a-delete",
-      "id": "er43",
+      "endPoint": "delete-os"
+    },
+    {
+      "icon": "bi bi-trash3",
+      "text": "Documentação de teste na fase 2  ",
+      "type": "button",
+      "target": "q1w2e3r493469869",
+      "endPoint": "delete-os"
+    },
+    {
+      "icon": "bi bi-trash3",
+      "text": "Documentação de teste na fase 2  ",
+      "type": "button",
+      "target": "finalizar-compra",
       "endPoint": "delete-os"
     }
   ],
@@ -260,6 +265,16 @@
     {
       "name": "get-by-id",
       "method": "get"
+    },
+    {
+      "name": "documentacao",
+      "method": "get",
+      "params": "/{{ordemDeServico.codigo}}"
+    },
+    {
+      "name": "finalizar-compra",
+      "method": "post",
+      "params": "/{{ordemDeServico.codigo}}"
     }
   ]
 }

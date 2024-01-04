@@ -1,5 +1,4 @@
 export interface button{
-    id:string
     link?:string
     icon?:string
     text?:string

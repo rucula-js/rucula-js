@@ -9,7 +9,7 @@ import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
 import { createFrameLine } from "./elements/frame/TypeLine/FrameLine";
 import { prepareButtons } from "./buttons/Button";
-import { eventButton } from "./buttons/EventButton";
+import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { setWindow } from "./window/Window";
 import { setDefault } from "./elements/Defaults";
 
@@ -71,6 +71,7 @@ export class Rucula{
             prepareButtons(this.window.button)
         }
         eventButton(this.window.button)
+        openCloseRightListButtons()
     }
 
     private createFrames(){
