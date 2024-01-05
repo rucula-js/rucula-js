@@ -2,7 +2,8 @@ import { button } from '../entities/form/button';
 import { ElementStrategy } from './ElementEstrategy';
 import { ElementButton } from './ElementButton';
 import { ElementLink } from './ElementLink';
-import { constTargetButtonCrudDefault } from '../const';
+import { constIdBaseWindow, constTargetButtonCrudDefault } from '../const';
+import { getConfigurationGlobal, setEnviroment, setLocalization } from '../global/GlobalConfig';
 
 let elementStrategy!:ElementStrategy;
 
@@ -17,6 +18,54 @@ function prepareButtons(button:button[]){
 
             ListRightButtons?.appendChild(li)  
         })
+    
+        prepareButtonsGlobalOptions();
+}
+
+function prepareButtonsGlobalOptions(){
+    
+    let globalConf = getConfigurationGlobal()
+
+    let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION)
+    let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION)
+
+    globalization?.addEventListener("click", () => {
+        olliGlobalization?.classList.toggle("r-display-none")
+    })
+
+    globalConf.localizations.forEach(loc => {
+        
+        const li = document.createElement("li")
+        
+        li.textContent = loc.language;
+        
+        olliGlobalization?.appendChild(li)
+        
+        li.addEventListener("click",() => {
+            setLocalization(loc.locales)
+        })
+    })
+
+    let enviroment = document.getElementById(constIdBaseWindow.ENVIROMENT)
+    let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT)
+
+    enviroment?.addEventListener("click", () => {
+        olliEnviroment?.classList.toggle("r-display-none")
+    })
+
+    globalConf.environments.forEach(enviroment => {
+        
+        const li = document.createElement("li")
+        
+        li.textContent = enviroment.env;
+        
+        olliEnviroment?.appendChild(li)
+        
+        li.addEventListener("click",() => {
+            setEnviroment(enviroment.env)
+        })
+    })
+
 }
 
 function createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{

@@ -68,13 +68,25 @@ function createComponentCreateOrEdit(){
                 <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
                 <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
                 <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
+                <div style="display: inline;margin-left: 20px;">
+                    <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
+                        <i class="bi bi-globe-americas"></i>
+                        <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} r-display-none">
+                        </ol>                        
+                    </button> 
+                    <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
+                        <i class="bi bi-fire"></i>
+                        <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} r-display-none">
+                        </ol>                        
+                    </button>    
+                </div>
             </div>
             <div class="r-head r-read-edit">
                 <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                 <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
                 <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
                 <button id="r-a-menu-vertical" class="r-a-b"><i class="bi bi-three-dots-vertical"></i></button>
-                <ol id="r-a-menu-vertical-list" class="r-display-none">  
+                <ol id="r-a-menu-vertical-list" class="r-a-menu-vertical-list r-display-none">  
                 </ol>    
             </div>
         </div>
@@ -127,7 +139,6 @@ function eraseWindow(){
         form.reset();
     })
 }
-
 
 let objectReload:any = {}
 
