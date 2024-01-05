@@ -52,6 +52,10 @@ export const constIdBaseWindow =  {
     RELOAD:"r-a-reload",
     ERASE_WINDOW: "erase-window",
     MAXIMIZE_WINDOW: "maximize-window",
+    GLOBALIZATION: "r-globalization",
+    OLLI_GLOBALIZATION: "r-globalization-list",    
+    ENVIROMENT: "r-enviroment",
+    OLLI_ENVIROMENT: "r-enviroment-list",    
     FORM_RUCULA_JS:"form-rucula-js"
 }
 

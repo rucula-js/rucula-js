@@ -414,15 +414,24 @@ textarea {
     background-color: inherit;
 }
 
-#r-a-menu-vertical-list{
+.r-a-menu-vertical-list,
+.r-globalization-list,
+.r-enviroment-list {
     position: absolute;
-    top:40px;
-    right: 10px;
-    border-radius: 10px;
+    top:30px;
+    border-radius: 5px;
     padding: 5px;
-    min-width: 200px;
     list-style: none;
     background-color: var(--color-teme-primary);
+    border: 1.8px solid var(--color-write) ;
+    min-width: 200px;
+}
+.r-globalization-list li{
+    text-align: left;
+}
+
+.r-a-menu-vertical-list{
+    right: 10px;
 }
 
 /* Tabulator */

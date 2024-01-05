@@ -12,6 +12,10 @@ function initGlobalConfiguration(config:globalConfiguration){
     setLocalization();
 }
 
+function getConfigurationGlobal(){
+    return _configuration;
+}
+
 function  setEnviroment(enviroment:string|number = 0): void {
     checkEnvironments(_configuration.environments);
     if(typeof enviroment === "number"){
@@ -60,5 +64,6 @@ export {
     setEnviroment,
     getEnvironment,
     setLocalization,
-    getLocalization
+    getLocalization,
+    getConfigurationGlobal
 }
