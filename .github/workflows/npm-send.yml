@@ -1,0 +1,14 @@
+name: NPM
+run-name: Transpilando e enviando para o repositório NPM
+on: 
+  push:
+    branches: desenv
+jobs:
+  Transpile Project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.0.0
+      
+      - name: Transpile and Copy Files
+        run: |
+          npm run compile  
