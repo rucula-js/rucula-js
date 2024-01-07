@@ -15,8 +15,13 @@ nav:
     - Criando Botões e Eventos: botoes.md
     - Trabalhando com Atalhos: Atalhos.md
 
+
   - Grids: grids.md
   - Urls: urls.md
+  - Configurações Globais:
+    - Configurações Globais: configuracoesGlobais.md
+    - Ambientes: ambiente.md
+    - Localizações: localizacoes.md
   - End Points: endPoints.md
   - Formulas: formulas.md
   - Terminal: terminal.md
