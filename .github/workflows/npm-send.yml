@@ -12,4 +12,5 @@ jobs:
       - name: transpile-and-copy-files
         run: |
           npm install  
-          npm run compile  
+          npm run compile
+          ls -la dist/
