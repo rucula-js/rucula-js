@@ -220,15 +220,13 @@
       "endPoint": "delete-os"
     },
     {
-      "icon": "bi bi-trash3",
-      "text": "Documentação de teste na fase 2  ",
+      "text": "Finalizar 💵",
       "type": "button",
       "target": "q1w2e3r493469869",
       "endPoint": "delete-os"
     },
     {
-      "icon": "bi bi-trash3",
-      "text": "Documentação de teste na fase 2  ",
+      "text": "Validar  🎲",
       "type": "button",
       "target": "finalizar-compra",
       "endPoint": "delete-os"
