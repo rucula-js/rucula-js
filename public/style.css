@@ -1,8 +1,10 @@
 :root{
+    
     --color-teme-primary:#027847;
     --color-teme-secundary:#30976c;
     --color-write:#fff;
     --color-grey:#c7c7c7;
+    --color-black:#211e1e;
     --heigth-read: 45px;
 }
 
@@ -414,17 +416,14 @@ textarea {
     background-color: inherit;
 }
 
-.r-a-menu-vertical-list,
-.r-globalization-list,
-.r-enviroment-list {
+.list-vertical-buttons {
     position: absolute;
-    top:30px;
-    border-radius: 5px;
-    padding: 5px;
+    top:50px;
+    padding: 0px;
     list-style: none;
-    background-color: var(--color-teme-primary);
-    border: 1.8px solid var(--color-write) ;
+    background-color: var(--color-black);
     min-width: 200px;
+    margin: 0;
 }
 .r-globalization-list li{
     text-align: left;
@@ -433,6 +432,52 @@ textarea {
 .r-a-menu-vertical-list{
     right: 10px;
 }
+.r-a-menu-vertical-list.list-vertical-buttons button{
+    background-color: var(--color-black);
+}
+.r-globalization-list.list-vertical-buttons li,
+.r-enviroment-list.list-vertical-buttons li,
+.r-a-menu-vertical-list.list-vertical-buttons button{
+    font-size: 1rem;
+    padding: 7px 5px 7px 5px;
+    margin: 0;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    color: var(--color-write);
+}
+.r-globalization-list.list-vertical-buttons li:hover,
+.r-enviroment-list.list-vertical-buttons li:hover,
+.r-a-menu-vertical-list.list-vertical-buttons button:hover{
+    color: var(--color-teme-primary);
+}
+
+.list-vertical-buttons.list-vertical-buttons-pp-left{
+    border-radius: 0px 5px  5px  5px 
+}
+
+.list-vertical-buttons.list-vertical-buttons-pp-rigth{
+    border-radius: 5px 0px 5px  5px;
+    margin-right:5px;
+}
+
+.ppcorn{
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid var(--color-black); 
+    position: absolute;
+    top:-7px;
+    z-index: 200px;
+}
+
+.ppcorn-right{
+    right: 0;
+}
+
+.ppcorn-left{
+    left: 0;
+}
+
 
 /* Tabulator */
 .tabulator {

@@ -9,9 +9,24 @@
     "localizations":[
         {
             "locales":"pt-BR",
-            "language":"Português",
+            "language":"Português 🇧🇷" ,
             "currency":"BRL",
             "maxDecimal":5
+<<<<<<< HEAD
+=======
+        },
+        {
+            "locales":"pt-BR",
+            "language":"Ingles 🇺🇸",
+            "currency":"BRL",
+            "maxDecimal":5
+        },
+        {
+            "locales":"pt-BR",
+            "language":"Japonês 🇯🇵",
+            "currency":"BRL",
+            "maxDecimal":5
+>>>>>>> desenv
         }
     ] 
 }   
