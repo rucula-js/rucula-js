@@ -12,6 +12,8 @@
             "language":"Português 🇧🇷" ,
             "currency":"BRL",
             "maxDecimal":5
+<<<<<<< HEAD
+=======
         },
         {
             "locales":"pt-BR",
@@ -24,6 +26,7 @@
             "language":"Japonês 🇯🇵",
             "currency":"BRL",
             "maxDecimal":5
+>>>>>>> desenv
         }
     ] 
 }   
