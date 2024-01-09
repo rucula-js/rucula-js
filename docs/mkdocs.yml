@@ -14,13 +14,14 @@ nav:
     - Projeto hello word: crud.md 
     - Criando Botões e Eventos: botoes.md
     - Trabalhando com Atalhos: Atalhos.md
+    - Consumindo a API via CEP em Eventos de Campo : guia-usuario/viacep-com-evento-de-campo.md
 
   - Grids: grids.md
   - Urls: urls.md
   - End Points: endPoints.md
   - Formulas: formulas.md
   - Terminal: terminal.md
-
+  - Eventos: eventos.md
 theme:
   name: material
   

@@ -25,16 +25,16 @@ import "bootstrap-icons/font/bootstrap-icons.min.css";
         alert("Erro HTTP")
     })
 
-    form?.addEventListener('be.ordemDeServico.codigo',(e) => {
-        let input  = (e as any).detail.element as HTMLInputElement
-        input.value = generateUUID();
+    form?.addEventListener('before.ordemDeServico.codigo',(e) => {
+        
+        console.log(e)
     })
 
-    form?.addEventListener('af.ordemDeServico.codigo',() => {
+    form?.addEventListener('after.ordemDeServico.codigo',() => {
         console.log("after")
     })
 
-    form?.addEventListener('af.endereco.cep',(e) => {
+    form?.addEventListener('after.endereco.cep',(e) => {
         
         let cep = (document?.getElementsByName('block.endereco.cep')[0] as HTMLInputElement).value
 

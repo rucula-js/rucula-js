@@ -20,9 +20,9 @@ export const eventRucula = {
 }
 
 export const constPrefixEventField = {
-    BEFORE:'be',
-    INPUT:'in',
-    AFTER:'af',
+    BEFORE:'before',
+    INPUT:'input',
+    AFTER:'after',
 }
 
 export const constTypeInput = {
