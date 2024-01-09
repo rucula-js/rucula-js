@@ -19,6 +19,12 @@ export const eventRucula = {
 
 }
 
+export const constPrefixEventField = {
+    BEFORE:'be',
+    INPUT:'in',
+    AFTER:'af',
+}
+
 export const constTypeInput = {
     
     TEXT: "text",   

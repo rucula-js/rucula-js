@@ -1,3 +1,4 @@
+import { constIdBaseWindow } from "../../../const";
 import { field } from "../../../entities/form/field";
 import { RepresentationField } from "../../../entities/form/representationField";
 import { setPropertDto } from "../../../object/ObjectManagment";
@@ -7,6 +8,8 @@ export abstract class FileEvent{
     
     protected input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
     protected field?: field //? This property is used to support some events
+    
+    protected ruculaForm = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS)
     
     constructor(input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement,field: field) {
 
@@ -23,4 +26,9 @@ export abstract class FileEvent{
         setPropertDto(representation);
         setDependency(representation)
     }
+    
+    protected getRepresentation(){
+        return RepresentationField.prepareINPUTToField(this.input);
+    }
+
 }  

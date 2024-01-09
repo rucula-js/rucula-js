@@ -76,6 +76,11 @@
       "objectDto": "endereco",
       "fields": [
         {
+          "propertDto": "cep",
+          "description": "CEP",
+          "maxLength": 9
+        },
+        {
           "propertDto": "logradouro",
           "description": "Logradouro",
           "maxLength": 150
@@ -100,11 +105,6 @@
           "propertDto": "estado",
           "description": "Estado",
           "maxLength": 30
-        },
-        {
-          "propertDto": "cep",
-          "description": "CEP",
-          "maxLength": 9
         },
         {
           "propertDto": "pais",

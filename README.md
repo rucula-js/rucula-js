@@ -19,6 +19,10 @@
 - ✅ Mostra observações amigáveis em campos especificos 
 - ✅ Faz todo controle fora do ambiente DOM
 
+<p align="center" >
+  <img src="/docs/docs/assets/rucula-crud-exemple.png">
+</p>
+
 ### Por que esse Projeto?
 Esse projeto tem como objetivo a criação de UI's e consumo de API's de uma forma bem mais rápida e mais segura. Aqui você só se preocupa com o que é mais importante, as características que são triviais para o desenvolvimento de telas.
 

@@ -117,8 +117,22 @@ export class Rucula{
     }
 
     public set(rep:RepresentationField){
+        
+        let key  = `${rep.type}.${rep.objectDto}.${rep.propertDto}.${rep.lineNumber}`
+        
+        if(rep.lineNumber == undefined){
+            key  = `${rep.type}.${rep.objectDto}.${rep.propertDto}`
+        }
+        
+        let element = document.getElementsByName(key)[0] as HTMLInputElement
+        
+        element.focus()
+        element.value = rep.value as string
+        
         setPropertDto(rep)
         setDependency(rep)
+        
+        element.blur()
     }
 }
 
