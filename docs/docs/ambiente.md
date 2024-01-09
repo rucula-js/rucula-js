@@ -35,8 +35,10 @@ interface enviroment {
 <div style="
     border: 2px solid #ff7906;
     border-radius: 8PX;
-    padding: 8px;">
+    padding: 8px;
+    background-color: #ffeaea;
+    ">
     <h5>Nos ajude a melhorar o rucula-js.</h5>
-    Encontrou um erro? Tem alguma sugestão de melhoria?  <a href="https://github.com/rucula-js/rucula-js/issues">Abra um novo problema</a><br>    
+    Encontrou um erro? Tem alguma sugestão?  <a href="https://github.com/rucula-js/rucula-js/issues">Abra um novo problema</a><br>    
 </div>
 
