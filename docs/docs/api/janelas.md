@@ -21,7 +21,7 @@ export interface window{
 |-|-|-|-|
 |`name`|`string`||Nome descritivo da janela|
 |`type`|`string`|`crud`|Tipo da Janela|
-|`messageHome`|`string`||Mensagem de apresentação inicial|
+|`messag[Title](../frames.md)eHome`|`string`||Mensagem de apresentação inicial|
 |`iconHome`|`string`||Icone de apresentação inicial - **Icones válidos somente para bootstrap-icons**|
 |`this`|`string`||objeto principal da janela|
 |`pathController`|`string`||path URL que representa o caminho do end-point vinculado a janela - **Essa configuração serve como apoio nas criações das URL's**|

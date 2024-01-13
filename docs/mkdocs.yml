@@ -1,36 +1,41 @@
 site_name: rucula-js
 nav:
-  - Home: index.md
-  - Configuração: configuracao.md 
-  - Hello World: hello-world.md
-  - Objetos:
-    - Janelas: janelas.md
-    - Frames: frames.md
-    - Inputs: inputs.md
-    - Botões: botoes.md
-    - Objetos: objetos.md
-    
-  - Guia do Usuario: 
-    - Projeto hello word: crud.md 
-    - Criando Botões e Eventos: botoes.md
-    - Trabalhando com Atalhos: Atalhos.md
+  - Introdução: index.md
+  - Começando:
+    - O que é o rucula-js?: comecando/o-que-e-o-rucula-js.md
+    - Como Configurar?: comecando/como-configurar.md
+    - Hello World: comecando/hello-world.md
+  - Compreendendo: 
+    - Unidades Cliente/Servidor: compreendendo/unidades-logicas-interligadas.md
+    - Unidades das Janelas: compreendendo/unidades-das-janelas.md-
+    - Janelas: compreendendo/janelas.md
+    - Frames: compreendendo/frames.md
+    - Fields: compreendendo/fields.md
+    - Formulas: compreendendo/formulas.md
+    - Terminal: compreendendo/terminal.md
+    - Grids: compreendendo/grids.md
+    - Eventos: compreendendo/eventos.md
+    - Urls: compreendendo/urls.md
+    - End Points: compreendendo/endPoints.md
+    - Botões: compreendendo/botoes.md
+  - Guia do Usuario:  
     - Consumindo a API via CEP com evento de campo : guia-usuario/viacep-com-evento-de-campo.md
-
-
-  - Grids: grids.md
-  - Urls: urls.md
+    - Trabalhando com Atalhos: guia-usuario/Atalhos.md
+  - Desenvolvendo:
+    - Roadmap: desenvolvendo/roadmap.md
+    - Criando a Janela: desenvolvendo/janelas.md
   - Configurações Globais:
     - Configurações Globais: configuracoesGlobais.md
     - Ambientes: ambiente.md
     - Localizações: localizacoes.md
-  - End Points: endPoints.md
-  - Formulas: formulas.md
-  - Terminal: terminal.md
-  - Eventos: eventos.md
+  - Api:
+    - Frames: api/frames.md
+    - Botões: api/botoes.md
+    - Objetos: api/objetos.md
+
 theme:
   name: material
   
 extra_css:
   - ./css/extra-style.css
-
   

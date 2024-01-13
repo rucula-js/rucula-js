@@ -1,6 +1,4 @@
-# Atalhos
-
-Para melhorar a performace na utilização do rucula, temos alguns atalhos
+Sabemos que uma das formas de acelerar nossas interações ao trabalharmos com sistemas são os famosos atalhos, sendo assim, afirmamos que com o rucula-js não seria diferente. A seguir mostramos os possíveis atalhos presentes.
 
 ## Atalhos Globais
 

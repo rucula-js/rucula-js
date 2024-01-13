@@ -1,0 +1,1 @@
+A janela é o objeto principal do rucula-js, sua interface contém uma série de propríedades que podemos utilizar

@@ -11,9 +11,10 @@ certifique-se de ter o elemento pai que será usado pela sua janela
 </div>
 ```
 
-importe as funções `initGlobalConfiguration` e a classe `Rucula`
+importe a função `initGlobalConfiguration` e a classe `Rucula`
 
-```ts
+> **Nota:** `initGlobalConfiguration` pode ser importando apenas uma vez durante o ciclo de vida do projeto, **mas como aqui é um simples caso de apresentação, estamoms chamando a função logo acima da classe `Rucula`**.
+``` 
 import { initGlobalConfiguration } from "./src/global/GlobalConfig"
 import { Rucula } from "./src/Rucula"
 ```
