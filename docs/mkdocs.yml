@@ -7,7 +7,7 @@ nav:
     - Hello World: comecando/hello-world.md
   - Compreendendo: 
     - Unidades Cliente/Servidor: compreendendo/unidades-logicas-interligadas.md
-    - Unidades das Janelas: compreendendo/unidades-das-janelas.md-
+    - Unidades das Janelas: compreendendo/unidades-das-janelas.md
     - Janelas: compreendendo/janelas.md
     - Frames: compreendendo/frames.md
     - Fields: compreendendo/fields.md
