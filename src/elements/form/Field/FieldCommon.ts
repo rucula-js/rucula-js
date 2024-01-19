@@ -8,10 +8,15 @@ export class FieldCommon extends FieldInput{
     
     create(){
         
-
         const input = document.createElement('input');
         
         this.input = input;
+
+        if(this.floatLabel == true){
+            this.input.classList.add('did-floating-input')
+        }
+
+        input.setAttribute('placeholder','')
 
         input.setAttribute(constAttrInput.ATTR_TYPE,this.field.type)
 

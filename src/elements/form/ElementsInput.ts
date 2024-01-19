@@ -25,7 +25,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         fieldStrategy.setStrategy(new FieldCommon(field))
     }
     
-    if(field.type == constTypeInput.SELECT) {
+    if(isSelect(field.type)) {
     fieldStrategy.setStrategy(new FieldSelect(field))
     }
 
@@ -87,8 +87,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     function isCheckBox(){
         return field.type[0] == constTypeInput.CHECKBOX
     }
-    
-   
+
     return element as HTMLSelectElement|HTMLInputElement
 }
 
@@ -135,8 +134,7 @@ function createGroupOfInput(field:field, element:HTMLSelectElement|HTMLInputElem
     
     const floatLabel = getConfigurationGlobal().floatLabel
     
-    if(floatLabel == true && (isSimple(field.type)|| isTextArea(field.type))  ){
-        element.classList.add('did-floating-input')
+    if(floatLabel == true && (isSimple(field.type)|| isTextArea(field.type)|| isSelect(field.type))){
         div.appendChild(element)
         div.classList.add('did-floating-label-content')
         label.classList.add('did-floating-label')
@@ -242,3 +240,7 @@ function isSimple(type:string){
 function isTextArea(type:string){
     return type == constTypeInput.TEXT_AREA
 }
+
+ function isSelect(type:string){
+        return type[0] == constTypeInput.SELECT
+    }

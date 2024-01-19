@@ -8,6 +8,18 @@ export class FieldSelect extends FieldInput{
         const select = document.createElement('select');
     
         this.input = select;
+
+        if(this.floatLabel == true){
+            this.input.classList.add('did-floating-select')
+            
+            this.input.setAttribute('value','')
+            
+            this.input.addEventListener('click',(e) => {
+                
+                let value = (e.target as HTMLSelectElement).value
+                this.input.setAttribute('value',value );
+            })
+        }
         
         this.field.combo?.forEach(item => {
             

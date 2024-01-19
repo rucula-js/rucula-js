@@ -9,6 +9,12 @@ export class FieldTextArea extends FieldInput{
         
         this.input = input;
         
+        input.setAttribute('placeholder','')
+        
+        if(this.floatLabel == true){
+            this.input.classList.add('did-floating-input')
+        }
+
         if(this.field?.disable){
             input.setAttribute("disabled","")
         }
