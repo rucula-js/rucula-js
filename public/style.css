@@ -154,6 +154,7 @@
     border-radius: 3px;
     padding: 5px;
     border:1px solid var(--color-grey);
+    font-size: 1rem;
 }
 
 .r-i-control:focus-within{
@@ -424,6 +425,7 @@ textarea {
     background-color: var(--color-black);
     min-width: 200px;
     margin: 0;
+    z-index: 1;
 }
 .r-globalization-list li{
     text-align: left;
@@ -529,12 +531,11 @@ textarea {
 }
 
 .did-floating-label {
-    font-size: 13px;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
     left: 15px;
-    top: 11px;
+    top: 10px;
     padding: 0 5px;
     background: #fff;
     transition: 0.2s ease all;
@@ -543,7 +544,6 @@ textarea {
 }
 
 .did-floating-input, .did-floating-select {
-    font-size: 12px;
     display: block;
     height: 36px;
     padding: 0 20px;
