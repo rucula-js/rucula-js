@@ -1,4 +1,5 @@
 {
+    "floatLabel":true, 
     "environments":[
         {
             "env":"development",

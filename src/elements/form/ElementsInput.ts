@@ -1,6 +1,7 @@
 import { constGroupFormat, constPrefixEventField, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
+import { getConfigurationGlobal } from "../../global/GlobalConfig";
 import { setPropertDto } from "../../object/ObjectManagment";
 import { setEventForInformationInputQuadro } from "../../popper/PopperEvent";
 import { setDependency } from "../../table-dependency/TableDependency";
@@ -20,7 +21,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
 
     checkTypeField(field.type)
     
-    if(isSimple()){
+    if(isSimple(field.type)){
         fieldStrategy.setStrategy(new FieldCommon(field))
     }
     
@@ -32,7 +33,7 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         fieldStrategy.setStrategy(new FieldCheckbox(field))
     }
 
-    if(isTextArea()){
+    if(isTextArea(field.type)){
         fieldStrategy.setStrategy(new FieldTextArea(field))
     }
     
@@ -79,18 +80,6 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         return  createGroupOfInput(field,element) as HTMLDivElement
     }
     
-    function isSimple(){
-            
-        let condition =  
-        field.type == constTypeInput.NUMBER || 
-        field.type == constTypeInput.TEXT || 
-        field.type == constTypeInput.DATE ||
-        field.type == constTypeInput.CURRENCY ||
-        field.type == constTypeInput.PASS
-        
-        return condition;
-    }
-
     function isRadio(){
         return field.type[0]  == constTypeInput.RADIO
     }
@@ -99,12 +88,10 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         return field.type[0] == constTypeInput.CHECKBOX
     }
     
-    function isTextArea(){
-        return field.type == constTypeInput.TEXT_AREA
-    }
-
+   
     return element as HTMLSelectElement|HTMLInputElement
 }
+
 
 function checkTypeField(type: string|string[2]){
 
@@ -146,6 +133,18 @@ function createGroupOfInput(field:field, element:HTMLSelectElement|HTMLInputElem
       label.append(createSpanLabelIsRequerid().cloneNode(true))
     }
     
+    const floatLabel = getConfigurationGlobal().floatLabel
+    
+    if(floatLabel == true && (isSimple(field.type)|| isTextArea(field.type))  ){
+        element.classList.add('did-floating-input')
+        div.appendChild(element)
+        div.classList.add('did-floating-label-content')
+        label.classList.add('did-floating-label')
+        div.appendChild(label)
+        
+        return div
+    }
+
     if(field.groupFormat == undefined){
         label.classList.add('r-label-block')
         div.appendChild(label)
@@ -228,3 +227,18 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
     })
 }
 
+function isSimple(type:string){
+            
+    let condition =  
+    type == constTypeInput.NUMBER || 
+    type == constTypeInput.TEXT || 
+    type == constTypeInput.DATE ||
+    type == constTypeInput.CURRENCY ||
+    type == constTypeInput.PASS
+    
+    return condition;
+}
+
+function isTextArea(type:string){
+    return type == constTypeInput.TEXT_AREA
+}

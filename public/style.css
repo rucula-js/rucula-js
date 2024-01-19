@@ -522,3 +522,69 @@ textarea {
     padding: auto;
     margin: 0;
 }
+
+.did-floating-label-content {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.did-floating-label {
+    font-size: 13px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 15px;
+    top: 11px;
+    padding: 0 5px;
+    background: #fff;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.did-floating-input, .did-floating-select {
+    font-size: 12px;
+    display: block;
+    height: 36px;
+    padding: 0 20px;
+    background: #fff;
+    color: #323840;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.did-floating-input:focus, .did-floating-select:focus {
+    outline: none;
+}
+.did-floating-input:focus ~ .did-floating-label, .did-floating-select:focus ~ .did-floating-label {
+    top: -8px;
+    font-size: 13px;
+}
+select.did-floating-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select.did-floating-select::-ms-expand {
+    display: none;
+}
+
+.did-floating-select:not([value=""]):valid ~ .did-floating-label {
+    top: -8px;
+    font-size: 13px;
+}
+.did-floating-select[value=""]:focus ~ .did-floating-label {
+    top: 11px;
+    font-size: 13px;
+}
+.did-floating-select:not([multiple]):not([size]) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'%3E%3Cpath id='Path_1' data-name='Path 1' d='M371,294l4,6,4-6Z' transform='translate(-371 -294)' fill='%23003d71'/%3E%3C/svg%3E%0A");
+    background-position: right 15px top 50%;
+    background-repeat: no-repeat;
+}
+
+.input-group .did-floating-input {
+    border-radius: 0 4px 4px 0;
+    border-left: 0;
+    padding-left: 0;
+}
