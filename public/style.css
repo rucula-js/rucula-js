@@ -329,11 +329,15 @@ textarea {
     background-color: var(--color-teme-primary);
 }
 
-.r-f-items{
+form.r-f-items{
     max-height: calc(100% - var(--heigth-read));
     overflow: auto;
     padding-right: 5px;
     padding-left: 5px;
+}
+
+form.r-f-items > div:last-child{
+    margin-bottom: 10px;
 }
 
 .r-head {
