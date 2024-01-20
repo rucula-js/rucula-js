@@ -4,6 +4,7 @@ O rucula-js é um projeto que visa receber somente  as configurações de uma de
 
 ```ts
 interface globalConfiguration {
+    floatLabel:string,
     localizations:localization[];
     environments:enviroment[];
     chosenLocalization:localization;
@@ -23,6 +24,7 @@ interface globalConfiguration {
 
 ```ts
 {
+    floatLabel:true,
     environments:[
         {
             env:"development",
@@ -44,7 +46,9 @@ interface globalConfiguration {
 
 > **Observação Importante**: Se não especificado ou se não houver controle com coockies no ambiente(`enviroment`) ou localização(`localization`), o rucula-js usará o item da posição **`0`** do array como **opção default**.
 
+## Float Label
 
+[Float Label](https://getbootstrap.com/docs/5.2/forms/floating-labels/) altera o modo em que o [label](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) se comporta em relação ao [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) presente no grupo do formulário. **Por padrão o label fica acima do input, podendo também ser alterado para estar nos quatros cantos, entretanto o float label é uma configuração mais elegante para as janelas configuradas**.  
 <br>
 
 ##### Itens Relacionados
