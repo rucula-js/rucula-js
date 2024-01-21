@@ -1,6 +1,6 @@
 {
     "name": "@reginaldo-marinho/rucula-js",
-    "version": "0.0.31",
+    "version": "0.0.32",
     "description": "Crie telas em Minutos! 🚀",
     "homepage": "https://rucula-js.github.io/",
     "bugs": "https://github.com/rucula-js/rucula-js/issues",
@@ -30,7 +30,8 @@
         "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
-        "clean": "rimraf dist/"
+        "clean": "rimraf dist/",
+        "publish": "npm run compile && npm publish"
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
