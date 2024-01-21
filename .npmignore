@@ -11,3 +11,4 @@ tsconfig.json
 webpack.*
 node_modules
 .github
+.mocharc.json
