@@ -216,7 +216,8 @@
 }
 
 .r-q-b .r-g-i-i{
-    margin-left: 10px ;
+    margin-left: 10px;
+    margin-bottom: 18px;
 }
 
 .r-q-b .r-g-i-i .r-label-block{
@@ -226,8 +227,6 @@
 .r-q-b .r-g-i-i .r-label-inline{
     display: inline;
 }
-
-
 
 /*frame type line*/
 .f-t-line{
@@ -242,7 +241,6 @@
     margin-left: 10px;
     margin-top: 10px;
 }
-
 .f-t-line th,.f-t-line td{
     border: 1px solid #ddd;
 }
@@ -313,9 +311,10 @@
     opacity: 50%;
 }
 
-textarea {
+textarea.r-i-control {
     resize: none;
     border:1px solid var(--color-grey);
+    min-height: 100px;
 }
 
 .r-act{
@@ -531,8 +530,8 @@ form.r-f-items > div:last-child{
 
 .did-floating-label-content {
     position: relative;
-    margin-bottom: 20px;
 }
+
 .did-floating-label {
     font-size: 1rem;
     font-weight: normal;
