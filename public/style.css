@@ -151,7 +151,7 @@
 
 /* inputs */
 .r-i-control{
-    border-radius: 3px;
+    border-radius: 6px;
     padding: 5px;
     border:1px solid var(--color-grey);
     font-size: 1rem;
@@ -552,7 +552,6 @@ form.r-f-items > div:last-child{
     padding: 0 20px;
     background: #fff;
     color: #323840;
-    border-radius: 4px;
     box-sizing: border-box;
 }
 .did-floating-input:focus, .did-floating-select:focus {

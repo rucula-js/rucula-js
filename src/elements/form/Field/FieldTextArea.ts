@@ -9,6 +9,8 @@ export class FieldTextArea extends FieldInput{
         
         this.input = input;
         
+        this.input.classList.add('r-i-control')
+        
         input.setAttribute('placeholder','')
         
         if(this.floatLabel == true){
