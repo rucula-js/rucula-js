@@ -1,4 +1,4 @@
-{    
+{
     "name": "@reginaldo-marinho/rucula-js",
     "version": "0.0.30",
     "description": "Crie telas em Minutos! 🚀",
@@ -22,10 +22,11 @@
         "UI"
     ],
     "directories": {
-        "lib": "lib"
+        "lib": "lib",
+        "test": "tests"
     },
     "scripts": {
-        "test": "karma start",
+        "test": "mocha",
         "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
@@ -33,7 +34,6 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
-        "@types/jasmine": "^4.3.5",
         "axios": "^1.4.0",
         "bootstrap-icons": "^1.10.5",
         "mathjs": "^11.9.1",
@@ -41,19 +41,20 @@
         "tabulator-tables": "^5.5.2"
     },
     "devDependencies": {
+        "@types/jsdom": "^21.1.6",
+        "@types/mocha": "^10.0.6",
         "@types/tabulator-tables": "^5.5.2",
+        "assert": "^2.0.0",
         "copyfiles": "^2.4.1",
         "css-loader": "^6.8.1",
         "html-webpack-plugin": "^5.5.3",
-        "jasmine-core": "^5.1.1",
-        "karma": "^6.4.2",
-        "karma-chrome-launcher": "^3.2.0",
-        "karma-firefox-launcher": "^2.1.2",
-        "karma-jasmine": "^5.1.0",
+        "jsdom": "^23.2.0",
         "mini-css-extract-plugin": "^2.7.6",
+        "mocha": "^10.2.0",
         "rimraf": "^5.0.1",
         "style-loader": "^3.3.3",
         "ts-loader": "^9.4.4",
+        "ts-node": "^10.9.2",
         "typescript": "^5.1.6",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4",
