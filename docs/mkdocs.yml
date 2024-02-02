@@ -38,4 +38,9 @@ theme:
   
 extra_css:
   - ./css/extra-style.css
+
+extra:
+  analytics:
+    provider: google
+    property: G-GXRGLZL4NE
   
