@@ -189,6 +189,16 @@
       ]
     }
   ],
+  "layout":{
+    "items":
+      [
+        ["ordemDeServico","ordemDeServico","ordemDeServico"],
+        ["cliente","cliente","endereco"],
+        ["itensServico","itensServico","itensServico"],
+        ["tecnicoResponsavel","tecnicoResponsavel","pagamento"]
+      ]
+   },
+  
   "columnsGrid": [
     {
       "title": "codigo",

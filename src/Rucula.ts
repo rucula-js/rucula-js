@@ -13,6 +13,7 @@ import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { setWindow } from "./window/Window";
 import { setDefault } from "./elements/Defaults";
 import { RepresentationField } from "./entities/form/representationField";
+import { configureLayout } from "./Layout/layout";
 
 export class Rucula{
     
@@ -33,15 +34,15 @@ export class Rucula{
         setWindow(this.window);
         
         let panel = createPanel();
-        this.elementRucula.appendChild(panel)
+        this.elementRucula.appendChild(panel);
         createWindowBase(this.elementRucula.id);
         this.addHomeWindow();
-        
         setJoinChield(this.window.joinChield);
         createObject(this.window.frames)
         createTableDependency(this.window.frames)
         createNameWindow(this.window.name)
         this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+        configureLayout(this.window)
         this.createFrames()
         hiddenPopper()
         set() 

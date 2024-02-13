@@ -5,6 +5,12 @@ export function createFrame(frame:frame){
 
     const div = document.createElement('div');
     
+    div.style.gridColumnStart = `${frame.layout.col.start}`
+    div.style.gridColumnEnd = `${frame.layout.col.end}`
+
+    div.style.gridRowStart = `${frame.layout.row.start}`
+    div.style.gridRowEnd = `${frame.layout.row.end}`
+
     if(frame.type == constTypeFrame.BLOCK){
         div.classList.add("r-q-b")
     }

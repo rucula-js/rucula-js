@@ -190,15 +190,14 @@
 
 /*Frames*/
 .r-q-b{
-    margin-top: 10px;
     align-items:center;
 }
 
+.r-q-l:fi
 .r-q-l{
-    margin-top: 10px;
     margin-bottom: 10px;
     overflow:auto;
-    display: grid;   
+    min-height: 200px;
 }
 
 .r-q-b,
@@ -237,9 +236,6 @@
     overflow: auto;
     max-height: 300px;
     border-spacing: 0;
-    padding-bottom:5px;
-    margin-left: 10px;
-    margin-top: 10px;
 }
 .f-t-line th,.f-t-line td{
     border: 1px solid #ddd;
@@ -329,14 +325,15 @@ textarea.r-i-control {
 }
 
 form.r-f-items{
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
     max-height: calc(100% - var(--heigth-read));
     overflow: auto;
     padding-right: 5px;
     padding-left: 5px;
-}
-
-form.r-f-items > div:last-child{
-    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .r-head {

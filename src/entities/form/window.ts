@@ -16,5 +16,10 @@ export interface window{
     button:button[]
     joinChield:string[]
     endPoints:endPoint[]
-
+    layout:{
+        items:[[]],
+        tamplateColumns:number
+        tamplateRow:number
+    }
+     
 }
