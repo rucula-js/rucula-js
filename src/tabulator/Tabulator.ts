@@ -9,8 +9,18 @@ import { constIdBaseWindow, eventRucula } from '../const';
 
 
 
-export function createLeftGrid(){
+export function createLeftGrid(grid:boolean = true){
   
+
+  if(grid == false){
+    
+    document.getElementById(constIdBaseWindow.NEW)?.click()
+    
+    let containerGridLeft = document?.querySelector(".r-w .r-act#actions");
+    containerGridLeft?.remove()
+    return;
+  }
+
   const endPointGetAll = "get-all-grid";
   let endPoint = getEndPoint(endPointGetAll)
   let url =  createUrl(endPoint)

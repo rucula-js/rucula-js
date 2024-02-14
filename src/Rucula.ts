@@ -14,6 +14,7 @@ import { setWindow } from "./window/Window";
 import { setDefault } from "./elements/Defaults";
 import { RepresentationField } from "./entities/form/representationField";
 import { configureLayout } from "./Layout/layout";
+import { buttonsBase } from "./buttons/buttonsBaseCrud";
 
 export class Rucula{
     
@@ -46,11 +47,14 @@ export class Rucula{
         this.createFrames()
         hiddenPopper()
         set() 
-        createLeftGrid();
+        createLeftGrid(this.window.grid);
         this.createButtons();
+        buttonsBase.initButtonsTypeCrudDefault();
+        buttonsBase.initButtonPlus();
+        buttonsBase.buttonsTypeCrud.crud(this.window.crud);
+        
         this.resetBackground()
     }
-
 
     private addHomeWindow(){
      

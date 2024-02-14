@@ -211,7 +211,6 @@
     display: flex; 
     flex-wrap: wrap;
     padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 .r-q-b .r-g-i-i{
@@ -419,7 +418,7 @@ form.r-f-items{
 
 .list-vertical-buttons {
     position: absolute;
-    top:50px;
+    top:40px;
     padding: 0px;
     list-style: none;
     background-color: var(--color-black);
@@ -454,32 +453,10 @@ form.r-f-items{
     color: var(--color-teme-primary);
 }
 
-.list-vertical-buttons.list-vertical-buttons-pp-left{
-    border-radius: 0px 5px  5px  5px 
-}
-
+.list-vertical-buttons.list-vertical-buttons-pp-left,
 .list-vertical-buttons.list-vertical-buttons-pp-rigth{
-    border-radius: 5px 0px 5px  5px;
-    margin-right:5px;
+    border-radius: 5px 5px  5px  5px 
 }
-
-.ppcorn{
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 7px solid var(--color-black); 
-    position: absolute;
-    top:-7px;
-    z-index: 200px;
-}
-
-.ppcorn-right{
-    right: 0;
-}
-
-.ppcorn-left{
-    left: 0;
-}
-
 
 /* Tabulator */
 .tabulator {

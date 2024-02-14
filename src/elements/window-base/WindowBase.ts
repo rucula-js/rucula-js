@@ -72,13 +72,11 @@ function createComponentCreateOrEdit(){
                     <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
                         <i class="bi bi-globe-americas"></i>
                         <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                            <span class="ppcorn ppcorn-left"></span> 
                         </ol>                        
                     </button> 
                     <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
                         <i class="bi bi-fire"></i>
                         <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                            <span class="ppcorn ppcorn-left"></span> 
                         </ol>                        
                     </button>    
                 </div>
@@ -87,9 +85,8 @@ function createComponentCreateOrEdit(){
                 <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                 <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
                 <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
-                <button id="r-a-menu-vertical" class="r-a-b"><i class="bi bi-three-dots-vertical"></i></button>
-                <ol id="r-a-menu-vertical-list" class="r-a-menu-vertical-list list-vertical-buttons list-vertical-buttons-pp-rigth r-display-none"> 
-                    <span class="ppcorn ppcorn-right"></span> 
+                <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL} class="r-a-b"><i class="bi bi-three-dots-vertical"></i></button>
+                <ol id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_LIST} class="r-a-menu-vertical-list list-vertical-buttons list-vertical-buttons-pp-rigth r-display-none"> 
                 </ol>    
             </div>
         </div>

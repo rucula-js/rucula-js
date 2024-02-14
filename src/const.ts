@@ -63,7 +63,9 @@ export const constIdBaseWindow =  {
     OLLI_GLOBALIZATION: "r-globalization-list",    
     ENVIROMENT: "r-enviroment",
     OLLI_ENVIROMENT: "r-enviroment-list",    
-    FORM_RUCULA_JS:"form-rucula-js"
+    FORM_RUCULA_JS:"form-rucula-js",
+    BUTTONS_MENU_VERTICAL: "r-a-menu-vertical",
+    BUTTONS_MENU_VERTICAL_LIST: "r-a-menu-vertical-list"
 }
 
 
