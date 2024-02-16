@@ -11,7 +11,6 @@ import { FieldRadio } from "./Field/FieldRadio";
 import { FieldSelect } from "./Field/FieldSelect";
 import { FieldStrategy } from "./Field/FieldStrategy";
 import { FieldTextArea } from "./Field/FieldTextArea";
-import { formulaGetValuePropert, formulaLine, formulaMath, formulaSUM } from "./formulas/Formulas";
 
 export function createField(field:field,frame:{type:string,objectDto:string,line?:number}):HTMLDivElement|HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement{
   
@@ -208,18 +207,6 @@ export function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type
         
         return;
     }
-
-    field.formula?.forEach(formula => {
-
-        formulaGetValuePropert(formula, input);
-        formulaMath(formula, input,frame)
-        formulaLine(formula, input,field,frame)
-        formulaSUM(formula, input,field,frame)
-        let repField = RepresentationField.prepareINPUTToField(input)
-        setPropertDto(repField);
-        setDependency(repField);
-        
-    })
 }
 
 function isSimple(type:string){
@@ -238,6 +225,6 @@ function isTextArea(type:string){
     return type == constTypeInput.TEXT_AREA
 }
 
- function isSelect(type:string){
+function isSelect(type:string){
         return type[0] == constTypeInput.SELECT
-    }
+}

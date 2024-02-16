@@ -1,6 +1,6 @@
 {
     "name": "@reginaldo-marinho/rucula-js",
-    "version": "0.0.36",
+    "version": "0.0.38",
     "description": "Crie telas em Minutos! 🚀",
     "homepage": "https://rucula-js.github.io/",
     "bugs": "https://github.com/rucula-js/rucula-js/issues",
@@ -27,17 +27,15 @@
     },
     "scripts": {
         "test": "mocha",
-        "compile": "tsc && copyfiles -u 1  public/**/*.css dist/style",
+        "compile": "rimraf dist/ && tsc && copyfiles -u 1  public/**/*.css dist/style",
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
         "clean": "rimraf dist/",
         "publish": "npm run compile & npm publish"
     },
     "dependencies": {
-        "@popperjs/core": "^2.11.8",
         "axios": "^1.4.0",
-        "bootstrap-icons": "^1.10.5",
-        "mathjs": "^11.9.1",
+        "install": "^0.13.0",
         "package": "^1.0.1",
         "tabulator-tables": "^5.5.2"
     },

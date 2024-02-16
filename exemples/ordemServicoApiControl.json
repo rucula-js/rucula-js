@@ -5,6 +5,7 @@
   "messageHome": "Ordem de Serviço",
   "iconHome": "bi-rocket-takeoff",
   "this": "ordemDeServico",
+  "grid":false,
   "frames": [
     {
       "name": "Header OS",
@@ -139,10 +140,7 @@
           "propertDto": "subtotal",
           "description": "Subtotal",
           "type": "currency",
-          "maxLength": 50,
-          "formula": [
-            "=MATH(quantidade*valorUnitario)"
-          ]
+          "maxLength": 50
         }
       ]
     },
