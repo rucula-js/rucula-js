@@ -3,7 +3,6 @@ import { field } from "../../entities/form/field";
 import { RepresentationField } from "../../entities/form/representationField";
 import { getConfigurationGlobal } from "../../global/GlobalConfig";
 import { setPropertDto } from "../../object/ObjectManagment";
-import { setEventForInformationInputQuadro } from "../../popper/PopperEvent";
 import { setDependency } from "../../table-dependency/TableDependency";
 import { setCustomEvent } from "./Field/EventsFieldsCustom";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
@@ -47,8 +46,6 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
         element.setAttribute('maxlength',`${field.maxLength}`);
     }
     
-    setEventForInformationInputQuadro(element)
-
     addAttributesSetAndName(element,{   
         type:frame.type,
         object:frame.objectDto,

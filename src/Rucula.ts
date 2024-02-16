@@ -4,7 +4,6 @@ import { createTableDependency, setDependency } from "./table-dependency/TableDe
 import {createPanel,set}  from './console/Console'
 import { createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
-import { hiddenPopper } from "./popper/PopperEvent";
 import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
 import { createFrameLine } from "./elements/frame/TypeLine/FrameLine";
@@ -45,7 +44,6 @@ export class Rucula{
         this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
         configureLayout(this.window)
         this.createFrames()
-        hiddenPopper()
         set() 
         createLeftGrid(this.window.grid);
         this.createButtons();
