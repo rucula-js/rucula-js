@@ -4,7 +4,7 @@ import { RepresentationField } from "../../entities/form/representationField";
 import { getConfigurationGlobal } from "../../global/GlobalConfig";
 import { setPropertDto } from "../../object/ObjectManagment";
 import { setDependency } from "../../table-dependency/TableDependency";
-import { setCustomEvent } from "./Field/EventsFieldsCustom";
+import { eventsCustom } from "./Field/EventsFieldsCustom";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
 import { FieldRadio } from "./Field/FieldRadio";
@@ -56,17 +56,14 @@ export function createField(field:field,frame:{type:string,objectDto:string,line
     setPropertDto(repField);
     setDependency(repField);
 
-    let beforeEventName = `${constPrefixEventField.BEFORE}.${frame.objectDto}.${field.propertDto}`
-    let inputEventName = `${constPrefixEventField.INPUT}.${frame.objectDto}.${field.propertDto}`
-    let afterEventName  = `${constPrefixEventField.AFTER}.${frame.objectDto}.${field.propertDto}`
+    let identity = { 
+            name:`${frame.objectDto}.${field.propertDto}.${frame.line}`,
+            element: element as HTMLElement,
+            index:frame.line
+    }
 
-    const eventBefore = new CustomEvent(beforeEventName, {detail: {name:element.getAttribute("name"), element:element }});
-    const eventInput  = new CustomEvent(inputEventName, {detail: {name:element.getAttribute("name"), element:element }});
-    const eventAfter = new CustomEvent(afterEventName, {detail: {name:element.getAttribute("name"), element:element }});;
+    eventsCustom.field().set(identity)
 
-    setCustomEvent({key: beforeEventName, value: eventBefore})
-    setCustomEvent({key: inputEventName, value: eventInput})
-    setCustomEvent({key: afterEventName, value: eventAfter})
 
     if( typeof(FieldStrategy) == typeof(FieldCommon)){    
         setValueOrFormula(field,element as HTMLInputElement,frame)

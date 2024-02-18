@@ -190,10 +190,10 @@
   "layout":{
     "items":
     [
-      ["ordemDeServico","ordemDeServico","pagamento"],
-      ["cliente","endereco","pagamento"],
-      ["itensServico","itensServico","pagamento"],
-      ["itensServico","itensServico","tecnicoResponsavel"]
+      ["ordemDeServico","ordemDeServico","ordemDeServico"],
+      ["cliente","endereco","endereco"],
+      ["itensServico","itensServico","itensServico"],
+      ["tecnicoResponsavel","tecnicoResponsavel","pagamento"]
     ]
    },
   "columnsGrid": [

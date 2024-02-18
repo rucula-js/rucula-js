@@ -16,49 +16,26 @@ import "./public/normalize.css"
 
     var form = document.getElementById("form-rucula-js")
 
-    form?.addEventListener("before-send-object-http", (e) => {
-        console.log(rucula.get())
-    })
-
-    form?.addEventListener("send-object-http-error", (e) => {
-        alert("Erro HTTP")
-    })
-
-    form?.addEventListener('before.ordemDeServico.codigo',(e) => {
+    form?.addEventListener('input.itensServico.quantidade',(e) => {
+      
+        let identity = (e as CustomEvent).detail.identity
         
-        console.log(e)
-    })
+        let element = identity.element as HTMLInputElement
 
-    form?.addEventListener('after.ordemDeServico.codigo',() => {
-        console.log("after")
-    })
-
-    form?.addEventListener('after.endereco.cep',(e) => {
+        let value = Number(element.value)
         
-        let cep = (document?.getElementsByName('block.endereco.cep')[0] as HTMLInputElement).value
-
-        const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
-
-        fetch(apiUrl)
-        .then(response => {
-
-            if (!response.ok) {
-                throw new Error(`Erro na requisição: ${response.statusText}`);
-            }
-            
-            return response.json();
-        })
-        .then(data => {
-
-            rucula.set({ type:'block', objectDto:"endereco", propertDto: "logradouro",  value: data["logradouro"]})
-            rucula.set({ type:'block', objectDto:"endereco", propertDto: "bairro", value: data["bairro"]})
-            rucula.set({ type:'block', objectDto:"endereco", propertDto: "cidade", value: data["logradouro"]})
-            rucula.set({ type:'block', objectDto:"endereco", propertDto: "estado", value: data["uf"]})
-            rucula.set({ type:'block', objectDto:"endereco", propertDto: "pais", value:"BR"})
-    
-          }) 
-        .catch(error => {
-            console.error('Erro na requisição:', error.message);
-          });
-        })
+        if( value < 0){
+            element.style.color = "red"  
+            element.style.fontWeight = "bold";
+        }
+        if( value > 0){
+            element.style.color = "blue"  
+            element.style.fontWeight = "bold"
+        }
+        
+        if( value == 0){
+            element.style.color = ""  
+            element.style.fontWeight = ""
+        }
+    })
 })()
