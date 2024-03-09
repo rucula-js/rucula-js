@@ -1,8 +1,58 @@
 import { alignItem } from "../../Helpers/Helper";
 import { field } from "../../entities/form/field";
-import { getNextzzRowCount } from "../../object/ObjectManagment";
-import { createNewLineDependecy } from "../../table-dependency/TableDependency";
-import { createField, createSpanLabelIsRequerid } from "../form/ElementsInput";
+
+import { fieldDOM } from "../form/ElementsInput";
+
+export let frameLineTableDOM = (() => {
+
+    return {
+        table: {
+            createHeader: (fields:field[]) => {
+                
+                let tr = document.createElement('tr');
+                let thead = document.createElement('thead');
+                
+                thead.appendChild(tr);
+
+                fields.forEach(field => {
+            
+                    const th = document.createElement('th');
+                    th.textContent = field.description
+            
+                    if(field.requerid == true){
+                        th.textContent = th.textContent
+                        th.append(fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
+                    }
+            
+                    alignItem(field,th)
+                    
+                    tr.appendChild(th)
+                })
+                return thead as HTMLTableSectionElement;
+            },
+            createRowDetail: (fields:field[]) => {
+                
+
+                let tr = document.createElement('tr');
+                                
+                fields.forEach((field) =>{
+                            
+                    const td = document.createElement('td');
+
+                    const input = fieldDOM.create(field); 
+
+                    td.appendChild(input);
+                
+                    alignItem(field,input as HTMLInputElement)
+                    
+                    tr.appendChild(td)
+                })
+                return tr;
+            }
+        }
+    }
+})()
+
 
 export function prepareLineHeaderTable(fields:Array<field>):HTMLTableSectionElement{
     
@@ -17,7 +67,7 @@ export function prepareLineHeaderTable(fields:Array<field>):HTMLTableSectionElem
 
         if(field.requerid == true){
             th.textContent = th.textContent
-            th.append(createSpanLabelIsRequerid().cloneNode(true))
+            th.append(fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
         }
 
         alignItem(field,th)
@@ -29,29 +79,4 @@ export function prepareLineHeaderTable(fields:Array<field>):HTMLTableSectionElem
 
 export  function prepareTBody(){
     return document.createElement('tbody');
-
-}
-export function prepareTR(fields:Array<field>,frame:{type:string,objectDto:string,line?:number}){
-
-    frame.line = getNextzzRowCount(frame.objectDto)
-    createNewLineDependecy({
-        type:frame.type,
-        objectDto:frame.objectDto,
-        line:frame.line!
-    })    
-    
-    let tr = document.createElement('tr');
-    tr.setAttribute('data-objecdto',frame.type)
-    
-    fields.forEach((field) =>{
-                
-        const td = document.createElement('td');
-        const input = createField(field,frame); 
-        td.appendChild(input);
-    
-        alignItem(field,input as HTMLInputElement)
-        
-        tr.appendChild(td)
-    })
-    return tr;
 }

@@ -1,6 +1,6 @@
 import * as table  from '../table-dependency/TableDependency';
-import * as  obj from '../object/ObjectManagment';
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from '../global/KeyEvents';
+import { managmentObject } from '../object/ObjectManagment';
     
 let consolePanel!:HTMLDivElement
 
@@ -32,6 +32,7 @@ function  openCloseConsole(): void {
     let cons = document.querySelector(".box-panel") as HTMLDivElement
     document.addEventListener('keydown',(event) =>{
        
+        debugger;
         const key = (event as KeyboardEvent).key;
         KeyEventAdd(key);
         if (KeyEventGetIndex(0) == "Control" && KeyEventGetIndex(1) ==  "y"){
@@ -66,6 +67,7 @@ function setCommand(){
             if(c != '')args.push(c);
         })
         
+        debugger;
         if(args[0] != 'ruc')outputMessageRucNotFound()
         if( (args.length == 1 &&  args[0] == 'clear')||
             (args.length == 1 &&  args[0] == '-c'))outputClear()
@@ -110,7 +112,7 @@ function outputCommandNotFound(){
     consolePanel.textContent = "comando não encontrado"
 }
 function outputDependencies(){
-    let dependecies = table.getDependencies();
+    let dependecies = table.tableDependency.getDependencies();
     let output ='<br>'; 
     output += '<h2>Dependências não Resolvidas</h2>';
     output+='<br>'
@@ -122,7 +124,7 @@ function outputDependencies(){
 function outputGetObject(){
     let output ='<br>'; 
     output += '<h2>Objeto Atual</h2>';
-        output+=`<div style="margin-top:10px;">${JSON.stringify(obj.object())}</div>`
+        output+=`<div style="margin-top:10px;">${JSON.stringify(managmentObject.object.object.objectFull())}</div>`
     consolePanel.innerHTML = output
 }
 

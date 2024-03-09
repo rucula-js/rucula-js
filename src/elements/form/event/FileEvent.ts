@@ -1,8 +1,8 @@
 import { constIdBaseWindow } from "../../../const";
 import { field } from "../../../entities/form/field";
-import { RepresentationField } from "../../../entities/form/representationField";
-import { setPropertDto } from "../../../object/ObjectManagment";
-import { setDependency } from "../../../table-dependency/TableDependency";
+import { managmentObject } from "../../../object/ObjectManagment";
+import { tableDependency } from "../../../table-dependency/TableDependency";
+import { eventsCustom } from "../Field/EventsFieldsCustom";
 
 export abstract class FileEvent{
     
@@ -18,17 +18,23 @@ export abstract class FileEvent{
         this.setEventListener()
     }
 
+    dispatchEvent(prefixEvent:string){
+
+        let identity = this.input.getAttribute("identity")!;
+        let fragment = managmentObject.fragment.getFragmentTypeField(identity)
+         
+        let eventName = `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}`
+        let before = eventsCustom.field().get(eventName)
+        this.ruculaForm?.dispatchEvent(before)          
+    }
+    
     protected abstract setEventListener():void;
     
     protected set(): void {
-        
-        let representation = RepresentationField.prepareINPUTToField(this.input);
-        setPropertDto(representation);
-        setDependency(representation)
-    }
-    
-    protected getRepresentation(){
-        return RepresentationField.prepareINPUTToField(this.input);
-    }
 
+        let identity = this.input.getAttribute("identity")!
+
+        tableDependency.set(identity,this.input.value)
+        managmentObject.object.field.setValueContextIdentity(identity,this.input.value)
+    }
 }  

@@ -10,6 +10,7 @@
     {
       "name": "Header OS",
       "objectDto": "ordemDeServico",
+      "alias": "ordemDeServico",
       "fields": [
         {
           "propertDto": "codigo",
@@ -54,6 +55,8 @@
     {
       "name": "Cliente",
       "objectDto": "cliente",
+      "alias": "cliente",
+      "parent":".",
       "fields": [
         {
           "propertDto": "nome",
@@ -75,6 +78,8 @@
     {
       "name": "Cliente - Endereço",
       "objectDto": "endereco",
+      "alias": "endereco",
+      "parent":".",
       "fields": [
         {
           "propertDto": "cep",
@@ -118,6 +123,8 @@
       "name": "Serviços Prestados",
       "type": "line",
       "objectDto": "itensServico",
+      "alias": "itensServico",
+      "parent":".",
       "fields": [
         {
           "propertDto": "descricao",
@@ -147,6 +154,8 @@
     {
       "name": "🧑‍🔧 Técnico Responsavel",
       "objectDto": "tecnicoResponsavel",
+      "alias": "tecnicoResponsavel",
+      "parent":".",
       "fields": [
         {
           "propertDto": "nome",
@@ -168,6 +177,8 @@
     {
       "name": "💵 Pagamento",
       "objectDto": "pagamento",
+      "alias": "pagamento",
+      "parent":".",
       "fields": [
         {
           "propertDto": "formaDePagamento",
@@ -240,11 +251,11 @@
     }
   ],
   "joinChield": [
-     "cliente..endereco",
-     "ordemDeServico..cliente",
-     "ordemDeServico..itensServico",
-     "ordemDeServico..tecnicoResponsavel",
-     "ordemDeServico..pagamento"
+    "ordemDeServico.cliente",
+    "ordemDeServico.itensServico",
+    "ordemDeServico.tecnicoResponsavel",
+    "ordemDeServico.pagamento",
+     "cliente.endereco"
   ],
   "endPoints": [
     {

@@ -1,9 +1,7 @@
 import { formatNumberWithLocalization } from "../Helpers/CurrencyHelper";
 import { constAttrInput, constTypeInput } from "../const";
-import { addLine, cleanFrame } from "../elements/frame/TypeLine/FrameLine";
+import { frameLineDOM } from "../elements/frame/TypeLine/FrameLine";
 import { RepresentationField } from "../entities/form/representationField";
-import { setPropertDto } from "../object/ObjectManagment";
-import { setDependency } from "../table-dependency/TableDependency";
 import { getThis } from "../window/Window";
 
 export function setValueInForm(obj:any, objectDto:string = "", line:number = -1){
@@ -20,7 +18,7 @@ export function setValueInForm(obj:any, objectDto:string = "", line:number = -1)
             representation.objectDto = propert;
             representation.objectDto = propert;
             
-            cleanFrame(representation)
+            frameLineDOM.cleanFrame(representation)
 
             let frameLine = document.querySelector(`[data-objectdto="${representation.objectDto}"] tbody`)
 
@@ -28,8 +26,8 @@ export function setValueInForm(obj:any, objectDto:string = "", line:number = -1)
 
                 representation.lineNumber = index 
                 
-                const lineAdd = addLine(representation)
-                frameLine?.appendChild(lineAdd)
+                // const lineAdd = addLineeee(representation)
+                // frameLine?.appendChild(lineAdd)
 
                 setValueInForm(item,propert,index)
             
@@ -73,8 +71,8 @@ export function setValueInForm(obj:any, objectDto:string = "", line:number = -1)
                 }
                 representation.value = value
 
-                setDependency(representation)
-                setPropertDto(representation);
+                // setDependency(representation)
+                // setPropertDto(representation);
             } 
         }
         

@@ -1,4 +1,4 @@
-export const DOT_DOT_SEPARATOR = "..";
+export const DOT_SEPARATOR = ".";
 
 export const eventRucula = {
 

@@ -4,8 +4,8 @@ import { columnsGrid} from '../entities/form/columnsGrid'
 import { getColumnsGrid, getEndPoint, getParamsGrid } from '../window/Window';
 import { RowComponent, TabulatorFull as Tabulator} from 'tabulator-tables';
 import { setValueInForm } from '../input-value/InputValue';
-import { setObjecReload } from '../elements/window-base/WindowBase';
 import { constIdBaseWindow, eventRucula } from '../const';
+import { windowBaseDOM } from '../elements/window-base/WindowBase';
 
 
 
@@ -73,7 +73,7 @@ export function createLeftGrid(grid:boolean = true){
     rucula?.dispatchEvent(eventRucula.RESET_BACKGROUND_EVENT)
     
     let obj = JSON.parse(response.request.response)  
-      setObjecReload(obj)
+    windowBaseDOM.setObjecReload(obj)
       setValueInForm(obj)
   })
 

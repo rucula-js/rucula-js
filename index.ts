@@ -24,16 +24,16 @@ import "./public/normalize.css"
 
         let value = Number(element.value)
         
-        if( value < 0){
-            element.style.color = "red"  
-            element.style.fontWeight = "bold";
-        }
-        if( value > 0){
+        if(value > 10){
             element.style.color = "blue"  
             element.style.fontWeight = "bold"
         }
         
-        if( value == 0){
+        if(value < 0){
+            element.style.color = "red"  
+            element.style.fontWeight = "bold";
+        }
+        if(value < 10 && value >= 0){
             element.style.color = ""  
             element.style.fontWeight = ""
         }

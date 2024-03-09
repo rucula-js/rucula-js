@@ -1,53 +1,460 @@
-import { DOT_DOT_SEPARATOR, constTypeFrame } from "../const";
+import { constTypeFrame } from "../const";
+import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
-import { RepresentationField } from "../entities/form/representationField";
+import { window } from "../entities/form/window";
+import { tableDependency } from "../table-dependency/TableDependency";
+import { configWindow } from "../window/Window";
+import { entityConfiguration, fragmentField, fragmentObject } from "./ObjectAliases";
+import { generateUUID } from "./ObjectHelper";
 
 'use strict';
 
-let _object:any = {};
-let _joinChield:{key:string, value:string}[] = []
+let _object :any
 
-function createObject(frames:Array<frame>){
+export let managmentObject = (()=> {
     
-    _object = {}
-    _object["zzRowCount"] = {} 
+    let base:any = {};
     
-    frames?.forEach(frame => {
+    let fragments: Array<fragmentField|fragmentObject> = new Array<fragmentField|fragmentObject>(); 
+    
+    let pathObjectBase:{parent:string, alias:string, configFrame:string, }[] = [];
+    
+    /**
+     * @param {entityConfiguration} config
+     * @return {fragmentField | fragmentObject} 
+     */
+    function getFragmentFieldForAliasAndPropertDto(config:entityConfiguration){
+        
+        if(config === undefined){
+         throw new Error("entityConfiguration is requerid")   
+        }
+
+        return  fragments.find((c:any) => 
+            c.config.alias == config.aliasOrIDentity &&
+            c.config.propertDto == config.propertDto &&
+            c.config.line == config.line)
+    }
+                    
+     /**
+     * @param {string} identity
+     * @return {fragmentField | fragmentObject} 
+     */
+     function getFragmentForIdentity(identity:string){
+        
+        if(identity === undefined){
+         throw new Error("identity is requerid")   
+        }
+        return  fragments.find( c => c.key.identity == identity)
+    }
+
+         /**
+     * @param {string} alias
+     * @return {fragmentObject} 
+     */
+    function getFragmentForAlias(alias:string){
+    
+        if(alias === undefined){
+            throw new Error("alias is requerid")   
+        }
+        return  fragments.find( (c:any )=> c.key.alias == alias)
+    }
+
+    /**
+     * @description Creates an array of fragments of type object
+     * @param {frame[]} frames
+     */
+    function initConfigFrame(frames:frame[]){
                 
+        frames?.forEach(frame => {
+            
+            frame.identity = generateUUID()
+            
+
+            if(frame.alias === undefined){
+                throw new Error("propert alias is Requerid");                
+            }
+
+            let fragmentObject:fragmentObject = {
+                key: {
+                    identity:frame.identity,
+                    alias: frame.alias
+                },
+                config:{
+                    objectDto: frame.objectDto,
+                    identity: frame.identity,
+                    object: frame.type == constTypeFrame.BLOCK ? {} : [],
+                    getValueInObjectFragment: getValueInObjectFragment
+                }
+            }
+
+            if(getFragmentForIdentity(fragmentObject.key.identity) != undefined){
+                throw new Error("frame identity exists!!!");                
+            }
+            
+            fragments.push(fragmentObject)
+
+            if(frame.type == constTypeFrame.LINE){
+                base["zzRowCount"][frame.identity] = -1
+            }
+    
+            pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame:frame.identity })
+            
+            initConfigFields(frame)
+            
+        });
+    }
+    
+    /**
+    * @description Creates an array of fragments of type Field for Frames of type 'block'
+    * @param {frame} frame
+    */
+    function configFieldBlock(frame:frame){
+        
+        frame.fields?.forEach(field => {
+            
+            field.identity = generateUUID() //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
+            
+            tableDependency.createOption(field)
+
+            let config:fragmentField = {
+                key: {
+                    identity:field.identity,
+                },
+                config: {
+                    alias:frame.alias,
+                    fragmentObjectIdentity: frame.identity,
+                    identity: field.identity,
+                    propertDto: field.propertDto,
+                    line: undefined
+                } 
+            }
+
+            if(getFragmentForIdentity(config.key.identity) != undefined){
+                throw new Error("Field identity exists!!!");                
+            }    
+
+            fragments.push(config)
+        })    
+    }    
+
+        /**
+     * @description Creates an array of fragments of type Field for Frames of type 'line', This function must be called every time a new line is created on the screen
+     * @param {frame} frame
+     */
+    function configFieldNewLine(frame:frame):field[]{
+
+        let newLine:field[] = frame.fields?.map(field => Object.create(field))!
+        
+        let line = getNextzzRowCount(frame.identity)
+        
+        newLine?.forEach(field => {
+            
+            field.identity = generateUUID() //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
+
+            tableDependency.createOption(field)
+
+            let config:fragmentField = {
+                key: {
+                    identity:field.identity,
+                },
+                config: {
+                    alias: frame.alias,
+                    fragmentObjectIdentity: frame.identity,
+                    identity: field.identity,
+                    propertDto: field.propertDto,
+                    line: line
+                }    
+            }
+            
+            if(getFragmentForIdentity(config.key.identity)){
+                throw new Error("Field identity exists!!!");                
+            }    
+
+            fragments.push(config)
+        })    
+
+        return newLine;
+    }    
+  
+    function getNextzzRowCount(frameIdentity:string):number{
+        return base["zzRowCount"][frameIdentity] += 1;
+    }    
+
+    function initConfigFields(frame:frame){
+
         if(frame.type == constTypeFrame.BLOCK){
-            _object[frame.objectDto] = {}
+            configFieldBlock(frame);
         }
-
+        
         if(frame.type == constTypeFrame.LINE){
-            _object[frame.objectDto] = []
-            _object["zzRowCount"][frame.objectDto] = -1
+            configFieldNewLine(frame);
+        }
+    }
+    
+    /**
+     * @description Creates an object respecting the parent property hierarchy.
+     * @return {*} 
+     */
+    function createObject(){
+
+        let configBase = pathObjectBase.find(c=> c.parent === undefined)!
+            
+        let configFrameBase = getFragmentForIdentity(configBase.configFrame) as fragmentObject  
+
+        let newObject  = Object.assign({},configFrameBase?.config.object) 
+        
+        pathObjectBase.forEach((config:{parent:string, configFrame:string }) => {
+            
+            let fragmentObject = getFragmentForIdentity(config.configFrame)  as fragmentObject
+            
+            if(config.parent == "."){
+                insertObjectRoot()
+                return
+            }
+            
+            if(config.parent != "." && config.parent !== undefined){
+                insertObjectParent(config.parent.split('.'),newObject)
+                return
+            }
+            
+            function insertObjectRoot(){
+                newObject[fragmentObject!.config!.objectDto] = fragmentObject!.config!.object 
+            }
+            
+            function insertObjectParent(parent:string[], newObject:any){
+                
+                if(parent.length == 0){
+                    return
+                }
+                
+                let propert = parent[0]
+                                        
+                if(parent.length == 1){
+                    createPropertForObject()
+                    return
+                }
+                
+                if(parent.length > 1){
+
+                    createPropertForPath()
+                    let newPath = parent.slice(1,parent.length)
+                    insertObjectParent(newPath, newObject[propert])
+                    
+                    return
+                }
+                
+                function createPropertForObject(){
+
+                    if(newObject[propert] === undefined){
+                        newObject[propert] = {}   
+                    }
+                    newObject[propert][fragmentObject!.config.objectDto] = fragmentObject!.config.object
+                }
+
+                function createPropertForPath(){
+
+                    if(newObject[propert] === undefined){
+                        newObject[propert] = {}
+                    }
+                }
+            }
+        })
+        return newObject
+    }
+
+    /**
+     * @description Creates an object bringing without respecting the hierarchy of the parent property
+     * @return {*} 
+     */
+    function createObjectSeparete(){
+        
+        let objectSeparate = {} as any;
+        
+        pathObjectBase.forEach((config:{parent:string, alias:string, configFrame:string }) => {
+            
+            let configFragment  = getFragmentForIdentity(config.configFrame) as fragmentObject
+                        
+            objectSeparate[config.alias] = configFragment.config.object
+        })
+
+        return objectSeparate
+    }
+
+    function createObjectForAlias(alias:string){
+        
+        let configFragment  = getFragmentForAlias(alias) as fragmentObject
+                        
+        return configFragment.config.object
+    }
+
+    function setValue(fragmentField:fragmentField, value:any){
+
+        let fragmentObject =  getFragmentForIdentity(fragmentField.config.fragmentObjectIdentity) as fragmentObject
+
+        if(isTypeObject()){
+            fragmentObject.config.object[fragmentField?.config.propertDto] = value
         }
 
-    });
-}
+        if(isTypeLine()){
+            
+            let line = fragmentField?.config.line!
+
+            if(fragmentObject.config.object[line] == undefined){
+                fragmentObject.config.object[line] = {}
+            }
+            
+            fragmentObject.config.object[line][fragmentField?.config.propertDto] = value
+        }
+
+        function isTypeObject(){
+            return fragmentField?.config.line == undefined
+        }
+
+        function isTypeLine(){
+            return fragmentField?.config.line != undefined
+        }
+
+
+    }
+
+    function createConfigurationField(config:string):entityConfiguration {
+
+        let opt = config.split('.')
+
+        let entityConfiguration:entityConfiguration =  {
+            aliasOrIDentity:opt[0],
+            propertDto:opt[1],
+            line: opt[2] == undefined ? undefined : Number(opt[2]) 
+        }
+
+        return entityConfiguration
+    }
+
+    function getValueInObjectFragment(object:any,propertDto:string,line?:number) {
+        //! This function should only be used for fragmentObject
+        for (var propert in object) {
+
+            if (object.hasOwnProperty(propertDto) && line == undefined) {
+                return object[propertDto];
+            }
+            let value = object[propert]
+
+            if (Array.isArray(value) && line != undefined) {
+                return getValueInObjectFragment(value[line!],propertDto)
+            }
+
+            if(typeof value === 'object') {
+                return getValueInObjectFragment(object[propert],propertDto,line)
+            }
+        }
+    }
+
+    return {
+
+        init:(window:window) => {
+
+            base["zzRowCount"] = {} as any;
+
+            initConfigFrame(window.frames);
+        },
+        
+        frame: {
+
+            addFistLine:(frameIDentity:string) => {
+
+                let configFrame = getFragmentForIdentity(frameIDentity) as fragmentObject  
+
+                let frame = configWindow.frame.get(configFrame.key.identity)
+                
+                return configFieldNewLine(frame)
+            },
+
+            addNewLine: (identity: string) => {
+
+                let configField = getFragmentForIdentity(identity) as fragmentField
+
+                let configFrame = getFragmentForIdentity(configField!.config.fragmentObjectIdentity) as fragmentObject
+
+                let frame = configWindow.frame.get(configFrame.key.identity)
+
+                return configFieldNewLine(frame)
+            }
+        },
+
+        field: {
+                type: (identityField:string) => {
+                    
+                    let fragmentField = getFragmentForIdentity(identityField) as fragmentField
+
+                    if(fragmentField.config.line == undefined){
+                        return constTypeFrame.BLOCK
+                    }
+
+                    return constTypeFrame.LINE
+                }
+        },
+
+        object: {
+            field: {
+                setValueContextAlias:(config:string, value:any) => {
+    
+                    let entityConfiguration = createConfigurationField(config)
+                    let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField
+                    setValue(fragmentField,value)
+        
+                },
+                setValueContextIdentity:(identity:string, value:any) => {
+                
+                    let fragmentField = getFragmentForIdentity(identity) as fragmentField
+        
+                    setValue(fragmentField,value)
+                },
+            },
+
+            object: {
+
+                objectFull:() => {
+                    return createObject();
+                },
+    
+                objectSeparate:() => {
+                    return createObjectSeparete() 
+                },
+                objectUnique:(alias:string) => {
+                    return createObjectForAlias(alias) 
+                },
+                getPropert: (config:string) => {
+                    
+                    let entityConfiguration = createConfigurationField(config)   
+                    
+                    let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField
+                    
+                    let fragmentObject = getFragmentForIdentity(fragmentField.config.fragmentObjectIdentity) as fragmentObject
+                    
+                    let object = fragmentObject.config.object
+
+                    return fragmentObject.config.getValueInObjectFragment(object,entityConfiguration.propertDto,entityConfiguration.line) 
+                }
+            }
+
+        },
+        objectHelper: {
+
+            getAll:() => {
+                return fragments
+            }
+        },
+
+        fragment: {
+            getFragmentTypeField: (identiTypeField:string):fragmentField => {
+                return getFragmentForIdentity(identiTypeField) as fragmentField
+            }
+        }
+    }
+})()
+
 export function zeroNextzzRowCount(objectDto:string):number{
     return _object["zzRowCount"][objectDto] = -1;
-}
-
-function getNextzzRowCount(objectDto:string):number{
-    return _object["zzRowCount"][objectDto] += 1;
-}
-function setPropertDto(rep:RepresentationField){
-
-    if(rep.lineNumber == null || rep.lineNumber == undefined){
-        _object[rep.objectDto][rep.propertDto] = rep.value
-    }
-    else{
-
-        let line = (_object[rep.objectDto] as Array<any>).findIndex(c => c.zzRowUi == rep.lineNumber)
-        
-        if(line == -1){
-            line = _object[rep.objectDto].length
-            _object[rep.objectDto][line] = {zzRowUi:rep.lineNumber}       
-        }
-        
-        _object[rep.objectDto][line][rep.propertDto] = rep.value
-    }
 }
 
 function getValuePropertTypeObject(prop:string):any{
@@ -65,99 +472,12 @@ function getValuePropertTypeObject(prop:string):any{
     return _object[object][propert]
 }
 
-function sumPropert(objectPropert:string){
-    
-    const object = objectPropert.split('.')[0]
-    const propert = objectPropert.split('.')[1]
-    let sum = 0;
-    let val = _object[object] as Array<any>
-    
-    for (let i = 0; i < val.length; i++){
-        sum+=Number(val[i][propert]) 
-    }    
-    
-    return sum;
-}
-
-function getMaxValue(rep:RepresentationField):number{
-    const VALOR_ULTIMA_LINHA_ADICIONADA_NO_OBJETO = '';
-    if(rep.lineNumber == null || rep.lineNumber == undefined){
-        throw new Error("Rucula - lineNumber is Required")
-    }
-    let object = (_object[rep.objectDto] as Array<any>);
-    if(object.length == 0){
-        return 0;
-    }
-    if(object.length == 1){
-        return parseInt(object[0][rep.propertDto]+0)
-        //? Caso a unica linha seja vazia '', é somado com zero assim, ''+0 = 0
-    }
-    let maxValue = object.filter(c=> c[rep.propertDto] != VALOR_ULTIMA_LINHA_ADICIONADA_NO_OBJETO).sort(c=> c[rep.propertDto])
-    .reverse()[0]
-    return parseInt(maxValue[rep.propertDto])    
-}
-
 function deleteLine(line:{objectDto:string, line:string}){ 
     let index = (_object[line.objectDto] as Array<any>).findIndex(c => c.zzRowUi == line.line)
     _object[line.objectDto].splice(index,1)
 }
 
-function object(){
-    return PrepareObject()
-}
-
-function getObject(obj:string){
-    
-    let result = PrepareObject() as any;
-
-    return result[obj as string]
-}
-
-function PrepareObject(){
-
-    let formatedObject:any = Object.assign({},_object);
-    _joinChield?.forEach(item => {
-        let key = item.key
-        let cheild = item.value;
-        if(item.value != ""){
-        formatedObject[key][cheild] = formatedObject[cheild]
-        delete formatedObject[cheild]
-        }
-    })
-    delete formatedObject["zzRowCount"]
-    const object = Object.values(formatedObject);
-    if(object.length > 1){
-        throw new Error ("Rucula - only one object should be returned !!!")
-    }
-    return object[0]
-}
-function setJoinChield(cheilds:string[] ){
-    
-    cheilds.forEach(item => {
-
-        let join = item.split(DOT_DOT_SEPARATOR) 
-        
-        if(isUndefined()){
-            throw new Error("JoinChield invalid")
-        }
-
-        _joinChield.push({key:join[0], value:join[1]}); 
-                
-        function isUndefined(){
-            return join[0] == undefined || join[1] == undefined
-        }
-    })
- }
-
 export {
-    createObject,
-    setPropertDto,
-    setJoinChield,
-    object,
-    getObject,
     getValuePropertTypeObject,
-    deleteLine,
-    sumPropert,
-    getMaxValue,
-    getNextzzRowCount
+    deleteLine
 }

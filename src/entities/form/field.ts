@@ -1,6 +1,7 @@
 export interface field {
 
     description: string
+    identity:string
     type: string|string[2]
     textarea:textarea
     maxLength?: number

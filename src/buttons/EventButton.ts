@@ -1,11 +1,11 @@
 import {createUrl} from '../Helpers/UrlHelper';
 import { button } from '../entities/form/button';
 import * as table  from '../table-dependency/TableDependency';
-import * as obj from '../object/ObjectManagment';
 import * as axios from '../axios/Axios';
 import { getEndPoint } from '../window/Window';
 import { buttonIsNotDefault } from './Button';
 import { constIdBaseWindow, eventRucula } from '../const';
+import { managmentObject } from '../object/ObjectManagment';
 
 export function eventButton(buttons:button[]){
     
@@ -27,17 +27,17 @@ buttons!.
 
         function setEventClick(element:HTMLElement){
             element!.addEventListener("click", () => {
-                if(table.dependenciesCount() > 0){
+                if(table.tableDependency.dependenciesCount() > 0){
                     alert("existem dependencias não resolvidas");
                     return;
                 }
                 let endPoint = getEndPoint(button.endPoint)
                 let url = createUrl(endPoint)
                 
-                let body:unknown  = {};
+                let body:any  = {};
     
                 if(endPoint.body === "this"){
-                    body = obj.object()
+                    body = managmentObject.object.object.objectFull()
                 }
                 if(endPoint?.body?.trim().length > 0){
                    // Todo! Implementar logica para obter objeto especifico

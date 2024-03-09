@@ -1,5 +1,5 @@
 import { frame } from "../../../entities/form/frame";
-import { createField } from "../../form/ElementsInput";
+import { fieldDOM } from "../../form/ElementsInput";
 import { createFrame } from "../ElementFrame";
 
 export function createFrameBlock(frame:frame){
@@ -11,11 +11,13 @@ export function createFrameBlock(frame:frame){
     if(frame.vertical){
         div.style.flexDirection = "column"
     }
+    
     frame.fields?.forEach(field => {
                 
-        let f = createField(field,{type:frame.type,objectDto:frame.objectDto}); 
-        div.appendChild(f)
+        let fieldElement = fieldDOM.create(field)
+        div.appendChild(fieldElement)
     })
+
     frameElement.appendChild(div)
     return frameElement
 }

@@ -3,45 +3,46 @@ import { field } from "../entities/form/field";
 import { frame } from "../entities/form/frame";
 import { window } from "../entities/form/window";
 
+export let defaultValues = (() => {
 
-const configFrameDefault = {
-    TYPE_FRAME: constTypeFrame.BLOCK,
-    VERTICAL: true
-}
-
-const configInputDefault = {
-    TYPE: constTypeInput.TEXT,
-    REQUERID_TRUE: true,
-    REQUERID_FALSE: false,
-    DISABLE: false
-}
-
-
-function setDefaultWindow(window: window){
+    const configFrameDefault = {
+        TYPE_FRAME: constTypeFrame.BLOCK,
+        VERTICAL: true
+    }
     
-}
-
-function setDefaultFrame(frame: frame){
+    const configInputDefault = {
+        TYPE: constTypeInput.TEXT,
+        REQUERID_TRUE: true,
+        REQUERID_FALSE: false,
+        DISABLE: false
+    }
     
-    frame.type ??= configFrameDefault.TYPE_FRAME
-    frame.vertical ??= configFrameDefault.VERTICAL
-}
+    function setDefaultFrame(frame: frame){
 
-function setDefaultInput(field: field){
+        frame.type ??= configFrameDefault.TYPE_FRAME
+        frame.vertical ??= configFrameDefault.VERTICAL
+    }
+    
+    function setDefaultInput(field: field){
+            
+        field.type ??= configInputDefault.TYPE
+        field.disable ??= configInputDefault.DISABLE
+        field.requerid ??= configInputDefault.REQUERID_FALSE 
+    }
+    
+    return {
+        setDefault:(window: window) => {
+            
+            window.frames.forEach(frame => {
         
-    field.type ??= configInputDefault.TYPE
-    field.disable ??= configInputDefault.DISABLE
-    field.requerid ??= configInputDefault.REQUERID_FALSE 
-}
+                setDefaultFrame(frame)
 
-export function setDefault(window: window){
-    window.frames.forEach(frame => {
+                frame.fields?.forEach(field => {
+                    setDefaultInput(field)
+                })
+        
+            })
+        }
+    }
+})()
 
-        setDefaultFrame(frame)
-
-        frame.fields?.forEach(field => {
-            setDefaultInput(field)
-        })
-
-    })
-}

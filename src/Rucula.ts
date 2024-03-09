@@ -1,19 +1,19 @@
 import { window } from "./entities/form/window";
-import { createObject, getObject, object, setJoinChield, setPropertDto } from "./object/ObjectManagment";
-import { createTableDependency, setDependency } from "./table-dependency/TableDependency";
+import { managmentObject } from "./object/ObjectManagment";
 import {createPanel,set}  from './console/Console'
-import { createNameWindow, createWindowBase } from "./elements/window-base/WindowBase";
+import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
 import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
-import { createFrameLine } from "./elements/frame/TypeLine/FrameLine";
+import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
 import { prepareButtons } from "./buttons/Button";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
-import { setWindow } from "./window/Window";
-import { setDefault } from "./elements/Defaults";
+import { configWindow, setWindow } from "./window/Window";
+import { defaultValues } from "./elements/Defaults";
 import { RepresentationField } from "./entities/form/representationField";
 import { configureLayout } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
+import { tableDependency } from "./table-dependency/TableDependency";
 
 export class Rucula{
     
@@ -30,17 +30,15 @@ export class Rucula{
     
     private initWindow(){
         
-        setDefault(this.window)
+        configWindow.set(this.window)
+        defaultValues.setDefault(this.window)
         setWindow(this.window);
-        
         let panel = createPanel();
         this.elementRucula.appendChild(panel);
-        createWindowBase(this.elementRucula.id);
+        windowBaseDOM.createWindowBase(this.elementRucula.id);
         this.addHomeWindow();
-        setJoinChield(this.window.joinChield);
-        createObject(this.window.frames)
-        createTableDependency(this.window.frames)
-        createNameWindow(this.window.name)
+        managmentObject.init(this.window)
+        windowBaseDOM.createNameWindow(this.window.name)
         this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
         configureLayout(this.window)
         this.createFrames()
@@ -81,19 +79,18 @@ export class Rucula{
     private createFrames(){
     
         this.window.frames?.forEach(frame => {
-
+            
             if(frame.type == constTypeFrame.BLOCK){
 
                 const block = createFrameBlock(frame)
                 this.elementFormRucula.appendChild(block)
-          
             }
-    
+            
             if(frame.type == constTypeFrame.LINE){
-            
-                const line = createFrameLine(frame)
+                            
+                const line = frameLineDOM.createFrameLine(frame)
+                
                 this.elementFormRucula.appendChild(line)
-            
             }  
         })
     }
@@ -104,19 +101,25 @@ export class Rucula{
 
         rucula?.addEventListener(eventRucula.RESET_BACKGROUND,() => {
 
-            createObject(this.window.frames)
-            createTableDependency(this.window.frames)
+            // createObject(this.window.frames)
+            // createTableDependency(this.window.frames)
 
         })
     }
 
-    public get(obj:string=""):any{
-        
-        if(obj == ""){
-            return object();
-        }
-        
-        return getObject(obj)
+    public getFullObject():any{        
+            return managmentObject.object.object.objectFull();
+    }
+    public getSepareteObject():any{
+       return managmentObject.object.object.objectSeparate();       
+    }
+
+    public getAliasObject(alias:string):any{
+        //todo create
+    }
+
+    public getValuePropert(config: {alias:string, propertDto:string, line:number|undefined}):any{
+        // return managmentObject.object.getPropert(config)
     }
 
     public set(rep:RepresentationField){
@@ -132,9 +135,11 @@ export class Rucula{
         element.focus()
         element.value = rep.value as string
         
-        setPropertDto(rep)
-        setDependency(rep)
-        
+        let identity = element.getAttribute("identity")!
+
+        tableDependency.set(identity, element.value)
+        tableDependency.set(identity, element.value);
+
         element.blur()
     }
 }
