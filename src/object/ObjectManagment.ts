@@ -13,6 +13,8 @@ let _object :any
 
 export let managmentObject = (()=> {
     
+    let initialized = false;
+    
     let base:any = {};
     
     let fragments: Array<fragmentField|fragmentObject> = new Array<fragmentField|fragmentObject>(); 
@@ -22,7 +24,7 @@ export let managmentObject = (()=> {
     /**
      * @param {entityConfiguration} config
      * @return {fragmentField | fragmentObject} 
-     */
+    */
     function getFragmentFieldForAliasAndPropertDto(config:entityConfiguration){
         
         if(config === undefined){
@@ -47,7 +49,7 @@ export let managmentObject = (()=> {
         return  fragments.find( c => c.key.identity == identity)
     }
 
-         /**
+    /**
      * @param {string} alias
      * @return {fragmentObject} 
      */
@@ -125,10 +127,11 @@ export let managmentObject = (()=> {
                     fragmentObjectIdentity: frame.identity,
                     identity: field.identity,
                     propertDto: field.propertDto,
-                    line: undefined
+                    line: undefined,
+                    dependency: tableDependency.expectedDependency(field)
                 } 
             }
-
+                        
             if(getFragmentForIdentity(config.key.identity) != undefined){
                 throw new Error("Field identity exists!!!");                
             }    
@@ -137,10 +140,10 @@ export let managmentObject = (()=> {
         })    
     }    
 
-        /**
+    /**
      * @description Creates an array of fragments of type Field for Frames of type 'line', This function must be called every time a new line is created on the screen
      * @param {frame} frame
-     */
+    */
     function configFieldNewLine(frame:frame):field[]{
 
         let newLine:field[] = frame.fields?.map(field => Object.create(field))!
@@ -162,7 +165,8 @@ export let managmentObject = (()=> {
                     fragmentObjectIdentity: frame.identity,
                     identity: field.identity,
                     propertDto: field.propertDto,
-                    line: line
+                    line: line,
+                    dependency: tableDependency.expectedDependency(field)
                 }    
             }
             
@@ -265,7 +269,7 @@ export let managmentObject = (()=> {
     /**
      * @description Creates an object bringing without respecting the hierarchy of the parent property
      * @return {*} 
-     */
+    */
     function createObjectSeparete(){
         
         let objectSeparate = {} as any;
@@ -314,7 +318,7 @@ export let managmentObject = (()=> {
             return fragmentField?.config.line != undefined
         }
 
-
+        tableDependency.set(fragmentField.key.identity,value)
     }
 
     function createConfigurationField(config:string):entityConfiguration {
@@ -352,6 +356,12 @@ export let managmentObject = (()=> {
     return {
 
         init:(window:window) => {
+
+            if(initialized){
+                throw new Error('Routine already initialized')
+            }
+            
+            initialized = true;
 
             base["zzRowCount"] = {} as any;
 
@@ -395,6 +405,7 @@ export let managmentObject = (()=> {
         },
 
         object: {
+
             field: {
                 setValueContextAlias:(config:string, value:any) => {
     
@@ -420,9 +431,11 @@ export let managmentObject = (()=> {
                 objectSeparate:() => {
                     return createObjectSeparete() 
                 },
+
                 objectUnique:(alias:string) => {
                     return createObjectForAlias(alias) 
                 },
+
                 getPropert: (config:string) => {
                     
                     let entityConfiguration = createConfigurationField(config)   
@@ -436,8 +449,8 @@ export let managmentObject = (()=> {
                     return fragmentObject.config.getValueInObjectFragment(object,entityConfiguration.propertDto,entityConfiguration.line) 
                 }
             }
-
         },
+
         objectHelper: {
 
             getAll:() => {

@@ -6,13 +6,18 @@
          "alias":"AliasFaturaHeader",
          "fields":[
             {
-               "propertDto":"codigo"
+               "propertDto":"codigo",
+               "requerid":true,
+               "max":100,
+               "min":33
             },
             {
-               "propertDto":"dataAbertura"
+               "propertDto":"dataAbertura",
+               "requerid":false
             },
             {
-               "propertDto":"dataEncerramento"
+               "propertDto":"dataEncerramento",
+               "requerid":false
             }
          ]
       },

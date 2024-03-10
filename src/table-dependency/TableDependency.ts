@@ -1,20 +1,18 @@
 import { field } from "../entities/form/field";
+import { fragmentField } from "../object/ObjectAliases";
 
 'use strict';
 
 export let tableDependency = (() => {
 
-    let _tableDependency: {key:string, value:string}[] = []
-    let _resolvedDependency:Array<string> = new Array();
+    let dependencyesNotResolved:string[] = []
     
     let REQUERID:string = "1" as const;
     let MAX_LENGHT:string = "2" as const;
     let MAX:string = "3" as const;
     let MIN:string = "4" as const;
-    let DEPENDENCIES_AND_TODOIST_TAB:string = "." as const;
 
-
-    function valueDependency(field:field):string {   
+    function expectedDependency(field:field):string {   
     
         let valueDependency = ""
         
@@ -46,74 +44,87 @@ export let tableDependency = (() => {
                 valueDependency += `${MIN}:${field.min},`
         }
     
-        valueDependency += DEPENDENCIES_AND_TODOIST_TAB;  
         return valueDependency;
     }
 
-    function checkPropertDependency(dependency:{key:string, value:string}, value:string|number|boolean){
+    function toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
        
-        let dependecies = dependency.value.split(".")[0]
-        let todoist = dependency.value.split(".")[0]
-        let resolved = dependency.value.split(".")[1]
+        let dependencyExpected = fragment.config.dependency
+
+        let dependencyResolved = ""
     
-        dependecies.split(",").forEach(d => {
+        dependencyExpected
+        .split(",")
+        .forEach(expected => {
     
-            let option = d.split(":")[0]
+            let identification = expected.split(":")[0]
             
-            if(option == REQUERID){
-                resolved = SetOrRemoveResolved(consistRequerid(value),REQUERID,resolved)
+            if(identification == REQUERID){
+                
+                let result = consistRequerid(value)
+                
+                if(result){
+                    dependencyResolved += `${REQUERID},`
+                }
             }
     
-            if(option == MAX_LENGHT){
-                resolved = SetOrRemoveResolved(consistMaxLen(todoist,value),MAX_LENGHT,resolved)
-            }
+            if(identification == MAX_LENGHT){
+                
+                let result = consistMaxLen(dependencyExpected,value);
             
-            function SetOrRemoveResolved(status:boolean, dependency:string, resolved:string ){
-                if (status == true){
-                    resolved = resolved.replace(dependency+",","")
-                    resolved+=dependency+","
-                }
-                
-                if (status == false){
-                    resolved = resolved.replace(dependency+",","")
-                }
-                
-                return resolved;
+                if(result){
+                    dependencyResolved += `${MAX_LENGHT},`
+                }            
             }
+
+            //todo implements consistMax
+            //todo implements consistMin
         })
-        dependency.value = `${todoist}.${resolved}`    
+        
+
+        let dependencyExpectedOnlyKeys = 
+            dependencyExpected
+            .split(",")
+            .map(c => c.split(":")[0])
+
+
+        let dependencyResolvedOnlyKeys = 
+            dependencyResolved
+            .split(",")
+            .map(c => c.split(":")[0])
+
+
+        let existDependecy = false
+
+        if(dependencyExpectedOnlyKeys.length != dependencyResolvedOnlyKeys.length) {
+            
+            existDependecy = true
+            
+        } 
+
+        for (let index = 0; index < dependencyExpectedOnlyKeys.length; index++) {
+            
+            let indexOf = dependencyResolvedOnlyKeys.indexOf(dependencyExpectedOnlyKeys[index])
+
+            if(indexOf == -1){
+                existDependecy = true
+                break;
+            } 
+        }
+
+        if(existDependecy  && dependencyesNotResolved.indexOf(fragment.key.identity)== -1){
+            
+            dependencyesNotResolved.push(fragment.key.identity)
+            return existDependecy
+        }
+
+        let index = dependencyesNotResolved.indexOf(fragment.key.identity)
+
+        dependencyesNotResolved.splice(index,1)
+
+        return existDependecy
     }
 
-    function  resolveDependecy(key:string,value:string){
-    
-        let split = value.split(".")
-        let regular = /:[^\,]*/
-        let dependecies = split[0].replace(regular,"") 
-        let resolveds = split[1] 
-        let dependeciesNotResolveds = 0
-    
-        dependecies.split(",").forEach(numberDependecy => {
-            
-            if(resolveds.search(numberDependecy+",") == -1){
-                dependeciesNotResolveds+=1
-            }
-        })
-    
-        let exist = _resolvedDependency.indexOf(key)
-    
-        if(value == "." && exist != -1){ //? Indica que não existe nenhuma consistência a ser feita, logo, a possivel depêndencia deve ser removida.
-            _resolvedDependency.splice(exist,1); 
-        }
-        
-        if(exist == -1 && dependeciesNotResolveds > 0){
-            _resolvedDependency.push(key);
-        }
-    
-        if(exist != -1 && dependeciesNotResolveds == 0){
-            _resolvedDependency.splice(exist,1);
-        }
-    }
-    
     function consistRequerid(value:string|number|boolean):boolean{
     
         if( value == undefined || value as number == 0){
@@ -124,9 +135,11 @@ export let tableDependency = (() => {
         return true;
     }
     
-    function consistMaxLen(todoist:string,value:string|number|boolean){
+    function consistMaxLen(dependencyExpected:string,value:string|number|boolean){
         
-        let max = getDependecy(todoist,MAX_LENGHT)
+        dependencyExpected = dependencyExpected.substring(0,dependencyExpected.length-1) //? Remove lasta coma
+
+        let max = dependencyExpected.split(':')[1]
         
         if ((value as string).length > Number(max)){
             //todo implementar evento
@@ -135,97 +148,43 @@ export let tableDependency = (() => {
         
         return true;
     }
-    
-    
-    function getDependecy(todoist:string, dependecy:string){
-        
-        var dependecies = todoist.split(",")
-        let result = dependecies.find( c=> c.split(":")[0] == dependecy)!
-        return result.split(":")[1]
+
+    function consistMax(dependencyExpected:string,value:string|number){
+        //todo desenv
     }
+    
+    
+    function consistMin(dependencyExpected:string,value:string|number){
+        //todo desenv
+    }
+    
 
     
     return {
         
         createOption:(field:field) => {
             
-            let value = "" 
-
-            value = valueDependency(field);
-            
-            let indexDependency  = _tableDependency.findIndex(c => c.key == field.identity && c.value == value)
-            
-            if(indexDependency == -1){
-                _tableDependency.push({key:field.identity, value:value})
-                resolveDependecy(field.identity,value)
-            }
-        },
-        removeOption:(identity:string) => {
-            
-            var dependency = _tableDependency.find(c=> c.key == identity)!
-            
-            let indexDependency = _tableDependency.indexOf(dependency)
-            
-            _tableDependency.splice(indexDependency,1)
-            
-            
-            var resolveds = _resolvedDependency.find(c=> c == identity)!
-            
-            let indexResolvedDependency = _resolvedDependency.indexOf(resolveds)
-            
-            _resolvedDependency.splice(indexResolvedDependency,1)         
-               
-            //Todo Chamar essa função no processo de exclusão de linha, onde é excluido a linha do objeto que por sua vez é excluido suas dependencias
         },
         create:(fields:field[]) => {
         
-            fields?.forEach(field => {
-    
-                let value = "" 
-
-                value = valueDependency(field);
-                
-                let dependecy = {key:field.identity, value:value};
-    
-                let indexDependency  = _tableDependency.findIndex(c => c.key == dependecy.key && c.value == dependecy.value)
-                
-                if(indexDependency == -1){
-                    _tableDependency.push(dependecy)
-                    resolveDependecy(field.identity,value)
-                }
-            })  
         },
         deleteLine: (identity:string, line:string) => {
 
-            // var dependecyes = _tableDependency.filter( c=> c.key.split(".")[0] == line.objectDto && c.key.split(".")[2] == line.line);
-            
-            // dependecyes.forEach(dependency => {
-            //     let index  = _tableDependency.indexOf(dependency);
-            //     _tableDependency.splice(index,1)
-            // })
-        
-            // var resolveds = _resolvedDependency.filter( c=> c.split(".")[0] == line.objectDto && c.split(".")[2] == line.line);
-            
-            // resolveds.forEach(resolved => {
-            //     let index  = _resolvedDependency.indexOf(resolved);
-            //     _resolvedDependency.splice(index,1)
-            // })
         },
 
         set:(identity:string, value:any) => {  
 
-            var lineDependency = _tableDependency.find(c => c.key == identity)!;
-
-            checkPropertDependency(lineDependency, value)
-
-            resolveDependecy(lineDependency.key,lineDependency.value) 
-                        
         },
-        dependenciesCount: () => {
-            return _resolvedDependency.length
+      
+        expectedDependency: (field:field) => {
+            return expectedDependency(field)
         },
-        getDependencies:():string[] =>  {
-            return _resolvedDependency
-        }
+        toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
+            return toApplyOrRemoveDependency(fragment,value)
+        },
+
+        getDependencies: dependencyesNotResolved,
+        dependenciesCount: dependencyesNotResolved.length,
+        
     }
 })()

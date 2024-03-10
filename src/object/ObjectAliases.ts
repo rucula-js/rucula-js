@@ -22,7 +22,8 @@ type fragmentField = {
         alias:string, //! Reference to the Alias of the parent object. This field must be exactly the same value contained in the `fragmentObjectIdentity` reference object
         identity: string //? Unique ID created for internal control
         propertDto:string //? Name of the propert that represents the frame
-        line: number|undefined 
+        line: number|undefined,
+        dependency:string
     }    
 }
 
