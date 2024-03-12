@@ -136,10 +136,8 @@ export class Rucula{
         element.value = rep.value as string
         
         let identity = element.getAttribute("identity")!
-
-        tableDependency.set(identity, element.value)
-        tableDependency.set(identity, element.value);
-
+        // tableDependency.set(identity, element.value)
+        // tableDependency.set(identity, element.value);
         element.blur()
     }
 }

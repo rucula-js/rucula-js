@@ -34,7 +34,6 @@ export abstract class FileEvent{
 
         let identity = this.input.getAttribute("identity")!
 
-        tableDependency.set(identity,this.input.value)
         managmentObject.object.field.setValueContextIdentity(identity,this.input.value)
     }
 }  

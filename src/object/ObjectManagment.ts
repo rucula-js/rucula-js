@@ -1,11 +1,11 @@
-import { constTypeFrame } from "../const";
-import { field } from "../entities/form/field";
-import { frame } from "../entities/form/frame";
-import { window } from "../entities/form/window";
-import { tableDependency } from "../table-dependency/TableDependency";
-import { configWindow } from "../window/Window";
-import { entityConfiguration, fragmentField, fragmentObject } from "./ObjectAliases";
-import { generateUUID } from "./ObjectHelper";
+import { constTypeFrame } from '../const';
+import { field } from '../entities/form/field';
+import { frame } from '../entities/form/frame';
+import { window } from '../entities/form/window';
+import { tableDependency } from '../table-dependency/TableDependency';
+import { configWindow } from '../window/Window';
+import { entityConfiguration, fragmentField, fragmentObject } from './ObjectAliases';
+import { generateUUID } from './ObjectHelper';
 
 'use strict';
 
@@ -28,7 +28,7 @@ export let managmentObject = (()=> {
     function getFragmentFieldForAliasAndPropertDto(config:entityConfiguration){
         
         if(config === undefined){
-         throw new Error("entityConfiguration is requerid")   
+         throw new Error('entityConfiguration is requerid')   
         }
 
         return  fragments.find((c:any) => 
@@ -44,7 +44,7 @@ export let managmentObject = (()=> {
      function getFragmentForIdentity(identity:string){
         
         if(identity === undefined){
-         throw new Error("identity is requerid")   
+         throw new Error('identity is requerid')   
         }
         return  fragments.find( c => c.key.identity == identity)
     }
@@ -56,7 +56,7 @@ export let managmentObject = (()=> {
     function getFragmentForAlias(alias:string){
     
         if(alias === undefined){
-            throw new Error("alias is requerid")   
+            throw new Error('alias is requerid')   
         }
         return  fragments.find( (c:any )=> c.key.alias == alias)
     }
@@ -71,11 +71,10 @@ export let managmentObject = (()=> {
             
             frame.identity = generateUUID()
             
-
             if(frame.alias === undefined){
-                throw new Error("propert alias is Requerid");                
+                throw new Error('propert alias is Requerid');                
             }
-
+            
             let fragmentObject:fragmentObject = {
                 key: {
                     identity:frame.identity,
@@ -90,13 +89,13 @@ export let managmentObject = (()=> {
             }
 
             if(getFragmentForIdentity(fragmentObject.key.identity) != undefined){
-                throw new Error("frame identity exists!!!");                
+                throw new Error('frame identity exists!!!');                
             }
             
             fragments.push(fragmentObject)
 
             if(frame.type == constTypeFrame.LINE){
-                base["zzRowCount"][frame.identity] = -1
+                base['zzRowCount'][frame.identity] = -1
             }
     
             pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame:frame.identity })
@@ -116,8 +115,6 @@ export let managmentObject = (()=> {
             
             field.identity = generateUUID() //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
             
-            tableDependency.createOption(field)
-
             let config:fragmentField = {
                 key: {
                     identity:field.identity,
@@ -128,12 +125,14 @@ export let managmentObject = (()=> {
                     identity: field.identity,
                     propertDto: field.propertDto,
                     line: undefined,
-                    dependency: tableDependency.expectedDependency(field)
+                    dependency: tableDependency.createExpectedDependency(field)
                 } 
             }
+            
+            tableDependency.toApplyOrRemoveDependency(config, field.value)
                         
             if(getFragmentForIdentity(config.key.identity) != undefined){
-                throw new Error("Field identity exists!!!");                
+                throw new Error('Field identity exists!!!');                
             }    
 
             fragments.push(config)
@@ -154,8 +153,6 @@ export let managmentObject = (()=> {
             
             field.identity = generateUUID() //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
 
-            tableDependency.createOption(field)
-
             let config:fragmentField = {
                 key: {
                     identity:field.identity,
@@ -166,12 +163,14 @@ export let managmentObject = (()=> {
                     identity: field.identity,
                     propertDto: field.propertDto,
                     line: line,
-                    dependency: tableDependency.expectedDependency(field)
+                    dependency: tableDependency.createExpectedDependency(field)
                 }    
             }
             
+            tableDependency.toApplyOrRemoveDependency(config, field.value)
+            
             if(getFragmentForIdentity(config.key.identity)){
-                throw new Error("Field identity exists!!!");                
+                throw new Error('Field identity exists!!!');                
             }    
 
             fragments.push(config)
@@ -181,7 +180,7 @@ export let managmentObject = (()=> {
     }    
   
     function getNextzzRowCount(frameIdentity:string):number{
-        return base["zzRowCount"][frameIdentity] += 1;
+        return base['zzRowCount'][frameIdentity] += 1;
     }    
 
     function initConfigFields(frame:frame){
@@ -211,12 +210,12 @@ export let managmentObject = (()=> {
             
             let fragmentObject = getFragmentForIdentity(config.configFrame)  as fragmentObject
             
-            if(config.parent == "."){
+            if(config.parent == '.'){
                 insertObjectRoot()
                 return
             }
             
-            if(config.parent != "." && config.parent !== undefined){
+            if(config.parent != '.' && config.parent !== undefined){
                 insertObjectParent(config.parent.split('.'),newObject)
                 return
             }
@@ -318,7 +317,7 @@ export let managmentObject = (()=> {
             return fragmentField?.config.line != undefined
         }
 
-        tableDependency.set(fragmentField.key.identity,value)
+        tableDependency.toApplyOrRemoveDependency(fragmentField,value)
     }
 
     function createConfigurationField(config:string):entityConfiguration {
@@ -363,7 +362,7 @@ export let managmentObject = (()=> {
             
             initialized = true;
 
-            base["zzRowCount"] = {} as any;
+            base['zzRowCount'] = {} as any;
 
             initConfigFrame(window.frames);
         },
@@ -467,7 +466,7 @@ export let managmentObject = (()=> {
 })()
 
 export function zeroNextzzRowCount(objectDto:string):number{
-    return _object["zzRowCount"][objectDto] = -1;
+    return _object['zzRowCount'][objectDto] = -1;
 }
 
 function getValuePropertTypeObject(prop:string):any{

@@ -7,14 +7,16 @@ export let tableDependency = (() => {
 
     let dependencyesNotResolved:string[] = []
     
-    let REQUERID:string = "1" as const;
-    let MAX_LENGHT:string = "2" as const;
-    let MAX:string = "3" as const;
-    let MIN:string = "4" as const;
+    let REQUERID:string = '1' as const;
+    let MAX_LENGHT:string = '2' as const;
+    let MAX:string = '3' as const;
+    let MIN:string = '4' as const;
 
-    function expectedDependency(field:field):string {   
+    function createExpectedDependency(field:field):string {   
     
-        let valueDependency = ""
+        //! Important!! This function must be called in the fragmentField creation process
+
+        let valueDependency = ''
         
         checkIsRequerid();
         checkMaxLength();
@@ -44,24 +46,29 @@ export let tableDependency = (() => {
                 valueDependency += `${MIN}:${field.min},`
         }
     
-        return valueDependency;
+        if(valueDependency != ''){
+
+            dependencyesNotResolved.push(field.identity)
+        }
+        
+        return removeLastComa(valueDependency)
     }
 
     function toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
        
         let dependencyExpected = fragment.config.dependency
 
-        let dependencyResolved = ""
+        let dependencyResolved = ''
     
         dependencyExpected
-        .split(",")
+        .split(',')
         .forEach(expected => {
     
-            let identification = expected.split(":")[0]
+            let identification = expected.split(':')[0]
             
             if(identification == REQUERID){
                 
-                let result = consistRequerid(value)
+                let result = consist.requerid(value)
                 
                 if(result){
                     dependencyResolved += `${REQUERID},`
@@ -70,36 +77,49 @@ export let tableDependency = (() => {
     
             if(identification == MAX_LENGHT){
                 
-                let result = consistMaxLen(dependencyExpected,value);
+                let result = consist.maxLen(dependencyExpected,value);
             
                 if(result){
                     dependencyResolved += `${MAX_LENGHT},`
                 }            
             }
 
-            //todo implements consistMax
-            //todo implements consistMin
+            if(identification == MAX){
+                
+                let result = consist.max(dependencyExpected,value as string);
+            
+                if(result){
+                    dependencyResolved += `${MAX},`
+                }            
+            }
+            
+            if(identification == MIN){
+                
+                let result = consist.min(dependencyExpected,value as string);
+            
+                if(result){
+                    dependencyResolved += `${MIN},`
+                }            
+            }
         })
         
+        dependencyResolved = removeLastComa(dependencyResolved)
 
         let dependencyExpectedOnlyKeys = 
             dependencyExpected
-            .split(",")
-            .map(c => c.split(":")[0])
-
+            .split(',')
+            .map(c => c.split(':')[0])
 
         let dependencyResolvedOnlyKeys = 
             dependencyResolved
-            .split(",")
-            .map(c => c.split(":")[0])
-
+            .split(',')
+            .map(c => c.split(':')[0])
 
         let existDependecy = false
 
         if(dependencyExpectedOnlyKeys.length != dependencyResolvedOnlyKeys.length) {
             
             existDependecy = true
-            
         } 
 
         for (let index = 0; index < dependencyExpectedOnlyKeys.length; index++) {
@@ -112,79 +132,130 @@ export let tableDependency = (() => {
             } 
         }
 
-        if(existDependecy  && dependencyesNotResolved.indexOf(fragment.key.identity)== -1){
-            
-            dependencyesNotResolved.push(fragment.key.identity)
-            return existDependecy
-        }
-
         let index = dependencyesNotResolved.indexOf(fragment.key.identity)
 
-        dependencyesNotResolved.splice(index,1)
+        if(existDependecy == true && index == -1){
 
+            dependencyesNotResolved.push(fragment.key.identity)            
+        }
+
+        if(existDependecy == false && index >= 0 ){
+
+            dependencyesNotResolved.splice(index,1)
+        }        
         return existDependecy
     }
 
-    function consistRequerid(value:string|number|boolean):boolean{
-    
-        if( value == undefined || value as number == 0){
-            //todo Implementar Messagem
-            return false;
-        }
-    
-        return true;
+    function removeLastComa(value:string){
+        return value.substring(0,value.length-1)
     }
     
-    function consistMaxLen(dependencyExpected:string,value:string|number|boolean){
+    let consist = (() => {
         
-        dependencyExpected = dependencyExpected.substring(0,dependencyExpected.length-1) //? Remove lasta coma
-
-        let max = dependencyExpected.split(':')[1]
-        
-        if ((value as string).length > Number(max)){
-            //todo implementar evento
-            return  false;
+        function getValueInDependency(dependencyExpected:string){
+            return dependencyExpected.split(':')[1]
         }
         
-        return true;
-    }
+        return {
+            requerid: (value:string|number|boolean):boolean => {
+       
+               if( value == undefined || value as number == 0){
+                   //todo implement event
+                   return false;
+               }
+           
+               return true;
+           },
+            
+           maxLen:(dependencyExpected:string,value:string|number|boolean) => {
+                      
+               let maxLength = getValueInDependency(dependencyExpected)
+               
+               value = addValueDefault().typeString((value))
+       
+               if ((value as string).length > Number(maxLength)){
+                   //todo implement event
+                   return  false;
+               }
+               
+               return true;
+           },
 
-    function consistMax(dependencyExpected:string,value:string|number){
-        //todo desenv
-    }
+           max:(dependencyExpected:string,value:string|number) => {
+        
+            let max = getValueInDependency(dependencyExpected)
+            
+            value = Number(addValueDefault().typeNumber((value)))
+    
+            if(Number.NaN == value){
+                alert('value not is number')
+                return false
+            }
+    
+            if (value > Number(max)){
+                //todo implement event
+                return  false
+            }
+    
+            return true
+        },
+    
+        min:(dependencyExpected:string,value:string|number)=> {
+        
+            let max = getValueInDependency(dependencyExpected)
+    
+            value = Number(addValueDefault().typeNumber((value)))
     
     
-    function consistMin(dependencyExpected:string,value:string|number){
-        //todo desenv
-    }
+            if(Number.NaN == value){
+                alert('value not is number')
+                return false
+            }
     
+            if (value < Number(max)){
+                //todo implement event
+                return  false;
+            }
+            
+            return true
+        }
+        }
 
+    })()
+
+    function addValueDefault(){
+        return {
+            typeString: (value:any) => {
+
+                if(value == undefined){
+                    return '' 
+                }
+
+                return value
+            },
+            typeNumber: (value:any) => {
+                if(value == undefined){
+                    return 0 
+                }
+
+                return value
+            }      
+        }
+    }
     
     return {
-        
-        createOption:(field:field) => {
-            
-        },
-        create:(fields:field[]) => {
-        
-        },
+       
         deleteLine: (identity:string, line:string) => {
 
         },
-
-        set:(identity:string, value:any) => {  
-
-        },
-      
-        expectedDependency: (field:field) => {
-            return expectedDependency(field)
+        createExpectedDependency: (field:field) => {
+            return createExpectedDependency(field)
         },
         toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
             return toApplyOrRemoveDependency(fragment,value)
         },
-
-        getDependencies: dependencyesNotResolved,
-        dependenciesCount: dependencyesNotResolved.length,
         
+        getDependencies:dependencyesNotResolved,
+        dependenciesCount: dependencyesNotResolved.length,
     }
 })()

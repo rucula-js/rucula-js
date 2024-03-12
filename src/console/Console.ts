@@ -32,7 +32,6 @@ function  openCloseConsole(): void {
     let cons = document.querySelector(".box-panel") as HTMLDivElement
     document.addEventListener('keydown',(event) =>{
        
-        debugger;
         const key = (event as KeyboardEvent).key;
         KeyEventAdd(key);
         if (KeyEventGetIndex(0) == "Control" && KeyEventGetIndex(1) ==  "y"){
@@ -67,7 +66,6 @@ function setCommand(){
             if(c != '')args.push(c);
         })
         
-        debugger;
         if(args[0] != 'ruc')outputMessageRucNotFound()
         if( (args.length == 1 &&  args[0] == 'clear')||
             (args.length == 1 &&  args[0] == '-c'))outputClear()
@@ -112,7 +110,7 @@ function outputCommandNotFound(){
     consolePanel.textContent = "comando não encontrado"
 }
 function outputDependencies(){
-    let dependecies = table.tableDependency.getDependencies();
+    let dependecies = table.tableDependency.getDependencies;
     let output ='<br>'; 
     output += '<h2>Dependências não Resolvidas</h2>';
     output+='<br>'

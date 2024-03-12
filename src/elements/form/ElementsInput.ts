@@ -23,7 +23,6 @@ export let fieldDOM = (() => {
         input.value = field.value;        
 
         managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
-        tableDependency.set(field.identity, input.value);
     }
 
     function createSpanLabelIsRequerid():HTMLSpanElement{
@@ -278,9 +277,7 @@ export let fieldDOM = (() => {
             element.setAttribute("identity",field.identity);
                     
             managmentObject.object.field.setValueContextIdentity(field.identity, element.value);
-            tableDependency.set(field.identity, element.value);
-
-        
+                    
             let fragmentField = managmentObject.fragment.getFragmentTypeField(field.identity)
 
             let identity = { 

@@ -27,7 +27,7 @@ buttons!.
 
         function setEventClick(element:HTMLElement){
             element!.addEventListener("click", () => {
-                if(table.tableDependency.dependenciesCount() > 0){
+                if(table.tableDependency.dependenciesCount > 0){
                     alert("existem dependencias não resolvidas");
                     return;
                 }

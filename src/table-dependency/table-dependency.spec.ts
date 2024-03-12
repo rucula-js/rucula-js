@@ -7,7 +7,7 @@ describe('TableDependency', function () {
 
     describe('object', function () {
   
-      it('expectedDependency should create expectations of dependencies for the field', function () {
+      it('createExpectedDependency should create expectations of dependencies for the field', function () {
         
         let field = {
           requerid: true,
@@ -16,30 +16,30 @@ describe('TableDependency', function () {
           min: 1
         } as field
         
-        let expected = tableDependency.expectedDependency(field)
+        let expected = tableDependency.createExpectedDependency(field)
         
-        assert.equal(expected,"1,2:12,3:2,4:1,")
+        assert.equal(expected,'1,2:12,3:2,4:1')
       })
       
-      it('expectedDependency must return true when option is 1, and value is empty, null or undefined', function () {
+      it('createExpectedDependency must return true when option is 1, and value is empty, null or undefined', function () {
             
         let field = {
           requerid: true,
         } as field
         
-        let expectedDependency = tableDependency.expectedDependency(field)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field)
 
         let fragmentField:fragmentField = {
           key : {
-            identity:"qw12ere2w1"
+            identity:'qw12ere2w1'
         },
         config:{
-            fragmentObjectIdentity: "", 
-            alias:"",
-            identity: "",
-            propertDto:"",
+            fragmentObjectIdentity: '', 
+            alias:'',
+            identity: '',
+            propertDto:'',
             line: undefined,
-            dependency:expectedDependency
+            dependency:createExpectedDependency
           }    
         }
 
@@ -60,29 +60,81 @@ describe('TableDependency', function () {
 
       });
 
-      it('expectedDependency must return true when option is 2:2, and value is superior', function () {
+      it('createExpectedDependency must return true when option is 2:2, and value is superior', function () {
             
         let field = {
            maxLength: 2,
         } as field
         
-        let expectedDependency = tableDependency.expectedDependency(field)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field)
 
         let fragmentField:fragmentField = {
           key : {
-            identity:"qw12ere2w1"
+            identity:'qw12ere2w1'
         },
         config:{
-            fragmentObjectIdentity: "", 
-            alias:"",
-            identity: "",
-            propertDto:"",
+            fragmentObjectIdentity: '', 
+            alias:'',
+            identity: '',
+            propertDto:'',
             line: undefined,
-            dependency:expectedDependency
+            dependency:createExpectedDependency
           }    
         }
 
         let toApply = tableDependency.toApplyOrRemoveDependency(fragmentField,'VAL')
+        assert.equal(toApply,true)
+      });
+
+      it('createExpectedDependency must return true when option is 3:5, and value is superior', function () {
+            
+        let field = {
+           max: 5,
+        } as field
+        
+        let createExpectedDependency = tableDependency.createExpectedDependency(field)
+
+        let fragmentField:fragmentField = {
+          key : {
+            identity:'qw12ere2w1'
+        },
+        config:{
+            fragmentObjectIdentity: '', 
+            alias:'',
+            identity: '',
+            propertDto:'',
+            line: undefined,
+            dependency:createExpectedDependency
+          }    
+        }
+
+        let toApply = tableDependency.toApplyOrRemoveDependency(fragmentField,99)
+        assert.equal(toApply,true)
+      });
+
+      it('createExpectedDependency must return true when option is 4:1, and value is superior', function () {
+            
+        let field = {
+           min: 1,
+        } as field
+        
+        let createExpectedDependency = tableDependency.createExpectedDependency(field)
+
+        let fragmentField:fragmentField = {
+          key : {
+            identity:'qw12ere2w1'
+        },
+        config:{
+            fragmentObjectIdentity: '', 
+            alias:'',
+            identity: '',
+            propertDto:'',
+            line: undefined,
+            dependency:createExpectedDependency
+          }    
+        }
+
+        let toApply = tableDependency.toApplyOrRemoveDependency(fragmentField,-1)
         assert.equal(toApply,true)
       });
     })    

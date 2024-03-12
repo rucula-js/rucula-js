@@ -102,8 +102,7 @@ export let frameLineDOM =  (() => {
             
             var identity = elem.getAttribute("identity")!
     
-            tableDependency.set(identity,elem.value)
-    
+           // tableDependency.set(identity,elem.value)
         })
     }
 
