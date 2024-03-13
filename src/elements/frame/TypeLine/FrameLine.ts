@@ -1,7 +1,6 @@
 import { frame } from "../../../entities/form/frame";
 import { RepresentationField } from "../../../entities/form/representationField";
-import { managmentObject, deleteLine as objectDeleteLine, zeroNextzzRowCount } from "../../../object/ObjectManagment";
-import { tableDependency, tableDependency as tableDependencyDeleteLine } from "../../../table-dependency/TableDependency";
+import { managmentObject, zeroNextzzRowCount } from "../../../object/ObjectManagment";
 import { frameLineTableDOM, prepareTBody } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
 import { eventKeyDownKeyUpLineFrame } from "./FrameLineEvent";
@@ -34,14 +33,55 @@ export let frameLineDOM =  (() => {
         return frameLine
     }
     
-    function addLine(identity:string){
+    function removeLineInTable(currentLineElement:HTMLElement,inputTargetEvent:HTMLInputElement){
+    
+        let nextSibling = currentLineElement.nextSibling
+        let previousSibling = currentLineElement.previousSibling;
+        let Tbody  = currentLineElement.parentNode
+    
+        let identityInputTartget = inputTargetEvent.getAttribute("identity")!
+
+        currentLineElement.querySelectorAll('input').forEach(input => {
+            
+            let identity = input.getAttribute('identity')!
+
+            //! IMPORTANT! In the context of this loop, only fragments other than the event fragment should be deleted
+            if(identityInputTartget != identity){
+
+                managmentObject.fragment.removeFragment(identity)
+            }
+        })
+        
+        currentLineElement.remove();
+        
+        if(Tbody?.childNodes.length == 0){
+            //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
+            let newLine = addNewLineInTable(identityInputTartget);
+            Tbody.appendChild(newLine)
+        
+            managmentObject.fragment.removeFragment(identityInputTartget)
+        
+            return;
+        }
+
+        managmentObject.fragment.removeFragment(identityInputTartget) //? Removes the fragment that was preserved before checking the existence of rows in the table body
+
+
+        if(previousSibling){
+            (previousSibling as HTMLElement).querySelector("input")?.focus();
+        }
+    
+        if(nextSibling){
+            (nextSibling as HTMLElement).querySelector("input")?.focus();
+        }
+    }
+
+    function addNewLineInTable(identity:string){
 
         let fields = managmentObject.frame.addNewLine(identity)
     
         const row = frameLineTableDOM.table.createRowDetail(fields)
-        
-        setDependencyforInputSpecial(row)
-    
+            
         row.querySelector("input")?.focus()    
         
         eventKeyDownKeyUpLineFrame(row)
@@ -59,63 +99,16 @@ export let frameLineDOM =  (() => {
         
         zeroNextzzRowCount(representation.objectDto)
     }
-    
-    function removeLine(currentLineElement:HTMLElement,inputTargetEvent:HTMLInputElement){
-    
-        let nextSibling = currentLineElement.nextSibling
-        let previousSibling = currentLineElement.previousSibling;
-        let Tbody  = currentLineElement.parentNode
-    
-        const input = currentLineElement.querySelector("input") as HTMLInputElement;
-        let objectDto = input.getAttribute("name")!.split(".")[1] 
-        let line = input.getAttribute("name")!.split(".")[3] 
-       
-        currentLineElement.remove();
-    
-        remove();
-        if(Tbody?.childNodes.length == 0){
-            let newLine = addLine(inputTargetEvent.getAttribute("identity")!);
-            Tbody.appendChild(newLine)
-            return;
-        }
-    
-        if(previousSibling){
-            (previousSibling as HTMLElement).querySelector("input")?.focus();
-        }
-    
-        if(nextSibling){
-            (nextSibling as HTMLElement).querySelector("input")?.focus();
-        }
-    
-        function remove(){
-            objectDeleteLine({objectDto:objectDto, line:line})
-            // tableDependencyDeleteLine({objectDto:objectDto, line:line})
-        }
-    }
-    function setDependencyforInputSpecial(row:HTMLTableRowElement){
-    
-        const rowDetail = row.querySelectorAll("select, input[type='checkbox']")
-    
-        rowDetail.forEach((element)=> {    
-            
-            var elem = element as HTMLInputElement|HTMLSelectElement
-            
-            var identity = elem.getAttribute("identity")!
-    
-           // tableDependency.set(identity,elem.value)
-        })
-    }
-
-    
+     
     return {
         createFrameLine: (frame:frame) => {
             return createFrameLine(frame)
         },
         addLine: (identity:string) => {
-            return  addLine(identity)
+            return  addNewLineInTable(identity)
         },
         removeLine:(currentLineElement:HTMLElement,inputTargetEvent:HTMLInputElement) => {
-            removeLine(currentLineElement,inputTargetEvent)
+            removeLineInTable(currentLineElement,inputTargetEvent)
         },
         cleanFrame: (representation: RepresentationField) => {
             cleanFrame(representation) 
