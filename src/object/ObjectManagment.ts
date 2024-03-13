@@ -23,7 +23,7 @@ export let managmentObject = (()=> {
     
     /**
      * @param {entityConfiguration} config
-     * @return {fragmentField | fragmentObject} 
+     * @return {fragmentField} 
     */
     function getFragmentFieldForAliasAndPropertDto(config:entityConfiguration){
         
@@ -291,7 +291,7 @@ export let managmentObject = (()=> {
     }
 
     function setValue(fragmentField:fragmentField, value:any){
-
+        
         let fragmentObject =  getFragmentForIdentity(fragmentField.config.fragmentObjectIdentity) as fragmentObject
 
         if(isTypeObject()){
@@ -391,16 +391,16 @@ export let managmentObject = (()=> {
         },
 
         field: {
-                type: (identityField:string) => {
-                    
-                    let fragmentField = getFragmentForIdentity(identityField) as fragmentField
+            type: (identityField:string) => {
+                
+                let fragmentField = getFragmentForIdentity(identityField) as fragmentField
 
-                    if(fragmentField.config.line == undefined){
-                        return constTypeFrame.BLOCK
-                    }
-
-                    return constTypeFrame.LINE
+                if(fragmentField.config.line == undefined){
+                    return constTypeFrame.BLOCK
                 }
+
+                return constTypeFrame.LINE
+            }
         },
 
         object: {
@@ -450,16 +450,28 @@ export let managmentObject = (()=> {
             }
         },
 
-        objectHelper: {
+        fragment: {
 
             getAll:() => {
                 return fragments
-            }
-        },
-
-        fragment: {
+            },
+            
             getFragmentTypeField: (identiTypeField:string):fragmentField => {
                 return getFragmentForIdentity(identiTypeField) as fragmentField
+            },
+
+            removeFragment:(identity:string) => {
+
+                //TODO - manually tested - do automated testing
+                let fragment = getFragmentForIdentity(identity) as fragmentField
+
+                let index = fragments.indexOf(fragment)
+
+                if(index > -1){
+                    fragments.splice(index,1)
+                }
+
+                tableDependency.removeExpectedDependency(identity)
             }
         }
     }

@@ -52,7 +52,7 @@ export let tableDependency = (() => {
         }
         
         return removeLastComa(valueDependency)
-    }
+    }    
 
     function toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
        
@@ -245,12 +245,19 @@ export let tableDependency = (() => {
     
     return {
        
-        deleteLine: (identity:string, line:string) => {
+        removeExpectedDependency: (identity:string) => {
+            
+            let index = dependencyesNotResolved.push(identity)
 
+            if(index > -1){
+                dependencyesNotResolved.splice(index,1)
+            }
         },
+        
         createExpectedDependency: (field:field) => {
             return createExpectedDependency(field)
         },
+
         toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
             return toApplyOrRemoveDependency(fragment,value)
         },
