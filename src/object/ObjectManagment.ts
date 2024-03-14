@@ -406,12 +406,19 @@ export let managmentObject = (()=> {
         object: {
 
             field: {
+                aliasForIdenty:(config:string) => {
+    
+                    let entityConfiguration = createConfigurationField(config)
+                    let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField
+                    return fragmentField.key.identity
+                    
+                },
                 setValueContextAlias:(config:string, value:any) => {
     
                     let entityConfiguration = createConfigurationField(config)
                     let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField
                     setValue(fragmentField,value)
-        
+                    
                 },
                 setValueContextIdentity:(identity:string, value:any) => {
                 
@@ -436,7 +443,7 @@ export let managmentObject = (()=> {
                 },
 
                 getPropert: (config:string) => {
-                    
+                    debugger;
                     let entityConfiguration = createConfigurationField(config)   
                     
                     let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField

@@ -247,7 +247,7 @@ export let tableDependency = (() => {
        
         removeExpectedDependency: (identity:string) => {
             
-            let index = dependencyesNotResolved.push(identity)
+            let index = dependencyesNotResolved.indexOf(identity)
 
             if(index > -1){
                 dependencyesNotResolved.splice(index,1)

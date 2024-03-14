@@ -141,7 +141,7 @@
           "propertDto": "quantidade",
           "description": "Quantidade",
           "type": "number",
-          "maxLength": 20
+          "max": 22
         },
         {
           "propertDto": "subtotal",

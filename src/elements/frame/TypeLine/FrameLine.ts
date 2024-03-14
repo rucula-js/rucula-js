@@ -66,7 +66,6 @@ export let frameLineDOM =  (() => {
 
         managmentObject.fragment.removeFragment(identityInputTartget) //? Removes the fragment that was preserved before checking the existence of rows in the table body
 
-
         if(previousSibling){
             (previousSibling as HTMLElement).querySelector("input")?.focus();
         }
