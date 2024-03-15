@@ -263,6 +263,6 @@ export let tableDependency = (() => {
         },
         
         getDependencies:dependencyesNotResolved,
-        dependenciesCount: dependencyesNotResolved.length,
+        dependenciesCount:() => {return dependencyesNotResolved.length},
     }
 })()
