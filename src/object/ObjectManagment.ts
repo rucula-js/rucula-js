@@ -340,14 +340,13 @@ export let managmentObject = (()=> {
             if (object.hasOwnProperty(propertDto) && line == undefined) {
                 return object[propertDto];
             }
-            let value = object[propert]
+            if (Array.isArray(object) && line != undefined) {
 
-            if (Array.isArray(value) && line != undefined) {
-                return getValueInObjectFragment(value[line!],propertDto)
+                return getValueInObjectFragment(object[line!],propertDto)
             }
 
-            if(typeof value === 'object') {
-                return getValueInObjectFragment(object[propert],propertDto,line)
+            if(typeof object === 'object') {
+                return getValueInObjectFragment(object[propert],propertDto)
             }
         }
     }
@@ -406,7 +405,7 @@ export let managmentObject = (()=> {
         object: {
 
             field: {
-                aliasForIdenty:(config:string) => {
+                convertAliasToIdenty:(config:string) => {
     
                     let entityConfiguration = createConfigurationField(config)
                     let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField
@@ -443,7 +442,7 @@ export let managmentObject = (()=> {
                 },
 
                 getPropert: (config:string) => {
-                    debugger;
+
                     let entityConfiguration = createConfigurationField(config)   
                     
                     let fragmentField = getFragmentFieldForAliasAndPropertDto(entityConfiguration) as fragmentField

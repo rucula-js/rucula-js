@@ -55,8 +55,8 @@ export class FieldCommon extends FieldInput{
     protected setEvents(): void {
 
         new FileEventCommon(this.input, this.field);
-        
-        if(this.input.type == constTypeInput.CURRENCY){
+
+        if(this.field.type == constTypeInput.CURRENCY){
             new FileEventCurrency(this.input, this.field);    
         }
     }

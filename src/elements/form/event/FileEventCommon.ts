@@ -6,14 +6,13 @@ export class FileEventCommon extends FileEvent{
     protected setEventListener(): void {
 
         this.input.addEventListener('focus',() => {
-            
             this.dispatchEvent(constPrefixEventField.BEFORE);
             this.set()
         })
 
         this.input.addEventListener('input',() => {
-            this.dispatchEvent(constPrefixEventField.INPUT);
             this.set()
+            this.dispatchEvent(constPrefixEventField.INPUT);
         })
 
         this.input.addEventListener('focusout',() => {            

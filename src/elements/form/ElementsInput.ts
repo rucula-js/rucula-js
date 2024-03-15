@@ -2,7 +2,6 @@ import { constGroupFormat, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { getConfigurationGlobal } from "../../global/GlobalConfig";
 import { managmentObject } from "../../object/ObjectManagment";
-import { tableDependency } from "../../table-dependency/TableDependency";
 import { eventsCustom } from "./Field/EventsFieldsCustom";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
@@ -87,96 +86,7 @@ export let fieldDOM = (() => {
     
         return div;
     }
-    
-    function addAttributesSetAndName(node:HTMLElement,frame:{type:string, object:string, propert:string,line?:number}){
-        
-        let name = `${frame.type}.${frame.object}.${frame.propert}`
-        let set = `${frame.object}.${frame.propert}`
-    
-        if(frame.type == constTypeFrame.LINE){
-            name+=`.${frame.line}`;
-            set+=`.${frame.line}`;
-        }
-    
-        node.setAttribute('name',name);
-        node.setAttribute('set',set);
-    }
-    
-    function createField(field:field,frame:{type:string,objectDto:string,line?:number}):HTMLDivElement|HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement{
-  
-        let element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement
-        let fieldStrategy:FieldStrategy = new FieldStrategy();
-    
-        checkTypeField(field.type)
-        
-        if(isSimple(field.type)){
-            fieldStrategy.setStrategy(new FieldCommon(field))
-        }
-        
-        if(isSelect(field.type)) {
-        fieldStrategy.setStrategy(new FieldSelect(field))
-        }
-    
-        if(isCheckBox()){
-            fieldStrategy.setStrategy(new FieldCheckbox(field))
-        }
-    
-        if(isTextArea(field.type)){
-            fieldStrategy.setStrategy(new FieldTextArea(field))
-        }
-        
-        if(isRadio()) {
-            fieldStrategy.setStrategy(new FieldRadio(field))
-        }
-    
-        element = fieldStrategy.create();
-        
-        if(field.maxLength){
-            element.setAttribute('maxlength',`${field.maxLength}`);
-        }
-        
-        element.setAttribute("identity",field.identity);
-    
-        addAttributesSetAndName(element,{   
-            type:frame.type,
-            object:frame.objectDto,
-            propert:String(field.propertDto),
-            line:frame.line
-        })
-    
-        // let repField = RepresentationField.prepareINPUTToField(element)
-        // setPropertDto(repField);
-        // setDependency(repField);
-    
-        let identity = { 
-                name:`${frame.objectDto}.${field.propertDto}.${frame.line}`,
-                element: element as HTMLElement,
-                index:frame.line
-        }
-    
-        eventsCustom.field().set(identity)
-    
-    
-        if( typeof(FieldStrategy) == typeof(FieldCommon)){    
-            setValueOrFormula(field,element as HTMLInputElement,frame)
-        }
-    
-        if(frame.type == constTypeFrame.BLOCK){
-            return  createGroupOfInput(field,element) as HTMLDivElement
-        }
-        
-        function isRadio(){
-            return field.type[0]  == constTypeInput.RADIO
-        }
-    
-        function isCheckBox(){
-            return field.type[0] == constTypeInput.CHECKBOX
-        }
-    
-        return element as HTMLSelectElement|HTMLInputElement
-    }
-    
-    
+     
     function checkTypeField(type: string|string[2]){
     
         let option = type;
@@ -202,25 +112,7 @@ export let fieldDOM = (() => {
             throw new Error(`Field type "${option}" is not allowed`);
         }
     }
-    
-    
-    function setValueOrFormula(field:field,input:HTMLInputElement,frame:{type:string,objectDto:string,line?:number}){
-        
-        if(field.value == undefined && field.formula == undefined){
-            return;
-        } 
-    
-        if(field.value){
-            
-            input.value = field.value;        
-            // let repField = RepresentationField.prepareINPUTToField(input)
-            // setPropertDto(repField);
-            // setDependency(repField);
-            
-            return;
-        }
-    }
-    
+     
     function isSimple(type:string){
                 
         let condition =  
@@ -283,7 +175,7 @@ export let fieldDOM = (() => {
             let identity = { 
                     name:`${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}`,
                     element: element as HTMLElement,
-                    index:fragmentField.config.line
+                    row:fragmentField.config.line
             }
         
             eventsCustom.field().set(identity)
@@ -309,13 +201,6 @@ export let fieldDOM = (() => {
         },
         createSpanLabelIsRequerid:() => {
             return createSpanLabelIsRequerid()
-        },
-        createField:(field:field,frame:{type:string,objectDto:string,line?:number}):HTMLDivElement|HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement => {
-            return createField(field,frame)
-        },
-        setValueOrFormula: (field:field,input:HTMLInputElement,frame:{type:string,objectDto:string,line?:number}) => {
-                
-            setValueOrFormula(field,input,frame)
         }
     }
 })()

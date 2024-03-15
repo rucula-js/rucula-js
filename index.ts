@@ -17,6 +17,20 @@ import "./public/normalize.css"
     var form = document.getElementById("form-rucula-js")
 
     form?.addEventListener('input.itensServico.quantidade',(e) => {
+
+        let _this = rucula.event.details(e as CustomEvent)
+
+        let path_valorUnitario = _this.targetPathWithRow('itensServico.valorUnitario')
+        let path_subTotal = _this.targetPathWithRow('itensServico.subtotal')
+        
+        let value_valorUnitario = rucula.object.getValue(path_valorUnitario)
+
+        let value_subTotal = parseFloat(value_valorUnitario) * Number(_this.value)
+
+        rucula.object.setValue(path_subTotal,value_subTotal)
+    })
+
+    form?.addEventListener('input.itensServico.quantidade',(e) => {
       
         let identity = (e as CustomEvent).detail.identity
         
@@ -27,6 +41,7 @@ import "./public/normalize.css"
         if(value > 10){
             element.style.color = "blue"  
             element.style.fontWeight = "bold"
+
         }
         
         if(value < 0){

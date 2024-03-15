@@ -1,7 +1,6 @@
 import { constIdBaseWindow } from "../../../const";
 import { field } from "../../../entities/form/field";
 import { managmentObject } from "../../../object/ObjectManagment";
-import { tableDependency } from "../../../table-dependency/TableDependency";
 import { eventsCustom } from "../Field/EventsFieldsCustom";
 
 export abstract class FileEvent{
@@ -21,11 +20,15 @@ export abstract class FileEvent{
     dispatchEvent(prefixEvent:string){
 
         let identity = this.input.getAttribute("identity")!;
+        
         let fragment = managmentObject.fragment.getFragmentTypeField(identity)
          
         let eventName = `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}`
-        let before = eventsCustom.field().get(eventName)
-        this.ruculaForm?.dispatchEvent(before)          
+        
+        let event = eventsCustom.field().get(eventName)
+        
+        this.ruculaForm?.dispatchEvent(event)
+        
     }
     
     protected abstract setEventListener():void;

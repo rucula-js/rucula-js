@@ -3,7 +3,7 @@ import { constPrefixEventField } from "../../../const";
 export type identity = {
     name:string, 
     element:HTMLElement, 
-    index:number | undefined
+    row:number | undefined
 }
 
 export let eventsCustom = (() => {

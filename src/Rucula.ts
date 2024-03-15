@@ -118,28 +118,47 @@ export class Rucula{
         //todo create
     }
 
-    public getValuePropert(config: {alias:string, propertDto:string, line:number|undefined}):any{
-        // return managmentObject.object.getPropert(config)
-    }
-
-    public set(rep:RepresentationField){
+    public object = (() => {
         
-        let key  = `${rep.type}.${rep.objectDto}.${rep.propertDto}.${rep.lineNumber}`
+        return {
+            setValue: (targetPath:string, value: any) => {
         
-        if(rep.lineNumber == undefined){
-            key  = `${rep.type}.${rep.objectDto}.${rep.propertDto}`
+                let identity = managmentObject.object.field.convertAliasToIdenty(targetPath);
+        
+                let input = document.querySelector('[identity='+identity+']') as any
+        
+                input.value = value
+        
+                input.click() //! This command forces the objectmanagment and tableDependecy processes to run
+            },
+            getValue:(config:string):any => {
+                return managmentObject.object.object.getPropert(config)
+            }
         }
+    })()
+
+    public event = (() => {
         
-        let element = document.getElementsByName(key)[0] as HTMLInputElement
-        
-        element.focus()
-        element.value = rep.value as string
-        
-        let identity = element.getAttribute("identity")!
-        // tableDependency.set(identity, element.value)
-        // tableDependency.set(identity, element.value);
-        element.blur()
-    }
+        return {
+            details: (event:CustomEvent) => {
+                
+                let identity = event.detail.identity
+
+                return {
+                    identity: (identity.element as HTMLElement).getAttribute('identity'),
+                    name:identity.name,
+                    row: identity.row,
+                    value: managmentObject.object.object.getPropert(identity.name),
+                    targetPathWithRow:(targetPath:string) => {
+
+                        //? This method helps to create Target Path with the current event line
+                        return `${targetPath}.${identity.row}`
+                    }             
+                }
+            }
+        }
+    })()
+
 }
 
 
