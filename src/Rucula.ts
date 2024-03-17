@@ -10,10 +10,9 @@ import { prepareButtons } from "./buttons/Button";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { configWindow, setWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
-import { RepresentationField } from "./entities/form/representationField";
 import { configureLayout } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
-import { tableDependency } from "./table-dependency/TableDependency";
+import { httpManagment } from "./httpManagment/httpManagment";
 
 export class Rucula{
     
@@ -45,6 +44,7 @@ export class Rucula{
         set() 
         createLeftGrid(this.window.grid);
         this.createButtons();
+        httpManagment.init(this.window.endPoints)
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window.crud);
