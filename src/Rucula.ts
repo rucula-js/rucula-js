@@ -10,7 +10,7 @@ import { prepareButtons } from "./buttons/Button";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { configWindow, setWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
-import { configureLayout } from "./Layout/layout";
+import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
 import { httpManagment } from "./httpManagment/httpManagment";
 
@@ -39,7 +39,7 @@ export class Rucula{
         managmentObject.init(this.window)
         windowBaseDOM.createNameWindow(this.window.name)
         this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
-        configureLayout(this.window)
+        layoutFrames.configureLayout(this.window)
         this.createFrames()
         set() 
         createLeftGrid(this.window.grid);
