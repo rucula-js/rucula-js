@@ -110,7 +110,7 @@ function outputCommandNotFound(){
     consolePanel.textContent = "comando não encontrado"
 }
 function outputDependencies(){
-    let dependecies = table.tableDependency.getDependencies;
+    let dependecies = table.tableDependency.getDependencies();
     let output ='<br>'; 
     output += '<h2>Dependências não Resolvidas</h2>';
     output+='<br>'

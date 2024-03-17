@@ -262,7 +262,7 @@ export let tableDependency = (() => {
             return toApplyOrRemoveDependency(fragment,value)
         },
         
-        getDependencies:dependencyesNotResolved,
+        getDependencies:() =>{ return dependencyesNotResolved},
         dependenciesCount:() => {return dependencyesNotResolved.length},
     }
 })()
