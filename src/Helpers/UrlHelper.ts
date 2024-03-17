@@ -1,7 +1,7 @@
 import { endPoint } from "../entities/form/endPoint";
 import { window } from "../entities/form/window";
 import { getEnvironment } from "../global/GlobalConfig";
-import * as  obj from '../object/ObjectManagment';
+import { managmentObject } from "../object/ObjectManagment";
 import { getWindow } from "../window/Window";
 
 export function  createUrl(endPoint:endPoint, paramsManual:string=""){
@@ -40,8 +40,12 @@ function  prepareParams(params:string){
     let matchs = params.matchAll(reg);
 
     for(let math of matchs){
+
         params = params.replace(math[0],(param) => {
-            return obj.getValuePropertTypeObject(param.replace("{{","").replace("}}",""));
+            let pathPropert = param.replace("{{","").replace("}}","");
+
+            let  result = managmentObject.object.object.getPropert(pathPropert)
+            return result 
         })
     }
     return params;
