@@ -489,32 +489,3 @@ export let managmentObject = (()=> {
         }
     }
 })()
-
-export function zeroNextzzRowCount(objectDto:string):number{
-    return _object['zzRowCount'][objectDto] = -1;
-}
-
-function getValuePropertTypeObject(prop:string):any{
-    
-    const object = prop.split('.')[0]
-    const propert = prop.split('.')[1]
-    const line = prop.split('.')[2]
-    //Todo melhorar parametro com tipo objeto
-    
-    if(line){
-        let obj = (_object[object] as Array<any>).find(c => c.zzRowUi == line)
-        return obj[propert]
-    }    
-    
-    return _object[object][propert]
-}
-
-function deleteLine(line:{objectDto:string, line:string}){ 
-    let index = (_object[line.objectDto] as Array<any>).findIndex(c => c.zzRowUi == line.line)
-    _object[line.objectDto].splice(index,1)
-}
-
-export {
-    getValuePropertTypeObject,
-    deleteLine
-}
