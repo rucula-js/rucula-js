@@ -7,6 +7,7 @@
     --color-write:#fff;
     --color-orange:#ff7e00;
     --color-grey:#c7c7c7;
+    --color-grey-weak:#f2f2f2;
     --color-black:#211e1e;
     --heigth-read: 45px;
 }
@@ -168,6 +169,11 @@
 /* Firefox */
 .r-i-control[type=number] {
   --moz-appearance: textfield;
+}
+
+input.r-i-control[identity][disabled] {
+    background-color: var(--color-grey-weak);
+    cursor: not-allowed;
 }
 
 .r-g-i-i{
