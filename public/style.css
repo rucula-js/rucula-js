@@ -226,9 +226,15 @@ input.r-i-control[identity][disabled] {
     margin-bottom: 18px;
 }
 
-.r-i-focus-dependency {
+.f-t-line td.r-i-focus-dependency {
+    border-bottom: 2px solid var(--color-orange);
+}
+
+textarea.r-i-control.r-i-focus-dependency,
+input.r-i-focus-dependency {
     border: 2px solid var(--color-orange);
 }
+
 .r-q-b .r-g-i-i .r-label-block{
     display: block;
 }

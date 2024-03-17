@@ -33,7 +33,7 @@ export function eventButton(buttons:button[]){
                     let result = confirm(`existem ${dependencyCount} dependencias não resolvidas, deseja visualizar?`);
                     
                     if(result){
-                        fieldDOM.focusFieldsWithDependency()
+                        fieldDOM.dependency.focusFieldsWithDependency()
                     }
 
                     return;

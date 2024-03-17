@@ -1,4 +1,5 @@
 import { constInputClass, constPrefixEventField } from "../../../const";
+import { fieldDOM } from "../ElementsInput";
 import { FileEvent } from "./FileEvent";
 
 export class FileEventCommon extends FileEvent{
@@ -6,7 +7,8 @@ export class FileEventCommon extends FileEvent{
     protected setEventListener(): void {
 
         this.input.addEventListener('focus',() => {
-            this.input.classList.remove(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
+            
+            fieldDOM.dependency.cleanFocusDependency(this.input)
             this.dispatchEvent(constPrefixEventField.BEFORE);
             this.set()
         })
