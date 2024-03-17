@@ -1,6 +1,6 @@
 import { frame } from "../../../entities/form/frame";
 import { RepresentationField } from "../../../entities/form/representationField";
-import { managmentObject, zeroNextzzRowCount } from "../../../object/ObjectManagment";
+import { managmentObject} from "../../../object/ObjectManagment";
 import { frameLineTableDOM, prepareTBody } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
 import { eventKeyDownKeyUpLineFrame } from "./FrameLineEvent";
@@ -96,7 +96,6 @@ export let frameLineDOM =  (() => {
             frameLine.innerHTML = "";
         }
         
-        zeroNextzzRowCount(representation.objectDto)
     }
      
     return {
