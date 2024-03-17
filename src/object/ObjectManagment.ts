@@ -437,8 +437,15 @@ export let managmentObject = (()=> {
                     return createObjectSeparete() 
                 },
 
-                objectUnique:(alias:string) => {
+                objectUnique:(alias:string,) => {
                     return createObjectForAlias(alias) 
+                },
+                objectUniqueLine:(alias:string,line:number) => {
+                    let object = createObjectForAlias(alias)
+                    
+                    object = object[line]
+
+                    return object 
                 },
 
                 getPropert: (config:string) => {
