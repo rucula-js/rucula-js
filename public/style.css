@@ -5,6 +5,7 @@
     --color-teme-primary:#027847;
     --color-teme-secundary:#30976c;
     --color-write:#fff;
+    --color-orange:#ff7e00;
     --color-grey:#c7c7c7;
     --color-black:#211e1e;
     --heigth-read: 45px;
@@ -195,11 +196,10 @@
     align-items:center;
 }
 
-.r-q-l:fi
 .r-q-l{
     margin-bottom: 10px;
     overflow:auto;
-    min-height: 200px;
+    min-height: 300px;
 }
 
 .r-q-b,
@@ -220,6 +220,9 @@
     margin-bottom: 18px;
 }
 
+.r-i-focus-dependency {
+    border: 2px solid var(--color-orange);
+}
 .r-q-b .r-g-i-i .r-label-block{
     display: block;
 }

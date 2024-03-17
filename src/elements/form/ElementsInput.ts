@@ -1,7 +1,8 @@
-import { constGroupFormat, constTypeFrame, constTypeInput } from "../../const";
+import { constGroupFormat, constInputClass, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { getConfigurationGlobal } from "../../global/GlobalConfig";
 import { managmentObject } from "../../object/ObjectManagment";
+import { tableDependency } from "../../table-dependency/TableDependency";
 import { eventsCustom } from "./Field/EventsFieldsCustom";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
@@ -201,6 +202,15 @@ export let fieldDOM = (() => {
         },
         createSpanLabelIsRequerid:() => {
             return createSpanLabelIsRequerid()
+        },
+        focusFieldsWithDependency: () => {
+            
+            tableDependency.getDependencies.forEach(identity => {
+            
+                let input = document.querySelector('[identity='+identity+']')
+            
+                input?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
+            })
         }
     }
 })()

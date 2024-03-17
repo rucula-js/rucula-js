@@ -6,6 +6,7 @@ import { buttonIsNotDefault } from './Button';
 import { constIdBaseWindow, eventRucula } from '../const';
 import { managmentObject } from '../object/ObjectManagment';
 import { tableDependency } from '../table-dependency/TableDependency';
+import { fieldDOM } from '../elements/form/ElementsInput';
 
 export function eventButton(buttons:button[]){
     
@@ -29,7 +30,11 @@ buttons!.
             element!.addEventListener("click", () => {
 
                 if(tableDependency.dependenciesCount() > 0){
-                    alert("existem dependencias não resolvidas");
+                    let result = confirm("existem dependencias não resolvidas, deseja visualizar?");
+                    
+                    if(result){
+                        fieldDOM.focusFieldsWithDependency()
+                    }
                     return;
                 }
                 let endPoint = getEndPoint(button.endPoint)

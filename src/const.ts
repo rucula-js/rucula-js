@@ -81,3 +81,7 @@ export const constTargetButtonCrudDefault = {
     DELETE:"r-a-delete"
     
 }
+
+export const constInputClass = {
+    FOCUS_IN_INPUT_WITH_DEPENDENCY: 'r-i-focus-dependency'
+}
