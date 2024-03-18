@@ -1,4 +1,4 @@
-Eventos são frequentemente usados em interfaces de usuário, eless ajudam a capitar ações como clique de botão, posição no cursor durante sua movimentação, entre outros eventos que podem ser criados para resolver problemas mais específicos.
+Eventos são frequentemente usados em interfaces de usuário, eles ajudam a capitar ações como clique de botão, posição no cursor durante sua movimentação, entre outros eventos que podem ser criados para resolver problemas mais específicos.
 
 No rucula-js existem eventos em três pontos diferentes da interface de usuário. O primeiro caso são eventos que ocorrem ao clicar nos botões da janela, no segundo caso, são eventos que ocorrem durante o ciclo de vida de chamadas http's e por último, eventos que  ocorrem nos inputs presentes na interface, os famosos eventos de campos.
 
