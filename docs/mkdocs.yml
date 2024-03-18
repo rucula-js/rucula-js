@@ -2,7 +2,7 @@ site_name: rucula-js
 nav:
   - Introdução: index.md
   - Começando:
-    - O que é o rucula-js?: comecando/o-que-e-o-rucula-js.md
+    - O que é?: comecando/o-que-e-o-rucula-js.md
     - Como Configurar?: comecando/como-configurar.md
     - Hello World: comecando/hello-world.md
   - Compreendendo: 
@@ -10,9 +10,9 @@ nav:
     - Unidades das Janelas: compreendendo/unidades-das-janelas.md
     - Janelas: compreendendo/janelas.md
     - Frames: compreendendo/frames.md
+    - Alias: compreendendo/alias.md
     - Layout: compreendendo/layout.md
     - Fields: compreendendo/fields.md
-    - Formulas: compreendendo/formulas.md
     - Terminal: compreendendo/terminal.md
     - Grids: compreendendo/grids.md
     - Eventos: compreendendo/eventos.md
