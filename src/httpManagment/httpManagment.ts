@@ -1,6 +1,7 @@
 import { createUrl } from "../Helpers/UrlHelper"
 import { ax } from "../axios/Axios"
-import { constIdBaseWindow, eventRucula } from "../const"
+import { eventRucula } from "../const"
+import { windowBaseDOM } from "../elements/window-base/WindowBase"
 import { endPoint } from "../entities/form/endPoint"
 import { managmentObject } from "../object/ObjectManagment"
 
@@ -51,7 +52,7 @@ export let httpManagment = (() => {
 
             let body = getBody(endPoint.body)
 
-            let rucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS)
+            let rucula = windowBaseDOM.getPrincipalElementRucula()
                 rucula?.dispatchEvent(eventRucula.EVENT_BEFORE_SEND_OBJECT_HTTP)
                 
                 ax({method:endPoint.method,url:url,data:body})

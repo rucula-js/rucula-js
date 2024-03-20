@@ -1,4 +1,5 @@
 import { constIdBaseWindow } from "../const";
+import { windowBaseDOM } from "../elements/window-base/WindowBase";
 import { window } from "../entities/form/window";
 
 
@@ -20,8 +21,8 @@ export let layoutFrames = (() => {
     
         for (let row = 1; row <= rowLength; row++) {
     
-            for (let col = 1; col <= colLength; col++) {
-                
+            for (let col = 1; col <= colLength; col++) {            
+
                 let item = window.frames.find(c => c.objectDto == window.layout.items[row-1][col-1])!
     
                 if(item == undefined){
@@ -48,7 +49,7 @@ export let layoutFrames = (() => {
     
     function setGridContainer(tamplateColumns:number,tamplateRows:number){
         
-        let form = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+        let form = windowBaseDOM.getPrincipalElementRucula()
         form.style.gridTemplateColumns = `repeat(${tamplateColumns},1fr)` 
         form.style.gridTemplateRows = `repeat(${tamplateRows},1fr )`
     }

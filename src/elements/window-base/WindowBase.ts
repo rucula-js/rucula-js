@@ -3,6 +3,8 @@ import { setValueInForm } from "../../input-value/InputValue";
 
 export let windowBaseDOM = (() => {
 
+    let principalElementRucula:HTMLFormElement
+
     function createWindowBase(id:string){
 
         const window = document.createElement("div");
@@ -13,8 +15,11 @@ export let windowBaseDOM = (() => {
         window.appendChild(actions)
     
         const contentForm = document.createElement("div");
+
         contentForm.innerHTML = createComponentCreateOrEdit()
         
+        principalElementRucula = contentForm.querySelector(`#${constIdBaseWindow.FORM_RUCULA_JS}`) as HTMLFormElement
+
         window.appendChild(contentForm.childNodes[0] as HTMLDivElement)
         window.appendChild(contentForm.childNodes[1] as HTMLDivElement)
             
@@ -135,7 +140,7 @@ export let windowBaseDOM = (() => {
     function eraseWindow(){
     
         let erase = document.getElementById(constIdBaseWindow.ERASE_WINDOW)
-        let form = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+        let form = windowBaseDOM.getPrincipalElementRucula()
         
         erase?.addEventListener('click', () => {
             form.reset();
@@ -151,7 +156,7 @@ export let windowBaseDOM = (() => {
     function reload(){
     
         let reload = document.getElementById(constIdBaseWindow.RELOAD)
-        let form = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+        let form = windowBaseDOM.getPrincipalElementRucula()
     
         reload?.addEventListener('click', () => {
             form.reset();
@@ -167,6 +172,9 @@ export let windowBaseDOM = (() => {
         },
         setObjecReload: (obj:any) => {
             setObjecReload(obj)
+        },
+        getPrincipalElementRucula:() => {
+            return principalElementRucula
         }
     }
 })()

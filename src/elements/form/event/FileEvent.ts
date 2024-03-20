@@ -1,6 +1,7 @@
 import { constIdBaseWindow } from "../../../const";
 import { field } from "../../../entities/form/field";
 import { managmentObject } from "../../../object/ObjectManagment";
+import { windowBaseDOM } from "../../window-base/WindowBase";
 import { eventsCustom } from "../Field/EventsFieldsCustom";
 
 export abstract class FileEvent{
@@ -8,8 +9,8 @@ export abstract class FileEvent{
     protected input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
     protected field?: field //? This property is used to support some events
     
-    protected ruculaForm = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS)
-    
+    protected ruculaForm = windowBaseDOM.getPrincipalElementRucula()
+
     constructor(input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement,field: field) {
 
         this.input = input
@@ -27,6 +28,7 @@ export abstract class FileEvent{
         
         let event = eventsCustom.field().get(eventName)
         
+        console.log(this.ruculaForm)
         this.ruculaForm?.dispatchEvent(event)
         
     }
