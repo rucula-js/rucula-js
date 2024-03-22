@@ -49,7 +49,8 @@ export const constGroupFormat = {
 export const constTypeFrame = {
 
     BLOCK: "block",
-    LINE: "line"
+    LINE: "line",
+    CHART: "chart",
 }
 
 

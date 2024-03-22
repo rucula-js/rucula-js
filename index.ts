@@ -53,4 +53,8 @@ import "./public/normalize.css"
             element.style.fontWeight = ""
         }
     })
+
+    form?.addEventListener('23123121213231231', (e) => {
+        alert(111)
+    })
 })()

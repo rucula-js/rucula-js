@@ -1,3 +1,4 @@
+import { chartConfiguration } from "../../chart/chartConfiguration";
 import { field } from "./field";
 import { line } from "./line";
 export interface frame{
@@ -13,5 +14,5 @@ export interface frame{
     fields?:Array<field>
     line?:Array<line>
     layout: {col:{start:number, end:number}, row: {start:number, end:number}}
-    
+    chartConfig:chartConfiguration
 }

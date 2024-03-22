@@ -13,6 +13,7 @@ import { defaultValues } from "./elements/Defaults";
 import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
 import { httpManagment } from "./httpManagment/httpManagment";
+import { frameChart } from "./elements/frame/FrameChart";
 
 export class Rucula{
     
@@ -38,7 +39,7 @@ export class Rucula{
         this.addHomeWindow();
         managmentObject.init(this.window)
         windowBaseDOM.createNameWindow(this.window.name)
-        this.elementFormRucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
+        this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
         layoutFrames.configureLayout(this.window)
         this.createFrames()
         set() 
@@ -89,15 +90,22 @@ export class Rucula{
             if(frame.type == constTypeFrame.LINE){
                             
                 const line = frameLineDOM.createFrameLine(frame)
-                
                 this.elementFormRucula.appendChild(line)
-            }  
+            }
+            
+            if(frame.type == constTypeFrame.CHART){
+
+                let chart = frameChart.createFrameChart(frame)
+                this.elementFormRucula.appendChild(chart)
+
+            }
+            
         })
     }
 
     private resetBackground(){
 
-        let rucula = document.getElementById(constIdBaseWindow.FORM_RUCULA_JS)
+        let rucula = windowBaseDOM.getPrincipalElementRucula()
 
         rucula?.addEventListener(eventRucula.RESET_BACKGROUND,() => {
 

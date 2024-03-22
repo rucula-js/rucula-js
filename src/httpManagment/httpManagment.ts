@@ -43,8 +43,7 @@ export let httpManagment = (() => {
             endPoints = points
             initialized = true
         },
-        
-        request:(name:string) => {
+        request:(name:string):any => {
             
             let endPoint = getEndPoint(name)
 
@@ -56,9 +55,11 @@ export let httpManagment = (() => {
                 rucula?.dispatchEvent(eventRucula.EVENT_BEFORE_SEND_OBJECT_HTTP)
                 
                 ax({method:endPoint.method,url:url,data:body})
-                .then(obj => {
+                .then(result => {
                     rucula?.dispatchEvent(eventRucula.EVENT_SEND_OBJECT_HTTP_OK)    
-                    rucula?.dispatchEvent(eventRucula.EVENT_AFTER_SEND_OBJECT_HTTP)    
+                    rucula?.dispatchEvent(eventRucula.EVENT_AFTER_SEND_OBJECT_HTTP)
+                    
+                    return result
                 })
                 .catch(obj => {
                     rucula?.dispatchEvent(eventRucula.EVENT_SEND_OBJECT_HTTP_ERROR)    

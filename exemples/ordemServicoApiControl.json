@@ -8,6 +8,50 @@
   "grid":false,
   "frames": [
     {
+      "type":"chart",
+      "name": "Chart Pie",
+      "objectDto": "testeChart1",
+      "alias": "testeChart1",
+      "chartConfig":
+      {
+          "type": "pie",
+          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
+      }
+    },
+    {
+      "type":"chart",
+      "name": "Chart PolarArea",
+      "objectDto": "testeChart4",
+      "alias": "testeChart4",
+      "chartConfig":
+      {
+          "type": "polarArea",
+          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
+      }
+    },
+    {
+      "type":"chart",
+      "name": "Chart Bar",
+      "objectDto": "testeChart2",
+      "alias": "testeChart2",
+      "chartConfig":
+      {
+          "type": "bar",
+          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
+      }
+    },
+    {
+      "type":"chart",
+      "name": "Chart line",
+      "objectDto": "testeChart3",
+      "alias": "testeChart3",
+      "chartConfig":
+      {
+          "type": "line",
+          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
+      }
+    },
+    {
       "name": "Header OS",
       "objectDto": "ordemDeServico",
       "alias": "ordemDeServico",
@@ -48,7 +92,8 @@
           "propertDto": "infIni",
           "description": "Informações Iniciais",
           "type": "textarea",
-          "maxLength": 5
+          "maxLength": 150,
+          "requerid":true
         }
       ]
     },
@@ -201,12 +246,13 @@
   "layout":{
     "items":
     [
-      ["ordemDeServico","ordemDeServico","ordemDeServico"],
-      ["cliente","endereco","endereco"],
+      ["","testeChart2","testeChart3"],
+      ["endereco","testeChart4","testeChart1"],
+      ["ordemDeServico","cliente","cliente"],
       ["itensServico","itensServico","itensServico"],
-      ["tecnicoResponsavel","tecnicoResponsavel","pagamento"]
+      ["tecnicoResponsavel","tecnicoResponsavel","pagamento"]      
     ]
-   },
+  },
   "columnsGrid": [
     {
       "title": "codigo",
@@ -249,13 +295,6 @@
       "target": "finalizar-compra",
       "endPoint": "delete-os"
     }
-  ],
-  "joinChield": [
-    "ordemDeServico.cliente",
-    "ordemDeServico.itensServico",
-    "ordemDeServico.tecnicoResponsavel",
-    "ordemDeServico.pagamento",
-     "cliente.endereco"
   ],
   "endPoints": [
     {

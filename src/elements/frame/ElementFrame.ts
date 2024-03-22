@@ -11,7 +11,8 @@ export function createFrame(frame:frame){
     div.style.gridRowStart = `${frame.layout.row.start}`
     div.style.gridRowEnd = `${frame.layout.row.end}`
 
-    if(frame.type == constTypeFrame.BLOCK){
+    if(frame.type == constTypeFrame.BLOCK ||
+        frame.type == constTypeFrame.CHART ){
         div.classList.add("r-q-b")
     }
     

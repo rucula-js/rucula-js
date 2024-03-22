@@ -4,6 +4,7 @@ import windowValue from '../../exemples/ObjectManagment.Frames.json'
 import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
 import { objectIsEqual } from '../test/Helper';
+import { fragmentField } from './ObjectAliases';
 
 describe('ObjectManagment', function () {
 
@@ -34,14 +35,34 @@ describe('ObjectManagment', function () {
       });
     })
 
-    describe('objectHelper', function () {
+    describe('fragment', function () {
   
-      let helpers = managmentObject.objectHelper.getAll() as [];
+      let fragments = managmentObject.fragment.getAll() as [];
       
-      it('should return list objectHelper', function () {
+      it('should return list fragment', function () {
         
-        assert.equal(helpers.length > 0,true);
+        assert.equal(fragments.length > 0,true);
       })
+
+      it('should remove top 5 fragments type fragmentField', function () {
+
+
+      //   let fragmentsField = fragments.filter((c:fragmentField) => c.config.propertDto != "")
+
+      //   let actualLenght = fragmentsField.length
+
+      //   for (let index = 0; index < 5; index++) {
+          
+      //     const fragment:fragmentField = fragmentsField[index];
+
+      //     managmentObject.fragment.removeFragment(fragment.key.identity)
+      //   }
+
+      //   let newLenght = managmentObject.fragment.getAll().length
+
+      //        assert.equal(actualLenght-5 == newLenght,true)
+     })
+
     })
 
     describe('object', function () {
