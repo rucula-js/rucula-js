@@ -1,0 +1,419 @@
+{
+    "name": "Gerenciando",
+    "pathController": "Gerenciando",
+    "type": "crud",
+    "messageHome": "Ordem de Serviço",
+    "iconHome": "bi-rocket-takeoff",
+    "grid":false,
+    "frames": [
+      {
+        "name": "Janela",
+        "objectDto": "window",
+        "alias": "window",
+        "vertical":false,
+        "fields": [
+          {
+            "propertDto": "name",
+            "description": "name",
+            "maxLength": 40,
+            "requerid":true
+          },
+          {
+            "propertDto": "type",
+            "description": "type",
+            "type":["select","text"],
+            "combo":[
+              {
+              "representation":"crud",
+              "value":"crud"
+              },
+              {
+                "representation":"grid",
+                "value":"grid"
+              }
+          ]
+
+          },
+          {
+            "propertDto": "crud",
+            "description": "crud",
+            "value":"crud"
+          },
+          {
+            "propertDto": "messageHome",
+            "description": "messageHome",
+            "width":600
+          },
+          {
+            "propertDto": "iconHome",
+            "description": "iconHome"
+          },
+          {
+            "propertDto": "pathController",
+            "description": "pathController"
+          }         
+        ]
+      },
+      {
+        "name": "button",
+        "objectDto": "button",
+        "alias": "button",
+        "type":"line",
+        "parent":".",
+        "fields": [
+          {
+            "propertDto": "link",
+            "description": "link"
+          },
+          {
+            "propertDto": "icon",
+            "description": "icon"
+          },
+          {
+            "propertDto": "text",
+            "description": "text"
+          },
+          {
+            "propertDto": "type",
+            "description": "type",
+            "type":["select","text"],
+            "combo":[
+              {
+              "representation":"link",
+              "value":"link"
+              },
+              {
+                "representation":"button",
+                "value":"button"
+              }
+          ]
+
+          },
+          {
+            "propertDto": "color",
+            "description": "color"
+          },
+          {
+            "propertDto": "target",
+            "description": "target"
+          },
+          {
+            "propertDto": "endPoint",
+            "description": "endPoint"
+          }
+        ]
+      },
+      {
+        "name": "End Points",
+        "objectDto": "endPoint",
+        "alias": "endPoint",
+        "parent":".",
+        "type":"line",
+        "fields": [
+          {
+            "propertDto": "name",
+            "description": "name"
+          },
+         
+          {
+            "propertDto": "description",
+            "description": "description"
+          },
+          {
+            "propertDto": "method",
+            "description": "method",
+            "type":["select","text"],
+            "combo":[
+              {
+              "representation":"GET",
+              "value":"get"
+              },
+              {
+                "representation":"PUT",
+                "value":"put"
+              },
+              {
+                "representation":"POST",
+                "value":"post"
+                },
+                {
+                  "representation":"DELETE",
+                  "value":"delete"
+                }
+          ]
+          },
+          {
+            "propertDto": "urlrelative",
+            "description": "urlrelative"
+          },
+          {
+            "propertDto": "params",
+            "description": "params"
+          },
+          {
+            "propertDto": "body",
+            "description": "body"
+          }
+        ]
+      },
+      {
+        "name": "frame",
+        "type": "line",
+        "objectDto": "frame",
+        "alias": "frame",
+        "parent":".",
+        "fields": [
+          {
+            "propertDto": "name",
+            "description": "name"
+          },
+          {
+            "propertDto": "type",
+            "description": "type"
+          },
+          {
+            "propertDto": "parent",
+            "description": "parent"
+          },
+          {
+            "propertDto": "objectDto",
+            "description": "objectDto"
+          },
+          {
+            "propertDto": "alias",
+            "description": "alias"
+          },
+          {
+            "propertDto": "vertical",
+            "description": "vertical"
+          },
+          {
+            "propertDto": "vertical",
+            "description": "vertical"
+          },
+          {
+            "propertDto": "chartConfig",
+            "description": "chartConfig"
+          }
+        ]
+      },
+      {
+        "name": "Fields",
+        "objectDto": "field",
+        "alias": "field",
+        "parent":".",
+        "type":"line",
+        "fields": [
+          {
+            "propertDto": "description",
+            "description": "description"
+          },
+          {
+            "propertDto": "typeRepresentation",
+            "description": "type",
+            "type":["select","text"],
+            "combo":[
+              {
+                "representation":"text",
+                "value":"get"
+              },
+              {
+                "representation":"number",
+                "value":"get"
+              },
+              {
+                "representation":"select",
+                "value":"get"
+              },
+              {
+                "representation":"checkbox",
+                "value":"get"
+              },
+              {
+                "representation":"date",
+                "value":"get"
+              },
+              {
+                "representation":"currency",
+                "value":"get"
+              },
+              {
+                "representation":"textarea",
+                "value":"get"
+              },
+              {
+                "representation":"radio",
+                "value":"get"
+              },
+              {
+                "representation":"password",
+                "value":"get"
+              }
+                
+
+            ]
+          },
+          {
+            "propertDto": "typeReturn",
+            "description": "type Return",
+            "type":["select","text"],
+            "combo":[
+              {
+                "representation":"text",
+                "value":"get"
+              },
+              {
+                "representation":"number",
+                "value":"get"
+              },
+              {
+                "representation":"date",
+                "value":"get"
+              },
+              {
+                "representation":"currency",
+                "value":"get"
+              }
+            ]
+          },
+          {
+            "propertDto": "maxLength",
+            "description": "maxLength",
+            "type":"number"
+          },
+          {
+            "propertDto": "max",
+            "description": "max",
+            "type":"number"
+          },
+          {
+            "propertDto": "min",
+            "description": "min",
+            "type":"number"
+          },
+          {
+            "propertDto": "requerid",
+            "description": "requerid"
+          },
+          {
+            "propertDto": "disable",
+            "description": "disable"
+          },
+   
+          {
+            "propertDto": "propertDto",
+            "description": "propertDto"
+          },
+          {
+            "propertDto": "width",
+            "description": "width"
+          },
+          {
+            "propertDto": "checkbox",
+            "description": "checkbox"
+          },
+          {
+            "propertDto": "radio",
+            "description": "radio"
+          },
+          {
+            "propertDto": "combo",
+            "description": "combo"
+          },
+          {
+            "propertDto": "value",
+            "description": "value"
+          }
+        ]
+      }
+    ],
+    "layout":{
+      "items":
+      [
+        ["window","window","window"],
+        ["button","button","button"],
+        ["endPoint","endPoint","endPoint"],
+        ["frame","frame","frame"],
+        ["field","field","field"]      
+      ]
+    },
+    "columnsGrid": [
+      {
+        "title": "codigo",
+        "field": "codigo"
+      },
+      {
+        "title": "data Abertura",
+        "field": "dataAbertura"
+      }
+    ],
+    "paramsGrid": "/{{codigo}}",
+    "button": [
+      {
+        "icon": "bi bi-save",
+        "type": "button",
+        "target": "r-a-save",
+        "endPoint": "create-os"
+      },
+      {
+        "icon": "bi bi-wrench",
+        "type": "button",
+        "target": "r-a-alter",
+        "endPoint": "update-os"
+      },
+      {
+        "icon": "bi bi-trash3",
+        "type": "button",
+        "target": "r-a-delete",
+        "endPoint": "delete-os"
+      },
+      {
+        "text": "Finalizar 💵",
+        "type": "button",
+        "target": "q1w2e3r493469869",
+        "endPoint": "delete-os"
+      },
+      {
+        "text": "Validar  🎲",
+        "type": "button",
+        "target": "finalizar-compra",
+        "endPoint": "delete-os"
+      }
+    ],
+    "endPoints": [
+      {
+        "name": "create-os",
+        "method": "post",
+        "body": "this"
+      },
+      {
+        "name": "delete-os",
+        "method": "delete",
+        "params": "/{{ordemDeServico.codigo}}"
+      },
+      {
+        "name": "update-os",
+        "method": "put",
+        "params": "/{{ordemDeServico.codigo}}",
+        "body": "this"
+      },
+      {
+        "name": "get-all-grid",
+        "method": "get"
+      },
+      {
+        "name": "get-by-id",
+        "method": "get"
+      },
+      {
+        "name": "documentacao",
+        "method": "get",
+        "params": "/{{ordemDeServico.codigo}}"
+      },
+      {
+        "name": "finalizar-compra",
+        "method": "post",
+        "params": "/{{ordemDeServico.codigo}}"
+      }
+    ]
+  }
