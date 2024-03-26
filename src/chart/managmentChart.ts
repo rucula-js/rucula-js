@@ -1,55 +1,40 @@
 import Chart from 'chart.js/auto';
 import { frame } from '../entities/form/frame';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
-import { match } from 'assert';
-import { httpManagment } from '../httpManagment/httpManagment';
-import { getEndPoint } from '../window/Window';
+import { constTypeFrame } from '../const';
 
 export let managmentChart = (() => {
 
     return {
-        
+
       create: (canvas:HTMLCanvasElement, frame:frame) => {
-
-
-
-
         
-        // let  datasets =  frame.chartConfig.endPoints.map((endPointName) => {
-          
-        //   let dataResult = httpManagment.request(endPointName) // Todo Implemente
+        let configChart:any = {}
 
-        //   let endPoint = getEndPoint(endPointName)
-
-        //   let dataSet = {
-        //     label: endPoint.description,
-        //     borderWidth: 2,
-        //     data: dataResult
-        //   }
-
-        //   return dataSet
-        // })
-
-
-        let config = {
-          type: frame.chartConfig.type,
-          data: {
-            labels: frame.chartConfig.labels,
-            datasets: [
-              {
-              label: '',
-              borderWidth: 2,
-              data: [Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]
-              },
-              {
-                label: '',
-                borderWidth: 2,
-                data: [Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]                }
-              ]
+        let root = windowBaseDOM.getElementRoot()
+        
+        let event = `${constTypeFrame.CHART}.${frame.alias}`
+        
+        let eventCustom = new CustomEvent(`${event}.load`, {
+          detail: {
+            config: (config:any)=> {
+              configChart = config
             }
-        }
+          },
+        })
+
+        root.dispatchEvent(eventCustom)           
         
-        new Chart(canvas, config as any)
+        let chart = new Chart(canvas, configChart)
+
+        let completeCustom = new CustomEvent(`${event}.complete`, {
+
+          detail: {
+            chart: chart
+          },
+        })
+
+        root.dispatchEvent(completeCustom)
       }
     }
 })()

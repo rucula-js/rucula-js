@@ -12,10 +12,47 @@ import "./public/normalize.css"
     
     initGlobalConfiguration(config as any)
     
+    
+    var form = document.getElementById("js")
+    
+    form?.addEventListener('rucula.init', (e) => {
+        
+    })
+    
+    const data = [{x: 'Jan', net: 100, cogs: 50, gm: 50}, {x: 'Feb', net: 120, cogs: 55, gm: 75}];
+    const cfg = {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb'],
+        datasets: [{
+          label: 'Net sales',
+          data: data,
+          parsing: {
+            yAxisKey: 'net'
+          }
+        }, {
+          label: 'Cost of goods sold',
+          data: data,
+          parsing: {
+            yAxisKey: 'cogs'
+          }
+        }, {
+          label: 'Gross margin',
+          data: data,
+          parsing: {
+            yAxisKey: 'gm'
+          }
+        }]
+      },
+    };
+        
+    form?.addEventListener('chart.testeChart1.load',(e) => {
+
+      (e as any).detail.config(cfg)
+    })
+
     let rucula = new Rucula(input as any,"js");
-
-    var form = document.getElementById("form-rucula-js")
-
+    
     form?.addEventListener('input.itensServico.quantidade',(e) => {
 
         let _this = rucula.event.details(e as CustomEvent)
@@ -54,7 +91,4 @@ import "./public/normalize.css"
         }
     })
 
-    form?.addEventListener('23123121213231231', (e) => {
-        alert(111)
-    })
 })()

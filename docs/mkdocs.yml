@@ -33,6 +33,7 @@ nav:
     - Frames: api/frames.md
     - Botões: api/botoes.md
     - Objetos: api/objetos.md
+    - Charrts: api/charts.md
 
 theme:
   name: material

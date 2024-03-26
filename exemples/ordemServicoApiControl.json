@@ -14,40 +14,7 @@
       "alias": "testeChart1",
       "chartConfig":
       {
-          "type": "pie",
-          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
-      }
-    },
-    {
-      "type":"chart",
-      "name": "Chart PolarArea",
-      "objectDto": "testeChart4",
-      "alias": "testeChart4",
-      "chartConfig":
-      {
-          "type": "polarArea",
-          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
-      }
-    },
-    {
-      "type":"chart",
-      "name": "Chart Bar",
-      "objectDto": "testeChart2",
-      "alias": "testeChart2",
-      "chartConfig":
-      {
-          "type": "bar",
-          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
-      }
-    },
-    {
-      "type":"chart",
-      "name": "Chart line",
-      "objectDto": "testeChart3",
-      "alias": "testeChart3",
-      "chartConfig":
-      {
-          "type": "line",
+          "type": ["pie"],
           "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
       }
     },
@@ -246,9 +213,8 @@
   "layout":{
     "items":
     [
-      ["","testeChart2","testeChart3"],
-      ["endereco","testeChart4","testeChart1"],
       ["ordemDeServico","cliente","cliente"],
+      ["testeChart1","testeChart1","endereco"],
       ["itensServico","itensServico","itensServico"],
       ["tecnicoResponsavel","tecnicoResponsavel","pagamento"]      
     ]
