@@ -69,7 +69,7 @@ export function createLeftGrid(grid:boolean = true){
   })
   .then((response:any) => {
     
-    let rucula = windowBaseDOM.getPrincipalElementRucula()
+    let rucula = windowBaseDOM.getElementRoot()
     rucula?.dispatchEvent(eventRucula.RESET_BACKGROUND_EVENT)
     
     let obj = JSON.parse(response.request.response)  

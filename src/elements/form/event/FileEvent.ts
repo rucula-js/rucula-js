@@ -9,7 +9,7 @@ export abstract class FileEvent{
     protected input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
     protected field?: field //? This property is used to support some events
     
-    protected ruculaForm = windowBaseDOM.getPrincipalElementRucula()
+    protected ruculaForm = windowBaseDOM.getElementRoot()
 
     constructor(input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement,field: field) {
 

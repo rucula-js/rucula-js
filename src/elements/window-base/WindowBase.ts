@@ -3,8 +3,7 @@ import { setValueInForm } from "../../input-value/InputValue";
 
 export let windowBaseDOM = (() => {
 
-    let principalElementRucula:HTMLFormElement
-
+    let elementRoot:HTMLElement
     function createWindowBase(id:string){
 
         const window = document.createElement("div");
@@ -18,8 +17,6 @@ export let windowBaseDOM = (() => {
 
         contentForm.innerHTML = createComponentCreateOrEdit()
         
-        principalElementRucula = contentForm.querySelector(`#${constIdBaseWindow.FORM_RUCULA_JS}`) as HTMLFormElement
-
         window.appendChild(contentForm.childNodes[0] as HTMLDivElement)
         window.appendChild(contentForm.childNodes[1] as HTMLDivElement)
             
@@ -173,8 +170,14 @@ export let windowBaseDOM = (() => {
         setObjecReload: (obj:any) => {
             setObjecReload(obj)
         },
+        setElementRoot:(id:string) => {
+            elementRoot = document.getElementById(id)!
+        },
+        getElementRoot:() => {
+           return elementRoot
+        },
         getPrincipalElementRucula:() => {
-            return principalElementRucula
+            return document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
         }
     }
 })()

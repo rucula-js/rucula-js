@@ -23,6 +23,7 @@ export class Rucula{
     
     constructor(window:window, id:string = 'rucula-js'){
         
+        windowBaseDOM.setElementRoot(id)
         this.window = window
         this.elementRucula = document.getElementById(id)!
         this.initWindow()
@@ -30,6 +31,13 @@ export class Rucula{
     
     private initWindow(){
         
+        let eventInit = new Event('rucula.init')
+        let eventLoad = new Event('rucula.load')
+        
+        let rucula = windowBaseDOM.getElementRoot()
+        
+        rucula.dispatchEvent(eventInit)
+
         configWindow.set(this.window)
         defaultValues.setDefault(this.window)
         setWindow(this.window);
@@ -51,6 +59,9 @@ export class Rucula{
         buttonsBase.buttonsTypeCrud.crud(this.window.crud);
         
         this.resetBackground()
+
+        rucula.dispatchEvent(eventLoad)
+
     }
 
     private addHomeWindow(){

@@ -51,7 +51,7 @@ export let httpManagment = (() => {
 
             let body = getBody(endPoint.body)
 
-            let rucula = windowBaseDOM.getPrincipalElementRucula()
+            let rucula = windowBaseDOM.getElementRoot()
                 rucula?.dispatchEvent(eventRucula.EVENT_BEFORE_SEND_OBJECT_HTTP)
                 
                 ax({method:endPoint.method,url:url,data:body})
