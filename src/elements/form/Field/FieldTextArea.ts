@@ -1,5 +1,5 @@
-import { FileEventCommon } from "../event/FileEventCommon";
 import { FieldInput } from "./FieldInput";
+import { FileEventCommon } from "./event/FileEventCommon";
 
 export class FieldTextArea extends FieldInput{
     

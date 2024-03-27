@@ -1,8 +1,9 @@
 
 import { FieldInput } from "./FieldInput";
 import { constAttrInput, constTypeInput } from "../../../const";
-import { FileEventCommon } from "../event/FileEventCommon";
-import { FileEventCurrency } from "../event/FileEventCurrency";
+import { FileEventCommon } from "./event/FileEventCommon";
+import { FileEventCurrency } from "./event/FileEventCurrency";
+
 
 export class FieldCommon extends FieldInput{
     

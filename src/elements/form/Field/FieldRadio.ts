@@ -1,5 +1,5 @@
 import { FieldInput } from "./FieldInput";
-import { FileEventCommon } from "../event/FileEventCommon";
+import { FileEventCommon } from "./event/FileEventCommon";
 
 export class FieldRadio extends FieldInput{
     

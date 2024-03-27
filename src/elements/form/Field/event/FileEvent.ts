@@ -1,8 +1,7 @@
-import { constIdBaseWindow } from "../../../const";
-import { field } from "../../../entities/form/field";
-import { managmentObject } from "../../../object/ObjectManagment";
-import { windowBaseDOM } from "../../window-base/WindowBase";
-import { eventsCustom } from "../Field/EventsFieldsCustom";
+import { field } from "../../../../entities/form/field";
+import { managmentObject } from "../../../../object/ObjectManagment";
+import { windowBaseDOM } from "../../../window-base/WindowBase";
+import { eventsCustom } from "../../Field/EventsFieldsCustom";
 
 export abstract class FileEvent{
     

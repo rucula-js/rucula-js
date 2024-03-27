@@ -1,4 +1,4 @@
-import { formatCurrencyForNumber, formatNumberWithLocalization } from "../../../Helpers/CurrencyHelper";
+import { formatCurrencyForNumber, formatNumberWithLocalization } from "../../../../Helpers/CurrencyHelper";
 import { FileEvent } from "./FileEvent";
 
 export class FileEventCurrency extends FileEvent{

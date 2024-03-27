@@ -1,5 +1,5 @@
-import { constInputClass, constPrefixEventField } from "../../../const";
-import { fieldDOM } from "../ElementsInput";
+import { constPrefixEventField } from "../../../../const";
+import { fieldDOM } from "../../ElementsInput";
 import { FileEvent } from "./FileEvent";
 
 export class FileEventCommon extends FileEvent{

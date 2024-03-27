@@ -1,5 +1,5 @@
 import { FieldInput } from "./FieldInput";
-import { FileEventCheckBox } from "../event/FileEventCheckBox";
+import { FileEventCheckBox } from "./event/FileEventCheckBox";
 
 export class FieldCheckbox extends FieldInput{
     
