@@ -1,4 +1,3 @@
-import { chartConfiguration } from "../../chart/chartConfiguration";
 import { field } from "./field";
 export interface frame{
     
@@ -12,5 +11,4 @@ export interface frame{
     sequence:number
     fields?:Array<field>
     layout: {col:{start:number, end:number}, row: {start:number, end:number}}
-    chartConfig:chartConfiguration
 }
