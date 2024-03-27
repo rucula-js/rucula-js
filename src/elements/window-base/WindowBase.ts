@@ -1,4 +1,4 @@
-import { constIdBaseWindow } from "../../const";
+import { constFrameLineActions, constIdBaseWindow } from "../../const";
 import { setValueInForm } from "../../input-value/InputValue";
 
 export let windowBaseDOM = (() => {

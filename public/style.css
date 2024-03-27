@@ -410,6 +410,17 @@ form.r-f-items{
     font-size: 60px;
 }
 
+.f-l-actions button {
+    border: none;
+    background-color: inherit;
+}
+.f-l-actions button.add{
+    color: blue;
+    
+}
+.f-l-actions button.remove{
+    color: red;
+}
 .searh-items-grid {
     display: flex;
     justify-content: space-between;

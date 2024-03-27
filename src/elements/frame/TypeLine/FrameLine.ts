@@ -6,7 +6,7 @@ import { createFrame } from "../ElementFrame";
 import { eventKeyDownKeyUpLineFrame } from "./FrameLineEvent";
 
 export let frameLineDOM =  (() => {
-
+    
     function createFrameLine(frame:frame){
     
         const frameLine =  createFrame(frame)
@@ -24,6 +24,9 @@ export let frameLineDOM =  (() => {
     
         const rowDetail = frameLineTableDOM.table.createRowDetail(fields)
     
+        let actions = rowDetail.querySelector('td')
+        actions?.appendChild(frameLineTableDOM.table.createActions());
+
         tbody.appendChild(rowDetail)
         table.appendChild(tbody)
         frameLine.appendChild(table)

@@ -86,3 +86,9 @@ export const constTargetButtonCrudDefault = {
 export const constInputClass = {
     FOCUS_IN_INPUT_WITH_DEPENDENCY: 'r-i-focus-dependency'
 }
+
+export const constFrameLineActions = {
+    ACTIONS:'f-l-actions',
+    ADD: 'f-l-action-add',
+    REMOVE:'f-l-action-remove'
+}
