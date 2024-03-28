@@ -1,15 +1,11 @@
 import { alignItem } from "../../Helpers/Helper";
-import { constFrameLineActions } from "../../const";
 import { field } from "../../entities/form/field";
 
 import { fieldDOM } from "../form/ElementsInput";
+import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
 export let frameLineTableDOM = (() => {
 
-    function appendActions(td:HTMLTableCellElement){
-        let actions = document.getElementById(constFrameLineActions.ACTIONS) as HTMLDivElement
-        td.appendChild(actions)
-    }
     return {
         table: {
             createHeader: (fields:field[]) => {
@@ -38,18 +34,16 @@ export let frameLineTableDOM = (() => {
                 })
                 return thead as HTMLTableSectionElement;
             },
+            
             createRowDetail: (fields:field[]) => {
                 
-
                 let tr = document.createElement('tr');
                                
-                const td = document.createElement('td'); // actions
-                tr.appendChild(td)
-
-
-                tr.addEventListener('mouseover',(e) => {
-                    appendActions(td)
-                })
+                const tdActions = document.createElement('td'); //? first td is used for actions line
+                
+                tr.appendChild(tdActions)
+                
+                FrameLineEventDOM.addActionsInCell(tr)
 
                 fields.forEach((field) =>{
                             
@@ -64,15 +58,6 @@ export let frameLineTableDOM = (() => {
                     tr.appendChild(td)
                 })
                 return tr;
-            },
-            createActions:() => {
-                const div = document.createElement('div')
-                div.innerHTML = `<div id=${constFrameLineActions.ACTIONS} class="f-l-actions">
-                                    <button class="add" id=${constFrameLineActions.ADD}><i class="bi bi-plus-lg"></i></button>
-                                    <button class="remove" id=${constFrameLineActions.REMOVE}><i class="bi bi-trash"></i></button>
-                                </div>`
-
-                    return div
             }
         }
     }

@@ -27,7 +27,6 @@ export abstract class FileEvent{
         
         let event = eventsCustom.field().get(eventName)
         
-        console.log(this.ruculaForm)
         this.ruculaForm?.dispatchEvent(event)
         
     }
