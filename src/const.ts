@@ -88,7 +88,6 @@ export const constInputClass = {
 }
 
 export const constFrameLineActions = {
-    ACTIONS:'f-l-actions',
     ADD: 'f-l-action-add',
     REMOVE:'f-l-action-remove'
 }

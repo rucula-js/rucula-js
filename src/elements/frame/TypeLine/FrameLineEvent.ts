@@ -1,5 +1,6 @@
 import { constFrameLineActions } from "../../../const";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../../global/KeyEvents";
+import { managmentObject } from "../../../object/ObjectManagment";
 import { frameLineDOM } from "./FrameLine";
 
 'use strict';
@@ -136,13 +137,19 @@ export let FrameLineEventDOM = (() => {
             })
         },
 
-        addActionsInCell: (tr:HTMLTableRowElement) => {
-        
+        addActionsInCell:(tr:HTMLTableRowElement,identity:string) => {
+
+            
             let tdActions = tr.querySelector('td')
+            
+            let fragmentObject =  managmentObject.fragment.getFragmentTypeField(identity)
+            
             tr.addEventListener('mouseover',(e) => {
+
+                let actions = document.getElementById(fragmentObject.config.fragmentObjectIdentity) as HTMLDivElement
                 
-                let actions = document.getElementById(constFrameLineActions.ACTIONS) as HTMLDivElement
                 tdActions?.appendChild(actions)
+
             })
         }
         

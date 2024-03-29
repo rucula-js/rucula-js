@@ -8,16 +8,16 @@ import { FrameLineEventDOM } from "./FrameLineEvent";
 
 export let frameLineDOM =  (() => {
     
-    function createTDActions(){
+    function createTDActions(identity:string){
+
 
         const div = document.createElement('div') as HTMLDivElement
+        div.setAttribute('id', identity);
+        div.setAttribute('class', 'f-l-actions r-text-nowrap');
 
-        div.innerHTML = 
-        `<div id=${constFrameLineActions.ACTIONS} class="f-l-actions">
-            <a class="add" id=${constFrameLineActions.ADD}><i class="bi bi-plus-lg"></i></a>
-            <a class="remove" id=${constFrameLineActions.REMOVE}><i class="bi bi-trash"></i></a>
-        </div>`
-                   
+        div.innerHTML = `<a class="add" id=${constFrameLineActions.ADD}><i class="bi bi-plus-lg"></i></a>
+            <a class="remove" id=${constFrameLineActions.REMOVE}><i class="bi bi-trash"></i></a>`
+       
         FrameLineEventDOM.eventActions(div)
         
         return div
@@ -40,10 +40,9 @@ export let frameLineDOM =  (() => {
     
         const rowDetail = frameLineTableDOM.table.createRowDetail(fields)
         
-        let td = rowDetail.querySelector('td')
+        let td = getCellActions(rowDetail)
         
-        td?.appendChild(createTDActions())
-        td?.classList.add('r-text-nowrap')
+        td?.appendChild(createTDActions(frame.identity))
         
         tbody.appendChild(rowDetail)
         table.appendChild(tbody)
@@ -73,47 +72,61 @@ export let frameLineDOM =  (() => {
             }
         })
         
-        moveActions()
+        let fragmentObject =  managmentObject.fragment.getFragmentTypeField(identityInputTartget)
 
-        currentLineElement.remove();
+        moveActions(fragmentObject.config.fragmentObjectIdentity)
+
         
-        if(Tbody?.childNodes.length == 0){
+        if(Tbody?.childNodes.length == 1){
+            
             //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
+            
             let newLine = addNewLineInTable(identityInputTartget);
             
-            let tdActions = newLine.querySelector('td')
-
-            tdActions?.appendChild(createTDActions())
+            let tdActions = getCellActions(newLine)
+            
+            let actions = getActions()
+            
+            tdActions?.appendChild(actions)
+            
+            currentLineElement.remove();
 
             Tbody.appendChild(newLine)
-        
-            managmentObject.fragment.removeFragment(identityInputTartget)
             
+            managmentObject.fragment.removeFragment(identityInputTartget)
+
+
+            function getActions(){
+                return currentLineElement.querySelector('td div') as HTMLDivElement
+            }
+
             return;
         }
         
+        currentLineElement.remove();
         managmentObject.fragment.removeFragment(identityInputTartget) //? Removes the fragment that was preserved before checking the existence of rows in the table body
         
-        
-        function moveActions(){
+        function moveActions(fragmentObject:string){
             
-            let actions = document.getElementById(constFrameLineActions.ACTIONS) as HTMLDivElement
+            let actions = document.getElementById(fragmentObject) as HTMLDivElement
             
             if(previousSibling){
                 
                 previousSibling?.querySelector("input")?.focus();
                 
-                let tdActions = previousSibling.querySelector('td')
+                let tdActions = getCellActions(previousSibling)
         
                 tdActions?.appendChild(actions)
                 return
             }
 
-            nextSibling?.querySelector("input")?.focus();
+            if(nextSibling){
+                nextSibling?.querySelector("input")?.focus();
+                
+                let tdActions = getCellActions(nextSibling)
             
-            let tdActions = nextSibling?.querySelector('td')
-        
-            tdActions?.appendChild(actions)   
+                tdActions?.appendChild(actions)   
+            }
         }
 
     }
@@ -140,6 +153,10 @@ export let frameLineDOM =  (() => {
         }   
     }
      
+    function getCellActions(tr:HTMLTableRowElement){
+        return tr.querySelector('td') //? 
+    }
+
     return {
         createFrameLine: (frame:frame) => {
             return createFrameLine(frame)

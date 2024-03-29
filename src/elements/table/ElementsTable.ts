@@ -43,7 +43,7 @@ export let frameLineTableDOM = (() => {
                 
                 tr.appendChild(tdActions)
                 
-                FrameLineEventDOM.addActionsInCell(tr)
+                FrameLineEventDOM.addActionsInCell(tr,fields[0].identity)
 
                 fields.forEach((field) =>{
                             
