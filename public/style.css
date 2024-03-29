@@ -592,3 +592,7 @@ select.did-floating-select::-ms-expand {
     background-position: right 15px top 50%;
     background-repeat: no-repeat;
 }
+
+.r-text-nowrap {
+    text-wrap: nowrap;
+}

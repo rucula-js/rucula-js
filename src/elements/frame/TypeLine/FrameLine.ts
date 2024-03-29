@@ -43,7 +43,8 @@ export let frameLineDOM =  (() => {
         let td = rowDetail.querySelector('td')
         
         td?.appendChild(createTDActions())
-
+        td?.classList.add('r-text-nowrap')
+        
         tbody.appendChild(rowDetail)
         table.appendChild(tbody)
         frameLine.appendChild(table)
