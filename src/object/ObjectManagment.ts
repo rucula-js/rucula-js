@@ -469,8 +469,8 @@ export let managmentObject = (()=> {
                 return fragments
             },
             
-            getFragmentTypeField: (identiTypeField:string):fragmentField => {
-                return getFragmentForIdentity(identiTypeField) as fragmentField
+            getFragmentForIdentity: (identity:string):fragmentField => {
+                return getFragmentForIdentity(identity) as fragmentField
             },
 
             removeFragment:(identity:string) => {

@@ -171,7 +171,7 @@ export let fieldDOM = (() => {
                     
             managmentObject.object.field.setValueContextIdentity(field.identity, element.value);
                     
-            let fragmentField = managmentObject.fragment.getFragmentTypeField(field.identity)
+            let fragmentField = managmentObject.fragment.getFragmentForIdentity(field.identity)
 
             let identity = { 
                     name:`${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}`,

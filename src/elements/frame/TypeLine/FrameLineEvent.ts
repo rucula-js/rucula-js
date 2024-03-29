@@ -142,7 +142,7 @@ export let FrameLineEventDOM = (() => {
             
             let tdActions = tr.querySelector('td')
             
-            let fragmentObject =  managmentObject.fragment.getFragmentTypeField(identity)
+            let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identity)
             
             tr.addEventListener('mouseover',(e) => {
 

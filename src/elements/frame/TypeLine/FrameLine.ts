@@ -10,7 +10,6 @@ export let frameLineDOM =  (() => {
     
     function createTDActions(identity:string){
 
-
         const div = document.createElement('div') as HTMLDivElement
         div.setAttribute('id', identity);
         div.setAttribute('class', 'f-l-actions r-text-nowrap');
@@ -72,7 +71,7 @@ export let frameLineDOM =  (() => {
             }
         })
         
-        let fragmentObject =  managmentObject.fragment.getFragmentTypeField(identityInputTartget)
+        let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identityInputTartget)
 
         moveActions(fragmentObject.config.fragmentObjectIdentity)
 
