@@ -2,11 +2,10 @@ import { window } from "./entities/form/window";
 import { managmentObject } from "./object/ObjectManagment";
 import {createPanel,set}  from './console/Console'
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
-import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
+import { constTypeFrame, eventRucula } from "./const";
 import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
 import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
-import { prepareButtons } from "./buttons/Button";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { configWindow, setWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
@@ -14,6 +13,7 @@ import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
 import { httpManagment } from "./httpManagment/httpManagment";
 import { frameChart } from "./elements/frame/FrameChart";
+import { buttonsDOM } from "./buttons/Button";
 
 export class Rucula{
     
@@ -82,7 +82,7 @@ export class Rucula{
     private createButtons(type:string="CRUD"){
 
         if(type == "CRUD"){
-            prepareButtons(this.window.button)
+            buttonsDOM.prepareButtons(this.window.button)
         }
         eventButton(this.window.button)
         openCloseRightListButtons()
@@ -159,6 +159,7 @@ export class Rucula{
     public event = (() => {
         
         return {
+            
             details: (event:CustomEvent) => {
                 
                 let identity = event.detail.identity
@@ -178,6 +179,14 @@ export class Rucula{
         }
     })()
 
+    public buttons = (() => {
+        return {
+            disable:(button:string) => buttonsDOM.disable(button),
+            enable:(button:string) => buttonsDOM.enable(button),
+            hide:(button:string) => buttonsDOM.hide(button),
+            destroy:(button:string) => buttonsDOM.destroy(button)
+        }
+    })()
 }
 
 

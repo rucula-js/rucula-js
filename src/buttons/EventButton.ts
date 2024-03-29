@@ -1,8 +1,8 @@
 import { button } from '../entities/form/button';
-import { buttonIsNotDefault } from './Button';
 import { tableDependency } from '../table-dependency/TableDependency';
 import { fieldDOM } from '../elements/form/ElementsInput';
 import { httpManagment } from '../httpManagment/httpManagment';
+import { buttonsDOM } from './Button';
 
 export function eventButton(buttons:button[]){
     
@@ -12,12 +12,12 @@ export function eventButton(buttons:button[]){
         
         let element:HTMLElement
         
-        if(buttonIsNotDefault(button.target) == false){
+        if(buttonsDOM.buttonIsNotDefault(button.target) == false){
             element = document?.getElementById(button.target) as HTMLElement
             setEventClick(element)
         }
 
-        if(buttonIsNotDefault(button.target)){
+        if(buttonsDOM.buttonIsNotDefault(button.target)){
             element = document.getElementById(button.target)!
             setEventClick(element)
         }
