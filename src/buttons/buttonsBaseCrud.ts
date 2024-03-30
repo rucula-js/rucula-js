@@ -39,9 +39,11 @@ export let buttonsBase = (function (){
                 alter:() => buttonAlter.remove(),
                 delete:() => buttonDelete.remove()
             },
-            crud:(crud:string='') => {
-            
-                if(crud.length < 1){
+            crud:(crud:string) => {
+                if(crud == ""){
+                    buttonCreate.remove()
+                    buttonAlter.remove()
+                    buttonDelete.remove()
                     return
                 }
 
