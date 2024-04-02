@@ -11,13 +11,9 @@ export class ElementButton extends ElementBase implements ElementStrategy{
             throw new Error("target is requerid!")
         }
         
-        if(button.endPoint == null || button.endPoint == ""){
-            throw new Error("endPoint is requerid!")
-        }
-
         this.element = document.createElement('button');
         this.element.classList.add("r-b-i");
-        this.element.textContent = String(button.text);
+        this.element.textContent = button.text??"";
         this.element.appendChild(createIcon(button));
         this.addColor(button.color);
         this.addDataIdAttribute(button);

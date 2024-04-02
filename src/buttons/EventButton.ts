@@ -3,13 +3,18 @@ import { tableDependency } from '../table-dependency/TableDependency';
 import { fieldDOM } from '../elements/form/ElementsInput';
 import { httpManagment } from '../httpManagment/httpManagment';
 import { buttonsDOM } from './Button';
+import { windowBaseDOM } from '../elements/window-base/WindowBase';
 
 export function eventButton(buttons:button[]){
     
+    let rucula = windowBaseDOM.getElementRoot()
+
     buttons
     ?.filter(b => b.type === "button")
     .forEach((button) => {
         
+        let eventButton = new CustomEvent(`${button.target}.click`,{})
+
         let element:HTMLElement
         
         if(buttonsDOM.buttonIsNotDefault(button.target) == false){
@@ -25,21 +30,19 @@ export function eventButton(buttons:button[]){
         function setEventClick(element:HTMLElement){
             
             element?.addEventListener("click", () => {
+                
+                rucula.dispatchEvent(eventButton)
 
                 let dependencyCount = tableDependency.dependenciesCount()
                 
                 if( dependencyCount > 0){
-                    
-                    let result = confirm(`existem ${dependencyCount} dependencias não resolvidas, deseja visualizar?`);
-                    
-                    if(result){
-                        fieldDOM.dependency.focusFieldsWithDependency()
-                    }
-
+                    fieldDOM.dependency.focusFieldsWithDependency()
                     return;
                 }
 
-                httpManagment.request(button.endPoint)
+                if(button.endPoint){
+                    httpManagment.request(button.endPoint)
+                }
              })
         }
 
