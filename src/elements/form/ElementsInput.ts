@@ -168,9 +168,7 @@ export let fieldDOM = (() => {
             }
             
             element.setAttribute("identity",field.identity);
-                    
-            managmentObject.object.field.setValueContextIdentity(field.identity, element.value);
-                    
+                            
             let fragmentField = managmentObject.fragment.getFragmentForIdentity(field.identity)
 
             let identity = { 
@@ -207,16 +205,18 @@ export let fieldDOM = (() => {
         dependency: {
             focusFieldsWithDependency:() => {
             
-                tableDependency.getDependencies()?.forEach(identity => {
+                   tableDependency.getDependencies()?.forEach(object => {
+                    object.dependencyesNotResolved?.forEach(identity => {
                 
-                    let input = document.querySelector('[identity='+identity+']')
-                
-                    if(input?.parentNode?.nodeName == "TD"){
-                        (input?.parentNode as Element)?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
-                        return;
-                    }
-    
-                    input?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
+                        let input = document.querySelector('[identity='+identity+']')
+                    
+                        if(input?.parentNode?.nodeName == "TD"){
+                            (input?.parentNode as Element)?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
+                            return;
+                        }
+        
+                        input?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
+                    })
                 })
             },
 

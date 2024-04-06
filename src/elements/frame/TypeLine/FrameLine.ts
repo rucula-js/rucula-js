@@ -1,9 +1,13 @@
 import { constFrameLineActions } from "../../../const";
 import { frame } from "../../../entities/form/frame";
 import { RepresentationField } from "../../../entities/form/representationField";
+import { fragment } from "../../../fragment/fragment";
 import { managmentObject} from "../../../object/ObjectManagment";
+import { tableDependency } from "../../../table-dependency/TableDependency";
+import { configWindow } from "../../../window/Window";
 import { frameLineTableDOM, prepareTBody } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
+import { frameEvent } from "../FrameEvent";
 import { FrameLineEventDOM } from "./FrameLineEvent";
 
 export let frameLineDOM =  (() => {
@@ -29,15 +33,13 @@ export let frameLineDOM =  (() => {
         const table = document.createElement('table');
         table.classList.add("f-t-line")
     
-        const rowHeader = frameLineTableDOM.table.createHeader(frame.fields!)
+        const rowHeader = frameLineTableDOM.table.createHeader(frame)
     
         table.appendChild(rowHeader)
         
         const tbody = prepareTBody();
-        
-        let fields = managmentObject.frame.addFistLine(frame.identity)
-    
-        const rowDetail = frameLineTableDOM.table.createRowDetail(fields)
+
+        const rowDetail = frameLineTableDOM.table.createRowDetail(frame)
         
         let td = getCellActions(rowDetail)
         
@@ -93,8 +95,6 @@ export let frameLineDOM =  (() => {
             Tbody.appendChild(newLine)
             
             managmentObject.fragment.removeFragment(identityInputTartget)
-
-
             function getActions(){
                 return currentLineElement.querySelector('td div') as HTMLDivElement
             }
@@ -132,9 +132,11 @@ export let frameLineDOM =  (() => {
 
     function addNewLineInTable(identity:string){
 
-        let fields = managmentObject.frame.addNewLine(identity)
-    
-        const row = frameLineTableDOM.table.createRowDetail(fields)
+        let field = fragment.fields.getForIdentity(identity)
+
+        let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
+
+        const row = frameLineTableDOM.table.createRowDetail(frame)
         
         row.querySelector("input")?.focus()    
         

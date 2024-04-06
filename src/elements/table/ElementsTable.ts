@@ -1,5 +1,7 @@
 import { alignItem } from "../../Helpers/Helper";
 import { field } from "../../entities/form/field";
+import { frame } from "../../entities/form/frame";
+import { managmentObject } from "../../object/ObjectManagment";
 
 import { fieldDOM } from "../form/ElementsInput";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
@@ -8,7 +10,9 @@ export let frameLineTableDOM = (() => {
 
     return {
         table: {
-            createHeader: (fields:field[]) => {
+            createHeader: (frame:frame) => {
+                
+                let fields:field[] = frame.fields || []
                 
                 let tr = document.createElement('tr');
                 let thead = document.createElement('thead');
@@ -35,17 +39,21 @@ export let frameLineTableDOM = (() => {
                 return thead as HTMLTableSectionElement;
             },
             
-            createRowDetail: (fields:field[]) => {
+            createRowDetail: (frame:frame) => {
                 
                 let tr = document.createElement('tr');
                                
                 const tdActions = document.createElement('td'); //? first td is used for actions line
-                
+                tdActions.setAttribute('ruc-action','')
                 tr.appendChild(tdActions)
-                
-                FrameLineEventDOM.addActionsInCell(tr,fields[0].identity)
 
-                fields.forEach((field) =>{
+                let fields:field[]|undefined = managmentObject.frame.addLineForFrame(frame)
+
+                if(fields){
+                    FrameLineEventDOM.addActionsInCell(tr,fields[0].identity)
+                }
+
+                fields?.forEach((field) =>{
                             
                     const td = document.createElement('td');
 

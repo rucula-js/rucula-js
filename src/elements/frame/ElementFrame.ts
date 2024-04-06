@@ -19,8 +19,8 @@ export function createFrame(frame:frame){
     if(frame.type == constTypeFrame.LINE){
         div.classList.add('r-q-l')
     }
-    
-    div.setAttribute('data-objectDto',frame.objectDto)
+        
+    div.setAttribute('identity',frame.identity)
     
     const h3 = document.createElement('h3');
     h3.textContent = frame.name

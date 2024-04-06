@@ -5,14 +5,43 @@ import { fragmentField } from "../object/ObjectAliases";
 
 export let tableDependency = (() => {
 
-    let dependencyesNotResolved:string[] = []
+    type dependency = {
+        identityObject:string,
+        dependencyesNotResolved:string[]
+    }
+
+    let dependencyesNotResolved:dependency[] = []
     
+    let dependencyesHibernate:dependency[] = []
+
     let REQUERID:string = '1' as const;
     let MAX_LENGHT:string = '2' as const;
     let MAX:string = '3' as const;
     let MIN:string = '4' as const;
 
-    function createExpectedDependency(field:field):string {   
+    function moveImbernateToNotResolved(identityObject:string){
+
+        let hibernate = dependencyesHibernate.find(c=> c.identityObject == identityObject)
+
+        if(hibernate){
+            dependencyesNotResolved.push(Object.assign(hibernate))
+            let index = dependencyesHibernate.indexOf(hibernate)
+            dependencyesHibernate.splice(index)
+        }
+    }
+
+    function moveNotResolvedToImbernate(identityObject:string){
+
+        let notResolved = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
+        
+        if(notResolved){
+            dependencyesHibernate.push(Object.assign(notResolved))
+            let index = dependencyesNotResolved.indexOf(notResolved)
+            dependencyesNotResolved.splice(index)
+        }
+    }
+
+    function createExpectedDependency(field:field, fragmentField:fragmentField, requerid:boolean):string {   
     
         //! Important!! This function must be called in the fragmentField creation process
 
@@ -46,9 +75,34 @@ export let tableDependency = (() => {
                 valueDependency += `${MIN}:${field.min},`
         }
     
-        if(valueDependency != ''){
+        let objectDependency:dependency = {
+            identityObject:fragmentField.config.fragmentObjectIdentity,
+            dependencyesNotResolved:[]  
+        }
 
-            dependencyesNotResolved.push(field.identity)
+        if(valueDependency != '' && requerid){
+
+            let dependency = dependencyesNotResolved.find(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)
+            
+            if( dependency == null){
+                dependencyesNotResolved.push(objectDependency)
+            }
+            if( dependency != null){
+                dependency.dependencyesNotResolved.push(field.identity)
+            }
+        }
+        
+        if(valueDependency != '' && requerid == false){
+
+            let dependency = dependencyesHibernate.find(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)
+            
+            if( dependency == null){
+                dependencyesHibernate.push(objectDependency)
+            }
+
+            if( dependency != null){
+                dependency.dependencyesNotResolved.push(field.identity)
+            }
         }
         
         return removeLastComa(valueDependency)
@@ -132,16 +186,18 @@ export let tableDependency = (() => {
             } 
         }
 
-        let index = dependencyesNotResolved.indexOf(fragment.key.identity)
+        let dependencyObject = dependencyesNotResolved.find(c=> c.identityObject == fragment.config.fragmentObjectIdentity)
+        
+        let index = dependencyObject?.dependencyesNotResolved.indexOf(fragment.key.identity) || -1
 
         if(existDependecy == true && index == -1){
 
-            dependencyesNotResolved.push(fragment.key.identity)            
+            dependencyObject?.dependencyesNotResolved.push(fragment.key.identity)            
         }
 
         if(existDependecy == false && index >= 0 ){
 
-            dependencyesNotResolved.splice(index,1)
+            dependencyObject?.dependencyesNotResolved.splice(index,1)
         }        
         return existDependecy
     }
@@ -247,15 +303,21 @@ export let tableDependency = (() => {
        
         removeExpectedDependency: (identity:string) => {
             
-            let index = dependencyesNotResolved.indexOf(identity)
+            let dependency = dependencyesNotResolved.find(c=> c.dependencyesNotResolved.indexOf(identity) > -1)
+            
+            if(dependency){
+                
+                let index = dependency.dependencyesNotResolved.indexOf(identity)
 
-            if(index > -1){
-                dependencyesNotResolved.splice(index,1)
+                if(index > -1){
+
+                    dependency.dependencyesNotResolved.splice(index,1)
+                }   
             }
         },
         
-        createExpectedDependency: (field:field) => {
-            return createExpectedDependency(field)
+        createExpectedDependency: (field:field, fragmentField:fragmentField,requerid:boolean) => {
+            return createExpectedDependency(field,fragmentField,requerid)
         },
 
         toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
@@ -264,5 +326,9 @@ export let tableDependency = (() => {
         
         getDependencies:() =>{ return dependencyesNotResolved},
         dependenciesCount:() => {return dependencyesNotResolved.length},
+        moveImbernateToNotResolved: (identityObject:string) => moveImbernateToNotResolved(identityObject),
+        moveNotResolvedToImbernate: (identityObject:string) => moveNotResolvedToImbernate(identityObject)
+    
+        
     }
 })()

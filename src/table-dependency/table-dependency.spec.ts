@@ -9,6 +9,12 @@ describe('TableDependency', function () {
   
       it('createExpectedDependency should create expectations of dependencies for the field', function () {
         
+        let fragment = {
+          config: {
+              dependency:''
+          }
+        }    
+
         let field = {
           requerid: true,
           maxLength: 12,
@@ -16,18 +22,24 @@ describe('TableDependency', function () {
           min: 1
         } as field
         
-        let expected = tableDependency.createExpectedDependency(field)
+        let expected = tableDependency.createExpectedDependency(field,fragment as any, true)
         
         assert.equal(expected,'1,2:12,3:2,4:1')
       })
       
       it('createExpectedDependency must return true when option is 1, and value is empty, null or undefined', function () {
             
+        let fragment = {
+          config: {
+              dependency:''
+          }
+        }    
+
         let field = {
           requerid: true,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
 
         let fragmentField:fragmentField = {
           key : {
@@ -61,12 +73,18 @@ describe('TableDependency', function () {
       });
 
       it('createExpectedDependency must return true when option is 2:2, and value is superior', function () {
-            
+           
+        let fragment = {
+          config: {
+              dependency:''
+          }
+        }   
+
         let field = {
            maxLength: 2,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
 
         let fragmentField:fragmentField = {
           key : {
@@ -87,12 +105,18 @@ describe('TableDependency', function () {
       });
 
       it('createExpectedDependency must return true when option is 3:5, and value is superior', function () {
-            
+           
+        let fragment = {
+          config: {
+              dependency:''
+          }
+        }  
+
         let field = {
            max: 5,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
 
         let fragmentField:fragmentField = {
           key : {
@@ -114,11 +138,16 @@ describe('TableDependency', function () {
 
       it('createExpectedDependency must return true when option is 4:1, and value is superior', function () {
             
+        let fragment = {
+          config: {
+              dependency:''
+          }
+        }  
         let field = {
            min: 1,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
 
         let fragmentField:fragmentField = {
           key : {
