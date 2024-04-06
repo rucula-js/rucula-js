@@ -421,10 +421,13 @@ form.r-f-items{
 }
 .f-l-actions a.add{
     color: blue;
-    
 }
 .f-l-actions a.remove{
     color: red;
+}
+
+.f-l-actions a:active{
+    opacity: 20%;
 }
 .searh-items-grid {
     display: flex;
