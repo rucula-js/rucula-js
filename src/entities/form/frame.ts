@@ -11,4 +11,5 @@ export interface frame{
     sequence:number
     fields?:Array<field>
     layout: {col:{start:number, end:number}, row: {start:number, end:number}}
+    requerid:boolean
 }

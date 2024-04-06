@@ -7,9 +7,10 @@ export let defaultValues = (() => {
 
     const configFrameDefault = {
         TYPE_FRAME: constTypeFrame.BLOCK,
-        VERTICAL: true
+        VERTICAL: true,
+        REQUERID: true
     }
-    
+
     const configInputDefault = {
         TYPE: constTypeInput.TEXT,
         REQUERID_TRUE: true,
@@ -21,6 +22,7 @@ export let defaultValues = (() => {
 
         frame.type ??= configFrameDefault.TYPE_FRAME
         frame.vertical ??= configFrameDefault.VERTICAL
+        frame.requerid ??= configFrameDefault.REQUERID
     }
     
     function setDefaultInput(field: field){

@@ -2,7 +2,6 @@ import { alignItem } from "../../Helpers/Helper";
 import { field } from "../../entities/form/field";
 import { frame } from "../../entities/form/frame";
 import { managmentObject } from "../../object/ObjectManagment";
-
 import { fieldDOM } from "../form/ElementsInput";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
@@ -59,11 +58,16 @@ export let frameLineTableDOM = (() => {
 
                     const input = fieldDOM.create(field); 
 
-                    td.appendChild(input);
+                    td.appendChild(input)
                 
                     alignItem(field,input as HTMLInputElement)
                     
                     tr.appendChild(td)
+
+                    if(frame.requerid ){    
+                        let input = td.querySelector('input, select') as HTMLInputElement|HTMLSelectElement
+                        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
+                    }
                 })
                 return tr;
             }

@@ -1,4 +1,5 @@
 import { frame } from "../../../entities/form/frame";
+import { managmentObject } from "../../../object/ObjectManagment";
 import { fieldDOM } from "../../form/ElementsInput";
 import { createFrame } from "../ElementFrame";
 
@@ -16,6 +17,11 @@ export function createFrameBlock(frame:frame){
                 
         let fieldElement = fieldDOM.create(field)
         div.appendChild(fieldElement)
+
+        if(frame.requerid){
+            let input = fieldElement.querySelector('input,select') as HTMLInputElement|HTMLSelectElement
+            managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
+        }
     })
 
     frameElement.appendChild(div)
