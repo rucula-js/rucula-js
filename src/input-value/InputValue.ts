@@ -2,13 +2,8 @@ import { formatNumberWithLocalization } from "../Helpers/CurrencyHelper";
 import { constAttrInput, constTypeInput } from "../const";
 import { frameLineDOM } from "../elements/frame/TypeLine/FrameLine";
 import { RepresentationField } from "../entities/form/representationField";
-import { getThis } from "../window/Window";
 
 export function setValueInForm(obj:any, objectDto:string = "", line:number = -1){
-
-    if(objectDto == ""){
-        objectDto = getThis()
-    }
 
     for (let propert in obj){
         

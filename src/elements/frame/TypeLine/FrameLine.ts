@@ -3,11 +3,9 @@ import { frame } from "../../../entities/form/frame";
 import { RepresentationField } from "../../../entities/form/representationField";
 import { fragment } from "../../../fragment/fragment";
 import { managmentObject} from "../../../object/ObjectManagment";
-import { tableDependency } from "../../../table-dependency/TableDependency";
 import { configWindow } from "../../../window/Window";
 import { frameLineTableDOM, prepareTBody } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
-import { frameEvent } from "../FrameEvent";
 import { FrameLineEventDOM } from "./FrameLineEvent";
 
 export let frameLineDOM =  (() => {

@@ -1,5 +1,5 @@
 import { convertValueType } from "../../Helpers/Helper"
-import { getTypeInput } from "../../window/Window"
+import { configWindow } from "../../window/Window"
 
 export class RepresentationField{
     public type?:string
@@ -19,7 +19,7 @@ export class RepresentationField{
         representation.objectDto = map[1]
         representation.propertDto  = map[2]
         
-        let type = getTypeInput(representation)
+        let type = configWindow.getTypeInput(representation)
         
         representation.value = convertValueType(input.value,type)
          

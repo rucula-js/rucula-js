@@ -1,7 +1,7 @@
 import * as axios from '../axios/Axios';
 import { createUrl } from '../Helpers/UrlHelper';
 import { columnsGrid} from '../entities/form/columnsGrid'
-import { getColumnsGrid, getEndPoint, getParamsGrid } from '../window/Window';
+import { configWindow } from '../window/Window';
 import { RowComponent, TabulatorFull as Tabulator} from 'tabulator-tables';
 import { setValueInForm } from '../input-value/InputValue';
 import { constIdBaseWindow, eventRucula } from '../const';
@@ -22,7 +22,7 @@ export function createLeftGrid(grid:boolean = true){
   }
 
   const endPointGetAll = "get-all-grid";
-  let endPoint = getEndPoint(endPointGetAll)
+  let endPoint = configWindow.getEndPoint(endPointGetAll)
   let url =  createUrl(endPoint)
     
   axios.ax({
@@ -36,7 +36,7 @@ export function createLeftGrid(grid:boolean = true){
     
     function prepareGrid(data:any){
       
-      let columnsGrid:columnsGrid[] = getColumnsGrid();
+      let columnsGrid:columnsGrid[] = configWindow.getColumnsGrid();
         
       var table = new Tabulator("#w-grid",{
           layout:"fitColumns",
@@ -59,7 +59,7 @@ export function createLeftGrid(grid:boolean = true){
 
     function GetById(row:RowComponent){
       
-  let endPoint = getEndPoint("get-by-id")
+  let endPoint = configWindow.getEndPoint("get-by-id")
   let paramsGrid = prepareParamsGrid();
   let url =  createUrl(endPoint,paramsGrid);
   axios.ax({
@@ -79,7 +79,7 @@ export function createLeftGrid(grid:boolean = true){
 
   function prepareParamsGrid(){
     
-    let params:string = getParamsGrid();
+    let params:string = configWindow.getParamsGrid();
     let reg = /{{([^})]+)}}/gm       
     let matchs = params.matchAll(reg);
   

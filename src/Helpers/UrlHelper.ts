@@ -2,7 +2,7 @@ import { endPoint } from "../entities/form/endPoint";
 import { window } from "../entities/form/window";
 import { getEnvironment } from "../global/GlobalConfig";
 import { managmentObject } from "../object/ObjectManagment";
-import { getWindow } from "../window/Window";
+import { configWindow } from "../window/Window";
 
 export function  createUrl(endPoint:endPoint, paramsManual:string=""){
     
@@ -30,7 +30,7 @@ function creteDomain():string{
 }
 
 function getPathControllerDefault(){
-    let window = getWindow() as window
+    let window = configWindow.get() as window
     return window.pathController
 }
 

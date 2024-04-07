@@ -7,7 +7,7 @@ import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
 import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
-import { configWindow, setWindow } from "./window/Window";
+import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
 import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
@@ -40,7 +40,6 @@ export class Rucula{
 
         configWindow.set(this.window)
         defaultValues.setDefault(this.window)
-        setWindow(this.window);
         let panel = createPanel();
         this.elementRucula.appendChild(panel);
         windowBaseDOM.createWindowBase(this.elementRucula.id);
