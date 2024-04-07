@@ -126,20 +126,14 @@ export class Rucula{
         })
     }
 
-    public getFullObject():any{        
-            return managmentObject.object.object.objectFull();
-    }
-    public getSepareteObject():any{
-       return managmentObject.object.object.objectSeparate();       
-    }
-
-    public getAliasObject(alias:string):any{
-        //todo create
-    }
-
     public object = (() => {
         
         return {
+            
+            objectUnique: (alias:string) => managmentObject.object.object.objectUnique(alias),
+            getFullObject:() => managmentObject.object.object.objectFull(),
+            getSepareteObject:() => managmentObject.object.object.objectSeparate(),
+
             setValue: (targetPath:string, value: any) => {
         
                 let identity = managmentObject.object.field.convertAliasToIdenty(targetPath);
