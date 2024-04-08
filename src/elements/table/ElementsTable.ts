@@ -56,49 +56,20 @@ export let frameLineTableDOM = (() => {
                             
                     const td = document.createElement('td');
 
-                    const input = fieldDOM.create(field); 
+                    const elementInput = fieldDOM.create(field); 
 
-                    td.appendChild(input)
+                    td.appendChild(elementInput)
                 
-                    alignItem(field,input as HTMLInputElement)
+                    alignItem(field,elementInput as HTMLInputElement)
                     
                     tr.appendChild(td)
 
-                    if(frame.requerid ){    
-                        let input = td.querySelector('input, select') as HTMLInputElement|HTMLSelectElement
-                        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
-                    }
+                    let input = td.querySelector('input, select') as HTMLInputElement|HTMLSelectElement
+                    managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
                 })
+                
                 return tr;
             }
         }
     }
 })()
-
-
-export function prepareLineHeaderTable(fields:Array<field>):HTMLTableSectionElement{
-    
-    let tr = document.createElement('tr');
-    let thead = document.createElement('thead');
-    thead.appendChild(tr);
-
-    fields.forEach(field => {
-
-        const th = document.createElement('th');
-        th.textContent = field.description
-
-        if(field.requerid == true){
-            th.textContent = th.textContent
-            th.append(fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
-        }
-
-        alignItem(field,th)
-        
-        tr.appendChild(th)
-    })
-    return thead;
-}
-
-export  function prepareTBody(){
-    return document.createElement('tbody');
-}

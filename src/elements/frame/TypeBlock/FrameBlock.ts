@@ -1,5 +1,6 @@
 import { frame } from "../../../entities/form/frame";
 import { managmentObject } from "../../../object/ObjectManagment";
+import { tableDependency } from "../../../table-dependency/TableDependency";
 import { fieldDOM } from "../../form/ElementsInput";
 import { createFrame } from "../ElementFrame";
 
@@ -16,14 +17,19 @@ export function createFrameBlock(frame:frame){
     frame.fields?.forEach(field => {
                 
         let fieldElement = fieldDOM.create(field)
+        
         div.appendChild(fieldElement)
 
-        if(frame.requerid){
-            let input = fieldElement.querySelector('input,select') as HTMLInputElement|HTMLSelectElement
-            managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
-        }
+        let input = fieldElement.querySelector('input,select') as HTMLInputElement|HTMLSelectElement
+        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
+    
     })
 
     frameElement.appendChild(div)
+    
+    if(frame.requerid == false){
+        tableDependency.moveNotResolvedToImbernate(frame.alias)
+    }
+
     return frameElement
 }

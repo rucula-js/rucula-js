@@ -3,8 +3,9 @@ import { frame } from "../../../entities/form/frame";
 import { RepresentationField } from "../../../entities/form/representationField";
 import { fragment } from "../../../fragment/fragment";
 import { managmentObject} from "../../../object/ObjectManagment";
+import { tableDependency } from "../../../table-dependency/TableDependency";
 import { configWindow } from "../../../window/Window";
-import { frameLineTableDOM, prepareTBody } from "../../table/ElementsTable";
+import { frameLineTableDOM } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
 import { FrameLineEventDOM } from "./FrameLineEvent";
 
@@ -35,7 +36,7 @@ export let frameLineDOM =  (() => {
     
         table.appendChild(rowHeader)
         
-        const tbody = prepareTBody();
+        const tbody = document.createElement('tbody')
 
         const rowDetail = frameLineTableDOM.table.createRowDetail(frame)
         
@@ -48,6 +49,10 @@ export let frameLineDOM =  (() => {
         frameLine.appendChild(table)
         
         FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)
+        
+        if(frame.requerid == false){
+            tableDependency.moveNotResolvedToImbernate(frame.alias)
+        }
         
         return frameLine
     }
