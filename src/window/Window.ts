@@ -1,6 +1,5 @@
 import { columnsGrid } from '../entities/form/columnsGrid';
 import { frame } from '../entities/form/frame';
-import { RepresentationField } from '../entities/form/representationField';
 import { window } from '../entities/form/window';
 
 'use strict';
@@ -38,16 +37,6 @@ export let configWindow = (() => {
             }
             
             throw new Error("Rucula - Evento não existe");
-        },
-
-        getTypeInput: function(rep: RepresentationField):string{
-
-            let field = _window.frames.find(c => c.objectDto == rep.objectDto)?.fields?.find(c => c.propertDto == rep.propertDto) 
-        
-            if(Array.isArray(field?.type)){
-                return field?.type[1]; 
-            }
-            return field!.type; 
         },
 
         getColumnsGrid: function ():columnsGrid[]{

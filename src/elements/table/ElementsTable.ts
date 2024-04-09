@@ -1,74 +1,179 @@
 import { alignItem } from "../../Helpers/Helper";
 import { field } from "../../entities/form/field";
 import { frame } from "../../entities/form/frame";
+import { fragment } from "../../fragment/fragment";
 import { managmentObject } from "../../object/ObjectManagment";
+import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
 export let frameLineTableDOM = (() => {
 
+    function addNewLineInTable(identity:string){
+
+        let field = fragment.fields.getForIdentity(identity)
+
+        let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
+
+        const row = frameLineTableDOM.table.detail.createRowDetail(frame)
+        
+        row.querySelector("input")?.focus()    
+        
+        FrameLineEventDOM.eventKeyDownKeyUpLineFrame(row)
+    
+        return row;
+    }
+      
+    function getCellActions(tr:HTMLTableRowElement){
+        return tr.querySelector('td') //? 
+    }
+
     return {
         table: {
-            createHeader: (frame:frame) => {
+            header: {
+                createHeader: (frame:frame) => {
+                    
+                    let fields:field[] = frame.fields || []
+                    
+                    let tr = document.createElement('tr');
+                    let thead = document.createElement('thead');
+                    
+                    thead.appendChild(tr);
+        
+                    const actions = document.createElement('th');
+                    tr.appendChild(actions)
+        
+                    fields.forEach(field => {
                 
-                let fields:field[] = frame.fields || []
+                        const th = document.createElement('th');
+                        th.textContent = field.description
                 
-                let tr = document.createElement('tr');
-                let thead = document.createElement('thead');
+                        if(field.requerid == true){
+                            th.textContent = th.textContent
+                            th.append(fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
+                        }
                 
-                thead.appendChild(tr);
+                        alignItem(field,th)
+                        
+                        tr.appendChild(th)
+                    })
+                    return thead as HTMLTableSectionElement;
+                }
+            },
+            detail:{
 
-                const actions = document.createElement('th');
-                tr.appendChild(actions)
-
-                fields.forEach(field => {
+                getCellActions: (tr:HTMLTableRowElement) => getCellActions(tr),
+                createRowDetail: (frame:frame) => {
+                    
+                    let tr = document.createElement('tr');
+                                   
+                    const tdActions = document.createElement('td'); //? first td is used for actions line
+                    tdActions.setAttribute('ruc-action','')
+                    tr.appendChild(tdActions)
+    
+                    let fields:field[]|undefined = managmentObject.frame.addLineForFrame(frame)
+    
+                    if(fields){
+                        FrameLineEventDOM.addActionsInCell(tr,fields[0].identity)
+                    }
+    
+                    fields?.forEach((field) =>{
+                                
+                        const td = document.createElement('td');
+    
+                        const elementInput = fieldDOM.create(field); 
+    
+                        td.appendChild(elementInput)
+                    
+                        alignItem(field,elementInput as HTMLInputElement)
+                        
+                        tr.appendChild(td)
+    
+                        let input = td.querySelector('input, select') as HTMLInputElement|HTMLSelectElement
+                        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
+                    })
+                    
+                    return tr;
+                },
+                addNewLineInTable: (identity:string) => addNewLineInTable(identity),
+                
+                removeLineInTable: function (currentLineElement:HTMLTableRowElement,inputTargetEvent:HTMLInputElement){
+    
+                    let nextSibling:HTMLTableRowElement = currentLineElement.nextSibling as HTMLTableRowElement
+                    let previousSibling:HTMLTableRowElement = currentLineElement.previousSibling as HTMLTableRowElement;
+                    let Tbody  = currentLineElement.parentNode
+                
+                    let identityInputTartget = inputTargetEvent.getAttribute("identity")!
             
-                    const th = document.createElement('th');
-                    th.textContent = field.description
+                    currentLineElement.querySelectorAll('input').forEach(input => {
+                        
+                        let identity = input.getAttribute('identity')!
             
-                    if(field.requerid == true){
-                        th.textContent = th.textContent
-                        th.append(fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
+                        //! IMPORTANT! In the context of this loop, only fragments other than the event fragment should be deleted
+                        if(identityInputTartget != identity){
+            
+                            managmentObject.fragment.removeFragment(identity)
+                        }
+                    })
+                    
+                    let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identityInputTartget)
+            
+                    moveActions(fragmentObject.config.fragmentObjectIdentity)
+            
+                    
+                    if(Tbody?.childNodes.length == 1){
+                        
+                        //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
+                        
+                        let newLine = addNewLineInTable(identityInputTartget);
+                        
+                        let tdActions = getCellActions(newLine)
+                        
+                        let actions = getActions()
+                        
+                        tdActions?.appendChild(actions)
+                        
+                        currentLineElement.remove();
+            
+                        Tbody.appendChild(newLine)
+                        
+                        managmentObject.fragment.removeFragment(identityInputTartget)
+                        function getActions(){
+                            return currentLineElement.querySelector('td div') as HTMLDivElement
+                        }
+            
+                        return;
+                    }
+                    
+                    currentLineElement.remove();
+                    managmentObject.fragment.removeFragment(identityInputTartget) //? Removes the fragment that was preserved before checking the existence of rows in the table body
+                    
+                    function moveActions(fragmentObject:string){
+                        
+                        let actions = document.getElementById(fragmentObject) as HTMLDivElement
+                        
+                        if(previousSibling){
+                            
+                            previousSibling?.querySelector("input")?.focus();
+                            
+                            let tdActions = getCellActions(previousSibling)
+                    
+                            tdActions?.appendChild(actions)
+                            return
+                        }
+            
+                        if(nextSibling){
+                            nextSibling?.querySelector("input")?.focus();
+                            
+                            let tdActions = getCellActions(nextSibling)
+                        
+                            tdActions?.appendChild(actions)   
+                        }
                     }
             
-                    alignItem(field,th)
-                    
-                    tr.appendChild(th)
-                })
-                return thead as HTMLTableSectionElement;
-            },
-            
-            createRowDetail: (frame:frame) => {
-                
-                let tr = document.createElement('tr');
-                               
-                const tdActions = document.createElement('td'); //? first td is used for actions line
-                tdActions.setAttribute('ruc-action','')
-                tr.appendChild(tdActions)
-
-                let fields:field[]|undefined = managmentObject.frame.addLineForFrame(frame)
-
-                if(fields){
-                    FrameLineEventDOM.addActionsInCell(tr,fields[0].identity)
                 }
+            
 
-                fields?.forEach((field) =>{
-                            
-                    const td = document.createElement('td');
-
-                    const elementInput = fieldDOM.create(field); 
-
-                    td.appendChild(elementInput)
-                
-                    alignItem(field,elementInput as HTMLInputElement)
-                    
-                    tr.appendChild(td)
-
-                    let input = td.querySelector('input, select') as HTMLInputElement|HTMLSelectElement
-                    managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
-                })
-                
-                return tr;
             }
         }
     }

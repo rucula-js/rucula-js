@@ -1,5 +1,4 @@
-import { constFrameLineActions, constIdBaseWindow } from "../../const";
-import { setValueInForm } from "../../input-value/InputValue";
+import { constIdBaseWindow } from "../../const";
 
 export let windowBaseDOM = (() => {
 
@@ -157,7 +156,7 @@ export let windowBaseDOM = (() => {
     
         reload?.addEventListener('click', () => {
             form.reset();
-            setValueInForm(objectReload)
+            // setValueInForm(objectReload)
         })    
     }
     return {
