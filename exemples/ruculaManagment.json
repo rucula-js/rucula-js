@@ -4,12 +4,13 @@
     "type": "crud",
     "messageHome": "Ordem de Serviço",
     "iconHome": "bi-rocket-takeoff",
+    "crud":"",
     "grid":false,
     "frames": [
       {
         "name": "Janela",
         "objectDto": "window",
-        "alias": "window",
+        "alias": "aliasWindow",
         "vertical":false,
         "fields": [
           {
@@ -20,19 +21,16 @@
           },
           {
             "propertDto": "type",
-            "description": "type",
+            "description": "  type",
             "type":["select","text"],
             "combo":[
-              {
-              "representation":"crud",
-              "value":"crud"
-              },
+              {"representation":"crud","value":"crud"},
               {
                 "representation":"grid",
                 "value":"grid"
               }
-          ]
-
+            ],
+            "width":111
           },
           {
             "propertDto": "crud",
@@ -57,22 +55,10 @@
       {
         "name": "button",
         "objectDto": "button",
-        "alias": "button",
+        "alias": "aliasButton",
         "type":"line",
         "parent":".",
         "fields": [
-          {
-            "propertDto": "link",
-            "description": "link"
-          },
-          {
-            "propertDto": "icon",
-            "description": "icon"
-          },
-          {
-            "propertDto": "text",
-            "description": "text"
-          },
           {
             "propertDto": "type",
             "description": "type",
@@ -87,15 +73,29 @@
                 "value":"button"
               }
           ]
-
+  
+          },
+          {
+            "propertDto": "target",
+            "description": "target",
+            "maxLength":20,
+            "requerid":true
+          },
+          {
+            "propertDto": "link",
+            "description": "link"
+          },
+          {
+            "propertDto": "icon",
+            "description": "icon"
+          },
+          {
+            "propertDto": "text",
+            "description": "text"
           },
           {
             "propertDto": "color",
             "description": "color"
-          },
-          {
-            "propertDto": "target",
-            "description": "target"
           },
           {
             "propertDto": "endPoint",
@@ -109,10 +109,13 @@
         "alias": "endPoint",
         "parent":".",
         "type":"line",
+        "requerid":false,
         "fields": [
           {
             "propertDto": "name",
-            "description": "name"
+            "description": "name",
+            "requerid":true,
+            "maxLength":30
           },
          
           {
@@ -160,7 +163,7 @@
         "name": "frame",
         "type": "line",
         "objectDto": "frame",
-        "alias": "frame",
+        "alias": "aliasFrame",
         "parent":".",
         "fields": [
           {
@@ -200,7 +203,7 @@
       {
         "name": "Fields",
         "objectDto": "field",
-        "alias": "field",
+        "alias": "aliasField",
         "parent":".",
         "type":"line",
         "fields": [
@@ -331,10 +334,12 @@
       "items":
       [
         ["window","window","window"],
-        ["button","button","button"],
         ["endPoint","endPoint","endPoint"],
+        ["button","button","button"],
         ["frame","frame","frame"],
-        ["field","field","field"]      
+        ["field","field","field"],
+        ["output","output","output"]
+
       ]
     },
     "columnsGrid": [
@@ -350,70 +355,22 @@
     "paramsGrid": "/{{codigo}}",
     "button": [
       {
-        "icon": "bi bi-save",
+        "icon": "bi bi-filetype-json",
         "type": "button",
-        "target": "r-a-save",
-        "endPoint": "create-os"
+        "target": "generate-object",
+        "text":"Gerar Representação "
       },
       {
-        "icon": "bi bi-wrench",
+        "icon": "bi bi-window-sidebar",
         "type": "button",
-        "target": "r-a-alter",
-        "endPoint": "update-os"
+        "target": "window-view",
+        "text":"Visualizar Janela "
       },
       {
-        "icon": "bi bi-trash3",
-        "type": "button",
-        "target": "r-a-delete",
-        "endPoint": "delete-os"
-      },
-      {
-        "text": "Finalizar 💵",
-        "type": "button",
-        "target": "q1w2e3r493469869",
-        "endPoint": "delete-os"
-      },
-      {
-        "text": "Validar  🎲",
-        "type": "button",
-        "target": "finalizar-compra",
-        "endPoint": "delete-os"
-      }
-    ],
-    "endPoints": [
-      {
-        "name": "create-os",
-        "method": "post",
-        "body": "this"
-      },
-      {
-        "name": "delete-os",
-        "method": "delete",
-        "params": "/{{ordemDeServico.codigo}}"
-      },
-      {
-        "name": "update-os",
-        "method": "put",
-        "params": "/{{ordemDeServico.codigo}}",
-        "body": "this"
-      },
-      {
-        "name": "get-all-grid",
-        "method": "get"
-      },
-      {
-        "name": "get-by-id",
-        "method": "get"
-      },
-      {
-        "name": "documentacao",
-        "method": "get",
-        "params": "/{{ordemDeServico.codigo}}"
-      },
-      {
-        "name": "finalizar-compra",
-        "method": "post",
-        "params": "/{{ordemDeServico.codigo}}"
+        "type": "link",
+        "target": "window-icons",
+        "text":"Icones ",
+        "link":"https://icons.getbootstrap.com"
       }
     ]
   }
