@@ -1,5 +1,6 @@
 import { constFrameLineActions } from "../../../const";
 import { frame } from "../../../entities/form/frame";
+import { managmentObject } from "../../../object/ObjectManagment";
 import { tableDependency } from "../../../table-dependency/TableDependency";
 import { frameLineTableDOM } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
@@ -23,6 +24,10 @@ export let frameLineDOM =  (() => {
     
     function createFrameLine(frame:frame){
     
+        let newFrame = Object.create(frame) as frame
+        
+        managmentObject.frame.init.addLine(newFrame)
+
         const frameLine = createFrame(frame)
         
         const table = document.createElement('table');
@@ -34,7 +39,7 @@ export let frameLineDOM =  (() => {
         
         const tbody = document.createElement('tbody')
 
-        const rowDetail = frameLineTableDOM.table.detail.createRowDetail(frame)
+        const rowDetail = frameLineTableDOM.table.detail.createRowDetail(newFrame)
         
         let td = frameLineTableDOM.table.detail.getCellActions(rowDetail)
         
@@ -47,7 +52,7 @@ export let frameLineDOM =  (() => {
         FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)
         
         if(frame.requerid == false){
-            tableDependency.moveNotResolvedToImbernate(frame.alias)
+            tableDependency.moveNotResolvedToImbernate(frame.identity)
         }
         
         return frameLine
@@ -59,10 +64,10 @@ export let frameLineDOM =  (() => {
             return createFrameLine(frame)
         },
         addLine: (identity:string) => {
-            return  frameLineTableDOM.table.detail.addNewLineInTable(identity)
+            return  frameLineTableDOM.table.detail.createNewRowDetail(identity)
         },
         removeLine:(currentLineElement:HTMLTableRowElement,inputTargetEvent:HTMLInputElement) => {
-            frameLineTableDOM.table.detail.removeLineInTable(currentLineElement,inputTargetEvent)
+            frameLineTableDOM.table.detail.deleteRowDetail(currentLineElement,inputTargetEvent)
         }
     }
 })()

@@ -8,22 +8,7 @@ import { fieldDOM } from "../form/ElementsInput";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
 export let frameLineTableDOM = (() => {
-
-    function addNewLineInTable(identity:string){
-
-        let field = fragment.fields.getForIdentity(identity)
-
-        let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
-
-        const row = frameLineTableDOM.table.detail.createRowDetail(frame)
-        
-        row.querySelector("input")?.focus()    
-        
-        FrameLineEventDOM.eventKeyDownKeyUpLineFrame(row)
-    
-        return row;
-    }
-      
+  
     function getCellActions(tr:HTMLTableRowElement){
         return tr.querySelector('td') //? 
     }
@@ -63,21 +48,20 @@ export let frameLineTableDOM = (() => {
             detail:{
 
                 getCellActions: (tr:HTMLTableRowElement) => getCellActions(tr),
+                
                 createRowDetail: (frame:frame) => {
                     
                     let tr = document.createElement('tr');
-                                   
+                         
                     const tdActions = document.createElement('td'); //? first td is used for actions line
                     tdActions.setAttribute('ruc-action','')
                     tr.appendChild(tdActions)
-    
-                    let fields:field[]|undefined = managmentObject.frame.addLineForFrame(frame)
-    
-                    if(fields){
-                        FrameLineEventDOM.addActionsInCell(tr,fields[0].identity)
+        
+                    if(frame.fields){
+                        FrameLineEventDOM.addActionsInCell(tr,frame.fields[0].identity)
                     }
     
-                    fields?.forEach((field) =>{
+                    frame.fields?.forEach((field:field) =>{
                                 
                         const td = document.createElement('td');
     
@@ -95,9 +79,23 @@ export let frameLineTableDOM = (() => {
                     
                     return tr;
                 },
-                addNewLineInTable: (identity:string) => addNewLineInTable(identity),
+
+                createNewRowDetail: function (identity:string){
+
+                    let field = fragment.fields.getForIdentity(identity)
+            
+                    let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
+            
+                    const row = frameLineTableDOM.table.detail.createRowDetail(frame)
+                    
+                    row.querySelector("input")?.focus()    
+                    
+                    FrameLineEventDOM.eventKeyDownKeyUpLineFrame(row)
                 
-                removeLineInTable: function (currentLineElement:HTMLTableRowElement,inputTargetEvent:HTMLInputElement){
+                    return row;
+                },
+                
+                deleteRowDetail: function (currentLineElement:HTMLTableRowElement,inputTargetEvent:HTMLInputElement){
     
                     let nextSibling:HTMLTableRowElement = currentLineElement.nextSibling as HTMLTableRowElement
                     let previousSibling:HTMLTableRowElement = currentLineElement.previousSibling as HTMLTableRowElement;
@@ -125,7 +123,7 @@ export let frameLineTableDOM = (() => {
                         
                         //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
                         
-                        let newLine = addNewLineInTable(identityInputTartget);
+                        let newLine =  frameLineTableDOM.table.detail.createNewRowDetail(identityInputTartget);
                         
                         let tdActions = getCellActions(newLine)
                         
@@ -172,8 +170,6 @@ export let frameLineTableDOM = (() => {
                     }
             
                 }
-            
-
             }
         }
     }

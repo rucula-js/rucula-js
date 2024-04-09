@@ -41,7 +41,8 @@ export let tableDependency = (() => {
         }
     }
 
-    function createExpectedDependency(field:field, fragmentField:fragmentField, requerid:boolean):string {   
+
+    function createExpectedDependency(field:field, fragmentField:fragmentField):string {   
     
         //! Important!! This function must be called in the fragmentField creation process
 
@@ -80,36 +81,28 @@ export let tableDependency = (() => {
             dependencyesNotResolved:[]  
         }
 
-        if(valueDependency != '' && requerid){
-
+        valueDependency = removeLastComa(valueDependency)
+        
+        if(valueDependency){
             let dependency = dependencyesNotResolved.find(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)
             
-            if( dependency == null){
+            if( dependency == undefined){
+                
+                objectDependency.dependencyesNotResolved.push(field.identity)
+                
                 dependencyesNotResolved.push(objectDependency)
             }
-            if( dependency != null){
+            if( dependency != undefined){
                 dependency.dependencyesNotResolved.push(field.identity)
             }
-        }
-        
-        if(valueDependency != '' && requerid == false){
-
-            let dependency = dependencyesHibernate.find(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)
             
-            if( dependency == null){
-                dependencyesHibernate.push(objectDependency)
-            }
-
-            if( dependency != null){
-                dependency.dependencyesNotResolved.push(field.identity)
-            }
         }
-        
+
         return removeLastComa(valueDependency)
     }    
 
     function toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
-       
+
         let dependencyExpected = fragment.config.dependency
 
         let dependencyResolved = ''
@@ -160,15 +153,15 @@ export let tableDependency = (() => {
         dependencyResolved = removeLastComa(dependencyResolved)
 
         let dependencyExpectedOnlyKeys = 
-            dependencyExpected
-            .split(',')
-            .map(c => c.split(':')[0])
-
+        dependencyExpected
+        .split(',')
+        .map(c => c.split(':')[0])
+        
         let dependencyResolvedOnlyKeys = 
-            dependencyResolved
-            .split(',')
-            .map(c => c.split(':')[0])
-
+        dependencyResolved
+        .split(',')
+        .map(c => c.split(':')[0])
+        
         let existDependecy = false
 
         if(dependencyExpectedOnlyKeys.length != dependencyResolvedOnlyKeys.length) {
@@ -186,19 +179,20 @@ export let tableDependency = (() => {
             } 
         }
 
-        let dependencyObject = dependencyesNotResolved.find(c=> c.identityObject == fragment.config.fragmentObjectIdentity)
+
+        let dependencyObject = dependencyesNotResolved.find(objectDep => objectDep .identityObject == fragment.config.fragmentObjectIdentity)
         
-        let index = dependencyObject?.dependencyesNotResolved.indexOf(fragment.key.identity) || -1
+        let dependency = dependencyObject?.dependencyesNotResolved.find(dependency => dependency == fragment.key.identity)
 
-        if(existDependecy == true && index == -1){
-
-            dependencyObject?.dependencyesNotResolved.push(fragment.key.identity)            
+        if(existDependecy == true && dependency ==  null){
+                dependencyObject?.dependencyesNotResolved.push(fragment.key.identity)
         }
 
-        if(existDependecy == false && index >= 0 ){
+        if(existDependecy == false && dependency !=  null){
+            let index = dependencyObject?.dependencyesNotResolved.indexOf(dependency)
+            dependencyObject?.dependencyesNotResolved.splice(index as number,1)
+        }      
 
-            dependencyObject?.dependencyesNotResolved.splice(index,1)
-        }        
         return existDependecy
     }
 
@@ -316,15 +310,20 @@ export let tableDependency = (() => {
             }
         },
         
-        createExpectedDependency: (field:field, fragmentField:fragmentField,requerid:boolean) => {
-            return createExpectedDependency(field,fragmentField,requerid)
+        createExpectedDependency: (field:field, fragmentField:fragmentField) => {
+            return createExpectedDependency(field,fragmentField)
         },
 
         toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
             return toApplyOrRemoveDependency(fragment,value)
         },
         
-        getDependencies:() =>{ return dependencyesNotResolved},
+        getDependenciesNotResolded:() =>{ 
+            return dependencyesNotResolved
+        },
+        getDependenciesHibernate:() =>{
+            return dependencyesHibernate
+        },
         dependenciesCount:() => {return dependencyesNotResolved.length},
         moveImbernateToNotResolved: (identityObject:string) => moveImbernateToNotResolved(identityObject),
         moveNotResolvedToImbernate: (identityObject:string) => moveNotResolvedToImbernate(identityObject)

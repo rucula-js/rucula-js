@@ -110,13 +110,28 @@ function outputCommandNotFound(){
     consolePanel.textContent = "comando não encontrado"
 }
 function outputDependencies(){
-    let dependecies = table.tableDependency.getDependencies();
+    let dependecies = table.tableDependency.getDependenciesNotResolded()
+    let dependeciesHibernate = table.tableDependency.getDependenciesHibernate()
+    
+
     let output ='<br>'; 
     output += '<h2>Dependências não Resolvidas</h2>';
     output+='<br>'
-    dependecies.forEach(c => {           
-        output+=`<div>${c} ⛔</div>`
+    
+    dependecies.forEach(c => { 
+        c.dependencyesNotResolved.forEach(dep => {
+
+            output+=`<div style="color: green;">${dep}</div>`
+        })
     })
+
+    dependeciesHibernate.forEach(c => { 
+        c.dependencyesNotResolved.forEach(dep => {
+
+            output+=`<div style="color: orange;">${dep}</div>`
+        })
+    })
+
     consolePanel.innerHTML = output
 }
 function outputGetObject(){

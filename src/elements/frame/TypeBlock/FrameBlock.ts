@@ -5,6 +5,9 @@ import { fieldDOM } from "../../form/ElementsInput";
 import { createFrame } from "../ElementFrame";
 
 export function createFrameBlock(frame:frame){
+    
+    managmentObject.frame.init.configFieldBlock(frame)
+    
     const frameElement = createFrame(frame)
     
     const div = document.createElement("div");

@@ -1,5 +1,4 @@
 import { constTypeFrame } from '../const';
-import { field } from '../entities/form/field';
 import { frame } from '../entities/form/frame';
 import { window } from '../entities/form/window';
 import { fragment } from '../fragment/fragment';
@@ -25,7 +24,7 @@ export let managmentObject = (()=> {
                 
         frames?.forEach(frame => {
             
-            frame.identity = generateUUID()
+            frame.identity = generateUUID('F')
             
             if(frame.alias === undefined){
                 throw new Error('propert alias is Requerid');                
@@ -51,9 +50,7 @@ export let managmentObject = (()=> {
             }
     
             pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame:frame.identity })
-            
-            initConfigFields(frame)
-            
+                        
         });
     }
     
@@ -65,7 +62,7 @@ export let managmentObject = (()=> {
         
         frame.fields?.forEach(field => {
             
-            field.identity = generateUUID() //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
+            field.identity = generateUUID('I') //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
             
             let config:fragmentField = {
                 key: {
@@ -80,11 +77,9 @@ export let managmentObject = (()=> {
                     dependency:''  
                 } 
             }
-            config.config.dependency =  tableDependency.createExpectedDependency(field,config,frame.requerid)
+            config.config.dependency =  tableDependency.createExpectedDependency(field,config)
             
-            if(frame.requerid){
-                tableDependency.toApplyOrRemoveDependency(config, field.value)
-            }
+            tableDependency.toApplyOrRemoveDependency(config, field.value)
                         
             fragment.fields.add(config)
         })    
@@ -94,15 +89,13 @@ export let managmentObject = (()=> {
      * @description Creates an array of fragments of type Field for Frames of type 'line', This function must be called every time a new line is created on the screen
      * @param {frame} frame
     */
-    function addLineForFrame(frame:frame):field[]{
-
-        let newLine:field[] = frame.fields?.map(field => Object.create(field))!
+    function addLine(frame:frame){
         
         let line = getNextzzRowCount(frame.identity)
         
-        newLine?.forEach(field => {
+        frame.fields?.forEach(field => {
             
-            field.identity = generateUUID() //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
+            field.identity = generateUUID('I') //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
 
             let config:fragmentField = {
                 key: {
@@ -117,32 +110,18 @@ export let managmentObject = (()=> {
                     dependency:''
                 }    
             }
-            config.config.dependency =  tableDependency.createExpectedDependency(field,config,frame.requerid)
 
-            if(frame.requerid == false){
-                tableDependency.toApplyOrRemoveDependency(config, field.value)
-            }
+            config.config.dependency =  tableDependency.createExpectedDependency(field,config)
+
+            tableDependency.toApplyOrRemoveDependency(config, field.value)
 
             fragment.fields.add(config)
         })    
-
-        return newLine;
     }    
   
     function getNextzzRowCount(frameIdentity:string):number{
         return base['zzRowCount'][frameIdentity] += 1;
     }    
-
-    function initConfigFields(frame:frame){
-
-        if(frame.type == constTypeFrame.BLOCK){
-            configFieldBlock(frame);
-        }
-        
-        if(frame.type == constTypeFrame.LINE){
-            addLineForFrame(frame);
-        }
-    }
     
     /**
      * @description Creates an object respecting the parent property hierarchy.
@@ -318,10 +297,15 @@ export let managmentObject = (()=> {
         
         frame: {
 
-            addLineForFrame:(frame:frame) => {
+            addLine:(frame:frame) => {
 
-                return addLineForFrame(frame)
+                return addLine(frame)
             },
+
+            init: {
+                configFieldBlock:(frame:frame) => configFieldBlock(frame),
+                addLine:(frame:frame) => addLine(frame),                
+            }
         },
 
         field: {

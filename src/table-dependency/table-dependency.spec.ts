@@ -22,7 +22,7 @@ describe('TableDependency', function () {
           min: 1
         } as field
         
-        let expected = tableDependency.createExpectedDependency(field,fragment as any, true)
+        let expected = tableDependency.createExpectedDependency(field,fragment as any)
         
         assert.equal(expected,'1,2:12,3:2,4:1')
       })
@@ -39,7 +39,7 @@ describe('TableDependency', function () {
           requerid: true,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -84,7 +84,7 @@ describe('TableDependency', function () {
            maxLength: 2,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -116,7 +116,7 @@ describe('TableDependency', function () {
            max: 5,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -147,7 +147,7 @@ describe('TableDependency', function () {
            min: 1,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any, true)
+        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
