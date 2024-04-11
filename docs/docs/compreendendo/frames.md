@@ -103,6 +103,17 @@ Frame do tipo `block` com orientação à fields horizontal
     <img alt="Exemplo de um Frame de Endereço no rucula-js" src="../../assets/frame-eixo-x.png">  
 </p>
 
+
+## Obrigatoriedade e Controle
+Por padrão, todos os frames cadastrados são obrigatórios, isso indica que a partir do momento que o frame estiver renderizado na tela, todas as condições relacionadas aos seus campos serão tratadas de acordo com a interavidade entre usuário e frame.
+
+Ao informar que um frame no rucula-js **não é obrigatório**, não estamos dizendo necessáriamente que isso de fato é verdade, por vezes isso indica que ele só será obrigatoriedade a patir do momento que a interatividade entre o usuário e o frame é reconhecida. Isso ocorre porque as vezes queremos definir obrigatoriedades em determinado(s) campo(s) no nosso frame, mas que podem ser ignorados se não haver necessidade de preenchimento para aquela representação de objeto.  **Imagine isso como um objeto chamado Pedido, onde existe um campo EnderecoEntrega, dentro dele existe propriedades que são obrigatórias, mas o EnderecoEntrega não é obrigatório do ponto de vista de que ele pode ou não ter um EnderecoEntrega naquele momento.**
+
+**Para liberar frames não obrigatórios, utilize a tecla `ESC`**
+
+> **Nota:** Para os frames do tipo line, a opção `ESC` ficará disponivel somente se existir uma única linha do frame propriamente dito. 
+
+
 <br>
 
 ##### Itens Relacionados

@@ -3,6 +3,7 @@ import { managmentObject } from "../../../object/ObjectManagment";
 import { tableDependency } from "../../../table-dependency/TableDependency";
 import { fieldDOM } from "../../form/ElementsInput";
 import { createFrame } from "../ElementFrame";
+import { frameEvent } from "../FrameEvent";
 
 export function createFrameBlock(frame:frame){
     
@@ -32,6 +33,8 @@ export function createFrameBlock(frame:frame){
     
     if(frame.requerid == false){
         tableDependency.moveNotResolvedToImbernate(frame.alias)
+        frameEvent.managedFrame(div)
+        frameEvent.cleanRequeridDependency(div)
     }
 
     return frameElement

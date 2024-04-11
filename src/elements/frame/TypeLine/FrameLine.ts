@@ -4,6 +4,7 @@ import { managmentObject } from "../../../object/ObjectManagment";
 import { tableDependency } from "../../../table-dependency/TableDependency";
 import { frameLineTableDOM } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
+import { frameEvent } from "../FrameEvent";
 import { FrameLineEventDOM } from "./FrameLineEvent";
 
 export let frameLineDOM =  (() => {
@@ -53,6 +54,9 @@ export let frameLineDOM =  (() => {
         
         if(frame.requerid == false){
             tableDependency.moveNotResolvedToImbernate(frame.identity)
+            frameEvent.managedFrame(frameLine)
+            frameEvent.cleanRequeridDependency(frameLine)
+
         }
         
         return frameLine
