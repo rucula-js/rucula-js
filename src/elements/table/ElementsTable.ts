@@ -17,9 +17,7 @@ export let frameLineTableDOM = (() => {
         table: {
             header: {
                 createHeader: (frame:frame) => {
-                    
-                    let fields:field[] = frame.fields || []
-                    
+                                        
                     let tr = document.createElement('tr');
                     let thead = document.createElement('thead');
                     
@@ -28,7 +26,7 @@ export let frameLineTableDOM = (() => {
                     const actions = document.createElement('th');
                     tr.appendChild(actions)
         
-                    fields.forEach(field => {
+                    frame.fields?.forEach(field => {
                 
                         const th = document.createElement('th');
                         th.textContent = field.description
@@ -86,6 +84,8 @@ export let frameLineTableDOM = (() => {
             
                     let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
             
+                    managmentObject.frame.addLine(frame)
+
                     const row = frameLineTableDOM.table.detail.createRowDetail(frame)
                     
                     row.querySelector("input")?.focus()    
@@ -168,7 +168,6 @@ export let frameLineTableDOM = (() => {
                             tdActions?.appendChild(actions)   
                         }
                     }
-            
                 }
             }
         }
