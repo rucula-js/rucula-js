@@ -119,14 +119,14 @@ function outputDependencies(){
     output+='<br>'
     
     dependecies.forEach(c => { 
-        c.dependencyesNotResolved.forEach(dep => {
+        c.fieldsNotResolved.forEach(dep => {
 
             output+=`<div style="color: green;">${dep}</div>`
         })
     })
 
     dependeciesHibernate.forEach(c => { 
-        c.dependencyesNotResolved.forEach(dep => {
+        c.fieldsNotResolved.forEach(dep => {
 
             output+=`<div style="color: orange;">${dep}</div>`
         })

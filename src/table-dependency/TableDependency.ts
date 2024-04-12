@@ -7,7 +7,7 @@ export let tableDependency = (() => {
 
     type dependency = {
         identityObject:string,
-        dependencyesNotResolved:string[]
+        fieldsNotResolved:string[]
     }
 
     let dependencyesNotResolved:dependency[] = []
@@ -76,29 +76,26 @@ export let tableDependency = (() => {
                 valueDependency += `${MIN}:${field.min},`
         }
     
-        let objectDependency:dependency = {
-            identityObject:fragmentField.config.fragmentObjectIdentity,
-            dependencyesNotResolved:[]  
-        }
-
         valueDependency = removeLastComa(valueDependency)
-        
+                
         if(valueDependency){
-            let dependency = dependencyesNotResolved.find(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)
-            
-            if( dependency == undefined){
+
+            let index = dependencyesNotResolved.findIndex(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)            
+            if( index == -1){
                 
-                objectDependency.dependencyesNotResolved.push(field.identity)
-                
+                let objectDependency:dependency = {
+                    identityObject:fragmentField.config.fragmentObjectIdentity,
+                    fieldsNotResolved:[field.identity]  
+                }
                 dependencyesNotResolved.push(objectDependency)
             }
-            if( dependency != undefined){
-                dependency.dependencyesNotResolved.push(field.identity)
-            }
-            
+            if( index != -1){
+                dependencyesNotResolved[index].fieldsNotResolved.push(field.identity)
+            }            
         }
 
-        return removeLastComa(valueDependency)
+
+        return valueDependency
     }    
 
     function toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
@@ -149,25 +146,14 @@ export let tableDependency = (() => {
                 }            
             }
         })
-        
+                
         dependencyResolved = removeLastComa(dependencyResolved)
 
-        let dependencyExpectedOnlyKeys = 
-        dependencyExpected
-        .split(',')
-        .map(c => c.split(':')[0])
+        let dependencyExpectedOnlyKeys = dependencyExpected.split(',').map(c => c.split(':')[0])
         
-        let dependencyResolvedOnlyKeys = 
-        dependencyResolved
-        .split(',')
-        .map(c => c.split(':')[0])
+        let dependencyResolvedOnlyKeys = dependencyResolved.split(',').map(c => c.split(':')[0])
         
         let existDependecy = false
-
-        if(dependencyExpectedOnlyKeys.length != dependencyResolvedOnlyKeys.length) {
-            
-            existDependecy = true
-        } 
 
         for (let index = 0; index < dependencyExpectedOnlyKeys.length; index++) {
             
@@ -179,25 +165,24 @@ export let tableDependency = (() => {
             } 
         }
 
-
-        let dependencyObject = dependencyesNotResolved.find(objectDep => objectDep .identityObject == fragment.config.fragmentObjectIdentity)
+        let dependencyObject = dependencyesNotResolved.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
         
-        let dependency = dependencyObject?.dependencyesNotResolved.find(dependency => dependency == fragment.key.identity)
+        let dependency = dependencyObject?.fieldsNotResolved.find(dependency => dependency == fragment.key.identity)
 
         if(existDependecy == true && dependency ==  null){
-                dependencyObject?.dependencyesNotResolved.push(fragment.key.identity)
+            dependencyObject?.fieldsNotResolved.push(fragment.key.identity)
         }
 
         if(existDependecy == false && dependency !=  null){
-            let index = dependencyObject?.dependencyesNotResolved.indexOf(dependency)
-            dependencyObject?.dependencyesNotResolved.splice(index as number,1)
+            let index = dependencyObject?.fieldsNotResolved.indexOf(dependency)
+            dependencyObject?.fieldsNotResolved.splice(index as number,1)
         }      
 
         return existDependecy
     }
 
     function removeLastComa(value:string){
-        return value.substring(0,value.length-1)
+        return value.replace(/, *$/,'')
     }
     
     let consist = (() => {
@@ -297,15 +282,15 @@ export let tableDependency = (() => {
        
         removeExpectedDependency: (identity:string) => {
             
-            let dependency = dependencyesNotResolved.find(c=> c.dependencyesNotResolved.indexOf(identity) > -1)
+            let dependency = dependencyesNotResolved.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
             
             if(dependency){
                 
-                let index = dependency.dependencyesNotResolved.indexOf(identity)
+                let index = dependency.fieldsNotResolved.indexOf(identity)
 
                 if(index > -1){
 
-                    dependency.dependencyesNotResolved.splice(index,1)
+                    dependency.fieldsNotResolved.splice(index,1)
                 }   
             }
         },
@@ -315,6 +300,7 @@ export let tableDependency = (() => {
         },
 
         toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
+            
             return toApplyOrRemoveDependency(fragment,value)
         },
         

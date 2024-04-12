@@ -206,7 +206,7 @@ export let fieldDOM = (() => {
             focusFieldsWithDependency:() => {
             
                    tableDependency.getDependenciesNotResolded()?.forEach(object => {
-                    object.dependencyesNotResolved?.forEach(identity => {
+                    object.fieldsNotResolved?.forEach(identity => {
                 
                         let input = document.querySelector('[identity='+identity+']')
                     
@@ -231,6 +231,5 @@ export let fieldDOM = (() => {
             }
 
         }
-
     }
 })()
