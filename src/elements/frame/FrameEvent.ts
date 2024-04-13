@@ -63,7 +63,7 @@ export let frameEvent = (() => {
 
     function resetManageFrameTypeLine(frameElement:HTMLDivElement){
 
-        const FIRST_ROW_BODY = 2
+        const FIRST_ROW_BODY = 3 //1(title),2(cols),3(fisrt row body)
 
         if(frameElement.classList.contains('r-q-l') == false){
             return
@@ -80,7 +80,6 @@ export let frameEvent = (() => {
     
     
     function cleanFrame(blockORLine:HTMLElement){
-        
         blockORLine.querySelectorAll('input')
             .forEach(input => input.value = '')
 
