@@ -34,8 +34,13 @@ export let frameLineDOM =  (() => {
         const table = document.createElement('table');
         table.classList.add("f-t-line")
     
+        let title = frameLine.querySelector('h3')!
+        
         const rowHeader = frameLineTableDOM.table.header.createHeader(frame)
-    
+        
+        let thTitle = rowHeader.querySelector('th')!
+        thTitle.appendChild(title)
+        
         table.appendChild(rowHeader)
         
         const tbody = document.createElement('tbody')

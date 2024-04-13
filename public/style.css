@@ -18,17 +18,20 @@
 }
 
 *::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
+    width: 9px;
+    height: 9px;
 } 
 
 *::-webkit-scrollbar-track {
-    background: inherit
+    background: inherit;
+    margin-block: 15px;
 }
   
 *::-webkit-scrollbar-thumb {
-    background-color:#0c0c0c;
-    border-radius: 20px;    
+    background-color: var(--color-black);
+    border-radius: 5px; 
+    border: 2px solid var(--color-write);
+    
 }
 
 .r-i-control::-webkit-outer-spin-button,
@@ -36,7 +39,6 @@
   -webkit-appearance: none;
   margin: 0;
 }
-
 
 .r-f-hidden{
     display: none;
@@ -189,9 +191,6 @@ input.r-i-control[identity][disabled] {
 }
 
 .r-t-f{
-    font-size: 1.2rem;
-    background-color: var( --color-teme-secundary);
-    color: #fff;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
@@ -203,17 +202,32 @@ input.r-i-control[identity][disabled] {
 }
 
 .r-q-l{
-    margin-bottom: 10px;
-    overflow:auto;
-    min-height: 300px;
+    display: block;
+    overflow: auto;
+    height: 300px;
+
 }
 
 .r-q-b,
 .r-q-l{
-    border: 1px solid var( --color-teme-primary);
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: var(--color-write);
+    
 }
+
+.r-q-b::-webkit-scrollbar-thumb,
+.r-q-l::-webkit-scrollbar-thumb {
+    border: 3px solid var(--color-write);
+    background-color: #f1f1f1;
+    border-radius: 5px; 
+}
+
+.r-q-b::-webkit-scrollbar,
+.r-q-l::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
 
 .r-q-i{
     display: flex; 
@@ -245,39 +259,29 @@ input.r-i-focus-dependency {
 
 /*frame type line*/
 .f-t-line{
-    display: block;
     table-layout: fixed;
     border-collapse:collapse;
     background-color: #fff;
-    overflow: auto;
-    max-height: 300px;
     border-spacing: 0;
 }
-.f-t-line th,.f-t-line td{
-    border: 1px solid #ddd;
-}
 
-.f-t-line td{
-    padding: 0px;
+.f-t-line thead{
+    position: sticky;
+    top: 0;
+    background-color: var(--color-write);
 }
 
 .f-t-line th{
-    position: sticky;
-    top: 0;
-    background-color: var(--color-teme-primary);
     padding-top: 5px ;
     padding-bottom: 5px ;
-    color: var(--color-write);
     padding: 4px;
 }
-
-.f-t-line td:focus-within{  
-    border-bottom: 2px solid var( --color-teme-primary);
-} 
+.f-t-line th.title{
+    padding: 0px;
+}
 
 .f-t-line .r-i-control{
     box-shadow: none;
-    border: none;
 }
 
 .f-t-line th,
@@ -286,6 +290,7 @@ input.r-i-focus-dependency {
     margin-right: 5px;
 }
 
+.f-l-actions
 .f-t-line thead {
     border-radius: 10px;
 
@@ -337,7 +342,7 @@ textarea.r-i-control {
 
 .r-head{
     height: var(--heigth-read);
-    background-color: var(--color-teme-primary);
+    background-color: var(--color-black);
 }
 
 form.r-f-items{
@@ -413,17 +418,15 @@ form.r-f-items{
 .f-l-actions {
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     cursor: pointer;
+    border: 2px solid var(--color-black);   
+    border-radius: 5px; 
 }
 .f-l-actions a {
     border: none;
     background-color: inherit;
-}
-.f-l-actions a.add{
-    color: blue;
-}
-.f-l-actions a.remove{
-    color: red;
 }
 
 .f-l-actions a:active{

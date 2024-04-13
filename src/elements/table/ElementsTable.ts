@@ -5,6 +5,7 @@ import { fragment } from "../../fragment/fragment";
 import { managmentObject } from "../../object/ObjectManagment";
 import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
+import { frameEvent } from "../frame/FrameEvent";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
 export let frameLineTableDOM = (() => {
@@ -18,19 +19,27 @@ export let frameLineTableDOM = (() => {
             header: {
                 createHeader: (frame:frame) => {
                                         
-                    let tr = document.createElement('tr');
+                    let trColumns = document.createElement('tr')
+                    let trTitle = document.createElement('tr')
+                    
+                    let thTitle = document.createElement('th')
+                    trTitle.appendChild(thTitle)
+                    thTitle.style.textAlign = 'start'
+                    thTitle.classList.add('title')
+                    
                     let thead = document.createElement('thead');
                     
-                    thead.appendChild(tr);
-        
+                    thead.appendChild(trTitle);
+                    thead.appendChild(trColumns);
+                    
                     const actions = document.createElement('th');
-                    tr.appendChild(actions)
+                    trColumns.appendChild(actions)
         
                     frame.fields?.forEach(field => {
-                
+                        
                         const th = document.createElement('th');
                         th.textContent = field.description
-                
+                        
                         if(field.requerid == true){
                             th.textContent = th.textContent
                             th.append(fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
@@ -38,8 +47,13 @@ export let frameLineTableDOM = (() => {
                 
                         alignItem(field,th)
                         
-                        tr.appendChild(th)
+                        trColumns.appendChild(th)
                     })
+                    
+                    let columnsLength = trColumns.querySelectorAll('th')
+                    
+                    thTitle.setAttribute('colspan',String(columnsLength.length))
+                    
                     return thead as HTMLTableSectionElement;
                 }
             },
