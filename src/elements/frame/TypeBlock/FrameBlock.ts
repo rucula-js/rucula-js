@@ -24,7 +24,7 @@ export function createFrameBlock(frame:frame){
         
         div.appendChild(fieldElement)
 
-        let input = fieldElement.querySelector('input,select') as HTMLInputElement|HTMLSelectElement
+        let input = fieldElement.querySelector('input,select,textarea') as HTMLInputElement|HTMLSelectElement
         managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
     
     })
