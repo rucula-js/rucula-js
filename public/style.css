@@ -164,8 +164,8 @@
 }
 
 .r-i-control:focus-within{
-    border-color:var( --color-teme-primary);
-    box-shadow: inset 0 0 0 1px var( --color-teme-primary);;
+    border-color:var( --color-black);
+    box-shadow: inset 0 0 0 1px var( --color-black);;
 }
 
 /* Firefox */
@@ -330,7 +330,7 @@ input.r-i-focus-dependency {
 
 textarea.r-i-control {
     resize: none;
-    border:1px solid var(--color-grey);
+    border:1px solid var(--color-black);
     min-height: 100px;
 }
 
@@ -489,7 +489,7 @@ form.r-f-items{
 .r-globalization-list.list-vertical-buttons li:hover,
 .r-enviroment-list.list-vertical-buttons li:hover,
 .r-a-menu-vertical-list.list-vertical-buttons button:hover{
-    color: var(--color-teme-primary);
+    color: var(--color-grey);
 }
 
 .list-vertical-buttons.list-vertical-buttons-pp-left,
