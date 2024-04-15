@@ -1,6 +1,5 @@
 import { constTypeFrame } from '../const';
 import { frame } from '../entities/form/frame';
-import { window } from '../entities/form/window';
 import { fragment } from '../fragment/fragment';
 import { tableDependency } from '../table-dependency/TableDependency';
 import { entityConfiguration, fragmentField, fragmentObject } from './ObjectAliases';
