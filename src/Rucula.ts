@@ -44,7 +44,7 @@ export class Rucula{
         this.elementRucula.appendChild(panel);
         windowBaseDOM.createWindowBase(this.elementRucula.id);
         this.addHomeWindow();
-        managmentObject.init(this.window)
+        managmentObject.frame.initObjects(this.window.frames)
         windowBaseDOM.createNameWindow(this.window.name)
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
         layoutFrames.configureLayout(this.window)

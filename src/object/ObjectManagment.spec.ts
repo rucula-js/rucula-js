@@ -4,11 +4,9 @@ import windowValue from '../../exemples/ObjectManagment.Frames.json'
 import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
 import { objectIsEqual } from '../test/Helper';
-import { fragmentField } from './ObjectAliases';
 
 describe('ObjectManagment', function () {
-
-    managmentObject.init(windowValue as window)
+  managmentObject.frame.initObjects(windowValue.frames as frame[])
 
     describe('frame', function () {
   

@@ -11,17 +11,20 @@ import { generateUUID } from './ObjectHelper';
 export let managmentObject = (()=> {
     
     let initialized = false;
-    
-    let base:any = {};
-        
+            
     let pathObjectBase:{parent:string, alias:string, configFrame:string, }[] = [];
                     
     /**
      * @description Creates an array of fragments of type object
      * @param {frame[]} frames
      */
-    function initConfigFrame(frames:frame[]){
+    function initObjects(frames:frame[]){
                 
+        if(initialized){
+            throw new Error('Routine already initialized')
+        }
+        initialized = true;
+
         frames?.forEach(frame => {
             
             frame.identity = generateUUID('F')
@@ -45,10 +48,6 @@ export let managmentObject = (()=> {
 
             fragment.objects.add(fragmentObject)
 
-            if(frame.type == constTypeFrame.LINE){
-                base['zzRowCount'][frame.identity] = -1
-            }
-    
             pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame:frame.identity })
                         
         });
@@ -91,7 +90,9 @@ export let managmentObject = (()=> {
     */
     function addLine(frame:frame){
         
-        let line = getNextzzRowCount(frame.identity)
+        let object = fragment.objects.getForIdentity(frame.identity)
+        
+        let newLine = object.config.object.length + 1
         
         frame.fields?.forEach(field => {
             
@@ -106,7 +107,7 @@ export let managmentObject = (()=> {
                     fragmentObjectIdentity: frame.identity,
                     identity: field.identity,
                     propertDto: field.propertDto,
-                    line: line,
+                    line: newLine,
                     dependency:''
                 }    
             }
@@ -118,11 +119,7 @@ export let managmentObject = (()=> {
             fragment.fields.add(config)
         })    
     }    
-  
-    function getNextzzRowCount(frameIdentity:string):number{
-        return base['zzRowCount'][frameIdentity] += 1;
-    }    
-    
+       
     /**
      * @description Creates an object respecting the parent property hierarchy.
      * @return {*} 
@@ -282,30 +279,10 @@ export let managmentObject = (()=> {
 
     return {
 
-        init:(window:window) => {
-
-            if(initialized){
-                throw new Error('Routine already initialized')
-            }
-            
-            initialized = true;
-
-            base['zzRowCount'] = {} as any;
-
-            initConfigFrame(window.frames);
-        },
-        
         frame: {
-
-            addLine:(frame:frame) => {
-
-                return addLine(frame)
-            },
-
-            init: {
-                configFieldBlock:(frame:frame) => configFieldBlock(frame),
-                addLine:(frame:frame) => addLine(frame),                
-            }
+            initObjects:(frames:frame[]) => initObjects(frames),
+            configFieldBlock:(frame:frame) => configFieldBlock(frame),
+            addLine:(frame:frame) => addLine(frame),                
         },
 
         field: {
@@ -365,6 +342,26 @@ export let managmentObject = (()=> {
                     object = object[line]
 
                     return object 
+                },
+                
+                count:(identity:string) => {
+                    
+                    let object = fragment.objects.getForIdentity(identity) 
+
+                    if(Array.isArray(object.config.object) == false){
+                        return -1
+                    }
+                    
+                    return object.config.object.length               
+                 },
+
+                removeLine:(identity:string, line:number) => {
+                                        
+                    let objectFragment = fragment.objects.getForIdentity(identity) 
+                    
+                    objectFragment.config.object.splice(line-1,1)
+                                        
+                    console.log(objectFragment.config.object)
                 },
 
                 getPropert: (config:string) => {

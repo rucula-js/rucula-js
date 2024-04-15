@@ -7,7 +7,7 @@ import { frameEvent } from "../FrameEvent";
 
 export function createFrameBlock(frame:frame){
     
-    managmentObject.frame.init.configFieldBlock(frame)
+    managmentObject.frame.configFieldBlock(frame)
     
     const frameElement = createFrame(frame)
     

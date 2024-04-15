@@ -27,7 +27,7 @@ export let frameLineDOM =  (() => {
     
         let newFrame = Object.create(frame) as frame
         
-        managmentObject.frame.init.addLine(newFrame)
+        managmentObject.frame.addLine(newFrame)
 
         const frameLine = createFrame(frame)
         
