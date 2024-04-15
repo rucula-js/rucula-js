@@ -24,9 +24,9 @@ export let tableDependency = (() => {
         let hibernate = dependencyesHibernate.find(c=> c.identityObject == identityObject)
 
         if(hibernate){
-            dependencyesNotResolved.push(Object.assign(hibernate))
+            dependencyesNotResolved.push(hibernate)
             let index = dependencyesHibernate.indexOf(hibernate)
-            dependencyesHibernate.splice(index)
+            dependencyesHibernate.splice(index,1)
         }
     }
 
@@ -35,9 +35,8 @@ export let tableDependency = (() => {
         let notResolved = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
         
         if(notResolved){
-            dependencyesHibernate.push(Object.assign(notResolved))
             let index = dependencyesNotResolved.indexOf(notResolved)
-            dependencyesNotResolved.splice(index)
+            dependencyesNotResolved.splice(index,1)
         }
     }
 
@@ -284,6 +283,10 @@ export let tableDependency = (() => {
             
             let dependency = dependencyesNotResolved.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
             
+            if(dependency == undefined){
+                dependency = dependencyesHibernate.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
+            }
+
             if(dependency){
                 
                 let index = dependency.fieldsNotResolved.indexOf(identity)
