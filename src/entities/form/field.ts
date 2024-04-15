@@ -3,7 +3,7 @@ export interface field {
     description: string
     identity:string
     type: string|string[2]
-    textarea:textarea
+    textarea?:textarea
     maxLength?: number
     max?: number
     min?: number
