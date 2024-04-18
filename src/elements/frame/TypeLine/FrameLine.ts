@@ -1,7 +1,5 @@
 import { constFrameLineActions } from "../../../const";
 import { frame } from "../../../entities/form/frame";
-import { managmentObject } from "../../../object/ObjectManagment";
-import { tableDependency } from "../../../table-dependency/TableDependency";
 import { frameLineTableDOM } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
 import { frameEvent } from "../FrameEvent";
@@ -23,12 +21,9 @@ export let frameLineDOM =  (() => {
         return div
     }
     
-    function createFrameLine(frame:frame){
-    
+    function createFrameLine(frame:frame){     
         let newFrame = Object.create(frame) as frame
         
-        managmentObject.frame.addLine(newFrame)
-
         const frameLine = createFrame(frame)
         
         const table = document.createElement('table');
@@ -37,7 +32,7 @@ export let frameLineDOM =  (() => {
         let title = frameLine.querySelector('h3')!
         
         const rowHeader = frameLineTableDOM.table.header.createHeader(frame)
-        
+
         let thTitle = rowHeader.querySelector('th')!
         thTitle.appendChild(title)
         
@@ -55,16 +50,12 @@ export let frameLineDOM =  (() => {
         table.appendChild(tbody)
         frameLine.appendChild(table)
         
-        FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)
-        
+        FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)   
         if(frame.requerid == false){
-            tableDependency.moveNotResolvedToImbernate(frame.identity)
             frameEvent.managedFrame(frameLine)
             frameEvent.cleanRequeridDependency(frameLine)
 
-        }
-        
-        return frameLine
+        }        return frameLine
     }
     
     
@@ -72,11 +63,6 @@ export let frameLineDOM =  (() => {
         createFrameLine: (frame:frame) => {
             return createFrameLine(frame)
         },
-        addLine: (identity:string) => {
-            return  frameLineTableDOM.table.detail.createNewRowDetail(identity)
-        },
-        removeLine:(currentLineElement:HTMLTableRowElement,inputTargetEvent:HTMLInputElement) => {
-            frameLineTableDOM.table.detail.deleteRowDetail(currentLineElement,inputTargetEvent)
-        }
+
     }
 })()

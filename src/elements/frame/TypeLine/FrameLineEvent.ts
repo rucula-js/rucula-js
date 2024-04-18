@@ -1,7 +1,7 @@
 import { constFrameLineActions } from "../../../const";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../../global/KeyEvents";
 import { managmentObject } from "../../../object/ObjectManagment";
-import { frameLineDOM } from "./FrameLine";
+import { frameLineTableDOM } from "../../table/ElementsTable";
 
 'use strict';
 
@@ -13,14 +13,14 @@ export let FrameLineEventDOM = (() => {
 
     function createNewLine(currentLineElement:HTMLTableRowElement,element:HTMLElement){
         
-        let newline = frameLineDOM.addLine(element.getAttribute("identity")!)
+        let newline = frameLineTableDOM.table.detail.createNewRowDetail(element.getAttribute("identity")!)
         currentLineElement.after(newline);
 
     }
 
     function deleteLine(currentLineElement:HTMLTableRowElement,element:HTMLInputElement){
         
-        frameLineDOM.removeLine(currentLineElement,element);
+        frameLineTableDOM.table.detail.deleteRowDetail(currentLineElement,element);
     }
 
     function crudLineQuadro(event:Event){

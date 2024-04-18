@@ -4,6 +4,7 @@ import { tableDependency } from "../../../table-dependency/TableDependency";
 import { fieldDOM } from "../../form/ElementsInput";
 import { createFrame } from "../ElementFrame";
 import { frameEvent } from "../FrameEvent";
+import { frameValues } from "../FrameValues";
 
 export function createFrameBlock(frame:frame){
     
@@ -24,11 +25,9 @@ export function createFrameBlock(frame:frame){
         
         div.appendChild(fieldElement)
 
-        let input = fieldElement.querySelector('input,select,textarea') as HTMLInputElement|HTMLSelectElement
-        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
-    
     })
 
+    frameValues.setValuesDefined(frame, div);
     frameElement.appendChild(div)
     
     if(frame.requerid == false){

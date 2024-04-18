@@ -33,6 +33,10 @@ export let frameEvent = (() => {
             }
         },
 
+        upManagment:() => {
+            managedFrame = false
+        },
+
         cleanRequeridDependency:(frameElement:HTMLDivElement) => {
     
             frameElement.addEventListener('keyup',(event) => {

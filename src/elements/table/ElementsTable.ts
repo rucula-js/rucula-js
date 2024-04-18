@@ -3,9 +3,11 @@ import { field } from "../../entities/form/field";
 import { frame } from "../../entities/form/frame";
 import { fragment } from "../../fragment/fragment";
 import { managmentObject } from "../../object/ObjectManagment";
+import { tableDependency } from "../../table-dependency/TableDependency";
 import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
 import { frameEvent } from "../frame/FrameEvent";
+import { frameValues } from "../frame/FrameValues";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
 export let frameLineTableDOM = (() => {
@@ -63,6 +65,8 @@ export let frameLineTableDOM = (() => {
                 
                 createRowDetail: (frame:frame) => {
                     
+                    managmentObject.frame.addLine(frame) //! This function must be started immediately at the beginning of line creation
+
                     let tr = document.createElement('tr');
                          
                     const tdActions = document.createElement('td'); //? first td is used for actions line
@@ -85,10 +89,21 @@ export let frameLineTableDOM = (() => {
                         
                         tr.appendChild(td)
     
-                        let input = td.querySelector('input, select') as HTMLInputElement|HTMLSelectElement
-                        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
                     })
+
+                    let rowCount = managmentObject.object.object.count(frame.identity)
+
+                    frameValues.setValuesDefined(frame, tr);
                     
+                    if(frame.requerid == false && rowCount == 1){
+                        frameEvent.upManagment()
+                        tableDependency.moveNotResolvedToImbernate(frame.identity)
+                    }
+
+                    if(frame.requerid == false && rowCount > 1){
+                        tableDependency.moveImbernateToNotResolved(frame.identity)
+                    }
+
                     return tr;
                 },
 
@@ -98,14 +113,12 @@ export let frameLineTableDOM = (() => {
             
                     let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
             
-                    managmentObject.frame.addLine(frame)
-
                     const row = frameLineTableDOM.table.detail.createRowDetail(frame)
                     
                     row.querySelector("input")?.focus()    
                     
                     FrameLineEventDOM.eventKeyDownKeyUpLineFrame(row)
-                
+
                     return row;
                 },
                 
@@ -130,9 +143,14 @@ export let frameLineTableDOM = (() => {
                     
                     let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identityInputTartget)
             
+                    let field = fragment.fields.getForIdentity(identityInputTartget)
+                        
+                    let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
+                    
+                    managmentObject.object.object.removeLine(frame.identity,fragmentObject.config.line as number)
+                    
                     moveActions(fragmentObject.config.fragmentObjectIdentity)
             
-                    
                     if(Tbody?.childNodes.length == 1){
                         
                         //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
@@ -148,12 +166,13 @@ export let frameLineTableDOM = (() => {
                         currentLineElement.remove();
             
                         Tbody.appendChild(newLine)
-                        
+                                                              
                         managmentObject.fragment.removeFragment(identityInputTartget)
+                        
                         function getActions(){
                             return currentLineElement.querySelector('td div') as HTMLDivElement
                         }
-            
+                       
                         return;
                     }
                     

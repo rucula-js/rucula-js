@@ -90,7 +90,12 @@ export let tableDependency = (() => {
                 dependencyesNotResolved.push(objectDependency)
             }
             if( index != -1){
-                dependencyesNotResolved[index].fieldsNotResolved.push(field.identity)
+                
+               let indexDependency = dependencyesNotResolved[index].fieldsNotResolved.findIndex(c => c == field.identity) 
+                
+               if(indexDependency == -1){
+                   dependencyesNotResolved[index].fieldsNotResolved.push(field.identity)
+               }
             }            
         }
 
@@ -167,15 +172,19 @@ export let tableDependency = (() => {
 
         let dependencyObject = dependencyesNotResolved.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
         
+        if(dependencyObject == undefined){
+            dependencyObject = dependencyesHibernate.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
+        }
+
         let dependency = dependencyObject?.fieldsNotResolved.find(dependency => dependency == fragment.key.identity)
 
-        if(existDependecy == true && dependency ==  null){
+        if(existDependecy == true && dependency ==  undefined){
             dependencyObject?.fieldsNotResolved.push(fragment.key.identity)
         }
 
-        if(existDependecy == false && dependency !=  null){
-            let index = dependencyObject?.fieldsNotResolved.indexOf(dependency)
-            dependencyObject?.fieldsNotResolved.splice(index as number,1)
+        if(existDependecy == false && dependency !=  undefined){
+            let index = dependencyObject?.fieldsNotResolved.indexOf(dependency) as number
+            dependencyObject?.fieldsNotResolved.splice(index ,1)
         }      
 
         return existDependecy
