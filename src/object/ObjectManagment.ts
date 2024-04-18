@@ -384,10 +384,6 @@ export let managmentObject = (()=> {
 
         fragment: {
 
-            getAll:() => {
-                return {} // TODO remove
-            },
-            
             getFragmentForIdentity:(identity:string):fragmentField => {
                 return fragment.fields.getForIdentity(identity)
             },
