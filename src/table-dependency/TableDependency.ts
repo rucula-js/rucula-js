@@ -7,13 +7,12 @@ export let tableDependency = (() => {
 
     type dependency = {
         identityObject:string,
+        isHibernate:boolean,
         fieldsNotResolved:string[]
     }
 
     let dependencyesNotResolved:dependency[] = []
     
-    let dependencyesHibernate:dependency[] = []
-
     let REQUERID:string = '1' as const;
     let MAX_LENGHT:string = '2' as const;
     let MAX:string = '3' as const;
@@ -21,24 +20,20 @@ export let tableDependency = (() => {
 
     function moveImbernateToNotResolved(identityObject:string){
 
-        let hibernate = dependencyesHibernate.find(c=> c.identityObject == identityObject)
+        let dependency = dependencyesNotResolved.filter(c=> c.identityObject == identityObject)
 
-        if(hibernate){
-            dependencyesNotResolved.push(hibernate)
-            let index = dependencyesHibernate.indexOf(hibernate)
-            dependencyesHibernate.splice(index,1)
-        }
+        dependency.forEach(item => {
+            item.isHibernate = true
+        })
     }
 
     function moveNotResolvedToImbernate(identityObject:string){
 
-        let notResolved = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
-        
-        if(notResolved){
-            dependencyesHibernate.push(notResolved)
-            let index = dependencyesNotResolved.indexOf(notResolved)
-            dependencyesNotResolved.splice(index,1)
-        }
+        let dependency = dependencyesNotResolved.filter(c=> c.identityObject == identityObject)
+
+        dependency.forEach(item => {
+            item.isHibernate = false
+        })
     }
 
 
@@ -84,6 +79,7 @@ export let tableDependency = (() => {
             if( index == -1){
                 
                 let objectDependency:dependency = {
+                    isHibernate:false,
                     identityObject:fragmentField.config.fragmentObjectIdentity,
                     fieldsNotResolved:[field.identity]  
                 }
@@ -172,10 +168,6 @@ export let tableDependency = (() => {
 
         let dependencyObject = dependencyesNotResolved.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
         
-        if(dependencyObject == undefined){
-            dependencyObject = dependencyesHibernate.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
-        }
-
         let dependency = dependencyObject?.fieldsNotResolved.find(dependency => dependency == fragment.key.identity)
 
         if(existDependecy == true && dependency ==  undefined){
@@ -292,10 +284,6 @@ export let tableDependency = (() => {
         removeExpectedDependency: (identity:string) => {
             
             let dependency = dependencyesNotResolved.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
-            
-            if(dependency == undefined){
-                dependency = dependencyesHibernate.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
-            }
 
             if(dependency){
                 
@@ -319,9 +307,6 @@ export let tableDependency = (() => {
         
         getDependenciesNotResolded:() =>{ 
             return dependencyesNotResolved
-        },
-        getDependenciesHibernate:() =>{
-            return dependencyesHibernate
         },
         dependenciesCount:() => {return dependencyesNotResolved.length},
         moveImbernateToNotResolved: (identityObject:string) => moveImbernateToNotResolved(identityObject),
