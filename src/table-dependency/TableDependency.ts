@@ -35,6 +35,7 @@ export let tableDependency = (() => {
         let notResolved = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
         
         if(notResolved){
+            dependencyesHibernate.push(notResolved)
             let index = dependencyesNotResolved.indexOf(notResolved)
             dependencyesNotResolved.splice(index,1)
         }
