@@ -224,14 +224,17 @@ export let managmentObject = (()=> {
         }
 
         if(isTypeLine()){
-            
+
             let line = fragmentField?.config.line!
 
-            if(fragmentObject.config.object[line] == undefined){
-                fragmentObject.config.object[line] = {}
+            let item = fragmentObject.config.object.find((c:any) => c.rucLine == line)
+
+            if(item == undefined){
+                item = {rucLine:line}
+                fragmentObject.config.object.push(item)
             }
             
-            fragmentObject.config.object[line][fragmentField?.config.propertDto] = value
+            item[fragmentField?.config.propertDto] = value
         }
 
         function isTypeObject(){
@@ -315,7 +318,7 @@ export let managmentObject = (()=> {
                     
                 },
                 setValueContextIdentity:(identity:string, value:any) => {
-                
+
                     let fragmentField = fragment.fields.getForIdentity(identity)
         
                     setValue(fragmentField,value)
@@ -355,12 +358,13 @@ export let managmentObject = (()=> {
                  },
 
                 removeLine:(identity:string, line:number) => {
-                                        
+                          
                     let objectFragment = fragment.objects.getForIdentity(identity) 
                     
-                    objectFragment.config.object.splice(line-1,1)
-                                        
-                    console.log(objectFragment.config.object)
+                    var indexOf = objectFragment.config.object.findIndex((c:any) => c.rucLine == line)
+                    
+                    objectFragment.config.object.splice(indexOf,1)
+                                            
                 },
 
                 getPropert: (config:string) => {
