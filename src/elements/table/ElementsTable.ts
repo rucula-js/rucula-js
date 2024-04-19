@@ -6,6 +6,7 @@ import { managmentObject } from "../../object/ObjectManagment";
 import { tableDependency } from "../../table-dependency/TableDependency";
 import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
+import { frameEvent } from "../frame/FrameEvent";
 import { frameValues } from "../frame/FrameValues";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
@@ -93,8 +94,10 @@ export let frameLineTableDOM = (() => {
                     let rowCount = managmentObject.object.object.count(frame.identity)
 
                     frameValues.setValuesDefined(frame, tr);
-                    
+
                     if(frame.requerid == false && rowCount == 1){
+                        frameEvent.managedFrame(tr)
+                        frameEvent.cleanRequeridDependency(tr)
                         tableDependency.moveNotResolvedToImbernate(frame.identity)
                     }
 
@@ -105,12 +108,10 @@ export let frameLineTableDOM = (() => {
                     return tr;
                 },
 
-                createNewRowDetail: function (identity:string){
+                createNewRowDetail: function (identityObject:string){
 
-                    let field = fragment.fields.getForIdentity(identity)
-            
-                    let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
-            
+                    let frame = configWindow.frame.get(identityObject)
+        
                     const row = frameLineTableDOM.table.detail.createRowDetail(frame)
                     
                     row.querySelector("input")?.focus()    
@@ -124,58 +125,43 @@ export let frameLineTableDOM = (() => {
     
                     let nextSibling:HTMLTableRowElement = currentLineElement.nextSibling as HTMLTableRowElement
                     let previousSibling:HTMLTableRowElement = currentLineElement.previousSibling as HTMLTableRowElement;
-                    let Tbody  = currentLineElement.parentNode
-                
+                    let Tbody = currentLineElement.parentNode!
+
+                    let rowElement = currentLineElement
+                    currentLineElement = rowElement
+                     
                     let identityInputTartget = inputTargetEvent.getAttribute("identity")!
             
-                    currentLineElement.querySelectorAll('input').forEach(input => {
-                        
-                        let identity = input.getAttribute('identity')!
-            
-                        //! IMPORTANT! In the context of this loop, only fragments other than the event fragment should be deleted
-                        if(identityInputTartget != identity){
-            
-                            managmentObject.fragment.removeFragment(identity)
-                        }
-                    })
-                    
                     let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identityInputTartget)
             
                     let field = fragment.fields.getForIdentity(identityInputTartget)
                         
                     let frame = configWindow.frame.get(field.config.fragmentObjectIdentity)
                     
-                    managmentObject.object.object.removeLine(frame.identity,fragmentObject.config.line as number)
-                    
                     moveActions(fragmentObject.config.fragmentObjectIdentity)
-            
-                    if(Tbody?.childNodes.length == 1){
+                    
+                    let count = managmentObject.object.object.count(frame.identity)
+                    
+                    let actions = currentLineElement.querySelector('td div') as HTMLDivElement
+                    
+                    currentLineElement.remove(); //! Importante! This call must be before object and fragment. Otherwise there will be unexpected errors. 
+                    managmentObject.object.object.removeLine(frame.identity,field.config.line as number)
+                    managmentObject.fragment.removeFragmentsLine(frame.identity,field.config.line as number)
+                    
+                    if(count == 1){
                         
                         //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
                         
-                        let newLine =  frameLineTableDOM.table.detail.createNewRowDetail(identityInputTartget);
+                        let newLine =  frameLineTableDOM.table.detail.createNewRowDetail(frame.identity);
                         
                         let tdActions = getCellActions(newLine)
                         
-                        let actions = getActions()
-                        
                         tdActions?.appendChild(actions)
                         
-                        currentLineElement.remove();
-            
                         Tbody.appendChild(newLine)
-                                                              
-                        managmentObject.fragment.removeFragment(identityInputTartget)
                         
-                        function getActions(){
-                            return currentLineElement.querySelector('td div') as HTMLDivElement
-                        }
-                       
-                        return;
+                        newLine?.querySelector("input")?.focus();
                     }
-                    
-                    currentLineElement.remove();
-                    managmentObject.fragment.removeFragment(identityInputTartget) //? Removes the fragment that was preserved before checking the existence of rows in the table body
                     
                     function moveActions(fragmentObject:string){
                         

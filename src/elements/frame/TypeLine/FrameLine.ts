@@ -2,7 +2,6 @@ import { constFrameLineActions } from "../../../const";
 import { frame } from "../../../entities/form/frame";
 import { frameLineTableDOM } from "../../table/ElementsTable";
 import { createFrame } from "../ElementFrame";
-import { frameEvent } from "../FrameEvent";
 import { FrameLineEventDOM } from "./FrameLineEvent";
 
 export let frameLineDOM =  (() => {
@@ -49,12 +48,7 @@ export let frameLineDOM =  (() => {
         table.appendChild(tbody)
         frameLine.appendChild(table)
         
-        FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)   
-        if(frame.requerid == false){
-            frameEvent.managedFrame(frameLine)
-            frameEvent.cleanRequeridDependency(frameLine)
-
-        }        
+        FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)         
         return frameLine
     }
     

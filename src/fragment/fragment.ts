@@ -1,4 +1,5 @@
 import { entityConfiguration, fragmentField, fragmentObject } from "../object/ObjectAliases";
+import { tableDependency } from "../table-dependency/TableDependency";
 
 export let fragment = (() => {
 
@@ -29,6 +30,7 @@ export let fragment = (() => {
             getForFieldIdentity: function(identity:string):fragmentObject{
 
                 let field = fragment.fields.getForIdentity(identity)
+                
                 return fragment.objects.getForIdentity(field.config.fragmentObjectIdentity)
             },
             getForIdentity: function(identity:string):fragmentObject{
@@ -82,6 +84,20 @@ export let fragment = (() => {
                 if(index > -1){
                     fields.splice(index,1)
                 }
+            },
+            removeLine: function(objectIDentity:string, line:number){
+                
+                let _fields = fields.filter(item => item.config.fragmentObjectIdentity == objectIDentity && item.config.line == line)
+
+                _fields.forEach(field => {
+                    
+                    let indexOf = fields.indexOf(field)
+
+                    if(indexOf > -1){
+                        tableDependency.removeExpectedDependency(field.key.identity)
+                        fields.splice(indexOf,1)
+                    }
+                })
             },
              /**
              * @param {string} identity

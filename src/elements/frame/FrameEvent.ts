@@ -1,40 +1,36 @@
+import { fragment } from "../../fragment/fragment";
+import { managmentObject } from "../../object/ObjectManagment";
 import { tableDependency } from "../../table-dependency/TableDependency";
 
 export let frameEvent = (() => {
 
-    let managedFrame:boolean = false
-
     return {
 
-        managedFrame:(frameElement:HTMLDivElement) => {
+        managedFrame:(frameElement:HTMLElement) => {
             // Manages frames that are not mandatory based on user input
-
             frameElement?.addEventListener('input',(event) => valueInformed(event))
             frameElement?.addEventListener('change',(event) => valueInformed(event))
             
             function valueInformed(event:Event){
                 
-                if(managedFrame){
+                let target = event.target as HTMLInputElement|HTMLSelectElement
+
+                let identity = target.getAttribute('identity')!
+                
+                let fragmentObject = fragment.objects.getForFieldIdentity(identity)
+
+                let count = managmentObject.object.object.count(fragmentObject.key.identity)
+
+                if(count > 1){
                     // This option indicates that the Frame previously obtained user input, 
                     // which caused the frame to change its behavior to be managed
                     return
                 }
-                
-                let target = event.target as HTMLInputElement|HTMLSelectElement
 
-                if(target){
-                    // At the first interaction recognition, the Frame starts to have mandatory Frame behavior    
-                    let identity = frameElement.getAttribute('identity')!
-                    
-                    tableDependency.moveImbernateToNotResolved(identity)
-                    
-                    managedFrame = true   
+                if(target){                    
+                    tableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)
                 }
             }
-        },
-
-        upManagment:() => {
-            managedFrame = false
         },
 
         cleanRequeridDependency:(frameElement:HTMLDivElement) => {
@@ -42,16 +38,23 @@ export let frameEvent = (() => {
             frameElement.addEventListener('keyup',(event) => {
 
                 const key = event.key;
-    
-                if(key != 'Escape' && managedFrame){
-                    return
-                } 
-                
-                let identity = frameElement.getAttribute('identity')!
-                tableDependency.moveNotResolvedToImbernate(identity)
 
-                resetManageFrameTypeLine(frameElement)       
-                resetManageFrameTypeBlock(frameElement)
+                let identity = (event.target as HTMLElement).getAttribute('identity')!
+
+                let fragmentObject = fragment.objects.getForFieldIdentity(identity)
+
+                let count = managmentObject.object.object.count(fragmentObject.key.identity)
+        
+                if(count  >1){
+                    tableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)
+                }
+                if(key == 'Escape' && count  == 1){
+ 
+                    tableDependency.moveNotResolvedToImbernate(fragmentObject.key.identity)
+                    resetManageFrameTypeLine(frameElement)       
+                    resetManageFrameTypeBlock(frameElement)
+                }
+
             })
         }
     }
@@ -65,23 +68,13 @@ export let frameEvent = (() => {
         cleanFrame(frameElement)
     }
 
-    function resetManageFrameTypeLine(frameElement:HTMLDivElement){
+    function resetManageFrameTypeLine(element:HTMLDivElement|HTMLTableRowElement){
 
-        const FIRST_ROW_BODY = 3 //1(title),2(cols),3(fisrt row body)
-
-        if(frameElement.classList.contains('r-q-l') == false){
+        if(element.nodeName != 'TR'){
             return
         }
-
-        let rows = frameElement.querySelectorAll('tr')
-
-        if(rows.length > FIRST_ROW_BODY){
-            return
-        } 
-
-        cleanFrame(rows[FIRST_ROW_BODY-1])
+        cleanFrame(element)
     }
-    
     
     function cleanFrame(blockORLine:HTMLElement){
         blockORLine.querySelectorAll('input')

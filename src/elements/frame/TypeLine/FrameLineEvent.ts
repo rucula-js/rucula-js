@@ -1,4 +1,5 @@
 import { constFrameLineActions } from "../../../const";
+import { fragment } from "../../../fragment/fragment";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../../global/KeyEvents";
 import { managmentObject } from "../../../object/ObjectManagment";
 import { frameLineTableDOM } from "../../table/ElementsTable";
@@ -13,7 +14,8 @@ export let FrameLineEventDOM = (() => {
 
     function createNewLine(currentLineElement:HTMLTableRowElement,element:HTMLElement){
         
-        let newline = frameLineTableDOM.table.detail.createNewRowDetail(element.getAttribute("identity")!)
+        let field = fragment.fields.getForIdentity(element.getAttribute("identity")!)    
+        let newline = frameLineTableDOM.table.detail.createNewRowDetail(field.config.fragmentObjectIdentity)
         currentLineElement.after(newline);
 
     }
@@ -152,6 +154,5 @@ export let FrameLineEventDOM = (() => {
 
             })
         }
-        
     }
 })()

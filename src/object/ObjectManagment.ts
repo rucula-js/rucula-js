@@ -358,7 +358,7 @@ export let managmentObject = (()=> {
                  },
 
                 removeLine:(identity:string, line:number) => {
-                          
+                                              
                     let objectFragment = fragment.objects.getForIdentity(identity) 
                     
                     var indexOf = objectFragment.config.object.findIndex((c:any) => c.rucLine == line)
@@ -388,6 +388,9 @@ export let managmentObject = (()=> {
                 return fragment.fields.getForIdentity(identity)
             },
 
+            removeFragmentsLine:(objectIDentity:string, line:number) => {
+                fragment.fields.removeLine(objectIDentity,line)
+            },
             removeFragment:(identity:string) => {
 
                 //TODO - manually tested - do automated testing
