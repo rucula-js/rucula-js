@@ -6,7 +6,6 @@ import { managmentObject } from "../../object/ObjectManagment";
 import { tableDependency } from "../../table-dependency/TableDependency";
 import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
-import { frameEvent } from "../frame/FrameEvent";
 import { frameValues } from "../frame/FrameValues";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
 
@@ -96,7 +95,6 @@ export let frameLineTableDOM = (() => {
                     frameValues.setValuesDefined(frame, tr);
                     
                     if(frame.requerid == false && rowCount == 1){
-                        frameEvent.upManagment()
                         tableDependency.moveNotResolvedToImbernate(frame.identity)
                     }
 
