@@ -26,6 +26,11 @@ export let fragment = (() => {
                 objects.push(object)
             },
 
+            getForFieldIdentity: function(identity:string):fragmentObject{
+
+                let field = fragment.fields.getForIdentity(identity)
+                return fragment.objects.getForIdentity(field.config.fragmentObjectIdentity)
+            },
             getForIdentity: function(identity:string):fragmentObject{
 
                 if(identity === undefined){
