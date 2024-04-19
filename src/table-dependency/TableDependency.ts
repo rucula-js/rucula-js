@@ -20,22 +20,20 @@ export let tableDependency = (() => {
 
     function moveImbernateToNotResolved(identityObject:string){
 
-        let dependency = dependencyesNotResolved.filter(c=> c.identityObject == identityObject)
+        let dependency = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
 
-        dependency.forEach(item => {
-            item.isHibernate = true
-        })
+        if(dependency){
+            dependency.isHibernate = false
+        } 
     }
 
     function moveNotResolvedToImbernate(identityObject:string){
 
-        let dependency = dependencyesNotResolved.filter(c=> c.identityObject == identityObject)
-
-        dependency.forEach(item => {
-            item.isHibernate = false
-        })
+        let dependency = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
+        if(dependency){
+            dependency.isHibernate = true
+        }        
     }
-
 
     function createExpectedDependency(field:field, fragmentField:fragmentField):string {   
     
