@@ -48,7 +48,6 @@
         "copyfiles": "^2.4.1",
         "css-loader": "^6.8.1",
         "html-webpack-plugin": "^5.5.3",
-        "jsdom": "^23.2.0",
         "mini-css-extract-plugin": "^2.7.6",
         "mocha": "^10.2.0",
         "rimraf": "^5.0.1",
