@@ -22,8 +22,7 @@ export let frameLineDOM =  (() => {
     }
     
     function createFrameLine(frame:frame){     
-        let newFrame = Object.create(frame) as frame
-        
+
         const frameLine = createFrame(frame)
         
         const table = document.createElement('table');
@@ -40,7 +39,7 @@ export let frameLineDOM =  (() => {
         
         const tbody = document.createElement('tbody')
 
-        const rowDetail = frameLineTableDOM.table.detail.createRowDetail(newFrame)
+        const rowDetail = frameLineTableDOM.table.detail.createRowDetail(frame)
         
         let td = frameLineTableDOM.table.detail.getCellActions(rowDetail)
         
@@ -55,7 +54,8 @@ export let frameLineDOM =  (() => {
             frameEvent.managedFrame(frameLine)
             frameEvent.cleanRequeridDependency(frameLine)
 
-        }        return frameLine
+        }        
+        return frameLine
     }
     
     
