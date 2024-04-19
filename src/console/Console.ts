@@ -111,7 +111,6 @@ function outputCommandNotFound(){
 }
 function outputDependencies(){
     let dependecies = table.tableDependency.getDependenciesNotResolded()
-    let dependeciesHibernate = table.tableDependency.getDependenciesHibernate()
     
 
     let output ='<br>'; 
@@ -121,14 +120,12 @@ function outputDependencies(){
     dependecies.forEach(c => { 
         c.fieldsNotResolved.forEach(dep => {
 
-            output+=`<div style="color: green;">${dep}</div>`
-        })
-    })
-
-    dependeciesHibernate.forEach(c => { 
-        c.fieldsNotResolved.forEach(dep => {
-
-            output+=`<div style="color: orange;">${dep}</div>`
+            if(c.isHibernate){
+                output+=`<div style="color: orange;">${dep}</div>`
+            }
+            if(c.isHibernate == false){
+                output+=`<div style="color: green;">${dep}</div>`
+            }
         })
     })
 
