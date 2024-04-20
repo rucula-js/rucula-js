@@ -118,7 +118,7 @@ export let FrameLineEventDOM = (() => {
 
                 let tr = td?.parentElement as HTMLTableRowElement // td <- tr
 
-                let input = (td?.nextSibling as HTMLTableCellElement)?.querySelector('input') as HTMLInputElement
+                let input = (td?.nextSibling as HTMLTableCellElement)?.querySelector('input,select') as HTMLInputElement
 
                 return {
                     tr:tr,
