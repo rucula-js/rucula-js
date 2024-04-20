@@ -10,11 +10,18 @@ export class ElementButton extends ElementBase implements ElementStrategy{
         if(button.target == null || button.target == ""){
             throw new Error("target is requerid!")
         }
-        
         this.element = document.createElement('button');
         this.element.classList.add("r-b-i");
-        this.element.textContent = button.text??"";
-        this.element.appendChild(createIcon(button));
+        
+        let icon = createIcon(button)
+        let span = document.createElement('span')
+        span.textContent = button.text??"";
+
+        span.style.marginLeft = "5px";
+        
+        this.element.appendChild(icon);
+        this.element.appendChild(span);
+
         this.addColor(button.color);
         this.addDataIdAttribute(button);
         return this.element;
