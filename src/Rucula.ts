@@ -2,7 +2,7 @@ import { window } from "./entities/form/window";
 import { managmentObject } from "./object/ObjectManagment";
 import {createPanel,set}  from './console/Console'
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
-import { constTypeFrame, eventRucula } from "./const";
+import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
 import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
 import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
@@ -67,15 +67,18 @@ export class Rucula{
      
         if(this.window?.iconHome){
             
-            let icon = document.getElementById("r-f-home-icon")
+            let icon = document.getElementById("r-f-home-icon")!
             icon?.classList.add(this.window.iconHome)
         }
 
         if(this.window?.messageHome){
         
-            let title = document.getElementById("r-f-home-title")
-            title!.textContent = this.window?.messageHome
+            let title = document.getElementById("r-f-home-title")!
+            title.textContent = this.window?.messageHome
         }
+        
+        let title = document.getElementById(constIdBaseWindow.TITLE)!
+        title.textContent = this.window.name
     }
     
     private createButtons(type:string="CRUD"){

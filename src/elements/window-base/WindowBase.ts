@@ -84,6 +84,9 @@ export let windowBaseDOM = (() => {
                         </button>    
                     </div>
                 </div>
+                <div>
+                    <h3 id="${constIdBaseWindow.TITLE}"></h3>
+                </div>
                 <div class="r-head r-read-edit">
                     <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                     <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
