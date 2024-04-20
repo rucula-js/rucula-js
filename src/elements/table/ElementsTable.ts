@@ -148,7 +148,7 @@ export let frameLineTableDOM = (() => {
                     managmentObject.object.object.removeLine(frame.identity,field.config.line as number)
                     managmentObject.fragment.removeFragmentsLine(frame.identity,field.config.line as number)
                     
-                    if(count == 1){
+                    if(count <= 1){
                         
                         //! IMPORTANT! Note that the unremoved fragment can be used here, which is why it was not removed before
                         
