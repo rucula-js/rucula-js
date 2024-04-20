@@ -205,28 +205,20 @@ export let fieldDOM = (() => {
         dependency: {
             focusFieldsWithDependency:() => {
             
-                   tableDependency.getDependenciesNotResolded()?.forEach(object => {
-                    object.fieldsNotResolved?.forEach(identity => {
-                
+                   tableDependency
+                   .getDependenciesNotResolded()
+                   .filter(c => c.isHibernate == false)
+                   ?.forEach(object => {
+
+                        object.fieldsNotResolved?.forEach(identity => {
+
                         let input = document.querySelector('[identity='+identity+']')
-                    
-                        if(input?.parentNode?.nodeName == "TD"){
-                            (input?.parentNode as Element)?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
-                            return;
-                        }
-        
                         input?.classList.add(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
                     })
                 })
             },
 
             cleanFocusDependency: (input:HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement) => {
-                
-                if(input?.parentNode?.nodeName == "TD"){
-                    (input?.parentNode as Element)?.classList.remove(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
-                    return
-                }
-
                 input.classList.remove(constInputClass.FOCUS_IN_INPUT_WITH_DEPENDENCY)
             }
 
