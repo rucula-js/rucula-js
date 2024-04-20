@@ -40,7 +40,7 @@ export let buttonsBase = (function (){
                 delete:() => buttonDelete.remove()
             },
             crud:(crud:string) => {
-                if(crud == ""){
+                if(crud == "" || crud == undefined){
                     buttonCreate.remove()
                     buttonAlter.remove()
                     buttonDelete.remove()

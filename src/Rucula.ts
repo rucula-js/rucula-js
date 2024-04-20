@@ -55,7 +55,7 @@ export class Rucula{
         httpManagment.init(this.window.endPoints)
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
-        buttonsBase.buttonsTypeCrud.crud(this.window.crud);
+        buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
         
         this.resetBackground()
 
