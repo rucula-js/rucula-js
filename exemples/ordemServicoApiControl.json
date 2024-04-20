@@ -4,20 +4,8 @@
   "type": "crud",
   "messageHome": "Ordem de Serviço",
   "iconHome": "bi-rocket-takeoff",
-  "this": "ordemDeServico",
   "grid":false,
   "frames": [
-    {
-      "type":"chart",
-      "name": "Chart Pie",
-      "objectDto": "testeChart1",
-      "alias": "testeChart1",
-      "chartConfig":
-      {
-          "type": ["pie"],
-          "labels":["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto"]
-      }
-    },
     {
       "name": "Header OS",
       "objectDto": "ordemDeServico",
@@ -219,17 +207,6 @@
       ["tecnicoResponsavel","tecnicoResponsavel","pagamento"]      
     ]
   },
-  "columnsGrid": [
-    {
-      "title": "codigo",
-      "field": "codigo"
-    },
-    {
-      "title": "data Abertura",
-      "field": "dataAbertura"
-    }
-  ],
-  "paramsGrid": "/{{codigo}}",
   "button": [
     {
       "icon": "bi bi-save",
@@ -261,41 +238,4 @@
       "target": "finalizar-compra",
       "endPoint": "delete-os"
     }
-  ],
-  "endPoints": [
-    {
-      "name": "create-os",
-      "method": "post",
-      "body": "this"
-    },
-    {
-      "name": "delete-os",
-      "method": "delete",
-      "params": "/{{ordemDeServico.codigo}}"
-    },
-    {
-      "name": "update-os",
-      "method": "put",
-      "params": "/{{ordemDeServico.codigo}}",
-      "body": "this"
-    },
-    {
-      "name": "get-all-grid",
-      "method": "get"
-    },
-    {
-      "name": "get-by-id",
-      "method": "get"
-    },
-    {
-      "name": "documentacao",
-      "method": "get",
-      "params": "/{{ordemDeServico.codigo}}"
-    },
-    {
-      "name": "finalizar-compra",
-      "method": "post",
-      "params": "/{{ordemDeServico.codigo}}"
-    }
-  ]
-}
+  ]}

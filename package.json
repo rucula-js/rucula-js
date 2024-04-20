@@ -34,11 +34,9 @@
         "publish": "npm run compile & npm publish"
     },
     "dependencies": {
-        "axios": "^1.4.0",
         "chart.js": "^4.4.2",
         "install": "^0.13.0",
-        "package": "^1.0.1",
-        "tabulator-tables": "^5.5.2"
+        "package": "^1.0.1"
     },
     "devDependencies": {
         "@types/jsdom": "^21.1.6",

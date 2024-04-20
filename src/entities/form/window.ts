@@ -1,6 +1,4 @@
 import { button } from "./button";
-import { columnsGrid } from "./columnsGrid";
-import { endPoint } from "./endPoint";
 import { frame } from "./frame";
 
 type cssGrid = {
@@ -15,14 +13,11 @@ export interface window{
     crud: string
     messageHome: string
     iconHome: string
-    this: string
     pathController: string
     frames: Array<frame>
     grid: boolean
-    columnsGrid: columnsGrid[]
     paramsGrid: string
     button: button[]
     joinChield: string[]
-    endPoints: endPoint[]
     layout: cssGrid
 }

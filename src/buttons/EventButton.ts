@@ -1,7 +1,6 @@
 import { button } from '../entities/form/button';
 import { tableDependency } from '../table-dependency/TableDependency';
 import { fieldDOM } from '../elements/form/ElementsInput';
-import { httpManagment } from '../httpManagment/httpManagment';
 import { buttonsDOM } from './Button';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
 
@@ -38,10 +37,6 @@ export function eventButton(buttons:button[]){
                 if( dependencyCount > 0){
                     fieldDOM.dependency.focusFieldsWithDependency()
                     return;
-                }
-
-                if(button.endPoint){
-                    httpManagment.request(button.endPoint)
                 }
              })
         }

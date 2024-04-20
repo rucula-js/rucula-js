@@ -3,7 +3,6 @@ import { managmentObject } from "./object/ObjectManagment";
 import {createPanel,set}  from './console/Console'
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
-import { createLeftGrid } from "./tabulator/Tabulator";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
 import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
@@ -11,7 +10,6 @@ import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
 import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
-import { httpManagment } from "./httpManagment/httpManagment";
 import { frameChart } from "./elements/frame/FrameChart";
 import { buttonsDOM } from "./buttons/Button";
 
@@ -50,9 +48,7 @@ export class Rucula{
         layoutFrames.configureLayout(this.window)
         this.createFrames()
         set() 
-        createLeftGrid(this.window.grid);
         this.createButtons();
-        httpManagment.init(this.window.endPoints)
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
