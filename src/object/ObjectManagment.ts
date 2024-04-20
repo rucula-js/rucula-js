@@ -92,7 +92,9 @@ export let managmentObject = (()=> {
         let object = fragment.objects.getForIdentity(frame.identity)
         
         let newLine = object.config.object.length + 1
-        
+
+        object.config.object.push({rucLine:newLine})
+
         frame.fields?.forEach(field => {
             
             field.identity = generateUUID('I') //! This instruction should not be removed from its place, otherwise there will be problems due to missing identity not created
@@ -111,11 +113,12 @@ export let managmentObject = (()=> {
                 }    
             }
 
-            config.config.dependency =  tableDependency.createExpectedDependency(field,config)
+            config.config.dependency = tableDependency.createExpectedDependency(field,config)
 
             tableDependency.toApplyOrRemoveDependency(config, field.value)
 
             fragment.fields.add(config)
+
         })    
     }    
        
