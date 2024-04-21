@@ -29,8 +29,7 @@
                 "representation":"grid",
                 "value":"grid"
               }
-            ],
-            "width":111
+            ]
           },
           {
             "propertDto": "crud",
@@ -96,66 +95,6 @@
           {
             "propertDto": "color",
             "description": "color"
-          },
-          {
-            "propertDto": "endPoint",
-            "description": "endPoint"
-          }
-        ]
-      },
-      {
-        "name": "End Points",
-        "objectDto": "endPoint",
-        "alias": "endPoint",
-        "parent":".",
-        "type":"line",
-        "requerid":false,
-        "fields": [
-          {
-            "propertDto": "name",
-            "description": "name",
-            "requerid":true,
-            "maxLength":30
-          },
-         
-          {
-            "propertDto": "description",
-            "description": "description"
-          },
-          {
-            "propertDto": "method",
-            "description": "method",
-            "type":["select","text"],
-            "combo":[
-              {
-              "representation":"GET",
-              "value":"get"
-              },
-              {
-                "representation":"PUT",
-                "value":"put"
-              },
-              {
-                "representation":"POST",
-                "value":"post"
-                },
-                {
-                  "representation":"DELETE",
-                  "value":"delete"
-                }
-          ]
-          },
-          {
-            "propertDto": "urlrelative",
-            "description": "urlrelative"
-          },
-          {
-            "propertDto": "params",
-            "description": "params"
-          },
-          {
-            "propertDto": "body",
-            "description": "body"
           }
         ]
       },
