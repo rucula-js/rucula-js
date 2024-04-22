@@ -11,12 +11,13 @@ import "./public/normalize.css"
 (()=> {
     
     let ruculaWindow = {}
+    let abaView:any = null
 
     const RUCULA_ELEMENT = "js"
-
-    if(window.location.search){
-        let value  = window.location.search.replace("?window=","")
-        ruculaWindow = JSON.parse(JSON.stringify(value))
+    
+    if(window.location.search != ''){
+        let newWindow = window.decodeURIComponent(window.location.search.replace('?window=',''))
+        ruculaWindow = JSON.parse(newWindow)
     }
 
     if(window.location.search == ''){
@@ -37,19 +38,36 @@ import "./public/normalize.css"
 
     let rucula = new Rucula(ruculaWindow as any,RUCULA_ELEMENT);
 
-    let abaView:any = null
 
     function visualizeWindow(){
        
-        let obj = rucula.object.getFullObject();
+        let obj = createJSON()
+        
+        let path = `?window=${JSON.stringify(obj)}`;
         
         if(abaView == null){
 
-            abaView = window.open(`?window=${JSON.stringify(obj)}`)
+            abaView = window.open(path)
         }
         
-        if(abaView){
-            abaView.location.href = `?window=${JSON.stringify(obj)}`
+        if(abaView != null){
+            abaView.location.href = path;
+        }
+        
+        function createJSON(){
+        
+            let object = rucula.object.getSepareteObject();
+            
+            let window = object.aliasWindow 
+
+            window.frames = object.aliasFrame 
+
+            window.frames.forEach((frame:any) => {
+                
+                frame.fields = object.aliasField.filter((field:any) => field.frame == frame.alias)
+            });
+
+            return window
         }
     }
     

@@ -106,6 +106,10 @@
         "parent":".",
         "fields": [
           {
+            "propertDto": "alias",
+            "description": "alias"
+          },
+          {
             "propertDto": "name",
             "description": "name"
           },
@@ -120,10 +124,6 @@
           {
             "propertDto": "objectDto",
             "description": "objectDto"
-          },
-          {
-            "propertDto": "alias",
-            "description": "alias"
           },
           {
             "propertDto": "vertical",
@@ -146,6 +146,10 @@
         "parent":".",
         "type":"line",
         "fields": [
+          {
+            "propertDto": "frame",
+            "description": "frame"
+          },
           {
             "propertDto": "description",
             "description": "description"
@@ -267,17 +271,37 @@
             "description": "value"
           }
         ]
+      },
+      {
+        "name": "Layout",
+        "type": "line",
+        "objectDto": "layout",
+        "alias": "aliasLayout",
+        "parent":".",
+        "fields": [
+          {
+            "propertDto": "coluna1",
+            "description": "Coluna 1"
+          },
+          {
+            "propertDto": "coluna2",
+            "description": "Coluna 2"
+          },
+          {
+            "propertDto": "coluna3",
+            "description": "Coluna 3"
+          }
+        ]
       }
     ],
     "layout":{
       "items":
       [
         ["window","window","window"],
-        ["endPoint","endPoint","endPoint"],
         ["button","button","button"],
         ["frame","frame","frame"],
-        ["field","field","field"],
-        ["output","output","output"]
+        ["layout","layout","layout"],
+        ["field","field","field"]
 
       ]
     },
