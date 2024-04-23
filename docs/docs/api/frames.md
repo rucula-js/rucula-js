@@ -1,5 +1,7 @@
 # Frame
 
+## Propriedades
+
 ### name `string` `requerid`
 Nome do Frame
 

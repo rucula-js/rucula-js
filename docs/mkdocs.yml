@@ -17,7 +17,6 @@ nav:
     - Grids: compreendendo/grids.md
     - Eventos: compreendendo/eventos.md
     - Urls: compreendendo/urls.md
-    - End Points: compreendendo/endPoints.md
     - Botões: compreendendo/botoes.md
   - Guia do Usuario:  
     - Consumindo a API via CEP com evento de campo : guia-usuario/viacep-com-evento-de-campo.md
@@ -30,10 +29,11 @@ nav:
     - Ambientes: ambiente.md
     - Localizações: localizacoes.md
   - Api:
+    - Janelas: api/janelas.md
     - Frames: api/frames.md
+    - Fields: api/fields.md
     - Botões: api/botoes.md
-    - Objetos: api/objetos.md
-    - Charrts: api/charts.md
+    
 
 theme:
   name: material
