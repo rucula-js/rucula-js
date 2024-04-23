@@ -12,7 +12,6 @@ export interface field {
     propertDto: string
     information?:string
     width:number
-    formula?:string[]
     groupFormat?:string
     checkbox?:checkbox
     combo?:[],
