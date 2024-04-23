@@ -72,7 +72,7 @@
     margin: 0 !important;
 }
 .r-input-width-default {
-    width: 350px;
+    width: 250px;
 }
 /* Estilize o painel */
 .box-panel {
@@ -193,7 +193,6 @@ input.r-i-control[identity][disabled] {
 .r-t-f{
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-left: 5px;
 }
 
 /*Frames*/
@@ -212,6 +211,7 @@ input.r-i-control[identity][disabled] {
 .r-q-l{
     border-radius: 3px;
     background-color: var(--color-write);
+    padding-left: 10px;
     
 }
 
@@ -236,7 +236,6 @@ input.r-i-control[identity][disabled] {
 }
 
 .r-q-b .r-g-i-i{
-    margin-left: 10px;
     margin-bottom: 18px;
 }
 

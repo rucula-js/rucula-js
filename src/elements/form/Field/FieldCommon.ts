@@ -31,25 +31,9 @@ export class FieldCommon extends FieldInput{
             input.type = "text";
         }
         
-        if (this.field.width > 0){
-            input.style.width = `${this.field.width}px`  
-        }
-        if (this.field.width === undefined && allowsStandardWidth() ){
-            input.classList.add("r-input-width-default")
-        }
-        
+        this.setWidth()
         input.classList.add("r-i-control")
         
-
-        function allowsStandardWidth():boolean{
-            
-        let condition = 
-            input.type == constTypeInput.TEXT ||
-            input.type == constTypeInput.NUMBER ||
-            input.type == constTypeInput.CHECKBOX
-
-            return condition;
-        }
         this.setEvents()
     }
 
