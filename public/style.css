@@ -163,11 +163,6 @@
     font-size: 1rem;
 }
 
-.r-i-control:focus-within{
-    border-color:var( --color-black);
-    box-shadow: inset 0 0 0 1px var( --color-black);;
-}
-
 /* Firefox */
 .r-i-control[type=number] {
   --moz-appearance: textfield;
@@ -436,11 +431,12 @@ form.r-f-items{
     justify-content: space-between;
     width: 96%;
     border-radius: 20px;
-    border: 2px solid var(--color-teme-secundary);
+    border: 2px solid var(--color-black);
     margin:auto;
     margin-top: 10px;
     margin-bottom: 10px;
     border-spacing: 0;
+    padding: 5;
     overflow: hidden;
 }
 
@@ -565,6 +561,13 @@ form.r-f-items{
     color: #323840;
     box-sizing: border-box;
 }
+.did-floating-input:focus-within,
+.did-floating-select:focus-within,
+.r-i-control:focus-within{
+    border-color:var( --color-black);
+    box-shadow: inset 0 0 0 1px var( --color-black);
+}
+
 .did-floating-input:focus, .did-floating-select:focus {
     outline: none;
 }
