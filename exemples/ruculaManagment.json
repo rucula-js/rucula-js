@@ -111,10 +111,6 @@
           {
             "propertDto": "parent",
             "description": "parent"
-          },
-          {
-            "propertDto": "chartConfig",
-            "description": "chartConfig"
           }
         ]
       },
@@ -142,7 +138,7 @@
           },
           {
             "propertDto": "typeRepresentation",
-            "description": "type",
+            "description": "entry",
             "type":["select","text"],
             "combo":[
               {
@@ -187,7 +183,7 @@
           },
           {
             "propertDto": "typeReturn",
-            "description": "type Return",
+            "description": "return",
             "type":["select","text"],
             "combo":[
               {
@@ -216,12 +212,15 @@
           {
             "propertDto": "max",
             "description": "max",
-            "type":"number"
+            "type":"number",
+            "width":60
           },
           {
             "propertDto": "min",
             "description": "min",
-            "type":"number"
+            "type":"number",
+            "width":60
+
           },
           {
             "propertDto": "requerid",
@@ -243,23 +242,15 @@
           },
           {
             "propertDto": "width",
-            "description": "width"
-          },
-          {
-            "propertDto": "checkbox",
-            "description": "checkbox"
-          },
-          {
-            "propertDto": "radio",
-            "description": "radio"
-          },
-          {
-            "propertDto": "combo",
-            "description": "combo"
+            "description": "width",
+            "type":"number",
+            "width":60
+
           },
           {
             "propertDto": "value",
-            "description": "value"
+            "description": "value",
+            "width":100
           }
         ]
       },
