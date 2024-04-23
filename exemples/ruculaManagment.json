@@ -37,6 +37,15 @@
             "value":"crud"
           },
           {
+            "propertDto": "vertical",
+            "description": "Vertical",
+            "type":["checkbox","bool"],
+            "checkbox":{
+              "on":true,
+              "off":false
+            }
+          },
+          {
             "propertDto": "messageHome",
             "description": "messageHome",
             "width":600
@@ -52,10 +61,10 @@
         ]
       },
       {
-        "name": "button",
-        "objectDto": "button",
-        "alias": "aliasButton",
-        "type":"line",
+        "name": "frame",
+        "type": "line",
+        "objectDto": "frame",
+        "alias": "aliasFrame",
         "parent":".",
         "fields": [
           {
@@ -64,74 +73,44 @@
             "type":["select","text"],
             "combo":[
               {
-              "representation":"link",
-              "value":"link"
+                  "representation":"block",
+                  "value":"block"
               },
               {
-                "representation":"button",
-                "value":"button"
+                "representation":"line",
+                "value":"line"
               }
-          ]
-  
+          ],
+          "width":300
           },
           {
-            "propertDto": "target",
-            "description": "target",
-            "maxLength":20,
+            "propertDto": "alias",
+            "description": "alias",
             "requerid":true
           },
           {
-            "propertDto": "link",
-            "description": "link"
-          },
-          {
-            "propertDto": "icon",
-            "description": "icon"
-          },
-          {
-            "propertDto": "text",
-            "description": "text"
-          },
-          {
-            "propertDto": "color",
-            "description": "color"
-          }
-        ]
-      },
-      {
-        "name": "frame",
-        "type": "line",
-        "objectDto": "frame",
-        "alias": "aliasFrame",
-        "parent":".",
-        "fields": [
-          {
-            "propertDto": "alias",
-            "description": "alias"
+            "propertDto": "objectDto",
+            "description": "objectDto",
+            "requerid":true
+          
           },
           {
             "propertDto": "name",
-            "description": "name"
+            "description": "name",
+            "requerid":true
           },
           {
-            "propertDto": "type",
-            "description": "type"
+            "propertDto": "vertical",
+            "description": "vertical",
+            "type":["checkbox","bool"],
+            "checkbox":{
+              "on":true,
+              "off":false
+            }
           },
           {
             "propertDto": "parent",
             "description": "parent"
-          },
-          {
-            "propertDto": "objectDto",
-            "description": "objectDto"
-          },
-          {
-            "propertDto": "vertical",
-            "description": "vertical"
-          },
-          {
-            "propertDto": "vertical",
-            "description": "vertical"
           },
           {
             "propertDto": "chartConfig",
@@ -148,11 +127,18 @@
         "fields": [
           {
             "propertDto": "frame",
-            "description": "frame"
+            "description": "frame Alias",
+            "requerid":true
+          },
+          {
+            "propertDto": "propertDto",
+            "description": "propertDto",
+            "requerid":true
           },
           {
             "propertDto": "description",
-            "description": "description"
+            "description": "description",
+            "requerid":true
           },
           {
             "propertDto": "typeRepresentation",
@@ -239,16 +225,21 @@
           },
           {
             "propertDto": "requerid",
-            "description": "requerid"
+            "description": "requerid",
+            "type":["checkbox","bool"],
+            "checkbox":{
+              "on":true,
+              "off":false
+            }
           },
           {
             "propertDto": "disable",
-            "description": "disable"
-          },
-   
-          {
-            "propertDto": "propertDto",
-            "description": "propertDto"
+            "description": "disable",
+            "type":["checkbox","bool"],
+            "checkbox":{
+              "on":true,
+              "off":false
+            }
           },
           {
             "propertDto": "width",
@@ -292,16 +283,64 @@
             "description": "Coluna 3"
           }
         ]
+      },
+      {
+        "name": "button",
+        "objectDto": "button",
+        "alias": "aliasButton",
+        "type":"line",
+        "parent":".",
+        "fields": [
+          {
+            "propertDto": "type",
+            "description": "type",
+            "type":["select","text"],
+            "combo":[
+              {
+              "representation":"link",
+              "value":"link"
+              },
+              {
+                "representation":"button",
+                "value":"button"
+              }
+          ]
+  
+          },
+          {
+            "propertDto": "target",
+            "description": "target",
+            "maxLength":20,
+            "requerid":true
+          },
+          {
+            "propertDto": "link",
+            "description": "link"
+          },
+          {
+            "propertDto": "icon",
+            "description": "icon"
+          },
+          {
+            "propertDto": "text",
+            "description": "text"
+          },
+          {
+            "propertDto": "color",
+            "description": "color"
+          }
+        ]
       }
+
     ],
     "layout":{
       "items":
       [
         ["window","window","window"],
-        ["button","button","button"],
         ["frame","frame","frame"],
+        ["field","field","field"],
         ["layout","layout","layout"],
-        ["field","field","field"]
+        ["button","button","button"]
 
       ]
     },

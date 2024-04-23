@@ -67,6 +67,12 @@ import "./public/normalize.css"
                 frame.fields = object.aliasField.filter((field:any) => field.frame == frame.alias)
             });
 
+            window.layout = {
+                items: [[object.aliasLayout[0].coluna1,object.aliasLayout[0].coluna2,object.aliasLayout[0].coluna3]]
+            }
+            
+            window.button = object.aliasButton
+            
             return window
         }
     }
