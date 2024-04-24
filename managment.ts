@@ -28,11 +28,15 @@ import "./public/normalize.css"
     
     let jss = document.getElementById(RUCULA_ELEMENT);
 
-    jss?.addEventListener('rucula.load',() => {
+    jss?.addEventListener('input',() => {
         
-        let view = document.getElementById("window-view")
+        visualizeWindow()
 
-        view?.addEventListener('click',() => visualizeWindow())
+    })
+
+    jss?.addEventListener('change',() => {
+        
+        visualizeWindow()
 
     })
 
@@ -67,10 +71,17 @@ import "./public/normalize.css"
                 frame.fields = object.aliasField.filter((field:any) => field.frame == frame.alias)
             });
 
-            window.layout = {
-                items: [[object.aliasLayout[0].coluna1,object.aliasLayout[0].coluna2,object.aliasLayout[0].coluna3]]
-            }
+            let _items:any = []
             
+            object.aliasLayout.forEach((item:any) => {
+                let opt = [item.coluna1,item.coluna2,item.coluna3]
+                _items.push(opt as any)
+            })
+ 
+            window.layout = {
+                items: _items
+            }
+
             window.button = object.aliasButton
             
             return window
