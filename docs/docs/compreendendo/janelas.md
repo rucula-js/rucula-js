@@ -1,4 +1,6 @@
-Uma janela é a configuração principal do rucula-js, é nela que é agrupado os botões, grids, frames, entre outras configurações. Além dessas configurações mais avançadas, também existem as configurações mais simples, essas configurações normalmente contém o nome da janela,  o path de controller, o tipo de janela, entre outros mais simples ainda.
+Uma janela é a configuração principal do rucula-js, ela é a representação em sua totalidade. É aqui que todos os conceitos visuais estarão presentes.
+
+**Imagine a Janela como se fosse uma aba do navegador onde tudo que forma um site presente se encontra.**
 
 <br>
 

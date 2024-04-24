@@ -6,21 +6,15 @@ nav:
     - Como Configurar?: comecando/como-configurar.md
     - Hello World: comecando/hello-world.md
   - Compreendendo: 
-    - Unidades Cliente/Servidor: compreendendo/unidades-logicas-interligadas.md
-    - Unidades das Janelas: compreendendo/unidades-das-janelas.md
     - Janelas: compreendendo/janelas.md
     - Frames: compreendendo/frames.md
     - Alias: compreendendo/alias.md
-    - Layout: compreendendo/layout.md
     - Fields: compreendendo/fields.md
-    - Terminal: compreendendo/terminal.md
-    - Grids: compreendendo/grids.md
+    - Layout: compreendendo/layout.md
     - Eventos: compreendendo/eventos.md
     - Urls: compreendendo/urls.md
     - Botões: compreendendo/botoes.md
-  - Guia do Usuario:  
-    - Consumindo a API via CEP com evento de campo : guia-usuario/viacep-com-evento-de-campo.md
-    - Trabalhando com Atalhos: guia-usuario/Atalhos.md
+    - Terminal: compreendendo/terminal.md
   - Desenvolvendo:
     - Roadmap: desenvolvendo/roadmap.md
     - Criando a Janela: desenvolvendo/janelas.md
@@ -33,7 +27,6 @@ nav:
     - Frames: api/frames.md
     - Fields: api/fields.md
     - Botões: api/botoes.md
-    
 
 theme:
   name: material
