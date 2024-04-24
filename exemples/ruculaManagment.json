@@ -29,12 +29,23 @@
                 "representation":"grid",
                 "value":"grid"
               }
-            ]
+            ],
+            "width":80
           },
           {
             "propertDto": "crud",
             "description": "crud",
             "value":"crud"
+          },
+          {
+            "propertDto": "grid",
+            "description": "Grid",
+            "type":["checkbox","bool"],
+            "checkbox":{
+              "on":true,
+              "off":false
+            },
+            "value":false
           },
           {
             "propertDto": "vertical",
