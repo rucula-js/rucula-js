@@ -11,6 +11,8 @@ export class FieldCheckbox extends FieldInput{
         
         input.type = "checkbox";
     
+        input.checked = false 
+
         if(this.field.value == this.field.checkbox!.on){
             input.checked = true
         }

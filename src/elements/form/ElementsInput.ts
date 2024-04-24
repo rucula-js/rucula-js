@@ -1,3 +1,4 @@
+import { convertValueType } from "../../Helpers/Helper";
 import { constGroupFormat, constInputClass, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { getConfigurationGlobal } from "../../global/GlobalConfig";
@@ -13,17 +14,6 @@ import { FieldTextArea } from "./Field/FieldTextArea";
 
 
 export let fieldDOM = (() => {
-
-    function setValue(field:field,input:HTMLInputElement){
-    
-        if(field.value == undefined){
-            return;
-        } 
-        
-        input.value = field.value;        
-
-        managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
-    }
 
     function createSpanLabelIsRequerid():HTMLSpanElement{
 
@@ -179,11 +169,10 @@ export let fieldDOM = (() => {
         
             eventsCustom.field().set(identity)
         
-            if( typeof(FieldStrategy) == typeof(FieldCommon)){    
-                setValue(field,element as HTMLInputElement)
-            }
-        
+            managmentObject.object.field.setValueContextIdentity(field.identity,field.type, element.value);
+            
             let type = managmentObject.field.type(field.identity)
+            
             if(type == constTypeFrame.BLOCK){
                 return  createGroupOfInput(field,element) as HTMLDivElement
             }

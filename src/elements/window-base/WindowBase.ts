@@ -127,8 +127,23 @@ export let windowBaseDOM = (() => {
         })
     }
     
+    
+    function closeLeftGrid(grid:boolean){
+        
+        if(grid == false){
+
+            let buttonNew = document.getElementById(constIdBaseWindow.NEW);
+            buttonNew?.click()
+
+            let actions = document.getElementById("actions");
+            actions?.remove()
+        }
+    }
+
     function maximizeWindow(){
+
         let maximize = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
+        
         
         maximize?.addEventListener('click',() => {
             let actions = document.getElementById("actions");
@@ -180,7 +195,8 @@ export let windowBaseDOM = (() => {
         },
         getPrincipalElementRucula:() => {
             return document.getElementById(constIdBaseWindow.FORM_RUCULA_JS) as HTMLFormElement
-        }
+        },
+        closeLeftGrid: (grid:boolean) => closeLeftGrid(grid)
     }
 })()
 

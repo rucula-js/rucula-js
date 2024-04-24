@@ -10,7 +10,7 @@ export let frameValues = (() => {
                 let input = htmlElement.querySelector(field.identity) as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
                 
                 if(input){
-                    managmentObject.object.field.setValueContextIdentity(field.identity, input.value);
+                    managmentObject.object.field.setValueContextIdentity(field.identity,field.type, input.value);
                 }
             })
         }

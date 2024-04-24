@@ -6,7 +6,7 @@ import { eventsCustom } from "../../Field/EventsFieldsCustom";
 export abstract class FileEvent{
     
     protected input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
-    protected field?: field //? This property is used to support some events
+    protected field: field //? This property is used to support some events
     
     protected ruculaForm = windowBaseDOM.getElementRoot()
 
@@ -37,6 +37,6 @@ export abstract class FileEvent{
 
         let identity = this.input.getAttribute("identity")!
 
-        managmentObject.object.field.setValueContextIdentity(identity,this.input.value)
+        managmentObject.object.field.setValueContextIdentity(identity,this.field?.type, this.input.value)
     }
 }  

@@ -1,3 +1,4 @@
+import { convertValueType } from '../Helpers/Helper';
 import { constTypeFrame } from '../const';
 import { frame } from '../entities/form/frame';
 import { fragment } from '../fragment/fragment';
@@ -320,7 +321,9 @@ export let managmentObject = (()=> {
                     setValue(fragmentField,value)
                     
                 },
-                setValueContextIdentity:(identity:string, value:any) => {
+                setValueContextIdentity:(identity:string, type:string|string[2], value:any) => {
+
+                    value = convertValueType(value, type)
 
                     let fragmentField = fragment.fields.getForIdentity(identity)
         

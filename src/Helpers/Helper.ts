@@ -1,7 +1,9 @@
 import { constTypeInput } from "../const"
 import { field } from "../entities/form/field";
 
-export function convertValueType(value:string, type:string):string|number|boolean{   
+export function convertValueType(value:string, type:string|string[2]):string|number|boolean{   
+    
+    type = GetType(type)
     
     if(isBoolean()){
         return convertToBoolean()
@@ -35,6 +37,13 @@ export function convertValueType(value:string, type:string):string|number|boolea
         else{
             return false;
         }        
+    }
+
+    function GetType(type:string|string[2]){
+        if(type.length == 2){
+            return type[1]
+        }
+        return type
     }
 
 }
