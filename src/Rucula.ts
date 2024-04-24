@@ -44,6 +44,7 @@ export class Rucula{
         this.addHomeWindow();
         managmentObject.frame.initObjects(this.window.frames)
         windowBaseDOM.createNameWindow(this.window.name)
+        windowBaseDOM.closeLeftGrid(this.window.grid)
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
         layoutFrames.configureLayout(this.window)
         this.createFrames()
@@ -54,8 +55,9 @@ export class Rucula{
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
         
         this.resetBackground()
-
+        
         rucula.dispatchEvent(eventLoad)
+        
 
     }
 
