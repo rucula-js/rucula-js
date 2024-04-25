@@ -31,7 +31,8 @@
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
         "clean": "rimraf dist/",
-        "publish": "npm run compile & npm publish"
+        "publish": "npm run compile & npm publish",
+        "roll": "rollup -c"
     },
     "dependencies": {
         "chart.js": "^4.4.2",
@@ -39,6 +40,7 @@
         "package": "^1.0.1"
     },
     "devDependencies": {
+        "@rollup/plugin-typescript": "^11.1.6",
         "@types/jsdom": "^21.1.6",
         "@types/mocha": "^10.0.6",
         "@types/tabulator-tables": "^5.5.2",
