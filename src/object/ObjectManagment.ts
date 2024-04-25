@@ -129,7 +129,7 @@ export let managmentObject = (()=> {
      */
     function createObject(){
 
-        let configBase = pathObjectBase.find(c=> c.parent === undefined)!
+        let configBase = pathObjectBase.find(c=> c.parent === undefined || c.parent === '')!
             
         let configFrameBase = fragment.objects.getForIdentity(configBase.configFrame)  
 
@@ -144,7 +144,7 @@ export let managmentObject = (()=> {
                 return
             }
             
-            if(config.parent != '.' && config.parent !== undefined){
+            if(config.parent != '.' && config.parent !== undefined && config.parent !== ''){
                 insertObjectParent(config.parent.split('.'),newObject)
                 return
             }
