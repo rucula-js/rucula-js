@@ -10,7 +10,6 @@ import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
 import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
-import { frameChart } from "./elements/frame/FrameChart";
 import { buttonsDOM } from "./buttons/Button";
 
 export class Rucula{
@@ -102,15 +101,7 @@ export class Rucula{
                             
                 const line = frameLineDOM.createFrameLine(frame)
                 this.elementFormRucula.appendChild(line)
-            }
-            
-            if(frame.type == constTypeFrame.CHART){
-
-                let chart = frameChart.createFrameChart(frame)
-                this.elementFormRucula.appendChild(chart)
-
-            }
-            
+            }  
         })
     }
 

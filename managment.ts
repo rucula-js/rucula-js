@@ -4,7 +4,6 @@ import { Rucula } from "./src/Rucula"
 
 import { initGlobalConfiguration } from "./src/global/GlobalConfig"
 
-import "tabulator-tables/dist/css/tabulator.css"
 import "./public/style.css"
 import "./public/normalize.css"
 
