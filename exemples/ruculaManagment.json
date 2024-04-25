@@ -338,11 +338,11 @@
     "layout":{
       "items":
       [
-        ["window","window","window"],
-        ["frame","frame","frame"],
-        ["field","field","field"],
-        ["layout","layout","layout"],
-        ["button","button","button"]
+        ["aliasWindow","aliasWindow","aliasWindow"],
+        ["aliasFrame","aliasFrame","aliasFrame"],
+        ["aliasField","aliasField","aliasField"],
+        ["aliasLayout","aliasLayout","aliasLayout"],
+        ["aliasButton","aliasButton","aliasButton"]
 
       ]
     },

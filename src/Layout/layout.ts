@@ -23,7 +23,7 @@ export let layoutFrames = (() => {
     
             for (let col = 1; col <= colLength; col++) {            
 
-                let item = window.frames.find(c => c.objectDto == window.layout.items[row-1][col-1])!
+                let item = window.frames.find(c => c.alias == window.layout.items[row-1][col-1])!
     
                 if(item == undefined){
                     continue
