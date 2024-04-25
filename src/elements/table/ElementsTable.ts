@@ -81,12 +81,19 @@ export let frameLineTableDOM = (() => {
                                 
                         const td = document.createElement('td');
     
-                        const elementInput = fieldDOM.create(field); 
-    
-                        td.appendChild(elementInput)
-                    
-                        alignItem(field,elementInput as HTMLInputElement)
+                        const elementInput = fieldDOM.create(field) as HTMLInputElement; 
                         
+                        td.appendChild(elementInput)
+                        
+                        var alignInInput = elementInput.getAttribute('type') != "checkbox"
+                    
+                        if(alignInInput){
+                            alignItem(field,elementInput)
+                        }
+                        if(alignInInput == false){
+                            alignItem(field,td)
+                        }
+
                         tr.appendChild(td)
     
                     })

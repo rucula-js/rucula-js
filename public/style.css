@@ -48,6 +48,17 @@
     display: none;
 }
 
+.r-t-align-left {
+    text-align: left;
+
+}
+.r-t-align-right{
+    text-align: right;
+
+}
+.r-t-align-center{
+    text-align: center;
+}
 .r-btn-new-convert-close{
     transform: rotate(45deg);
     transition: transform 0.3s ease;

@@ -50,15 +50,17 @@ export function convertValueType(value:string, type:string|string[2]):string|num
 
 export function alignItem(field:field, item: HTMLTableCellElement | HTMLInputElement){
     
-    if(field.type == constTypeInput.TEXT || field.type == undefined){
-        item.style.textAlign = "left"
+    if(field.type == constTypeInput.TEXT || field.type == undefined || field.type[0] == constTypeInput.SELECT){        
+        item.classList.add('r-t-align-left')
     }
 
     if(field.type == constTypeInput.NUMBER || field.type == constTypeInput.CURRENCY){
-        item.style.textAlign = "right"
+        
+        item.classList.add('r-t-align-right')
     }
 
-    if(field.type == constTypeInput.SELECT || field.type == constTypeInput.CHECKBOX){
-        item.style.textAlign = "center"
+    if(field.type[0] == constTypeInput.CHECKBOX){ 
+        item.classList.add('r-t-align-center')
+
     }
 }
