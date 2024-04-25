@@ -25,7 +25,9 @@ import "./public/normalize.css"
 
     initGlobalConfiguration(config as any)
     
-    let jss = document.getElementById(RUCULA_ELEMENT);
+    let rucula = new Rucula(ruculaWindow as any,RUCULA_ELEMENT);
+
+    let jss = document.getElementById("form-rucula-js");
 
     jss?.addEventListener('input',() => {
         
@@ -38,9 +40,7 @@ import "./public/normalize.css"
         visualizeWindow()
 
     })
-
-    let rucula = new Rucula(ruculaWindow as any,RUCULA_ELEMENT);
-
+    
 
     function visualizeWindow(){
        
