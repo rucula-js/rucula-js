@@ -1,4 +1,4 @@
-import { getLocalization } from "../global/GlobalConfig";
+import { ruculaGlobal } from "../global/GlobalConfig";
 
 function formatCurrencyForNumber(valueCurrency:string):number{
     valueCurrency = valueCurrency.replace(/[^-0-9,.\s]/g,"")
@@ -21,7 +21,7 @@ function formatNumberWithLocalization(value:number|string):string{
     
     if(typeof value === "string") 
         value = Number(value)
-    let localicationConfig = getLocalization();
+    let localicationConfig = ruculaGlobal.getLocalization();
     return new Intl.NumberFormat(
         localicationConfig.locales, 
         { 

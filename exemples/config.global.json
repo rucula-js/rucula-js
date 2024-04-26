@@ -10,19 +10,19 @@
     "localizations":[
         {
             "locales":"pt-BR",
-            "language":"Português 🇧🇷" ,
+            "language":"🇧🇷 Brasil" ,
             "currency":"BRL",
             "maxDecimal":5
         },
         {
             "locales":"pt-BR",
-            "language":"Ingles 🇺🇸",
+            "language":"🇺🇸 Estados Unidos",
             "currency":"BRL",
             "maxDecimal":5
         },
         {
             "locales":"pt-BR",
-            "language":"Japonês 🇯🇵",
+            "language":"🇯🇵 Japão",
             "currency":"BRL",
             "maxDecimal":5
         }

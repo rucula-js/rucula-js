@@ -2,15 +2,14 @@ import config from "./exemples/config.global.json";
 import input from './exemples/ordemServicoApiControl.json'
 import { Rucula } from "./src/Rucula"
 
-import { initGlobalConfiguration } from "./src/global/GlobalConfig"
+import { ruculaGlobal } from "./src/global/GlobalConfig"
 
 import "./public/style.css"
 import "./public/normalize.css"
 
 (()=> {
     
-    initGlobalConfiguration(config as any)
-    
+    ruculaGlobal.initGlobalConfiguration(config as any)
     
     var form = document.getElementById("js")
     
@@ -18,38 +17,6 @@ import "./public/normalize.css"
         
     })
     
-    const data = [{x: 'Jan', net: 100, cogs: 50, gm: 50}, {x: 'Feb', net: 120, cogs: 55, gm: 75}];
-    const cfg = {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb'],
-        datasets: [{
-          label: 'Net sales',
-          data: data,
-          parsing: {
-            yAxisKey: 'net'
-          }
-        }, {
-          label: 'Cost of goods sold',
-          data: data,
-          parsing: {
-            yAxisKey: 'cogs'
-          }
-        }, {
-          label: 'Gross margin',
-          data: data,
-          parsing: {
-            yAxisKey: 'gm'
-          }
-        }]
-      },
-    };
-        
-    form?.addEventListener('chart.testeChart1.load',(e) => {
-
-      (e as any).detail.config(cfg)
-    })
-
     let rucula = new Rucula(input as any,"js");
     
     form?.addEventListener('input.itensServico.quantidade',(e) => {

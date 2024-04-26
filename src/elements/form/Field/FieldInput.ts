@@ -1,10 +1,10 @@
 import { constTypeInput } from "../../../const";
 import { field } from "../../../entities/form/field";
-import { getConfigurationGlobal } from "../../../global/GlobalConfig";
+import { ruculaGlobal } from "../../../global/GlobalConfig";
 
 export abstract class FieldInput{
     
-    protected floatLabel = getConfigurationGlobal().floatLabel
+    protected floatLabel = ruculaGlobal.getConfigurationGlobal().floatLabel
 
     protected field:field
     public input!: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement

@@ -3,7 +3,7 @@ import { ElementStrategy } from './ElementEstrategy';
 import { ElementButton } from './ElementButton';
 import { ElementLink } from './ElementLink';
 import { constIdBaseWindow, constTargetButtonCrudDefault } from '../const';
-import { getConfigurationGlobal, setEnviroment, setLocalization } from '../global/GlobalConfig';
+import { ruculaGlobal } from '../global/GlobalConfig';
 
 export let buttonsDOM = (()=> {
     
@@ -18,7 +18,7 @@ export let buttonsDOM = (()=> {
 
     function prepareButtonsGlobalOptions(){
         
-        let globalConf = getConfigurationGlobal()
+        let globalConf = ruculaGlobal.getConfigurationGlobal()
 
         let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION)
         let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION)
@@ -36,7 +36,7 @@ export let buttonsDOM = (()=> {
             olliGlobalization?.appendChild(li)
             
             li.addEventListener("click",() => {
-                setLocalization(loc.locales)
+                ruculaGlobal.setLocalization(loc.locales)
             })
         })
 
@@ -56,7 +56,7 @@ export let buttonsDOM = (()=> {
             olliEnviroment?.appendChild(li)
             
             li.addEventListener("click",() => {
-                setEnviroment(enviroment.env)
+                ruculaGlobal.setEnviroment(enviroment.env)
             })
         })
     }

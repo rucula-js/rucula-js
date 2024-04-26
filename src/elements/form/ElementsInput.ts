@@ -1,7 +1,6 @@
-import { convertValueType } from "../../Helpers/Helper";
 import { constGroupFormat, constInputClass, constTypeFrame, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
-import { getConfigurationGlobal } from "../../global/GlobalConfig";
+import { ruculaGlobal } from "../../global/GlobalConfig";
 import { managmentObject } from "../../object/ObjectManagment";
 import { tableDependency } from "../../table-dependency/TableDependency";
 import { eventsCustom } from "./Field/EventsFieldsCustom";
@@ -38,7 +37,7 @@ export let fieldDOM = (() => {
           label.append(createSpanLabelIsRequerid().cloneNode(true))
         }
         
-        const floatLabel = getConfigurationGlobal().floatLabel
+        const floatLabel = ruculaGlobal.getConfigurationGlobal().floatLabel
         
         if(floatLabel == true && (isSimple(field.type)|| isTextArea(field.type)|| isSelect(field.type))){
             div.appendChild(element)
