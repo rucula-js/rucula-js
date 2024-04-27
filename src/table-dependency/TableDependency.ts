@@ -306,7 +306,10 @@ export let tableDependency = (() => {
         getDependenciesNotResolded:() =>{ 
             return dependencyesNotResolved
         },
-        dependenciesCount:() => {return dependencyesNotResolved.length},
+        dependenciesCount:() => {
+            return dependencyesNotResolved
+            .filter(c=> c.fieldsNotResolved.length > 0).length
+        },
         moveImbernateToNotResolved: (identityObject:string) => moveImbernateToNotResolved(identityObject),
         moveNotResolvedToImbernate: (identityObject:string) => moveNotResolvedToImbernate(identityObject)
     
