@@ -1,62 +1,84 @@
 # Url's 
 
-No rucula-js a criação de url's é um processo dinâmico, que ocorre a partir da leitura de algumas propriedades presentes na configuração global da janela e na configuração particular de cada janela.
+No rucula-js a criação de url's é um processo dinâmico, que ocorre a partir da leitura de algumas propriedades presentes na configuração global, na janela e nos botões.
 
-
-## Url Derivada da Configuração Global 
-
-A url base, usada por todas as janelas é criada a partir da configuração global, na configuração global temos uma proriedade chamada `environments`, nela existe uma array de ambientes que darão apoio á todas as janelas, vejamos:
-
-```json
-    "environments":[
-        {
-            "env":"development",
-            "hostname":"http://localhost",
-            "port": "5016"
-        }
-    ]
+```js
+{
+    name: "Clientes",
+    pathController: "Cliente", 👈
+    type: "crud",
+    grid:false,
+    frames: []
+    ...
+}
 ```
 
-|propriedade|descrição|
-|--|---|
-|`env`|identificador único do ambiente|
-|`hostname`|Aqui deve ser o protocolo  juntamente com a url de domínio da aplicação. **Nota: Você pode usar um número ip no lugar do nome de dominio**|
-|`port`| é o numero da porta da url|
+```js
+environments:[
+    {
+        env:"development",
+        hostname:"http://localhost", 👈
+        port: "5016" 👈
+    }
+]
+```
+```js
+{
+    URL:{
+        absolute:string 👈
+        relative:string, 👈
+        params:string 👈
+    }
+}
+```
 
-Durante o processo de criação de url, o ruculs-js cria a url global padrão na seguinte forma `http://localhost:5016`
+
+## A URL Principal 
+
+A URL principal usada por todas as janelas é criada a partir da configuração global `environments`, nela existe uma array de ambientes que dão suporte à todas as janelas.
+
+Durante o processo de criação de url, o ruculs-js cria a URL principa padrão na seguinte forma `http://localhost:5016`
 
 
-## Path Controller da Janela
+## Path Controller 
 
-Normalmente teremos janelas que fazem acesso à controllers especificos, por exemplo, ao criar uma janela chamada `Ordem de Servico` é provável que o path de serviço utilizado pela janela seja `/OrdemServico` ou algo muito semelhante, o fato é que a janela de fato terá os serviços que utiliza dentro de `/OrdemServico`. A propriedade da janela que guarda o path controller é `pathController`.
+Normalmente temos janelas que fazem referência à um único caminho path, por exemplo, ao criar uma janela chamada `Ordem de Servico` é provável que o path de serviço utilizado pela janela seja `/OrdemServico` ou algo muito semelhante, o fato é que a janela terá os serviços que utiliza dentro de `/OrdemServico`. Complementado, podemos utilizar a propriedade `button.URL.params` para complementar a URL, como em casos **GET**.
 
-Para esse caso a url seria criada utilizando a url de dominio do ambiente atual, tendo o apoio do exemplo acima, teriamos uma url completa na seguinte forma: `http://localhost:5016/OrdemServico`
+Para esse caso a url seria criada utilizando a URL de domínio do ambiente atual, tendo o apoio do exemplo acima, teriamos uma url completa na seguinte forma: `http://localhost:5016/OrdemServico`
+
+## Path Relativo no Contexto de Mesmo Ambiente
+
+O path relativo de mesmo ambiente traz maior flexibilidade ao se fazer referencias a outros path's que estão presentes no mesmo ambiente.
+
+Isso ocorre porque se informado em `button.URL.relative`, `pathController` será ignorado, o que garante ao desenvolvedor criar variações de URL's ao ambiente atual.
+
+O Path Relativo tem o mesmo peso do `pathController`, entretanto, substitui o `pathController`. 
+
+## Path Absoluto ou nova URL
+
+Nesse modalidade de criação, toda configuração criada é ignorada e uma nova URL é criada. Para isso utilize a propriedade  `button.URL.absolute`.
 
 
-## Path Relativo de Maior Precedência
+O objetivo aqui é criar URL's que façam por exemplo referência a aplicações terceiras.
 
+## Os Parametros de URL
 
-Os path's de maior precedencia tem o mesmo comportamento do `pathController`, entretanto, o **Path Relativo de Maior Precedência**, se existir, substitui o `pathController`. Isso ocorre porque diferente do exemplo acima, existem casos em que é necessário criar url's completas que fazem sentidos para casos mais especificos, por exemplo, mantendo o foco no caso anterior da `Ordem de Servico`, poderia existir um botão chamado `ChecarSaldoCliente`. Ao se tratar do cliente, provavelmente o path da url terá algo como `/Cliente`, nesse caso, ao chamar o botão `ChecarSaldoCliente`, a url completa criada seria `http://localhost:5016/Cliente`.
-
-A proriedade representante chama-se `urlrelative`, propriedade que está presente no objeto `endPoint`.
-
-## Observação importante
-
-Para ambos os casos [Path Controller da Janela](PathControllerdaJanela) e [Path Relativo de Maior Precedência](PathRelativodeMaiorPrecedência), é importante entender que os dois casos se complementam, por exemplo, uma janela  de **Ordem de Serviço** ultilizada `/OrdemServico` para criar, alterar, excluir e consultar mas também pode trabalhar com quaisquer outros path's, como é o caso do `ChecarSaldoCliente`
-
-## Os Parametros de Url's
-
-Existem casos em que as url's devem ser criadas com parametros, para esses casos o rucula-js trabalha no nível dos **Pontos de Entradas**, sendo mais especifico, com a propriedade `params`. Como exemplo iremos mostrar duas formas de efetuar uma exclusão em uma ordem de serviço.
-
+Existem casos em que as URL's devem ser criadas com parametros, para esses casos o rucula-js lê as propriedade presente em `button.URL` e resolve a URL.
 
 Com a url quase pronta  `http://localhost:5016/OrdemServico`, podemos passar os parametros em duas formas: 
 
-- `?` seguido de `parametro={{objeto.nome}}`, caso tenha mais de um parametro, teriamos `parametro={{objeto.nome}}&parametro={{objeto.nome2}}`. Esse construção resultaria em algo como `?id={{orderServico.id}}`
-- Com `/` seguido de objeto `{{objeto.nome}}`, aqui a construção seria `/{{orderServico.id}}` 
+### A Sintaxe dos Parametros
+
+Para que a devida substituição entre propriedade do objeto seja feita, utilizamos duas sintaxes
+
+1. `parametro={aliasFrame.namePropert}`. Caso tenha mais de um parametro, teriamos algo como `parametro={aliasFrame.namePropert}&parametro={aliasFrame2.namePropert2}`
+    - `nome=reginaldo` 
+2. `/{aliasFrame.namePropert}`. 
+    - `/Cliente/234`
 
 **Nota: A sintaxe de objeto propriedade {{objeto.propriedade}}, pode ser substituida por constantes, exemplo: `?id=12345` ou `/12345`**
 
-Após a construção completa da url, teriamos `http://localhost:5016/OrdemServico?id=12345` ou `http://localhost:5016/OrdemServico/12345` 
+Após a construção completa da url, teriamos `http://localhost:5016/OrdemServico?id=12345`, `http://localhost:5016/OrdemServico/12345`  ou outra URL absoluta.
 
 <br>
 

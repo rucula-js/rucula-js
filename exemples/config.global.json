@@ -4,7 +4,14 @@
         {
             "env":"development",
             "hostname":"http://localhost",
-            "port": "5016"
+            "port": "5016",
+
+            "outsides": [{
+                "env":"development",
+                "hostname":"http://localhost",
+                "port": "5016"
+            }
+            ]
         }
     ],
     "localizations":[
