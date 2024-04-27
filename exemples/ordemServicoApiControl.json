@@ -229,8 +229,11 @@
     {
       "text": "Finalizar 💵",
       "type": "button",
-      "target": "q1w2e3r493469869",
-      "endPoint": "delete-os"
+      "target": "finalll",
+      "endPoint": "delete-os",
+      "URL":{
+        "params":"codigo={ordemDeServico.codigo}"
+      }
     },
     {
       "text": "Validar  🎲",

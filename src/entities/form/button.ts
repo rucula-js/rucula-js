@@ -7,7 +7,8 @@ export interface button{
     target:"r-a-save"|"r-a-alter"|"r-a-delete"|""
     URL:{
         absolute:string
-        relative:string,
+        relative:string
         params:string
-    }
+    },
+    body:string
 }

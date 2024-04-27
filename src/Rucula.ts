@@ -81,9 +81,9 @@ export class Rucula{
     private createButtons(type:string="CRUD"){
 
         if(type == "CRUD"){
-            buttonsDOM.prepareButtons(this.window.button)
+            buttonsDOM.prepareButtonsInLeftBox(this.window.button)
         }
-        eventButton(this.window.button)
+        eventButton(this.window.pathController, this.window.button)
         openCloseRightListButtons()
     }
 
