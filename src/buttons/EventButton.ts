@@ -1,7 +1,6 @@
 import { button } from '../entities/form/button';
 import { tableDependency } from '../table-dependency/TableDependency';
 import { fieldDOM } from '../elements/form/ElementsInput';
-import { buttonsDOM } from './Button';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
 import { urlManagment } from '../URL/urlManagment';
 import { managmentObject } from '../object/ObjectManagment';
@@ -14,61 +13,51 @@ export function eventButton(pathController:string, buttons:button[]){
     .forEach((button) => {
         
 
-        let element:HTMLElement
+        let element:HTMLElement = document?.getElementById(button.target) as HTMLElement
         
-        if(buttonsDOM.buttonIsNotDefault(button.target) == false){
-            element = document?.getElementById(button.target) as HTMLElement
-            setEventClick(element,button)
+        let object =  {
+            detail:{
+                url:'',
+                body:{}
+            }
         }
 
-        if(buttonsDOM.buttonIsNotDefault(button.target)){
-            element = document.getElementById(button.target)!
-            setEventClick(element,button)
+        let dependency = {
+            detail:{}
         }
 
+        let eventButton = new CustomEvent(`${button.target}.click`,object)
+        let eventButtonDependency = new CustomEvent(`${button.target}.dependency`,dependency)
         
-        function setEventClick(element:HTMLElement,button:button){
+        element?.addEventListener("click", () => {
+                            
+            let dependencyCount = tableDependency.dependenciesCount()
             
-            let object =  {
-                detail:{
-                    url:'',
-                    body:{}
-                }
+            if( dependencyCount > 0){
+                fieldDOM.dependency.focusFieldsWithDependency()
+                rucula.dispatchEvent(eventButtonDependency)
+                return;
+            }
+            
+            object.detail.url = urlManagment.createURL(pathController, button);
+            
+            let option = button.body
+            
+            if(option  == ''){
+                object.detail.body = managmentObject.object.object.objectSeparate()
             }
 
-            let eventButton = new CustomEvent(`${button.target}.click`,object)
+            if(option == '.'){
+                object.detail.body = managmentObject.object.object.objectFull()
+            }
+
+            if(['','.',undefined].find(c=> c != option) == undefined){
+                object.detail.body = managmentObject.object.object.objectUnique(option)
+            }
+
+            rucula.dispatchEvent(eventButton)
             
-            element?.addEventListener("click", () => {
-                                
-                let dependencyCount = tableDependency.dependenciesCount()
-                
-                if( dependencyCount > 0){
-                    fieldDOM.dependency.focusFieldsWithDependency()
-                    return;
-                }
-                
-                object.detail.url = urlManagment.createURL(pathController, button);
-                
-                
-                let option = button.body
-                
-                if(option  == ''){
-                    object.detail.body = managmentObject.object.object.objectSeparate()
-                }
-
-                if(option == '.'){
-                    object.detail.body = managmentObject.object.object.objectFull()
-                }
-
-                if(['','.',undefined].find(c=> c != option) == undefined){
-                    object.detail.body = managmentObject.object.object.objectUnique(option)
-                }
-
-                rucula.dispatchEvent(eventButton)
-
-             })
-        }
-
+         })
     });
 }
 

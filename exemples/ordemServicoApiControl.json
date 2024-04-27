@@ -2,6 +2,7 @@
   "name": "Ordem de Serviço",
   "pathController": "/OrdemServico",
   "type": "crud",
+  "crud":"crud",
   "messageHome": "Ordem de Serviço",
   "iconHome": "bi-rocket-takeoff",
   "grid":false,
@@ -212,7 +213,7 @@
       "icon": "bi bi-save",
       "type": "button",
       "target": "r-a-save",
-      "endPoint": "create-os"
+      "body":"."
     },
     {
       "icon": "bi bi-wrench",
@@ -233,7 +234,8 @@
       "endPoint": "delete-os",
       "URL":{
         "params":"codigo={ordemDeServico.codigo}"
-      }
+      },
+      "body":"."
     },
     {
       "text": "Validar  🎲",

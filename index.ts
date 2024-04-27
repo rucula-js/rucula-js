@@ -12,11 +12,7 @@ import "./public/normalize.css"
     ruculaGlobal.initGlobalConfiguration(config as any)
     
     var form = document.getElementById("js")
-    
-    form?.addEventListener('rucula.init', (e) => {
         
-    })
-    
     let rucula = new Rucula(input as any,"js");
     
     form?.addEventListener('input.itensServico.quantidade',(e) => {
@@ -57,4 +53,7 @@ import "./public/normalize.css"
         }
     })
 
+    form?.addEventListener('r-a-save.click',(e) => {
+    
+    })
 })()

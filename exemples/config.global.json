@@ -12,6 +12,11 @@
                 "port": "5016"
             }
             ]
+        },
+        {
+            "env":"production",
+            "hostname":"http://ruculaerp",
+            "port": "4320"
         }
     ],
     "localizations":[
