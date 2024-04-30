@@ -19,8 +19,25 @@ date: 2023-09-15
 - Forte validação das regras aplicadas aos campos
 - Criação automáticas de objetos
 
-##### Itens Relacionados
 
+## Instalação
+
+### CDN
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rucula-js/rucula-js/dist/style/style.css"/>
+```
+```js
+import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-jsrucula-js/dist/rucula.js'
+```
+
+### NPM
+```js
+npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js`
+```
+
+### Olá Mundo!
+
+[Veja agora um exemplo do uso](./docs/docs/exemples/hello-world.html)
 ##### Contribuidores
 
 |Contribuidores|
