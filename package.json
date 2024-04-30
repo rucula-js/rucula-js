@@ -32,7 +32,7 @@
         "start": "webpack serve --open --config webpack.dev.js",
         "clean": "rimraf dist/",
         "publish": "npm run compile & npm publish",
-        "roll": "rollup -c"
+        "rollup": "rollup -c"
     },
     "dependencies": {
         "install": "^0.13.0",

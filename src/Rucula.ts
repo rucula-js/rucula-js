@@ -11,15 +11,17 @@ import { defaultValues } from "./elements/Defaults";
 import { layoutFrames } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
 import { buttonsDOM } from "./buttons/Button";
+import { globalConfiguration } from "./global/entities/GlobalConfiguration";
+import { ruculaGlobal } from "./global/GlobalConfig";
 
 export class Rucula{
-    
     private window: window
     private elementRucula: HTMLElement
     private elementFormRucula!: HTMLFormElement
     
-    constructor(window:window, id:string = 'rucula-js'){
+    constructor(config:globalConfiguration, window:window, id:string = 'rucula-js'){
         
+        ruculaGlobal.initGlobalConfiguration(config)
         windowBaseDOM.setElementRoot(id)
         this.window = window
         this.elementRucula = document.getElementById(id)!

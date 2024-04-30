@@ -2,18 +2,14 @@ import config from "./exemples/config.global.json";
 import input from './exemples/ordemServicoApiControl.json'
 import { Rucula } from "./src/Rucula"
 
-import { ruculaGlobal } from "./src/global/GlobalConfig"
-
 import "./public/style.css"
 import "./public/normalize.css"
 
 (()=> {
-    
-    ruculaGlobal.initGlobalConfiguration(config as any)
-    
+        
     var form = document.getElementById("js")
         
-    let rucula = new Rucula(input as any,"js");
+    let rucula = new Rucula(config as any,input as any,"js");
     
     form?.addEventListener('input.itensServico.quantidade',(e) => {
 

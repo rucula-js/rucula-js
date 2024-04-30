@@ -1,4 +1,3 @@
-import config from "./exemples/config.global.json";
 import input from './exemples/ruculaManagment.json'
 import { Rucula } from "./src/Rucula"
 
@@ -24,9 +23,7 @@ import "./public/normalize.css"
         ruculaWindow = input
     }
 
-    ruculaGlobal.initGlobalConfiguration(config as any)
-    
-    let rucula = new Rucula(ruculaWindow as any,RUCULA_ELEMENT);
+    let rucula = new Rucula(ruculaGlobal as any, ruculaWindow as any,RUCULA_ELEMENT);
 
     if(window.location.search == ''){
         let jss = document.getElementById("form-rucula-js");
