@@ -12,14 +12,6 @@ date: 2023-09-15
 
 **Bem vindo ao rucula-js, um gerador de interfaces baseadas em formulário que cria e gerencia todos os pontos necessários da sua interface.** 
 
-
-## Seus beneficios incluem
-
-- Baixa ou nenhuma experiencia com HTML e CSS
-- Forte validação das regras aplicadas aos campos
-- Criação automáticas de objetos
-
-
 ## Instalação
 
 ### CDN
