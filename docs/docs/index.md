@@ -12,14 +12,6 @@ date: 2023-09-15
 
 **Bem vindo ao rucula-js, um gerador de interfaces baseadas em formulário que cria e gerencia todos os pontos necessários da sua interface.** 
 
-
-## Seus beneficios incluem
-
-- Baixa ou nenhuma experiencia com HTML e CSS
-- Forte validação das regras aplicadas aos campos
-- Criação automáticas de objetos
-
-
 ## Instalação
 
 ### CDN
@@ -35,9 +27,9 @@ import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-jsrucula-js/dist/rucula
 npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js`
 ```
 
-### Olá Mundo!
+### Olá Mundo
 
-[Veja agora um exemplo do uso](./docs/docs/exemples/hello-world.html)
+[Veja agora um exemplo do uso](https://rucula-js.github.io/docs/docs/exemples/hello-world.html)
 ##### Contribuidores
 
 |Contribuidores|
