@@ -49,28 +49,20 @@ interface globalConfiguration {
 ## Float Label
 
 [Float Label](https://getbootstrap.com/docs/5.2/forms/floating-labels/) altera o modo em que o [label](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) se comporta em relação ao [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) presente no grupo do formulário. **Por padrão o label fica acima do input, podendo também ser alterado para estar nos quatros cantos, entretanto o float label é uma configuração mais elegante para as janelas configuradas**.  
+
 <br>
 
 ##### Itens Relacionados
-[localizações](localizacoes.md) - [Ambientes](ambiente.md)
 
+<a href="https://github.com/rucula-js/rucula-js">⭐ Visite o projeto rucula-js ⭐</a>
+
+<div class="rucula-info">
+    <h5>Nos ajude a melhorar o rucula-js.</h5>
+    Encontrou um erro? Tem alguma sugestão?  <a href="https://github.com/rucula-js/rucula-js/issues">Abra um novo problema</a><br>    
+</div>
 
 ##### Contribuidores
 
 |Contribuidores|
 |-|
 |<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|
-
-<a href="https://github.com/rucula-js/rucula-js">Contamos com a sua estrela 😀 - Visite o projeto rucula-js ⭐</a>
-
-
-<div style="
-    border: 2px solid #ff7906;
-    border-radius: 8PX;
-    padding: 8px;
-    background-color: #ffeaea;
-    ">
-    <h5>Nos ajude a melhorar o rucula-js.</h5>
-    Encontrou um erro? Tem alguma sugestão?  <a href="https://github.com/rucula-js/rucula-js/issues">Abra um novo problema</a><br>    
-</div>
-

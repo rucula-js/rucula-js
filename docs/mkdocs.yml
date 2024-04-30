@@ -1,6 +1,6 @@
 site_name: rucula-js
 nav:
-  - Introdução: index.md
+  - Inicio: index.md
   - Começando:
     - O que é?: comecando/o-que-e-o-rucula-js.md
     - Hello World: comecando/hello-world.md
@@ -15,9 +15,6 @@ nav:
     - Urls: compreendendo/urls.md
     - Botões: compreendendo/botoes.md
     - Terminal: compreendendo/terminal.md
-  - Desenvolvendo:
-    - Roadmap: desenvolvendo/roadmap.md
-    - Criando a Janela: desenvolvendo/janelas.md
   - Configurações Globais:
     - Configurações Globais: configuracoesGlobais.md
     - Ambientes: ambiente.md
