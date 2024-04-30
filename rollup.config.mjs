@@ -3,7 +3,7 @@ import typescript from '@rollup/plugin-typescript'
 export default {
 	input: 'src/Rucula.ts',
 	output: {
-		file: 'dist/rucula-bundle.js'
+		file: 'dist/rucula.js'
 	},
 	plugins: [
 		typescript({ 

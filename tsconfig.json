@@ -74,7 +74,10 @@
         "dist",
         "webpack.*",
         "karma.conf.*",
+        "*.spec.ts",
         "index.ts",
+        "managment.ts",
+        "**/*.spec.ts",
         "rollup.config.mjs"
     ]
 }

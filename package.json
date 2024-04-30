@@ -27,12 +27,11 @@
     },
     "scripts": {
         "test": "mocha",
-        "compile": "rimraf dist/ && tsc && copyfiles -u 1  public/**/*.css dist/style",
+        "compile": "rollup -c && copyfiles -u 1  public/**/*.css dist/style",
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
         "clean": "rimraf dist/",
-        "publish": "npm run compile & npm publish",
-        "rollup": "rollup -c && copyfiles -u 1  public/**/*.css dist/style"
+        "publish": "npm run compile & npm publish"
     },
     "dependencies": {
         "install": "^0.13.0",
