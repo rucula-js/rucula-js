@@ -1,3 +1,11 @@
 :root{
-    --md-primary-fg-color:#1cbe7a
+    --md-primary-fg-color:#161616
+}
+
+.rucula-info{
+    border: 2px solid #ff7906;
+    border-radius: 8PX;
+    padding: 8px;
+    background-color: #ff6b36;
+    
 }

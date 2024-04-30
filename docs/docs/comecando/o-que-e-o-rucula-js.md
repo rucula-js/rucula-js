@@ -1,10 +1,21 @@
-rucula-js é uma bibliotéca com foco no desenvolvimento de telas de uma forma mais rápida, padronizadas e com suporte a [API REST](https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api).
+**rucula-js** é uma bibliotéca js com foco no desenvolvimento de telas baseadas em formulário, seu objetivo pricipal é criar telas de uma forma mais rápida e mais segura.
 
-Seu grande diferencial está na capacidade de criar e gerenciar qualquer formato do objeto. Imagine ter que criar uma interface que tem que criar dinamicamente varias linhas para um array de objeto, como faria para controlar tudo isso via javascrip/typescript? o rucula-js faz isso para você.
+Isso é possível graças ao seu **criador de objetos** internos e a sua **tabela de dependência** que gerencia todos os campos e frames presentes da tela em foco.
 
 
-Não bastando, o rucula-js também tem um grande numero de componentes pré-fabricados que representam o tipo de entrada na interface de usuário. `checkbox`, `text`, `input` e `radio`,  não uns dos mais comuns.
+<br>
 
-<p align="center">
-  <img src="../../assets/rucula-crud-exemple.png">
-</p>
+##### Itens Relacionados
+
+<a href="https://github.com/rucula-js/rucula-js">⭐ Visite o projeto rucula-js ⭐</a>
+
+<div class="rucula-info">
+    <h5>Nos ajude a melhorar o rucula-js.</h5>
+    Encontrou um erro? Tem alguma sugestão?  <a href="https://github.com/rucula-js/rucula-js/issues">Abra um novo problema</a><br>    
+</div>
+
+##### Contribuidores
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|
