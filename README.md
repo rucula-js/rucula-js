@@ -1,34 +1,58 @@
-<p align="center" >
+---
+title: Introdução ao Rucula
+summary: Primeira Apresentação do rucula-js
+authors:
+  - Reginaldo Marinho
+date: 2023-09-15
+---
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
-<p align="center">
-  Uma biblioteca Javascript desenvolvida para criar interfaces de usuário padronizadas e com maior produtividade  
-</p>
-<p align="center">
-  Sua documentação pode ser encontrada <a href="http://rucula-js.github.io/">Aqui💡</a> 
-</p>
 
-###  O Rucula-Js 
+**Bem vindo ao rucula-js, um gerador de interfaces baseadas em formulário que cria e gerencia todos os pontos necessários da sua interface.** 
 
-- ✅ Renderiza a interface de usuário imediatamente 
-- ✅ Controla as entradas dos dados, mas permite uma navegação agradável 
-- ✅ Cria Objetos que representam entidades 
-- ✅ Consome API's REST 
-- ✅ Checa Dependências no seu console integrado 
-- ✅ Controla o ambiente do usuário 
-- ✅ Mostra observações amigáveis em campos especificos 
-- ✅ Faz todo controle fora do ambiente DOM
 
-<p align="center" >
-  <img src="/docs/docs/assets/rucula-crud-exemple.png">
-</p>
+## Seus beneficios incluem
 
-### Por que esse Projeto?
-Esse projeto tem como objetivo a criação de UI's e consumo de API's de uma forma bem mais rápida e mais segura. Aqui você só se preocupa com o que é mais importante, as características que são triviais para o desenvolvimento de telas.
+- Baixa ou nenhuma experiencia com HTML e CSS
+- Forte validação das regras aplicadas aos campos
+- Criação automáticas de objetos
 
-### Configuração
 
-## NPM 
+## Instalação
+
+### CDN
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rucula-js/rucula-js/dist/style/style.css"/>
 ```
-npm i @reginaldo-marinho/rucula-js
+```js
+import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-jsrucula-js/dist/rucula.js'
 ```
+
+### NPM
+```js
+npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js`
+```
+
+### Olá Mundo!
+
+[Veja agora um exemplo do uso](./docs/docs/exemples/hello-world.html)
+##### Contribuidores
+
+|Contribuidores|
+|-|
+|<a href="https://github.com/reginaldo-marinho"><img width="45px" height="45px" style="border-radius:30px" alt="reginalso-marinho" title="TheLarkInn" src="https://avatars.githubusercontent.com/u/60780631?v=4"></a>|
+
+<a href="https://github.com/rucula-js/rucula-js">Contamos com a sua estrela 😀 - Visite o projeto rucula-js ⭐</a>
+
+<div style="
+    border: 2px solid #ff7906;
+    border-radius: 8PX;
+    padding: 8px;
+    background-color: #ffeaea;
+    ">
+    <h5>Nos ajude a melhorar o rucula-js.</h5>
+    Encontrou um erro? Tem alguma sugestão?  <a href="https://github.com/rucula-js/rucula-js/issues">Abra um novo problema</a><br>    
+</div>
+
