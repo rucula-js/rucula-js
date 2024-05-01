@@ -1,6 +1,6 @@
 import { window } from "./entities/form/window";
 import { managmentObject } from "./object/ObjectManagment";
-import {createPanel,set}  from './console/Console'
+import {consolePanelManagment}  from './console/Console'
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
@@ -39,9 +39,9 @@ export class Rucula{
 
         configWindow.set(this.window)
         defaultValues.setDefault(this.window)
-        let panel = createPanel();
-        this.elementRucula.appendChild(panel);
-        windowBaseDOM.createWindowBase(this.elementRucula.id);
+        let panel = consolePanelManagment.createPanel()
+        this.elementRucula.appendChild(panel)
+        windowBaseDOM.createWindowBase(this.elementRucula.id)
         this.addHomeWindow();
         managmentObject.frame.initObjects(this.window.frames)
         windowBaseDOM.createNameWindow(this.window.name)
@@ -49,8 +49,7 @@ export class Rucula{
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
         layoutFrames.configureLayout(this.window)
         this.createFrames()
-        set() 
-        this.createButtons();
+        this.createButtons()
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
