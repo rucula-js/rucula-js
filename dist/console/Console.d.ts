@@ -1,3 +1,5 @@
-export declare function createPanel(): HTMLDivElement;
-declare function set(): void;
-export { set };
+export declare let consolePanelManagment: {
+    createPanel: () => HTMLDivElement;
+    outputDependencies: () => void;
+    outputGetObject: () => void;
+};

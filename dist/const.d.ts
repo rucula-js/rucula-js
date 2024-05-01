@@ -41,6 +41,8 @@ export declare const constIdBaseWindow: {
     NEW: string;
     RELOAD: string;
     ERASE_WINDOW: string;
+    CHECK_DEPENDENCY: string;
+    VIEW_OBJECT: string;
     MAXIMIZE_WINDOW: string;
     GLOBALIZATION: string;
     OLLI_GLOBALIZATION: string;
