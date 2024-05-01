@@ -1,6 +1,6 @@
 # Hello World
 Para ver um exemplo do rucula-js você pode utilizar o [link stackblitz](https://stackblitz.com/edit/vitejs-vite-cd4kxf?file=index.html&terminal=dev)
- ou se preferir, copie e cole o código do [github](https://github.com/rucula-js/rucula-js/blob/main/docs/docs/exemples/hello-world.html).
+ ou se preferir, copie e cole o código do [github](../exemples/hello-world.html).
  
  <br>
 
