@@ -1,9 +1,6 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 :root{
-    
-    --color-teme-primary:#027847;
-    --color-teme-secundary:#30976c;
     --color-write:#fff;
     --color-orange:#ff7e00;
     --color-grey:#c7c7c7;
@@ -31,15 +28,21 @@
     background-color: var(--color-black);
     border-radius: 5px; 
     border: 2px solid var(--color-write);
-    
 }
 
-.r-i-control::-webkit-outer-spin-button,
-.r-i-control::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.r-box-show {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffffb3;
+    z-index: 10;
 }
 
+
+/* Duplicado */
 .r-f-hidden{
     display: none;
 }
@@ -59,16 +62,20 @@
 .r-t-align-center{
     text-align: center;
 }
+
+.r-i-control::-webkit-outer-spin-button,
+.r-i-control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 .r-btn-new-convert-close{
     transform: rotate(45deg);
     transition: transform 0.3s ease;
 }
 .r-btn-new-cancel-close{
     transition: transform 0.3s ease;
-}
-
-.r-f-visible{
-    display: auto;
 }
 
 .r-close-grid {
@@ -84,86 +91,6 @@
 }
 .r-input-width-default {
     width: 250px;
-}
-/* Estilize o painel */
-.box-panel {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffffb3;
-    z-index: 10;
-}
-
-.panel {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    padding: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 150px;
-    margin-bottom: 150px;
-    background-color: #181717;
-}
-
-.content-panel pre {
-    margin:0;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-/* Estilize o título do painel */
-.panel h2 {
-    font-size: 24px;
-    display: block;
-    color: #cecece;
-    background-color: inherit;
-}
-
-/* Estilize o conteúdo do painel */
-.panel p {
-    font-size: 16px;
-    color: #dbdbdb;
-}
-
-.content-panel{
-  display: block;
-  overflow-y: auto;
-  overflow-x: hidden;
-  color: #ffffff;
-  padding-bottom:60px
-}
-
-.panel input {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    background-color: inherit;
-    margin: auto;
-    font-size: 1.25rem;
-    border-radius: 0px 0px 10px 10px;
-    padding: 10px;
-    color: #ffffff;
-    border: 1px solid #dbdbdb;
-}
-
-/* Console */
-.r-c {
-    width: 250px;
-    height: 100%;
 }
 
 /* inputs */
@@ -410,7 +337,7 @@ form.r-f-items{
 }
 
 .r-f-home-round{
-    background-color: var(--color-teme-primary);
+    background-color: var(--color-black);
     border-radius: 50px;
     padding: 15px;
     margin-bottom: 10px;
@@ -519,7 +446,7 @@ form.r-f-items{
 
 .tabulator .tabulator-header .tabulator-col,
 .tabulator .tabulator-footer .tabulator-footer-contents {
-    background-color: var(--color-teme-secundary);
+    background-color: var(--color-black);
     color: var(--color-write);
 }
 
@@ -530,15 +457,15 @@ form.r-f-items{
 }
 
 .tabulator-row.tabulator-selectable:hover {
-    background-color: var(--color-teme-secundary);
+    background-color: var(--color-black);
 }
 
 .tabulator .tabulator-header {
-    background-color: var(--color-teme-secundary);
+    background-color: var(--color-black);
 }
 
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
-    background-color: var(--color-teme-primary);
+    background-color: var(--color-black);
 }
 
 .tabulator-row .tabulator-cell{
@@ -614,4 +541,70 @@ select.did-floating-select::-ms-expand {
 
 .r-text-nowrap {
     text-wrap: nowrap;
+}
+
+.panel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 10px;
+    margin: 10px auto 10px auto;
+    background-color: #181717;
+}
+
+.content-panel pre {
+    margin:0;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* Estilize o título do painel */
+.panel h2 {
+    font-size: 24px;
+    display: block;
+    color: #cecece;
+    background-color: inherit;
+}
+
+/* Estilize o conteúdo do painel */
+.panel p {
+    font-size: 16px;
+    color: #dbdbdb;
+}
+
+.content-panel{
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: #ffffff;
+  padding-bottom:60px
+}
+
+.panel input {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background-color: inherit;
+    margin: auto;
+    font-size: 1.25rem;
+    border-radius: 0px 0px 10px 10px;
+    padding: 10px;
+    color: #ffffff;
+    border: 1px solid #dbdbdb;
+}
+
+/* Console */
+.r-c {
+    width: 250px;
+    height: 100%;
 }

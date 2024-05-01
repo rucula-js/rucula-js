@@ -5,7 +5,7 @@ import { managmentObject } from '../object/ObjectManagment';
 let consolePanel!:HTMLDivElement
 
 const PANEL_CONSOLE = `
-<div class="box-panel">
+<div class="r-box-show" id="panel-console">
     <div class="panel">
         <span>🔴 🟡 🟢</span>    
         <div class="content-panel">
@@ -29,7 +29,7 @@ function set(){
 }
 function  openCloseConsole(): void {
     let OpenClose: boolean = false;
-    let cons = document.querySelector(".box-panel") as HTMLDivElement
+    let cons = document.getElementById("panel-console") as HTMLDivElement
     document.addEventListener('keydown',(event) =>{
        
         const key = (event as KeyboardEvent).key;
