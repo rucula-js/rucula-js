@@ -237,7 +237,6 @@ input.r-i-focus-dependency {
 .r-w{
     display: flex;
     margin: 0;
-    font-family: "DM Sans", sans-serif;
     height: 100%;
     background-color: #f1f1f1;
 }
@@ -561,6 +560,10 @@ select.did-floating-select::-ms-expand {
     background-color: #181717;
 }
 
+.panel .btn-close {
+    position: absolute;
+    right: 0;
+}
 .content-panel pre {
     margin:0;
     padding-top: 50px;
