@@ -72,23 +72,29 @@ export let windowBaseDOM = (() => {
         </div>
         <div autocomplete="off" class="r-f container-r-f r-f-hidden js-open-close-container">
             <div class="r-head r-read-new">
-                <div>
-                    <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
-                    <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
-                    <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
-                    <button id="${constIdBaseWindow.CHECK_DEPENDENCY}" class="r-a-b "><i class="bi bi-shield-lock"></i></button>
-                    <button id="${constIdBaseWindow.VIEW_OBJECT}" class="r-a-b "><i class="bi bi-braces-asterisk"></i></button>
-                    <div style="display: inline;margin-left: 20px;">
-                        <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
-                            <i class="bi bi-globe-americas"></i>
-                            <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                            </ol>                        
-                        </button> 
-                        <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
-                            <i class="bi bi-fire"></i>
-                            <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                            </ol>                        
-                        </button>    
+            
+            <div style="z-index: 1;">
+                    <button id="" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
+                    <div class="r-display-inline-block r-actions-window">
+                        <div class="r-display-inline-block">
+                            <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
+                            <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
+                            <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
+                            <button id="${constIdBaseWindow.CHECK_DEPENDENCY}" class="r-a-b "><i class="bi bi-lock"></i></button>
+                            <button id="${constIdBaseWindow.VIEW_OBJECT}" class="r-a-b "><i class="bi bi-braces-asterisk"></i></button>
+                        </div>
+                        <div style="display: inline;margin-left: 20px;">
+                            <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
+                                <i class="bi bi-globe-americas"></i>
+                                <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
+                                </ol>                        
+                            </button> 
+                            <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
+                                <i class="bi bi-fire"></i>
+                                <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
+                                </ol>                        
+                            </button>    
+                        </div>
                     </div>
                 </div>
                 <div>
