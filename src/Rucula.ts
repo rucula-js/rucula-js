@@ -13,6 +13,7 @@ import { buttonsBase } from "./buttons/buttonsBaseCrud";
 import { buttonsDOM } from "./buttons/Button";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
 import { ruculaGlobal } from "./global/GlobalConfig";
+import { loaderManagment } from "./elements/loader/loader";
 
 export class Rucula{
     private window: window
@@ -52,10 +53,7 @@ export class Rucula{
         this.createButtons()
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
-        buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
-        
-        this.resetBackground()
-        
+        buttonsBase.buttonsTypeCrud.crud(this.window?.crud);        
         rucula.dispatchEvent(eventLoad)
         
 
@@ -106,17 +104,12 @@ export class Rucula{
         })
     }
 
-    private resetBackground(){
-
-        let rucula = windowBaseDOM.getPrincipalElementRucula()
-
-        rucula?.addEventListener(eventRucula.RESET_BACKGROUND,() => {
-
-            // createObject(this.window.frames)
-            // createTableDependency(this.window.frames)
-
-        })
-    }
+    public loader = (() => {
+        return {
+            enable: () => loaderManagment.enable(),
+            disable:() => loaderManagment.disable()
+        }        
+    })()
 
     public object = (() => {
         

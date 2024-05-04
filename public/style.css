@@ -37,11 +37,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffffb3;
+    background-color: #ffffff17;
     z-index: 10;
 }
 
+.r-loader {
+    border: 6px solid var(--color-black);
+    border-radius: 50%;
+    border-top: 6px solid #ffa200;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 1.3s linear infinite; /* Safari */
+    animation: spin 1.3s linear infinite;
+}
+ 
+.r-item-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+/* Safari */
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+  
 /* Duplicado */
 .r-f-hidden{
     display: none;

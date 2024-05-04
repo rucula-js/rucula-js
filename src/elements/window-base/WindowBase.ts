@@ -104,8 +104,10 @@ export let windowBaseDOM = (() => {
                 </div>
             </div>
             <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
-            
             </form>
+            <div class="js-r-loader r-box-show">
+                <div class="r-loader"></div>
+            </div>
         </div>`
     
         return CREATE_OR_EDIT;

@@ -50,6 +50,8 @@ import "./public/normalize.css"
     })
 
     form?.addEventListener('r-a-save.click',(e) => {
-    
+
+        rucula.loader.enable()
+        rucula.loader.disable()
     })
 })()
