@@ -29,7 +29,7 @@ npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js
 
 ### Olá Mundo
 
-[Veja agora um exemplo do uso](https://rucula-js.github.io/docs/docs/exemples/hello-world.html)
+[Veja agora um exemplo do uso](./exemples/hello-world.html)
 ##### Contribuidores
 
 
