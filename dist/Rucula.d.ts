@@ -9,7 +9,10 @@ export declare class Rucula {
     private addHomeWindow;
     private createButtons;
     private createFrames;
-    private resetBackground;
+    loader: {
+        enable: () => void;
+        disable: () => void;
+    };
     object: {
         objectUnique: (alias: string) => any;
         getFullObject: () => any;

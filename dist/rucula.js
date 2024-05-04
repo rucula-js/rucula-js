@@ -1,4 +1,4 @@
-const eventRucula = {
+({
     RESET_BACKGROUND: "reset-background",
     RESET_BACKGROUND_EVENT: new Event("reset-background"),
     BEFORE_SEND_OBJECT_HTTP: "before-send-object-http",
@@ -9,7 +9,7 @@ const eventRucula = {
     EVENT_SEND_OBJECT_HTTP_OK: new Event("send-object-http-ok"),
     SEND_OBJECT_HTTP_ERROR: "send-object-http-error",
     EVENT_SEND_OBJECT_HTTP_ERROR: new Event("send-object-http-error")
-};
+});
 const constPrefixEventField = {
     BEFORE: 'before',
     INPUT: 'input',
@@ -802,23 +802,29 @@ let windowBaseDOM = (() => {
         </div>
         <div autocomplete="off" class="r-f container-r-f r-f-hidden js-open-close-container">
             <div class="r-head r-read-new">
-                <div>
-                    <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
-                    <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
-                    <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
-                    <button id="${constIdBaseWindow.CHECK_DEPENDENCY}" class="r-a-b "><i class="bi bi-shield-lock"></i></button>
-                    <button id="${constIdBaseWindow.VIEW_OBJECT}" class="r-a-b "><i class="bi bi-braces-asterisk"></i></button>
-                    <div style="display: inline;margin-left: 20px;">
-                        <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
-                            <i class="bi bi-globe-americas"></i>
-                            <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                            </ol>                        
-                        </button> 
-                        <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
-                            <i class="bi bi-fire"></i>
-                            <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                            </ol>                        
-                        </button>    
+            
+            <div style="z-index: 1;">
+                    <button id="" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
+                    <div class="r-display-inline-block r-actions-window">
+                        <div class="r-display-inline-block">
+                            <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
+                            <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
+                            <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
+                            <button id="${constIdBaseWindow.CHECK_DEPENDENCY}" class="r-a-b "><i class="bi bi-lock"></i></button>
+                            <button id="${constIdBaseWindow.VIEW_OBJECT}" class="r-a-b "><i class="bi bi-braces-asterisk"></i></button>
+                        </div>
+                        <div style="display: inline;margin-left: 20px;">
+                            <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
+                                <i class="bi bi-globe-americas"></i>
+                                <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
+                                </ol>                        
+                            </button> 
+                            <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
+                                <i class="bi bi-fire"></i>
+                                <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
+                                </ol>                        
+                            </button>    
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -834,8 +840,10 @@ let windowBaseDOM = (() => {
                 </div>
             </div>
             <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
-            
             </form>
+            <div class="js-r-loader r-box-show">
+                <div class="r-loader"></div>
+            </div>
         </div>`;
         return CREATE_OR_EDIT;
     }
@@ -2194,6 +2202,21 @@ let buttonsDOM = (() => {
     };
 })();
 
+let loaderManagment = (() => {
+    return {
+        enable: function () {
+            let loader = document.querySelector('.js-r-loader');
+            loader?.classList.add('r-item-center');
+        },
+        disable: function () {
+            let loader = document.querySelector('.js-r-loader');
+            setTimeout(() => {
+                loader?.classList.remove('r-item-center');
+            }, 1000);
+        }
+    };
+})();
+
 class Rucula {
     window;
     elementRucula;
@@ -2226,7 +2249,6 @@ class Rucula {
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
-        this.resetBackground();
         rucula.dispatchEvent(eventLoad);
     }
     addHomeWindow() {
@@ -2260,11 +2282,12 @@ class Rucula {
             }
         });
     }
-    resetBackground() {
-        let rucula = windowBaseDOM.getPrincipalElementRucula();
-        rucula?.addEventListener(eventRucula.RESET_BACKGROUND, () => {
-        });
-    }
+    loader = (() => {
+        return {
+            enable: () => loaderManagment.enable(),
+            disable: () => loaderManagment.disable()
+        };
+    })();
     object = (() => {
         return {
             objectUnique: (alias) => managmentObject.object.object.objectUnique(alias),
