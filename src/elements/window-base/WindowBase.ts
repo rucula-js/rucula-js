@@ -1,33 +1,39 @@
 import { consolePanelManagment } from "../../console/Console";
 import { constIdBaseWindow } from "../../const";
-import { managmentObject } from "../../object/ObjectManagment";
 
 export let windowBaseDOM = (() => {
 
     let elementRoot:HTMLElement
     function createWindowBase(id:string){
 
-        const window = document.createElement("div");
-        window.classList.add("r-w");
+        const ruculaWindow = document.createElement("div");
+        ruculaWindow.classList.add("r-w");
     
         const actions = document.createElement("div");
         actions.innerHTML = componentActions();    
-        window.appendChild(actions)
+        ruculaWindow.appendChild(actions)
     
         const contentForm = document.createElement("div");
 
         contentForm.innerHTML = createComponentCreateOrEdit()
         
-        window.appendChild(contentForm.childNodes[0] as HTMLDivElement)
-        window.appendChild(contentForm.childNodes[1] as HTMLDivElement)
+        ruculaWindow.appendChild(contentForm.childNodes[0] as HTMLDivElement)
+        ruculaWindow.appendChild(contentForm.childNodes[1] as HTMLDivElement)
             
         const div = document.getElementById(id)
-        div?.appendChild(window);
+        div?.appendChild(ruculaWindow);
+        calculateHeightRuculaWindow()
         prepareEventsButtonsCrud()
         maximizeWindow()
         eraseWindow()
         viewObject()
         viewDependency()
+
+        function calculateHeightRuculaWindow(){
+            let heightWindow =  Number(window.innerHeight)
+            let offsetTop = Number(ruculaWindow.offsetTop)
+            ruculaWindow.style.height =  `${heightWindow - offsetTop}px` 
+        }
 
     }
     
@@ -202,6 +208,7 @@ export let windowBaseDOM = (() => {
             // setValueInForm(objectReload)
         })    
     }
+
     return {
         createWindowBase: (id:string) => {
             createWindowBase(id)
@@ -224,4 +231,3 @@ export let windowBaseDOM = (() => {
         closeLeftGrid: (grid:boolean) => closeLeftGrid(grid)
     }
 })()
-
