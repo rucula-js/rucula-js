@@ -28,7 +28,7 @@ export let windowBaseDOM = (() => {
         eraseWindow()
         viewObject()
         viewDependency()
-
+        openActionswindow()
         function calculateHeightRuculaWindow(){
             let heightWindow =  Number(window.innerHeight)
             let offsetTop = Number(ruculaWindow.offsetTop)
@@ -80,8 +80,8 @@ export let windowBaseDOM = (() => {
             <div class="r-head r-read-new">
             
             <div style="z-index: 1;">
-                    <button id="" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
-                    <div class="r-display-inline-block r-actions-window">
+                    <button id="${constIdBaseWindow.ACTIONS_WINDOW}" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
+                    <div class="r-display-inline-block r-actions-window r-actions-window-itens">
                         <div class="r-display-inline-block">
                             <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
                             <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
@@ -208,6 +208,18 @@ export let windowBaseDOM = (() => {
             // setValueInForm(objectReload)
         })    
     }
+
+
+    function openActionswindow(){
+
+        let actions = document.getElementById(constIdBaseWindow.ACTIONS_WINDOW)
+
+        actions?.addEventListener('click', (e) => {
+            actions?.nextElementSibling?.classList.toggle('r-actions-window-active')
+            actions?.nextElementSibling?.classList.toggle('r-actions-window')
+        })
+    }
+
 
     return {
         createWindowBase: (id:string) => {

@@ -61,6 +61,7 @@ export const constIdBaseWindow =  {
     CHECK_DEPENDENCY: "check-dependency",
     VIEW_OBJECT: "view-object",
     MAXIMIZE_WINDOW: "maximize-window",
+    ACTIONS_WINDOW: "r-actiond-window",
     GLOBALIZATION: "r-globalization",
     OLLI_GLOBALIZATION: "r-globalization-list",    
     ENVIROMENT: "r-enviroment",
