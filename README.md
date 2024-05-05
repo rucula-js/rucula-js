@@ -22,6 +22,104 @@ npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js
 ### Olá Mundo!
 
 [Veja agora um exemplo do uso](./docs/docs/exemples/hello-world.html)
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exemplo Rucula</title>
+        <style>
+            body{
+                margin: 0;
+            }
+            *{
+                font-family: "DM Sans", sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="js">
+        </div>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rucula-js/rucula-js@master/dist/style/style.css"/>
+
+        <script type="module" >
+            
+            import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-js/rucula-js@master/dist/rucula.js'
+            
+            let config = {
+                floatLabel:true, 
+                environments:[
+                    {
+                        env:"development",
+                        hostname:"http://localhost",
+                        port: "5016"
+                    }
+                ],
+                localizations:[
+                    {
+                        locales:"pt-BR",
+                        language:"🇧🇷 Brasil" ,
+                        currency:"BRL",
+                        maxDecimal:5
+                    }
+                ] 
+            }   
+
+            let input  = {
+                name: "Olá Mundo",
+                pathController: "/OlaMundo",
+                type: "crud",
+                crud:"c",
+                messageHome: "Ola Mundo",
+                iconHome: "bi-rocket-takeoff",
+                grid:false,
+                frames: [
+                    {
+                        name: "Ola Mundo!",
+                        objectDto: "olaMundo",
+                        alias: "aliasOlaMundo",
+                        fields: [
+                            {
+                                propertDto: "codigo",
+                                description: "Código",
+                                maxLength: 40,
+                                requerid:true,
+                                width:350
+                            },
+                            {
+                                propertDto: "nome",
+                                description: "Nome",
+                            }
+                        ]
+                    }
+                ],
+                layout:{
+                    items:
+                    [
+                        ["aliasOlaMundo"]
+                    ]
+                },
+                button: [
+                    {
+                        icon: "bi bi-save",
+                        type: "button",
+                        target: "r-a-save",
+                        body:"."
+                    }
+                ]}
+
+            let rucula = new Rucula(config,input,"js");
+            rucula.object.setValue('aliasOlaMundo.codigo','703e8d2c-b49f-40b4-875a-11022581c0f0')
+            rucula.object.setValue('aliasOlaMundo.nome','reginaldo')
+
+        </script>
+    </body>
+</html>
+```
 ##### Contribuidores
 
 |Contribuidores|
