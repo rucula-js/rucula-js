@@ -771,9 +771,8 @@ let windowBaseDOM = (() => {
         viewDependency();
         openActionswindow();
         function calculateHeightRuculaWindow() {
-            let heightWindow = Number(window.innerHeight);
             let offsetTop = Number(ruculaWindow.offsetTop);
-            ruculaWindow.style.height = `${heightWindow - offsetTop}px`;
+            ruculaWindow.style.height = `calc( 100% - ${offsetTop}px`;
         }
     }
     function createNameWindow(name) {
@@ -809,9 +808,14 @@ let windowBaseDOM = (() => {
             </div>
         </div>
         <div autocomplete="off" class="r-f container-r-f r-f-hidden js-open-close-container">
-            <div class="r-head r-read-new">
-            
-            <div style="z-index: 1;">
+           
+        <div class="r-facede-action top">
+            <div class="r-window-name r-facede-action top">
+                <h3 class="${constIdBaseWindow.TITLE}"></h3>
+            </div>
+            <div class="r-head r-read-new r-facede-action top">
+               
+                <div style="z-index: 10;">
                     <button id="${constIdBaseWindow.ACTIONS_WINDOW}" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
                     <div class="r-display-inline-block r-actions-window r-actions-window-itens">
                         <div class="r-display-inline-block">
@@ -835,9 +839,9 @@ let windowBaseDOM = (() => {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h3 id="${constIdBaseWindow.TITLE}"></h3>
-                </div>
+                    <div class="r-window-name r-facede-action">
+                        <h3 class="${constIdBaseWindow.TITLE}"></h3>
+                    </div>
                 <div class="r-head r-read-edit">
                     <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                     <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
@@ -846,12 +850,17 @@ let windowBaseDOM = (() => {
                     <ol id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_LIST} class="r-a-menu-vertical-list list-vertical-buttons list-vertical-buttons-pp-rigth r-display-none"> 
                     </ol>    
                 </div>
+                </div>
             </div>
+
             <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
             </form>
             <div class="js-r-loader r-box-show">
                 <div class="r-loader"></div>
             </div>
+            <div class="r-facede-action bottom">
+            </div>
+            
         </div>`;
         return CREATE_OR_EDIT;
     }
@@ -2275,8 +2284,10 @@ class Rucula {
             let title = document.getElementById("r-f-home-title");
             title.textContent = this.window?.messageHome;
         }
-        let title = document.getElementById(constIdBaseWindow.TITLE);
-        title.textContent = this.window.name;
+        let titles = document.querySelectorAll(`.${constIdBaseWindow.TITLE}`);
+        titles?.forEach(title => {
+            title.textContent = this.window.name;
+        });
     }
     createButtons(type = "CRUD") {
         if (type == "CRUD") {
