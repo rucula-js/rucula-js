@@ -73,8 +73,10 @@ export class Rucula{
             title.textContent = this.window?.messageHome
         }
         
-        let title = document.getElementById(constIdBaseWindow.TITLE)!
-        title.textContent = this.window.name
+        let titles = document.querySelectorAll(`.${constIdBaseWindow.TITLE}`)
+        titles?.forEach(title => {
+            title.textContent = this.window.name
+        })
     }
     
     private createButtons(type:string="CRUD"){

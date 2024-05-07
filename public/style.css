@@ -330,13 +330,22 @@ form.r-f-items{
     padding-right: 5px;
     padding-left: 5px;
     padding-top: 10px;
-    padding-bottom: 10px;
+}
+
+.r-facede-action.top {
+    height: 50px;
+}
+.r-window-name.top{
+    display: none;
 }
 
 .r-head {
+    position: fixed;
     display: flex;
     align-items: center;
     color: var(--color-write);
+    z-index:1;
+    width: 100%;
 }
 
 .r-read-new,.r-act-opt {
@@ -661,7 +670,7 @@ select.did-floating-select::-ms-expand {
 @media screen and (max-width:700px){
  
     .r-head {
-        position: absolute;
+        position:fixed;
         left: 0;
         right: 0;
         bottom: 0px;
@@ -679,7 +688,20 @@ select.did-floating-select::-ms-expand {
     button.r-actions-window{
         display: inline
     }
+
     .r-actions-window{
         display: none;
+    }
+    
+    .r-facede-action.bottom {
+        height: 50px;
+    }
+
+    .r-window-name.top{
+        display: block;
+        align-content: center;
+        text-align: center;
+        background-color: var(--color-black);
+        color: var(--color-write);
     }
 }
