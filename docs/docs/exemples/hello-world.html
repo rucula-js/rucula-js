@@ -87,9 +87,14 @@
                     }
                 ]}
 
+            var form = document.getElementById("js")
+
             let rucula = new Rucula(config,input,"js");
-            rucula.object.setValue('aliasOlaMundo.codigo','703e8d2c-b49f-40b4-875a-11022581c0f0')
-            rucula.object.setValue('aliasOlaMundo.nome','reginaldo')
+            
+            form?.addEventListener('r-a-save.click',(e) => {
+                rucula.loader.enable()
+                rucula.loader.disable()
+            })
 
         </script>
     </body>
