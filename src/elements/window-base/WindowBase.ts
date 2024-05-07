@@ -30,8 +30,10 @@ export let windowBaseDOM = (() => {
         viewDependency()
         openActionswindow()
         function calculateHeightRuculaWindow(){
+            
             let offsetTop = Number(ruculaWindow.offsetTop)
-            ruculaWindow.style.height =  `calc( 100% - ${offsetTop}px` 
+            let height = Number(window.innerHeight)
+            ruculaWindow.style.height = `${height-offsetTop}px` 
         }
 
     }
