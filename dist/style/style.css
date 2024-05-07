@@ -82,6 +82,15 @@ button.r-actions-window{
     display: none
 }
 
+.r-actions-window-active{
+    position: absolute;
+    right: 0;
+    z-index: 6;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: var(--color-black);
+}
+
 .r-display-inline-block{
     display: inline-block
 }

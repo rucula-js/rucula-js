@@ -43,6 +43,7 @@ const constIdBaseWindow = {
     CHECK_DEPENDENCY: "check-dependency",
     VIEW_OBJECT: "view-object",
     MAXIMIZE_WINDOW: "maximize-window",
+    ACTIONS_WINDOW: "r-actiond-window",
     GLOBALIZATION: "r-globalization",
     OLLI_GLOBALIZATION: "r-globalization-list",
     ENVIROMENT: "r-enviroment",
@@ -751,22 +752,29 @@ let consolePanelManagment = (() => {
 let windowBaseDOM = (() => {
     let elementRoot;
     function createWindowBase(id) {
-        const window = document.createElement("div");
-        window.classList.add("r-w");
+        const ruculaWindow = document.createElement("div");
+        ruculaWindow.classList.add("r-w");
         const actions = document.createElement("div");
         actions.innerHTML = componentActions();
-        window.appendChild(actions);
+        ruculaWindow.appendChild(actions);
         const contentForm = document.createElement("div");
         contentForm.innerHTML = createComponentCreateOrEdit();
-        window.appendChild(contentForm.childNodes[0]);
-        window.appendChild(contentForm.childNodes[1]);
+        ruculaWindow.appendChild(contentForm.childNodes[0]);
+        ruculaWindow.appendChild(contentForm.childNodes[1]);
         const div = document.getElementById(id);
-        div?.appendChild(window);
+        div?.appendChild(ruculaWindow);
+        calculateHeightRuculaWindow();
         prepareEventsButtonsCrud();
         maximizeWindow();
         eraseWindow();
         viewObject();
         viewDependency();
+        openActionswindow();
+        function calculateHeightRuculaWindow() {
+            let heightWindow = Number(window.innerHeight);
+            let offsetTop = Number(ruculaWindow.offsetTop);
+            ruculaWindow.style.height = `${heightWindow - offsetTop}px`;
+        }
     }
     function createNameWindow(name) {
         let window = document.querySelector(".r-w-t");
@@ -804,8 +812,8 @@ let windowBaseDOM = (() => {
             <div class="r-head r-read-new">
             
             <div style="z-index: 1;">
-                    <button id="" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
-                    <div class="r-display-inline-block r-actions-window">
+                    <button id="${constIdBaseWindow.ACTIONS_WINDOW}" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
+                    <div class="r-display-inline-block r-actions-window r-actions-window-itens">
                         <div class="r-display-inline-block">
                             <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
                             <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
@@ -897,6 +905,13 @@ let windowBaseDOM = (() => {
         let form = windowBaseDOM.getPrincipalElementRucula();
         reload?.addEventListener('click', () => {
             form.reset();
+        });
+    }
+    function openActionswindow() {
+        let actions = document.getElementById(constIdBaseWindow.ACTIONS_WINDOW);
+        actions?.addEventListener('click', (e) => {
+            actions?.nextElementSibling?.classList.toggle('r-actions-window-active');
+            actions?.nextElementSibling?.classList.toggle('r-actions-window');
         });
     }
     return {
