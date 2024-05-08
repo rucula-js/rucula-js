@@ -169,6 +169,9 @@ export let windowBaseDOM = (() => {
 
             let actions = document.getElementById("actions");
             actions?.remove()
+
+            let maximizeWindow = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW)
+            maximizeWindow?.remove()
         }
     }
 
