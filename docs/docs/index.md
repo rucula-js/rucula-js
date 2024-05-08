@@ -27,11 +27,9 @@ import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-jsrucula-js/dist/rucula
 npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js`
 ```
 
-### Olá Mundo
+<iframe height="500 " class="w-100" src="./exemples/hello-world.html"></iframe>
 
-[Veja agora um exemplo do uso](./exemples/hello-world.html)
 ##### Contribuidores
-
 
 <br>
 
