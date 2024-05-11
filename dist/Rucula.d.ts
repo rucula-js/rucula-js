@@ -13,6 +13,30 @@ export declare class Rucula {
         enable: () => void;
         disable: () => void;
     };
+    popup: {
+        messsage: {
+            info: (config: {
+                text: string;
+                timeout?: number | undefined;
+                disableadFooter?: boolean | undefined;
+            }) => void;
+            sucess: (config: {
+                text: string;
+                timeout?: number | undefined;
+                disableadFooter?: boolean | undefined;
+            }) => void;
+            warning: (config: {
+                text: string;
+                timeout?: number | undefined;
+                disableadFooter?: boolean | undefined;
+            }) => void;
+            error: (config: {
+                text: string;
+                timeout?: number | undefined;
+                disableadFooter?: boolean | undefined;
+            }) => void;
+        };
+    };
     object: {
         objectUnique: (alias: string) => any;
         getFullObject: () => any;

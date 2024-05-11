@@ -1,5 +1,1 @@
-export declare let consolePanelManagment: {
-    createPanel: () => HTMLDivElement;
-    outputDependencies: () => void;
-    outputGetObject: () => void;
-};
+export declare function logs(): void;

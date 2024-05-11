@@ -40,8 +40,6 @@ const constIdBaseWindow = {
     NEW: "r-a-new",
     RELOAD: "r-a-reload",
     ERASE_WINDOW: "erase-window",
-    CHECK_DEPENDENCY: "check-dependency",
-    VIEW_OBJECT: "view-object",
     MAXIMIZE_WINDOW: "maximize-window",
     ACTIONS_WINDOW: "r-actiond-window",
     GLOBALIZATION: "r-globalization",
@@ -680,75 +678,6 @@ let managmentObject = (() => {
     };
 })();
 
-let consolePanelManagment = (() => {
-    const PANEL_CONSOLE = `
-    <div class="r-box-show" id="panel-console">
-        <div class="panel">
-            <span>🔴 🟡 🟢</span>  
-            <button class="r-a-b btn-close"><i class="bi bi-x-lg"></i></button>  
-        <div>
-        </div>
-            <div class="content-panel">
-                <div id="content-panel">
-                </div>
-            </div>
-        </div>    
-    </div>`;
-    function getPainelContent() {
-        return document.getElementById('content-panel');
-    }
-    function openPanel() {
-        let panelConsole = document.getElementById('panel-console');
-        panelConsole.style.display = 'block';
-    }
-    function closePanel() {
-        let panelConsole = document.getElementById('panel-console');
-        panelConsole.style.display = 'none';
-    }
-    return {
-        createPanel: function () {
-            const div = document.createElement('div');
-            div.innerHTML = PANEL_CONSOLE;
-            let btnClose = div.querySelector('.btn-close');
-            btnClose.addEventListener('click', () => {
-                closePanel();
-            });
-            return div;
-        },
-        outputDependencies: function () {
-            openPanel();
-            let dependecies = tableDependency.getDependenciesNotResolded();
-            let output = '<br>';
-            output += '<h2>Dependências não Resolvidas</h2>';
-            output += '<br>';
-            dependecies.forEach(c => {
-                c.fieldsNotResolved.forEach(dep => {
-                    if (c.isHibernate) {
-                        output += `<div style="color: orange;">${dep}</div>`;
-                    }
-                    if (c.isHibernate == false) {
-                        output += `<div style="color: green;">${dep}</div>`;
-                    }
-                });
-            });
-            let contentPanel = getPainelContent();
-            if (contentPanel) {
-                contentPanel.innerHTML = output;
-            }
-        },
-        outputGetObject: function () {
-            openPanel();
-            let output = '<br>';
-            output += '<h2>Objeto Atual</h2>';
-            output += `<div style="margin-top:10px;">${JSON.stringify(managmentObject.object.object.objectFull())}</div>`;
-            let contentPanel = getPainelContent();
-            if (contentPanel) {
-                contentPanel.innerHTML = output;
-            }
-        }
-    };
-})();
-
 let windowBaseDOM = (() => {
     let elementRoot;
     function createWindowBase(id) {
@@ -767,8 +696,6 @@ let windowBaseDOM = (() => {
         prepareEventsButtonsCrud();
         maximizeWindow();
         eraseWindow();
-        viewObject();
-        viewDependency();
         openActionswindow();
         function calculateHeightRuculaWindow() {
             let offsetTop = Number(ruculaWindow.offsetTop);
@@ -823,10 +750,8 @@ let windowBaseDOM = (() => {
                             <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
                             <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
                             <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
-                            <button id="${constIdBaseWindow.CHECK_DEPENDENCY}" class="r-a-b "><i class="bi bi-lock"></i></button>
-                            <button id="${constIdBaseWindow.VIEW_OBJECT}" class="r-a-b "><i class="bi bi-braces-asterisk"></i></button>
                         </div>
-                        <div style="display: inline;margin-left: 20px;">
+                        <div class="actions-view">
                             <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
                                 <i class="bi bi-globe-americas"></i>
                                 <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
@@ -856,13 +781,12 @@ let windowBaseDOM = (() => {
 
             <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
             </form>
-            <div class="js-r-loader r-box-show">
-                <div class="r-loader"></div>
-            </div>
             <div class="r-facede-action bottom">
             </div>
-            
-        </div>`;
+            <div class="r-box-show" id="r-box-show"> 
+            </div>    
+        </div>
+        `;
         return CREATE_OR_EDIT;
     }
     function prepareEventsButtonsCrud() {
@@ -886,6 +810,8 @@ let windowBaseDOM = (() => {
             buttonNew?.click();
             let actions = document.getElementById("actions");
             actions?.remove();
+            let maximizeWindow = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
+            maximizeWindow?.remove();
         }
     }
     function maximizeWindow() {
@@ -901,14 +827,6 @@ let windowBaseDOM = (() => {
         erase?.addEventListener('click', () => {
             form.reset();
         });
-    }
-    function viewObject() {
-        let viewObject = document.getElementById(constIdBaseWindow.VIEW_OBJECT);
-        viewObject?.addEventListener('click', () => consolePanelManagment.outputGetObject());
-    }
-    function viewDependency() {
-        let dependecies = document.getElementById(constIdBaseWindow.CHECK_DEPENDENCY);
-        dependecies?.addEventListener('click', () => consolePanelManagment.outputDependencies());
     }
     function reload() {
         let reload = document.getElementById(constIdBaseWindow.RELOAD);
@@ -2228,19 +2146,178 @@ let buttonsDOM = (() => {
 })();
 
 let loaderManagment = (() => {
+    let loaderBkp = document.createElement('div');
+    let loaderElement = document.createElement('div');
+    loaderElement.classList.add('r-loader');
+    loaderElement.classList.add('js-r-loader');
+    loaderElement.classList.add('r-item-center');
+    let boxShow;
     return {
         enable: function () {
-            let loader = document.querySelector('.js-r-loader');
-            loader?.classList.add('r-item-center');
+            boxShow = document.getElementById('r-box-show');
+            boxShow?.classList.add('r-box-show-center');
+            boxShow?.appendChild(loaderElement);
         },
         disable: function () {
             let loader = document.querySelector('.js-r-loader');
             setTimeout(() => {
-                loader?.classList.remove('r-item-center');
+                loaderBkp.appendChild(loader);
+                boxShow?.classList.remove('r-box-show-center');
             }, 1000);
         }
     };
 })();
+
+let popup = (() => {
+    let boxShow;
+    function boxShowAppendChield(element) {
+        boxShow = document.querySelector('.r-box-show');
+        boxShow.appendChild(element);
+        boxShow.classList.add('r-box-show-center');
+    }
+    function messageElement(config) {
+        let message = document.createElement('div');
+        message.innerHTML = `
+        <div class="r-message">
+            <div class="r-message-header">
+                <div class="r-message-header-icon">
+                    <i class="bi ${config.icon}"></i>
+                </div>   
+                <div class="r-message-header-title">
+                    ${config.title}
+                </div>
+            </div>
+            
+            <div class="r-message-content">
+                <div class="r-message-content-text">
+                    ${config.text}
+                </div>
+            </div>
+            <div class="r-message-footer">
+                ${config.footer}
+            </div>
+        </div>
+        `;
+        if (config?.disableadFooter) {
+            let footer = message.querySelector('.r-message-footer');
+            footer?.classList.add("r-display-none");
+        }
+        return message;
+    }
+    function closeTimeout(div, timeout) {
+        setTimeout(() => {
+            div.remove();
+            close();
+        }, timeout);
+    }
+    function closeOKOrCancel(div) {
+        let ok = div.querySelector('button.ok');
+        let cancel = div.querySelector('button.cancel');
+        ok?.addEventListener('click', () => {
+            div.remove();
+            close();
+        });
+        cancel?.addEventListener('click', () => {
+            div.remove();
+            close();
+        });
+    }
+    function close() {
+        boxShow.classList.remove('r-box-show-center');
+    }
+    return {
+        messsage: {
+            info: function (config) {
+                let info = messageElement({
+                    icon: "bi-info-circle color-darkgrey",
+                    title: "Informação",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(info);
+                if (config.timeout) {
+                    closeTimeout(info, config.timeout);
+                }
+                boxShowAppendChield(info);
+            },
+            sucess: function (config) {
+                let sucess = messageElement({
+                    icon: "bi-check2-circle color-green",
+                    title: "Sucesso",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(sucess);
+                if (config.timeout) {
+                    closeTimeout(sucess, config.timeout);
+                }
+                boxShowAppendChield(sucess);
+            },
+            warning: function (config) {
+                let warning = messageElement({
+                    icon: "bi-exclamation-triangle color-orange",
+                    title: "Atenção",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>    
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(warning);
+                if (config.timeout) {
+                    closeTimeout(warning, config.timeout);
+                }
+                boxShowAppendChield(warning);
+            },
+            error: function (config) {
+                let warning = messageElement({
+                    icon: "bi-x-circle color-red",
+                    title: "Erro",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>    
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(warning);
+                if (config.timeout) {
+                    closeTimeout(warning, config.timeout);
+                }
+                boxShowAppendChield(warning);
+            },
+        }
+    };
+})();
+
+let rucula = {
+    log: (() => {
+        return {
+            dependencies: function () {
+                return tableDependency.getDependenciesNotResolded();
+            },
+            object: function () {
+                return managmentObject.object.object.objectFull();
+            }
+        };
+    })()
+};
+function logs() {
+    window.rucula = rucula;
+}
 
 class Rucula {
     window;
@@ -2260,8 +2337,6 @@ class Rucula {
         rucula.dispatchEvent(eventInit);
         configWindow.set(this.window);
         defaultValues.setDefault(this.window);
-        let panel = consolePanelManagment.createPanel();
-        this.elementRucula.appendChild(panel);
         windowBaseDOM.createWindowBase(this.elementRucula.id);
         this.addHomeWindow();
         managmentObject.frame.initObjects(this.window.frames);
@@ -2275,6 +2350,7 @@ class Rucula {
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);
         rucula.dispatchEvent(eventLoad);
+        logs();
     }
     addHomeWindow() {
         if (this.window?.iconHome) {
@@ -2309,12 +2385,8 @@ class Rucula {
             }
         });
     }
-    loader = (() => {
-        return {
-            enable: () => loaderManagment.enable(),
-            disable: () => loaderManagment.disable()
-        };
-    })();
+    loader = loaderManagment;
+    popup = popup;
     object = (() => {
         return {
             objectUnique: (alias) => managmentObject.object.object.objectUnique(alias),

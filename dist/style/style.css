@@ -31,11 +31,17 @@
     border: 2px solid var(--color-write);
 }
 
+.r-box-show-center {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
 .r-box-show {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     background-color: #ffffff17;
@@ -43,6 +49,7 @@
 }
 
 .r-loader {
+    position: absolute;
     border: 6px solid var(--color-black);
     border-radius: 50%;
     border-top: 6px solid #ffa200;
@@ -50,6 +57,11 @@
     height: 50px;
     -webkit-animation: spin 1.3s linear infinite; /* Safari */
     animation: spin 1.3s linear infinite;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
  
 .r-item-center {
@@ -76,6 +88,11 @@
 
 .r-display-none{
     display: none;
+}
+
+
+.r-display-block{
+    display: block;
 }
 
 button.r-actions-window{
@@ -596,77 +613,87 @@ select.did-floating-select::-ms-expand {
     text-wrap: nowrap;
 }
 
-.panel {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    max-width: 700px;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    padding: 10px;
-    margin: 10px auto 10px auto;
-    background-color: #181717;
-}
-
-.panel .btn-close {
-    position: absolute;
-    right: 0;
-}
-.content-panel pre {
-    margin:0;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-/* Estilize o título do painel */
-.panel h2 {
-    font-size: 24px;
-    display: block;
-    color: #cecece;
-    background-color: inherit;
-}
-
-/* Estilize o conteúdo do painel */
-.panel p {
-    font-size: 16px;
-    color: #dbdbdb;
-}
-
-.content-panel{
-  display: block;
-  overflow-y: auto;
-  overflow-x: hidden;
-  color: #ffffff;
-  padding-bottom:60px
-}
-
-.panel input {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    background-color: inherit;
-    margin: auto;
-    font-size: 1.25rem;
-    border-radius: 0px 0px 10px 10px;
-    padding: 10px;
-    color: #ffffff;
-    border: 1px solid #dbdbdb;
-}
-
 /* Console */
 .r-c {
     width: 250px;
     height: 100%;
 }
 
+.actions-view {
+    display: inline-block;
+}
 
+
+
+.r-message {
+    padding: 30px 10px 10px 10px;
+    width: 470px;
+    background-color: var(--color-write);
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px var(--color-grey);
+} 
+
+.r-message-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.r-message-header-icon{
+    font-size: 70px;
+}
+
+.r-message-header-title {
+    font-size: 2rem;
+    font-weight: bold;
+
+}
+
+.r-message-content-text{
+    text-align: center;
+}
+
+.r-message-footer .cancel-ok {
+    display: flex;
+    justify-content: center;
+}
+.r-message-footer button {
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 120px;
+    font-weight: bold;
+
+}
+
+.r-message-footer button.cancel {
+    background-color: red;
+}
+.r-message-footer button.ok {
+    margin-left: 10px;
+    background-color: #2b2bb4;
+    color: #fff;
+
+}
+.color-darkgrey {
+    color: darkgrey;
+}
+.color-green {
+    color: #009d16;
+}
+.color-orange{
+    color: #f18000;
+}
+
+.color-red {
+    color: #f10707;
+    
+}
+.r-message-header-icon,
+.r-message-header-title,
+.r-message-content {
+    margin-bottom: 15px;
+}
 @media screen and (max-width:700px){
  
     .r-head {
