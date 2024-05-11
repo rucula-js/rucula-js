@@ -49,9 +49,21 @@ import "./public/normalize.css"
         }
     })
 
+    rucula.popup.messsage.warning({text:"Esse projeto encontra-se em fase de Desenvolvimento"});
+
     form?.addEventListener('r-a-save.click',(e) => {
 
-        rucula.loader.enable()
-        rucula.loader.disable()
+        rucula.popup.messsage.info({text:"Registrando...", timeout:2000, disableadFooter:true});
+        setTimeout(() => 
+            rucula.popup.messsage.sucess({text:"Informações Registradas", timeout:1000, disableadFooter:true})
+        ,2000)
+    })
+
+    form?.addEventListener('r-a-alter.click',(e) => {
+
+        rucula.popup.messsage.info({text:"Alterando...", timeout:2000, disableadFooter:true});
+        setTimeout(() => 
+            rucula.popup.messsage.sucess({text:"Informações Alteradas", timeout:1000, disableadFooter:true})
+        ,2000)
     })
 })()
