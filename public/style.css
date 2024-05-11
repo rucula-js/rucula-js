@@ -627,7 +627,7 @@ select.did-floating-select::-ms-expand {
 
 .r-message {
     padding: 30px 10px 10px 10px;
-    width: 470px;
+    width: 400px;
     background-color: var(--color-write);
     border-radius: 10px;
     box-shadow: 0px 0px 3px var(--color-grey);
@@ -731,4 +731,8 @@ select.did-floating-select::-ms-expand {
         background-color: var(--color-black);
         color: var(--color-write);
     }
+    .r-message{
+        max-width: calc(100vw - 30px) ;
+    }
+    
 }
