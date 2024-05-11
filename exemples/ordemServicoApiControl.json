@@ -15,8 +15,7 @@
         {
           "propertDto": "codigo",
           "description": "Código",
-          "maxLength": 40,
-          "requerid":true
+          "maxLength": 40
         },
         {
           "propertDto": "dataAbertura",
@@ -48,8 +47,7 @@
           "propertDto": "infIni",
           "description": "Informações Iniciais",
           "type": "textarea",
-          "maxLength": 150,
-          "requerid":true
+          "maxLength": 150
         }
       ]
     },

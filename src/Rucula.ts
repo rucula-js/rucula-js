@@ -1,6 +1,5 @@
 import { window } from "./entities/form/window";
 import { managmentObject } from "./object/ObjectManagment";
-import {consolePanelManagment}  from './console/Console'
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
@@ -14,6 +13,8 @@ import { buttonsDOM } from "./buttons/Button";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
 import { ruculaGlobal } from "./global/GlobalConfig";
 import { loaderManagment } from "./elements/loader/loader";
+import { popup } from "./popup/popup";
+import { logs } from "./console/Console";
 
 export class Rucula{
     private window: window
@@ -40,8 +41,6 @@ export class Rucula{
 
         configWindow.set(this.window)
         defaultValues.setDefault(this.window)
-        let panel = consolePanelManagment.createPanel()
-        this.elementRucula.appendChild(panel)
         windowBaseDOM.createWindowBase(this.elementRucula.id)
         this.addHomeWindow();
         managmentObject.frame.initObjects(this.window.frames)
@@ -55,6 +54,7 @@ export class Rucula{
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);        
         rucula.dispatchEvent(eventLoad)
+        logs()
         
 
     }
@@ -106,13 +106,10 @@ export class Rucula{
         })
     }
 
-    public loader = (() => {
-        return {
-            enable: () => loaderManagment.enable(),
-            disable:() => loaderManagment.disable()
-        }        
-    })()
+    public loader = loaderManagment
 
+    public popup = popup;
+    
     public object = (() => {
         
         return {

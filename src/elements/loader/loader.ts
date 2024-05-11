@@ -1,15 +1,28 @@
 export let loaderManagment = (() => {
 
+    let loaderBkp:HTMLDivElement = document.createElement('div')
+
+    let loaderElement = document.createElement('div');
+    loaderElement.classList.add('r-loader')
+    loaderElement.classList.add('js-r-loader')
+    loaderElement.classList.add('r-item-center')
+
+    let boxShow:HTMLDivElement
+
     return {
         enable: function (){
-            let loader = document.querySelector('.js-r-loader')
-            loader?.classList.add('r-item-center')
+            boxShow = document.getElementById('r-box-show') as HTMLDivElement
+            boxShow?.classList.add('r-box-show-center')
+            boxShow?.appendChild(loaderElement)
+        
         },
-        disable: function (){
+        disable: function (){            
 
-            let loader = document.querySelector('.js-r-loader')
+            let loader = document.querySelector('.js-r-loader') as HTMLDivElement
+            
             setTimeout(() => {
-                loader?.classList.remove('r-item-center')
+                loaderBkp.appendChild(loader)
+                boxShow?.classList.remove('r-box-show-center')
             },1000)
         }
     }

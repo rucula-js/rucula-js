@@ -1,4 +1,3 @@
-import { consolePanelManagment } from "../../console/Console";
 import { constIdBaseWindow } from "../../const";
 
 export let windowBaseDOM = (() => {
@@ -26,8 +25,6 @@ export let windowBaseDOM = (() => {
         prepareEventsButtonsCrud()
         maximizeWindow()
         eraseWindow()
-        viewObject()
-        viewDependency()
         openActionswindow()
         function calculateHeightRuculaWindow(){
             
@@ -92,10 +89,8 @@ export let windowBaseDOM = (() => {
                             <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
                             <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
                             <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
-                            <button id="${constIdBaseWindow.CHECK_DEPENDENCY}" class="r-a-b "><i class="bi bi-lock"></i></button>
-                            <button id="${constIdBaseWindow.VIEW_OBJECT}" class="r-a-b "><i class="bi bi-braces-asterisk"></i></button>
                         </div>
-                        <div style="display: inline;margin-left: 20px;">
+                        <div class="actions-view">
                             <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
                                 <i class="bi bi-globe-americas"></i>
                                 <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
@@ -125,13 +120,12 @@ export let windowBaseDOM = (() => {
 
             <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
             </form>
-            <div class="js-r-loader r-box-show">
-                <div class="r-loader"></div>
-            </div>
             <div class="r-facede-action bottom">
             </div>
-            
-        </div>`
+            <div class="r-box-show" id="r-box-show"> 
+            </div>    
+        </div>
+        `
     
         return CREATE_OR_EDIT;
     }
@@ -196,16 +190,6 @@ export let windowBaseDOM = (() => {
         })
     }
     
-    function viewObject(){
-        let viewObject = document.getElementById(constIdBaseWindow.VIEW_OBJECT)
-        viewObject?.addEventListener('click', () => consolePanelManagment.outputGetObject())
-    }
-
-    function viewDependency(){
-        let dependecies = document.getElementById(constIdBaseWindow.CHECK_DEPENDENCY)
-        dependecies?.addEventListener('click', () => consolePanelManagment.outputDependencies())
-    }
-
     let objectReload:any = {}
     
     function setObjecReload(obj:any){

@@ -58,8 +58,6 @@ export const constIdBaseWindow =  {
     NEW: "r-a-new",
     RELOAD:"r-a-reload",
     ERASE_WINDOW: "erase-window",
-    CHECK_DEPENDENCY: "check-dependency",
-    VIEW_OBJECT: "view-object",
     MAXIMIZE_WINDOW: "maximize-window",
     ACTIONS_WINDOW: "r-actiond-window",
     GLOBALIZATION: "r-globalization",
