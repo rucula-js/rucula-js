@@ -3,7 +3,7 @@ Para ver um exemplo do rucula-js você pode utilizar
 
 - [stackblitz](https://stackblitz.com/edit/vitejs-vite-cd4kxf?file=index.html&terminal=dev)
 - [Hello World](../exemples/hello-world.html)
-- [Ordem de Serviço](../exemples/hello-world.html) .
+- [Ordem de Serviço](../exemples/ordem-servico.html) .
  
  <br>
 
