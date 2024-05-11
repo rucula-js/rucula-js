@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exemplo Rucula</title>
+        <style>
+            body{
+                margin: 0;
+            }
+            *{
+                font-family: "DM Sans", sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="js">
+        </div>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rucula-js/rucula-js@master/dist/style/style.css"/>
+
+        <script type="module" >
+            
+            import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-js/rucula-js@master/dist/rucula.js'
+            
+            let config = {
+                floatLabel:true, 
+                environments:[
+                    {
+                        env:"development",
+                        hostname:"http://localhost",
+                        port: "5016"
+                    }
+                ],
+                localizations:[
+                    {
+                        locales:"pt-BR",
+                        language:"🇧🇷 Brasil" ,
+                        currency:"BRL",
+                        maxDecimal:5
+                    }
+                ] 
+            }   
+
+            
+            const ordemDeServico = {
+            name: "Ordem de Serviço",
+            pathController: "/OrdemServico",
+            type: "crud",
+            crud: "crud",
+            messageHome: "Ordem de Serviço",
+            iconHome: "bi-rocket-takeoff",
+            grid: false,
+            frames: [
+                {
+                name: "Header OS",
+                objectDto: "ordemDeServico",
+                alias: "ordemDeServico",
+                fields: [
+                    {
+                    propertDto: "codigo",
+                    description: "Código",
+                    maxLength: 40
+                    },
+                    {
+                    propertDto: "dataAbertura",
+                    description: "Data de Abertura",
+                    type: "date"
+                    },
+                    {
+                    propertDto: "totalServico",
+                    description: "Total de Serviço",
+                    type: "currency"
+                    },
+                    {
+                    propertDto: "dataConclusao",
+                    description: "Data de Conclusão",
+                    type: "date"
+                    },
+                    {
+                    propertDto: "status",
+                    description: "Status",
+                    type: ["checkbox", "bool"],
+                    checkbox: {
+                        on: true,
+                        off: false
+                    },
+                    groupFormat: "right",
+                    value: false
+                    },
+                    {
+                    propertDto: "infIni",
+                    description: "Informações Iniciais",
+                    type: "textarea",
+                    maxLength: 150
+                    }
+                ]
+                },
+                {
+                name: "Cliente",
+                objectDto: "cliente",
+                alias: "cliente",
+                parent: ".",
+                fields: [
+                    {
+                    propertDto: "nome",
+                    description: "Nome",
+                    maxLength: 80
+                    },
+                    {
+                    propertDto: "telefone",
+                    description: "Telefone",
+                    maxLength: 12
+                    },
+                    {
+                    propertDto: "email",
+                    description: "Email",
+                    maxLength: 150
+                    }
+                ]
+                },
+                {
+                name: "Cliente - Endereço",
+                objectDto: "endereco",
+                alias: "endereco",
+                parent: ".",
+                fields: [
+                    {
+                    propertDto: "cep",
+                    description: "CEP",
+                    maxLength: 9
+                    },
+                    {
+                    propertDto: "logradouro",
+                    description: "Logradouro",
+                    maxLength: 150
+                    },
+                    {
+                    propertDto: "complemento",
+                    description: "Complemento",
+                    information: "",
+                    maxLength: 20
+                    },
+                    {
+                    propertDto: "bairro",
+                    description: "Bairro",
+                    maxLength: 30
+                    },
+                    {
+                    propertDto: "cidade",
+                    description: "Cidade",
+                    maxLength: 40
+                    },
+                    {
+                    propertDto: "estado",
+                    description: "Estado",
+                    maxLength: 30
+                    },
+                    {
+                    propertDto: "pais",
+                    description: "País",
+                    maxLength: 50
+                    }
+                ]
+                },
+                {
+                name: "Serviços Prestados",
+                type: "line",
+                objectDto: "itensServico",
+                alias: "itensServico",
+                parent: ".",
+                fields: [
+                    {
+                    propertDto: "descricao",
+                    description: "Descrição",
+                    maxLength: 100
+                    },
+                    {
+                    propertDto: "valorUnitario",
+                    description: "Valor Unitário",
+                    type: "currency",
+                    maxLength: 20
+                    },
+                    {
+                    propertDto: "quantidade",
+                    description: "Quantidade",
+                    type: "number",
+                    max: 22
+                    },
+                    {
+                    propertDto: "subtotal",
+                    description: "Subtotal",
+                    type: "currency",
+                    maxLength: 50
+                    }
+                ]
+                },
+                {
+                name: "🧑‍🔧 Técnico Responsavel",
+                objectDto: "tecnicoResponsavel",
+                alias: "tecnicoResponsavel",
+                parent: ".",
+                fields: [
+                    {
+                    propertDto: "nome",
+                    description: "Nome",
+                    maxLength: 100
+                    },
+                    {
+                    propertDto: "telefone",
+                    description: "Telefone",
+                    maxLength: 15
+                    },
+                    {
+                    propertDto: "email",
+                    description: "Email",
+                    maxLength: 100
+                    }
+                ]
+                },
+                {
+                name: "💵 Pagamento",
+                objectDto: "pagamento",
+                alias: "pagamento",
+                parent: ".",
+                fields: [
+                    {
+                    propertDto: "formaDePagamento",
+                    description: "Forma de Pagamento",
+                    maxLength: 100
+                    },
+                    {
+                    propertDto: "valorTotalPago",
+                    description: "Valor Total Pago",
+                    type: "currency"
+                    },
+                    {
+                    propertDto: "dataPagamento",
+                    description: "Data de Pagamento",
+                    type: "date"
+                    }
+                ]
+                }
+            ],
+            layout: {
+                items: [
+                ["ordemDeServico", "ordemDeServico", "ordemDeServico"],
+                ["cliente", "cliente", "cliente"],
+                ["endereco", "", "endereco"],
+                ["itensServico", "itensServico", "itensServico"],
+                ["tecnicoResponsavel", "tecnicoResponsavel", "pagamento"]
+                ]
+            },
+            button: [
+                {
+                icon: "bi bi-save",
+                type: "button",
+                target: "r-a-save",
+                body: "."
+                },
+                {
+                icon: "bi bi-wrench",
+                type: "button",
+                target: "r-a-alter",
+                endPoint: "update-os"
+                },
+                {
+                icon: "bi bi-trash3",
+                type: "button",
+                target: "r-a-delete",
+                endPoint: "delete-os"
+                },
+                {
+                text: "Finalizar 💵",
+                type: "button",
+                target: "finalll",
+                endPoint: "delete-os",
+                URL: {
+                    params: "codigo={ordemDeServico.codigo}"
+                },
+                body: "."
+                },
+                {
+                text: "Validar  🎲",
+                type: "button",
+                target: "finalizar-compra",
+                endPoint: "delete-os"
+                }
+            ]
+            };
+
+            var form = document.getElementById("js")
+
+            let rucula = new Rucula(config,ordemDeServico,"js");
+            
+            form?.addEventListener('r-a-delete.click',(e) => {
+                rucula.loader.enable()
+                rucula.loader.disable()
+            })
+
+            rucula.popup.messsage.warning({text:"Esse projeto encontra-se em fase de Desenvolvimento"});
+
+            form?.addEventListener('r-a-save.click',(e) => {
+
+                rucula.popup.messsage.info({text:"Registrando...", timeout:2000, disableadFooter:true});
+                setTimeout(() => 
+                    rucula.popup.messsage.sucess({text:"Informações Registradas", timeout:1000, disableadFooter:true})
+                ,2000)
+            })
+
+            form?.addEventListener('r-a-alter.click',(e) => {
+
+                rucula.popup.messsage.info({text:"Alterando...", timeout:2000, disableadFooter:true});
+                setTimeout(() => 
+                    rucula.popup.messsage.sucess({text:"Informações Alteradas", timeout:1000, disableadFooter:true})
+                ,2000)
+            })
+
+        </script>
+    </body>
+</html>
