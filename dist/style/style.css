@@ -731,9 +731,4 @@ select.did-floating-select::-ms-expand {
         background-color: var(--color-black);
         color: var(--color-write);
     }
-    
-    .r-message{
-        max-width: calc(100% - 30px) ;
-    }
-    
 }
