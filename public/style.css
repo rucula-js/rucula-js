@@ -6,7 +6,7 @@
     --color-grey:#c7c7c7;
     --color-grey-weak:#f2f2f2;
     --color-black:#211e1e;
-    --heigth-read: 45px;
+    --heigth-r-facede-action: 50px;
 }
 
 
@@ -334,7 +334,7 @@ textarea.r-i-control {
 }
 
 .r-head{
-    height: var(--heigth-read);
+    height: var(--heigth-r-facede-action);
     background-color: var(--color-black);
 }
 
@@ -342,11 +342,12 @@ form.r-f-items{
     display: grid;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    max-height: calc(100% - var(--heigth-read));
-    overflow: auto;
+    max-height: calc(100% - var(--heigth-r-facede-action));
     padding-right: 5px;
     padding-left: 5px;
     padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: auto;
 }
 
 .r-facede-action.top {
@@ -705,6 +706,7 @@ select.did-floating-select::-ms-expand {
     
     form.r-f-items{
         display: block;
+        padding-bottom: var(--heigth-r-facede-action);
     }
 
     .r-q-b,
@@ -721,7 +723,9 @@ select.did-floating-select::-ms-expand {
     }
     
     .r-facede-action.bottom {
-        height: 50px;
+        position: fixed;
+        height: var(--heigth-r-facede-action);
+
     }
 
     .r-window-name.top{
