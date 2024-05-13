@@ -6,7 +6,7 @@
     --color-grey:#c7c7c7;
     --color-grey-weak:#f2f2f2;
     --color-black:#211e1e;
-    --heigth-read: 45px;
+    --heigth-r-facede-action: 50px;
 }
 
 
@@ -334,7 +334,7 @@ textarea.r-i-control {
 }
 
 .r-head{
-    height: var(--heigth-read);
+    height: var(--heigth-r-facede-action);
     background-color: var(--color-black);
 }
 
@@ -342,11 +342,12 @@ form.r-f-items{
     display: grid;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    max-height: calc(100% - var(--heigth-read));
-    overflow: auto;
+    max-height: calc(100% - var(--heigth-r-facede-action));
     padding-right: 5px;
     padding-left: 5px;
     padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: auto;
 }
 
 .r-facede-action.top {
@@ -500,50 +501,6 @@ form.r-f-items{
     border-radius: 5px 5px  5px  5px 
 }
 
-/* Tabulator */
-.tabulator {
-    background-color: var(--color-write);
-    border-radius: 5px;
-    border: none;
-    width: 96%;
-    margin: auto;
-    height: calc(100% - 100px);
-}
-
-.tabulator .tabulator-header .tabulator-col{
-    border-right: 1px solid transparent;
-}
-
-.tabulator .tabulator-header .tabulator-col,
-.tabulator .tabulator-footer .tabulator-footer-contents {
-    background-color: var(--color-black);
-    color: var(--color-write);
-}
-
-.tabulator .tabulator-footer .tabulator-page{
-    border: none;
-    border-radius: 10px;
-    color: var(--color-write);
-}
-
-.tabulator-row.tabulator-selectable:hover {
-    background-color: var(--color-black);
-}
-
-.tabulator .tabulator-header {
-    background-color: var(--color-black);
-}
-
-.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
-    background-color: var(--color-black);
-}
-
-.tabulator-row .tabulator-cell{
-    border-right: 1px solid #e7e7e7;
-    padding: auto;
-    margin: 0;
-}
-
 .did-floating-label-content {
     position: relative;
 }
@@ -622,8 +579,6 @@ select.did-floating-select::-ms-expand {
 .actions-view {
     display: inline-block;
 }
-
-
 
 .r-message {
     padding: 30px 10px 10px 10px;
@@ -705,6 +660,7 @@ select.did-floating-select::-ms-expand {
     
     form.r-f-items{
         display: block;
+        padding-bottom: var(--heigth-r-facede-action);
     }
 
     .r-q-b,
@@ -721,7 +677,9 @@ select.did-floating-select::-ms-expand {
     }
     
     .r-facede-action.bottom {
-        height: 50px;
+        position: fixed;
+        height: var(--heigth-r-facede-action);
+
     }
 
     .r-window-name.top{
@@ -731,4 +689,9 @@ select.did-floating-select::-ms-expand {
         background-color: var(--color-black);
         color: var(--color-write);
     }
+    
+    .r-message{
+        max-width: calc(100% - 30px) ;
+    }
+    
 }
