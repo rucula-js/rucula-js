@@ -6,9 +6,15 @@
     --color-grey:#c7c7c7;
     --color-grey-weak:#f2f2f2;
     --color-black:#211e1e;
+    --bgc-r-facede-action: #fafafa;
+    --color-icons-action: #211e1e;
     --heigth-r-facede-action: 50px;
 }
 
+.r-w.dark-theme{
+    --bgc-r-facede-action: #21282d;
+    --color-icons-action: #fafafa;
+}
 
 *{
     box-sizing:border-box;
@@ -105,7 +111,7 @@ button.r-actions-window{
     z-index: 6;
     margin-top: 0;
     margin-bottom: 0;
-    background-color: var(--color-black);
+    background-color: var(--bgc-r-facede-action);
 }
 
 .r-display-inline-block{
@@ -209,6 +215,11 @@ input.r-i-control[identity][disabled] {
     padding-left: 10px;
     
 }
+.r-q-b.dark-mode,
+.r-q-l.dark-mode {
+    background-color: red;
+}
+
 
 .r-q-b::-webkit-scrollbar-thumb,
 .r-q-l::-webkit-scrollbar-thumb {
@@ -302,6 +313,10 @@ input.r-i-focus-dependency {
     height: 100%;
     background-color: #f1f1f1;
 }
+.r-w.dark-mode{
+    background-color: #121212;
+}
+
 
 .r-b
 {
@@ -335,7 +350,6 @@ textarea.r-i-control {
 
 .r-head{
     height: var(--heigth-r-facede-action);
-    background-color: var(--color-black);
 }
 
 form.r-f-items{
@@ -350,6 +364,9 @@ form.r-f-items{
     overflow: auto;
 }
 
+.r-facede-action {
+    background-color: var(--bgc-r-facede-action)
+}
 .r-facede-action.top {
     height: 50px;
 }
@@ -390,8 +407,9 @@ form.r-f-items{
 }
 
 .r-a-b i {
-    color: var(--color-write);
+    color: var( --color-icons-action);
     font-size: 1.3rem;
+    cursor: pointer;
 }
 
 .container-r-f{
@@ -513,7 +531,7 @@ form.r-f-items{
     left: 15px;
     top: 11px;
     padding: 0 5px;
-    background: var(--color-write);
+    background: inherit;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
@@ -522,7 +540,7 @@ form.r-f-items{
     font-size: 1rem;
     height: 36px;
     padding: 0 5px;
-    background: #fff;
+    background: inherit;
     color: #323840;
     box-sizing: border-box;
 }
@@ -686,8 +704,8 @@ select.did-floating-select::-ms-expand {
         display: block;
         align-content: center;
         text-align: center;
-        background-color: var(--color-black);
-        color: var(--color-write);
+        background-color: var(--bgc-r-facede-action);
+        color: var(--color-icons-action);
     }
     
     .r-message{
