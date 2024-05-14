@@ -25,6 +25,7 @@ export let windowBaseDOM = (() => {
         prepareEventsButtonsCrud()
         maximizeWindow()
         eraseWindow()
+        alterTheme()
         openActionswindow()
         function calculateHeightRuculaWindow(){
             
@@ -89,6 +90,7 @@ export let windowBaseDOM = (() => {
                             <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
                             <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
                             <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
+                            <button id="${constIdBaseWindow.ALTER_THEME}" class="r-a-b "><i class="bi bi-circle-half"></i></button>
                         </div>
                         <div class="actions-view">
                             <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
@@ -104,9 +106,6 @@ export let windowBaseDOM = (() => {
                         </div>
                     </div>
                 </div>
-                    <div class="r-window-name r-facede-action">
-                        <h3 class="${constIdBaseWindow.TITLE}"></h3>
-                    </div>
                 <div class="r-head r-read-edit">
                     <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                     <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
@@ -218,6 +217,15 @@ export let windowBaseDOM = (() => {
         })
     }
 
+    function alterTheme(){
+
+        let actions = document.getElementById(constIdBaseWindow.ALTER_THEME)
+
+        actions?.addEventListener('click', (e) => {
+            let rw = document.querySelector('.r-w')
+            rw?.classList.toggle('dark-theme')
+        })
+    }
 
     return {
         createWindowBase: (id:string) => {
