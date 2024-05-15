@@ -1,3 +1,4 @@
+import { cookie } from "../../common/coockie/coockie";
 import { constIdBaseWindow } from "../../const";
 
 export let windowBaseDOM = (() => {
@@ -219,11 +220,26 @@ export let windowBaseDOM = (() => {
 
     function alterTheme(){
 
+        let rw = document.querySelector('.r-w')
+
         let actions = document.getElementById(constIdBaseWindow.ALTER_THEME)
 
+        let theme = cookie.read('theme')
+
+        if(theme == 'dark'){
+            rw?.classList.add('dark-theme')
+        }
+
         actions?.addEventListener('click', (e) => {
-            let rw = document.querySelector('.r-w')
+
             rw?.classList.toggle('dark-theme')
+
+            if(rw?.classList.contains('dark-theme')){
+                document.cookie = "theme=dark"
+            }
+            else{
+                document.cookie = "theme=light"
+            }
         })
     }
 
