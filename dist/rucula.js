@@ -679,6 +679,21 @@ let managmentObject = (() => {
     };
 })();
 
+let cookie = (() => {
+    return {
+        read: function (name) {
+            var cookies = document.cookie.split('; ');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].split('=');
+                if (cookie[0] === name) {
+                    return decodeURIComponent(cookie[1]);
+                }
+            }
+            return null;
+        }
+    };
+})();
+
 let windowBaseDOM = (() => {
     let elementRoot;
     function createWindowBase(id) {
@@ -843,10 +858,20 @@ let windowBaseDOM = (() => {
         });
     }
     function alterTheme() {
+        let rw = document.querySelector('.r-w');
         let actions = document.getElementById(constIdBaseWindow.ALTER_THEME);
+        let theme = cookie.read('theme');
+        if (theme == 'dark') {
+            rw?.classList.add('dark-theme');
+        }
         actions?.addEventListener('click', (e) => {
-            let rw = document.querySelector('.r-w');
             rw?.classList.toggle('dark-theme');
+            if (rw?.classList.contains('dark-theme')) {
+                document.cookie = "theme=dark";
+            }
+            else {
+                document.cookie = "theme=light";
+            }
         });
     }
     return {
