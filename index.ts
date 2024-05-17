@@ -49,7 +49,7 @@ import "./public/normalize.css"
         }
     })
 
-    // rucula.popup.messsage.warning({text:"Esse projeto encontra-se em fase de Desenvolvimento"});
+    rucula.popup.messsage.warning({text:"Esse projeto encontra-se em fase de Desenvolvimento"});
 
     form?.addEventListener('r-a-save.click',(e) => {
 
