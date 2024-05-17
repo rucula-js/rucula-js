@@ -28,9 +28,8 @@ export let popup = (() => {
     function messageElement(config:config){
         
         let message = document.createElement('div')
-        
+        message.classList.add('r-message')
         message.innerHTML = `
-        <div class="r-message">
             <div class="r-message-header">
                 <div class="r-message-header-icon">
                     <i class="bi ${config.icon}"></i>
@@ -47,9 +46,8 @@ export let popup = (() => {
             </div>
             <div class="r-message-footer">
                 ${config.footer}
-            </div>
-        </div>
-        `
+            </div>`
+            
         if(config?.disableadFooter){
             let footer = message.querySelector('.r-message-footer')
             footer?.classList.add("r-display-none")
