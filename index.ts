@@ -52,16 +52,23 @@ import { callbackYesNo } from "./src/popup/callback";
 
     form?.addEventListener('r-a-save.click',(e) => {
 
-        rucula.popup.messsage.info({text:"Registrando...", timeout:500, disableadFooter:true});
-        setTimeout(() => 
-            rucula.popup.messsage.sucess({text:"Informações Registradas", timeout:1000, disableadFooter:true})
-        ,2000)
+        rucula.popup.messsage.info({
+            text:"Registrando...", 
+            timeout:500, 
+            disableadFooter:true
+        },
+        () => rucula.popup.messsage.sucess({
+                text:"Informações Registradas", 
+                timeout:1000, 
+                disableadFooter:true
+            })
+
+        );
     })
 
     form?.addEventListener('r-a-alter.click',(e) => {
 
         rucula.popup.messsage.sucess({text:"Informações Alteradas"})
-      
     })
 
     form?.addEventListener('r-a-delete.click',(e) => {
