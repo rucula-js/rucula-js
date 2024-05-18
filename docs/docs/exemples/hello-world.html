@@ -48,7 +48,7 @@
                 name: "Olá Mundo",
                 pathController: "/OlaMundo",
                 type: "crud",
-                crud:"c",
+                crud:"crud",
                 messageHome: "Ola Mundo",
                 iconHome: "bi-rocket-takeoff",
                 grid:false,
@@ -80,9 +80,18 @@
                 },
                 button: [
                     {
-                        icon: "bi bi-save",
                         type: "button",
                         target: "r-a-save",
+                        body:"."
+                    },
+                    {
+                        type: "button",
+                        target: "r-a-alter",
+                        body:"."
+                    },
+                    {
+                        type: "button",
+                        target: "r-a-delete",
                         body:"."
                     }
                 ]}
@@ -92,9 +101,47 @@
             let rucula = new Rucula(config,input,"js");
             
             form?.addEventListener('r-a-save.click',(e) => {
-                rucula.loader.enable()
-                rucula.loader.disable()
+
+            rucula.popup.messsage.info({
+                text:"Registrando...", 
+                timeout:500, 
+                disableadFooter:true
+            },
+            () => rucula.popup.messsage.sucess({
+                    text:"Informações Registradas", 
+                    timeout:1000, 
+                    disableadFooter:true
+                })
+
+            );
             })
+
+            form?.addEventListener('r-a-alter.click',(e) => {
+
+            rucula.popup.messsage.sucess({text:"Informações Alteradas"})
+            })
+
+            form?.addEventListener('r-a-delete.click',(e) => {
+
+            rucula.popup.messsage.warning({text:"O registro será excluido permamentemente, deseja continuar?"},resultOption)
+            })
+
+            function resultOption(yesNo){
+
+                if(yesNo){
+                    rucula.popup.messsage.info({
+                            text:"excluindo...", 
+                            timeout:500, 
+                            disableadFooter:true,
+                            disableadHeader:true
+                    },sucess);
+                    return
+                }
+            }
+
+            function sucess(){
+            rucula.popup.messsage.sucess({text:"Item Excluido",timeout:2000})   
+            }
 
         </script>
     </body>
