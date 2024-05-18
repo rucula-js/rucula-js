@@ -536,7 +536,9 @@ form.r-f-items{
 }
 
 .r-message-footer button.cancel {
-    background-color: red;
+    background-color: #dd0000;
+    margin-left: 10px;
+    color: #fff;
 }
 .r-message-footer button.ok {
     margin-left: 10px;
