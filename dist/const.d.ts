@@ -68,3 +68,7 @@ export declare const constFrameLineActions: {
     ADD: string;
     REMOVE: string;
 };
+export declare const constYesNo: {
+    NO: boolean;
+    YES: boolean;
+};

@@ -19,22 +19,26 @@ export declare class Rucula {
                 text: string;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
-            }) => void;
+                disableadHeader?: boolean | undefined;
+            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
             sucess: (config: {
                 text: string;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
-            }) => void;
+                disableadHeader?: boolean | undefined;
+            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
             warning: (config: {
                 text: string;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
-            }) => void;
+                disableadHeader?: boolean | undefined;
+            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
             error: (config: {
                 text: string;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
-            }) => void;
+                disableadHeader?: boolean | undefined;
+            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
         };
     };
     object: {

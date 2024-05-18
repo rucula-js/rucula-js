@@ -74,6 +74,7 @@
     width: 100%;
     height: 100%;
     z-index: 10;
+    padding: 0 20px;
 }
 
 .r-item-center {
@@ -535,7 +536,9 @@ form.r-f-items{
 }
 
 .r-message-footer button.cancel {
-    background-color: red;
+    background-color: #dd0000;
+    margin-left: 10px;
+    color: #fff;
 }
 .r-message-footer button.ok {
     margin-left: 10px;

@@ -67,6 +67,10 @@ const constFrameLineActions = {
     ADD: 'f-l-action-add',
     REMOVE: 'f-l-action-remove'
 };
+const constYesNo = {
+    NO: false,
+    YES: true
+};
 
 function convertValueType(value, type) {
     type = GetType(type);
@@ -2209,8 +2213,8 @@ let popup = (() => {
     }
     function messageElement(config) {
         let message = document.createElement('div');
+        message.classList.add('r-message');
         message.innerHTML = `
-        <div class="r-message">
             <div class="r-message-header">
                 <div class="r-message-header-icon">
                     <i class="bi ${config.icon}"></i>
@@ -2227,31 +2231,42 @@ let popup = (() => {
             </div>
             <div class="r-message-footer">
                 ${config.footer}
-            </div>
-        </div>
-        `;
+            </div>`;
+        if (config?.disableadHeader) {
+            let header = message.querySelector('.r-message-header');
+            header?.remove();
+        }
         if (config?.disableadFooter) {
             let footer = message.querySelector('.r-message-footer');
-            footer?.classList.add("r-display-none");
+            footer?.remove();
         }
         return message;
     }
-    function closeTimeout(div, timeout) {
+    function closeTimeout(div, timeout, callback) {
         setTimeout(() => {
             div.remove();
             close();
+            if (callback) {
+                callback();
+            }
         }, timeout);
     }
-    function closeOKOrCancel(div) {
+    function closeOKOrCancel(callback, div) {
         let ok = div.querySelector('button.ok');
         let cancel = div.querySelector('button.cancel');
         ok?.addEventListener('click', () => {
             div.remove();
             close();
+            if (callback) {
+                callback(constYesNo.YES);
+            }
         });
         cancel?.addEventListener('click', () => {
             div.remove();
             close();
+            if (callback) {
+                callback(constYesNo.NO);
+            }
         });
     }
     function close() {
@@ -2259,7 +2274,7 @@ let popup = (() => {
     }
     return {
         messsage: {
-            info: function (config) {
+            info: function (config, callback) {
                 let info = messageElement({
                     icon: "bi-info-circle color-darkgrey",
                     title: "Informação",
@@ -2269,15 +2284,16 @@ let popup = (() => {
                             <button class="ok">OK</button>        
                         </div>
                     </div>`,
-                    disableadFooter: config.disableadFooter
+                    disableadFooter: config.disableadFooter,
+                    disableadHeader: config.disableadHeader
                 });
-                closeOKOrCancel(info);
-                if (config.timeout) {
-                    closeTimeout(info, config.timeout);
+                if (config?.timeout) {
+                    closeTimeout(info, config.timeout, callback);
                 }
+                closeOKOrCancel(callback, info);
                 boxShowAppendChield(info);
             },
-            sucess: function (config) {
+            sucess: function (config, callback) {
                 let sucess = messageElement({
                     icon: "bi-check2-circle color-green",
                     title: "Sucesso",
@@ -2289,31 +2305,32 @@ let popup = (() => {
                     </div>`,
                     disableadFooter: config.disableadFooter
                 });
-                closeOKOrCancel(sucess);
+                closeOKOrCancel(callback, sucess);
                 if (config.timeout) {
                     closeTimeout(sucess, config.timeout);
                 }
                 boxShowAppendChield(sucess);
             },
-            warning: function (config) {
+            warning: function (config, callback) {
                 let warning = messageElement({
                     icon: "bi-exclamation-triangle color-orange",
                     title: "Atenção",
                     text: config.text,
                     footer: `<div class="r-message-footer">
                         <div class="cancel-ok">
-                            <button class="ok">OK</button>        
+                            <button class="ok">OK</button>
+                            <button class="cancel">Cancel</button>
                         </div>    
                     </div>`,
                     disableadFooter: config.disableadFooter
                 });
-                closeOKOrCancel(warning);
+                closeOKOrCancel(callback, warning);
                 if (config.timeout) {
                     closeTimeout(warning, config.timeout);
                 }
                 boxShowAppendChield(warning);
             },
-            error: function (config) {
+            error: function (config, callback) {
                 let warning = messageElement({
                     icon: "bi-x-circle color-red",
                     title: "Erro",
@@ -2325,7 +2342,7 @@ let popup = (() => {
                     </div>`,
                     disableadFooter: config.disableadFooter
                 });
-                closeOKOrCancel(warning);
+                closeOKOrCancel(callback, warning);
                 if (config.timeout) {
                     closeTimeout(warning, config.timeout);
                 }
