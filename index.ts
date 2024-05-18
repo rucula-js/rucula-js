@@ -4,6 +4,7 @@ import { Rucula } from "./src/Rucula"
 
 import "./public/style.css"
 import "./public/normalize.css"
+import { callbackYesNo } from "./src/popup/callback";
 
 (()=> {
         
@@ -49,11 +50,9 @@ import "./public/normalize.css"
         }
     })
 
-    rucula.popup.messsage.warning({text:"Esse projeto encontra-se em fase de Desenvolvimento"});
-
     form?.addEventListener('r-a-save.click',(e) => {
 
-        rucula.popup.messsage.info({text:"Registrando...", timeout:2000, disableadFooter:true});
+        rucula.popup.messsage.info({text:"Registrando...", timeout:500, disableadFooter:true});
         setTimeout(() => 
             rucula.popup.messsage.sucess({text:"Informações Registradas", timeout:1000, disableadFooter:true})
         ,2000)
@@ -61,9 +60,29 @@ import "./public/normalize.css"
 
     form?.addEventListener('r-a-alter.click',(e) => {
 
-        rucula.popup.messsage.info({text:"Alterando...", timeout:2000, disableadFooter:true});
-        setTimeout(() => 
-            rucula.popup.messsage.sucess({text:"Informações Alteradas", timeout:1000, disableadFooter:true})
-        ,2000)
+        rucula.popup.messsage.sucess({text:"Informações Alteradas"})
+      
     })
+
+    form?.addEventListener('r-a-delete.click',(e) => {
+
+        rucula.popup.messsage.warning({text:"O registro será excluido permamentemente, deseja continuar?"},resultOption as callbackYesNo)
+    })
+  
+    function resultOption(yesNo:boolean):void{
+        
+        if(yesNo){
+            rucula.popup.messsage.info({
+                    text:"excluindo...", 
+                    timeout:500, 
+                    disableadFooter:true,
+                    disableadHeader:true
+                },sucess);
+            return
+        }
+    }
+
+    function sucess(){
+        rucula.popup.messsage.sucess({text:"Item Excluido",timeout:2000})   
+    }
 })()

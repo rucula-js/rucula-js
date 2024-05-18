@@ -93,3 +93,9 @@ export const constFrameLineActions = {
     ADD: 'f-l-action-add',
     REMOVE:'f-l-action-remove'
 }
+
+
+export const constYesNo = {
+    NO: false,
+    YES: true    
+}
