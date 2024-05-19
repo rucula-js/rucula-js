@@ -31,7 +31,12 @@ npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js
 
 0. hello world
     - [Código](https://github.com/rucula-js/rucula-js/blob/main/docs/docs/exemples/hello-world.html)
-    - [tela hello world](https://rucula-js.github.io/exemples/hello-world.html)
+    - [Ao Vivo](https://rucula-js.github.io/exemples/hello-world.html)
+
+0. Via Cep
+    - [Código](https://github.com/rucula-js/rucula-js/blob/main/docs/docs/exemples/via-cep.html)
+    - [Ao Vivo](https://rucula-js.github.io/exemples/via-cep.html)
+
 
 ##### Contribuidores
 
