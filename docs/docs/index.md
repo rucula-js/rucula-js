@@ -1,5 +1,5 @@
 ---
-title: Introdução ao Rucula
+title: Rucula
 summary: Primeira Apresentação do rucula-js
 authors:
   - Reginaldo Marinho
@@ -10,7 +10,7 @@ date: 2023-09-15
   <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
 
-**Bem vindo ao rucula-js, um gerador de interfaces baseadas em formulário que cria e gerencia todos os pontos necessários da sua interface.** 
+Bem vindo ao rucula-js, um gerador de interface baseadas em formulário que cria e gerencia todos os pontos necessários da sua interface. Isso é possível graças ao seu **criador de objetos** internos e a sua **tabela de dependência** que gerencia todos os campos e frames presentes da tela em foco.
 
 ## Instalação
 
@@ -26,6 +26,13 @@ import {Rucula} from 'https://cdn.jsdelivr.net/gh/rucula-jsrucula-js/dist/rucula
 ```js
 npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js`
 ```
+
+## Exemplos
+
+0. hello world
+    - [Código](https://github.com/rucula-js/rucula-js/blob/main/docs/docs/exemples/hello-world.html)
+    - [tela hello world](https://rucula-js.github.io/exemples/hello-world.html)
+
 ##### Contribuidores
 
 <br>

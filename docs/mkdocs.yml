@@ -1,10 +1,5 @@
 site_name: rucula-js
 nav:
-  - Inicio: index.md
-  - Começando:
-    - O que é?: comecando/o-que-e-o-rucula-js.md
-    - Hello World: comecando/hello-world.md
-    - Configurando?: comecando/como-configurar.md
   - Compreendendo: 
     - Janelas: compreendendo/janelas.md
     - Frames: compreendendo/frames.md
