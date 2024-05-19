@@ -147,7 +147,6 @@ button.r-actions-window{
 }
 
 input.r-i-control[identity][disabled] {
-    background-color: var(--color-grey-weak);
     cursor: not-allowed;
 }
 
