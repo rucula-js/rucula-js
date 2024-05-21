@@ -1,3 +1,4 @@
+import { button } from "./button";
 export interface field {
     description: string;
     identity: string;
@@ -16,6 +17,7 @@ export interface field {
     combo?: [];
     radio?: string[];
     value?: string;
+    button?: button;
 }
 interface checkbox {
     on: string;

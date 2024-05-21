@@ -63,4 +63,5 @@ export declare class Rucula {
         hide: (button: string) => void;
         destroy: (button: string) => void;
     };
+    on(query: string, event: string, callback: any): void;
 }
