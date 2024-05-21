@@ -50,7 +50,7 @@ import { callbackYesNo } from "./src/popup/callback";
         }
     })
 
-    form?.addEventListener('r-a-save.click',(e) => {
+    form?.addEventListener('r-a-save',(e) => {
 
         rucula.popup.messsage.info({
             text:"Registrando...", 
@@ -66,12 +66,11 @@ import { callbackYesNo } from "./src/popup/callback";
         );
     })
 
-    form?.addEventListener('r-a-alter.click',(e) => {
-
+    form?.addEventListener('r-a-alter',(e) => {
         rucula.popup.messsage.sucess({text:"Informações Alteradas"})
     })
-
-    form?.addEventListener('r-a-delete.click',(e) => {
+        
+    form?.addEventListener('r-a-delete',(e) => {
 
         rucula.popup.messsage.warning({text:"O registro será excluido permamentemente, deseja continuar?"},resultOption as callbackYesNo)
     })

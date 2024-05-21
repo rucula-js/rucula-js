@@ -295,14 +295,14 @@
 
             let rucula = new Rucula(config,ordemDeServico,"js");
             
-            form?.addEventListener('r-a-delete.click',(e) => {
+            form?.addEventListener('r-a-delete',(e) => {
                 rucula.loader.enable()
                 rucula.loader.disable()
             })
 
             rucula.popup.messsage.warning({text:"Esse projeto encontra-se em fase de Desenvolvimento"});
 
-            form?.addEventListener('r-a-save.click',(e) => {
+            form?.addEventListener('r-a-save',(e) => {
 
                 rucula.popup.messsage.info({text:"Registrando...", timeout:2000, disableadFooter:true});
                 setTimeout(() => 
@@ -310,7 +310,7 @@
                 ,2000)
             })
 
-            form?.addEventListener('r-a-alter.click',(e) => {
+            form?.addEventListener('r-a-alter',(e) => {
 
                 rucula.popup.messsage.info({text:"Alterando...", timeout:2000, disableadFooter:true});
                 setTimeout(() => 

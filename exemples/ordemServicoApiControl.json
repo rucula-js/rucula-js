@@ -48,6 +48,13 @@
           "description": "Informações Iniciais",
           "type": "textarea",
           "maxLength": 150
+        },
+        {
+          "button": {
+            "type": "button",
+            "target": "get-cep",
+            "text":"Pesquisar Elemento"
+          }
         }
       ]
     },

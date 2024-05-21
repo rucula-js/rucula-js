@@ -165,6 +165,16 @@ export class Rucula{
             destroy:(button:string) => buttonsDOM.destroy(button)
         }
     })()
+
+    public on(query:string, event:string, callback:any){
+
+        let itens = this.elementRucula.querySelectorAll(query)
+        
+        itens.forEach((item) => {
+            item.addEventListener(event, (e) => callback(e))
+        })
+        
+    }
 }
 
 

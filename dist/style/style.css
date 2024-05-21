@@ -156,6 +156,9 @@ input.r-i-control[identity][disabled] {
   margin: 0;
 }
 
+.r-g-i-i button {
+ padding: 10px;
+}
 
 .r-g-i-i{
     display: inline-block;

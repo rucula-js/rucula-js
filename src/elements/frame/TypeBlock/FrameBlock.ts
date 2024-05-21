@@ -1,3 +1,4 @@
+import { buttonsDOM } from "../../../buttons/Button";
 import { frame } from "../../../entities/form/frame";
 import { managmentObject } from "../../../object/ObjectManagment";
 import { tableDependency } from "../../../table-dependency/TableDependency";
@@ -21,9 +22,16 @@ export function createFrameBlock(frame:frame){
     
     frame.fields?.forEach(field => {
                 
-        let fieldElement = fieldDOM.create(field)
+        if(field?.button){
+            let buttonElement = buttonsDOM.createButtonOrLink(field.button)
+            let groupElement = fieldDOM.createGroupOfButton(buttonElement as HTMLButtonElement|HTMLAnchorElement) as HTMLDivElement
+            div.appendChild(groupElement)
+            return
+        }
         
-        div.appendChild(fieldElement)
+        let fieldElement = fieldDOM.create(field)
+        let groupElement = fieldDOM.createGroupOfInput(field, fieldElement) as HTMLDivElement
+        div.appendChild(groupElement)
 
     })
 

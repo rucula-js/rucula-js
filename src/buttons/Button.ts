@@ -59,7 +59,6 @@ export let buttonsDOM = (()=> {
         })
     }
 
-
     function prepareEnviroments(){
      
         let enviroment = document.getElementById(constIdBaseWindow.ENVIROMENT)
@@ -85,7 +84,9 @@ export let buttonsDOM = (()=> {
         })
     }
     return {
-         prepareButtonsInLeftBox: (button:button[]) => {
+        createButtonOrLink: (button:button) => createButtonOrLink(button),
+        
+        prepareButtonsInLeftBox: (button:button[]) => {
             
             const ListRightButtons = document.getElementById("r-a-menu-vertical-list")
             

@@ -1,5 +1,6 @@
 import { button } from '../entities/form/button';
 export declare let buttonsDOM: {
+    createButtonOrLink: (button: button) => HTMLAnchorElement | HTMLButtonElement;
     prepareButtonsInLeftBox: (button: button[]) => void;
     buttonIsNotDefault: (target: string) => boolean;
     disable: (target: string) => void;

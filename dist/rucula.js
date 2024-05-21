@@ -900,6 +900,57 @@ let windowBaseDOM = (() => {
     };
 })();
 
+class ElementBase {
+    element;
+    addDataIdAttribute(button) {
+        this.element.setAttribute("id", button.target);
+    }
+    addColor(color) {
+        if (color)
+            this.element.style.backgroundColor = color;
+    }
+}
+
+function createIcon(button) {
+    let icon = document.createElement('i');
+    if (button.icon === undefined || button.icon.trim() === "")
+        return icon;
+    button.icon?.split(" ").forEach(item => icon.classList.add(item));
+    return icon;
+}
+
+class ElementButton extends ElementBase {
+    createElement(button) {
+        if (button.target == null || button.target == "") {
+            throw new Error("target is requerid!");
+        }
+        this.element = document.createElement('button');
+        this.element.classList.add("r-b-i");
+        this.element.setAttribute('type', 'button');
+        let icon = createIcon(button);
+        let span = document.createElement('span');
+        span.textContent = button.text ?? "";
+        span.style.marginLeft = "5px";
+        this.element.appendChild(icon);
+        this.element.appendChild(span);
+        this.addColor(button.color);
+        this.addDataIdAttribute(button);
+        return this.element;
+    }
+}
+
+class ElementLink extends ElementBase {
+    createElement(button) {
+        this.element = document.createElement('a');
+        this.element.textContent = button.text + "";
+        this.element.href = `${button.link}`;
+        this.element.classList.add("btn-link");
+        this.element.setAttribute('target', "_blank");
+        this.element.appendChild(createIcon(button));
+        return this.element;
+    }
+}
+
 let ruculaGlobal = (() => {
     let configuration;
     function checkLocalizations(localizations) {
@@ -950,6 +1001,96 @@ let ruculaGlobal = (() => {
         },
         getConfigurationGlobal: function () {
             return configuration;
+        }
+    };
+})();
+
+let buttonsDOM = (() => {
+    let elementStrategy;
+    function buttonIsNotDefault(target) {
+        return target != constTargetButtonCrudDefault.SAVE &&
+            target != constTargetButtonCrudDefault.ALTER &&
+            target != constTargetButtonCrudDefault.DELETE;
+    }
+    function createButtonOrLink(button) {
+        if (button.type != "button" && button.type != "link") {
+            throw new Error("tipo do botão deve ser button ou link");
+        }
+        if (button.type == "button") {
+            elementStrategy = new ElementButton();
+        }
+        if (button.type == "link") {
+            elementStrategy = new ElementLink();
+        }
+        return elementStrategy.createElement(button);
+    }
+    function getButton(target) {
+        return document.getElementById(target);
+    }
+    function prepareLocalizations() {
+        let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION);
+        let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION);
+        globalization?.addEventListener("click", () => {
+            olliGlobalization?.classList.toggle("r-display-none");
+        });
+        let globalConf = ruculaGlobal.getConfigurationGlobal();
+        globalConf.localizations.forEach(loc => {
+            const li = document.createElement("li");
+            li.textContent = loc.language;
+            olliGlobalization?.appendChild(li);
+            li.addEventListener("click", () => {
+                ruculaGlobal.setLocalization(loc.locales);
+            });
+        });
+    }
+    function prepareEnviroments() {
+        let enviroment = document.getElementById(constIdBaseWindow.ENVIROMENT);
+        let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT);
+        enviroment?.addEventListener("click", () => {
+            olliEnviroment?.classList.toggle("r-display-none");
+        });
+        let globalConf = ruculaGlobal.getConfigurationGlobal();
+        globalConf.environments.forEach(enviroment => {
+            const li = document.createElement("li");
+            li.textContent = enviroment.env;
+            olliEnviroment?.appendChild(li);
+            li.addEventListener("click", () => {
+                ruculaGlobal.setEnviroment(enviroment.env);
+            });
+        });
+    }
+    return {
+        createButtonOrLink: (button) => createButtonOrLink(button),
+        prepareButtonsInLeftBox: (button) => {
+            const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
+            button
+                .filter(c => buttonIsNotDefault(c.target))
+                .forEach(b => {
+                const li = document.createElement("li");
+                li.appendChild(createButtonOrLink(b));
+                ListRightButtons?.appendChild(li);
+            });
+            prepareLocalizations();
+            prepareEnviroments();
+        },
+        buttonIsNotDefault: (target) => buttonIsNotDefault(target),
+        disable: (target) => {
+            let button = getButton(target);
+            button?.classList.remove('r-display-none');
+            button?.setAttribute('disabled', '');
+        },
+        enable: (target) => {
+            let button = getButton(target);
+            button?.classList.remove('r-display-none');
+            button?.removeAttribute('disabled');
+        },
+        hide: (target) => {
+            let button = getButton(target);
+            button?.classList.add('r-display-none');
+        },
+        destroy: (target) => {
+            let button = getButton(target);
+            button?.remove();
         }
     };
 })();
@@ -1259,10 +1400,17 @@ class FieldTextArea extends FieldInput {
 
 let fieldDOM = (() => {
     function createSpanLabelIsRequerid() {
+        ruculaGlobal.getConfigurationGlobal().floatLabel;
         const span = document.createElement('span');
         span.innerText = " *";
         span.style.color = "red";
         return span;
+    }
+    function createGroupOfButton(element) {
+        const div = document.createElement('div');
+        div.classList.add('r-g-i-i');
+        div.appendChild(element);
+        return div;
     }
     function createGroupOfInput(field, element) {
         const div = document.createElement('div');
@@ -1373,10 +1521,6 @@ let fieldDOM = (() => {
             };
             eventsCustom.field().set(identity);
             managmentObject.object.field.setValueContextIdentity(field.identity, field.type, element.value);
-            let type = managmentObject.field.type(field.identity);
-            if (type == constTypeFrame.BLOCK) {
-                return createGroupOfInput(field, element);
-            }
             function isRadio() {
                 return field.type[0] == constTypeInput.RADIO;
             }
@@ -1388,6 +1532,8 @@ let fieldDOM = (() => {
         createSpanLabelIsRequerid: () => {
             return createSpanLabelIsRequerid();
         },
+        createGroupOfInput: (field, element) => createGroupOfInput(field, element),
+        createGroupOfButton: (element) => createGroupOfButton(element),
         dependency: {
             focusFieldsWithDependency: () => {
                 tableDependency
@@ -1507,8 +1653,15 @@ function createFrameBlock(frame) {
         div.style.flexDirection = "column";
     }
     frame.fields?.forEach(field => {
+        if (field?.button) {
+            let buttonElement = buttonsDOM.createButtonOrLink(field.button);
+            let groupElement = fieldDOM.createGroupOfButton(buttonElement);
+            div.appendChild(groupElement);
+            return;
+        }
         let fieldElement = fieldDOM.create(field);
-        div.appendChild(fieldElement);
+        let groupElement = fieldDOM.createGroupOfInput(field, fieldElement);
+        div.appendChild(groupElement);
     });
     frameValues.setValuesDefined(frame, div);
     frameElement.appendChild(div);
@@ -1874,7 +2027,7 @@ function eventButton(pathController, buttons) {
         let dependency = {
             detail: {}
         };
-        let eventButton = new CustomEvent(`${button.target}.click`, object);
+        let eventButton = new CustomEvent(`${button.target}`, object);
         let eventButtonDependency = new CustomEvent(`${button.target}.dependency`, dependency);
         element?.addEventListener("click", () => {
             let dependencyCount = tableDependency.dependenciesCount();
@@ -2038,145 +2191,6 @@ let buttonsBase = (function () {
                     }
                 }
             }
-        }
-    };
-})();
-
-class ElementBase {
-    element;
-    addDataIdAttribute(button) {
-        this.element.setAttribute("id", button.target);
-    }
-    addColor(color) {
-        if (color)
-            this.element.style.backgroundColor = color;
-    }
-}
-
-function createIcon(button) {
-    let icon = document.createElement('i');
-    if (button.icon === undefined || button.icon.trim() === "")
-        return icon;
-    button.icon?.split(" ").forEach(item => icon.classList.add(item));
-    return icon;
-}
-
-class ElementButton extends ElementBase {
-    createElement(button) {
-        if (button.target == null || button.target == "") {
-            throw new Error("target is requerid!");
-        }
-        this.element = document.createElement('button');
-        this.element.classList.add("r-b-i");
-        let icon = createIcon(button);
-        let span = document.createElement('span');
-        span.textContent = button.text ?? "";
-        span.style.marginLeft = "5px";
-        this.element.appendChild(icon);
-        this.element.appendChild(span);
-        this.addColor(button.color);
-        this.addDataIdAttribute(button);
-        return this.element;
-    }
-}
-
-class ElementLink extends ElementBase {
-    createElement(button) {
-        this.element = document.createElement('a');
-        this.element.textContent = button.text + "";
-        this.element.href = `${button.link}`;
-        this.element.classList.add("btn-link");
-        this.element.setAttribute('target', "_blank");
-        this.element.appendChild(createIcon(button));
-        return this.element;
-    }
-}
-
-let buttonsDOM = (() => {
-    let elementStrategy;
-    function buttonIsNotDefault(target) {
-        return target != constTargetButtonCrudDefault.SAVE &&
-            target != constTargetButtonCrudDefault.ALTER &&
-            target != constTargetButtonCrudDefault.DELETE;
-    }
-    function createButtonOrLink(button) {
-        if (button.type != "button" && button.type != "link") {
-            throw new Error("tipo do botão deve ser button ou link");
-        }
-        if (button.type == "button") {
-            elementStrategy = new ElementButton();
-        }
-        if (button.type == "link") {
-            elementStrategy = new ElementLink();
-        }
-        return elementStrategy.createElement(button);
-    }
-    function getButton(target) {
-        return document.getElementById(target);
-    }
-    function prepareLocalizations() {
-        let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION);
-        let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION);
-        globalization?.addEventListener("click", () => {
-            olliGlobalization?.classList.toggle("r-display-none");
-        });
-        let globalConf = ruculaGlobal.getConfigurationGlobal();
-        globalConf.localizations.forEach(loc => {
-            const li = document.createElement("li");
-            li.textContent = loc.language;
-            olliGlobalization?.appendChild(li);
-            li.addEventListener("click", () => {
-                ruculaGlobal.setLocalization(loc.locales);
-            });
-        });
-    }
-    function prepareEnviroments() {
-        let enviroment = document.getElementById(constIdBaseWindow.ENVIROMENT);
-        let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT);
-        enviroment?.addEventListener("click", () => {
-            olliEnviroment?.classList.toggle("r-display-none");
-        });
-        let globalConf = ruculaGlobal.getConfigurationGlobal();
-        globalConf.environments.forEach(enviroment => {
-            const li = document.createElement("li");
-            li.textContent = enviroment.env;
-            olliEnviroment?.appendChild(li);
-            li.addEventListener("click", () => {
-                ruculaGlobal.setEnviroment(enviroment.env);
-            });
-        });
-    }
-    return {
-        prepareButtonsInLeftBox: (button) => {
-            const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
-            button
-                .filter(c => buttonIsNotDefault(c.target))
-                .forEach(b => {
-                const li = document.createElement("li");
-                li.appendChild(createButtonOrLink(b));
-                ListRightButtons?.appendChild(li);
-            });
-            prepareLocalizations();
-            prepareEnviroments();
-        },
-        buttonIsNotDefault: (target) => buttonIsNotDefault(target),
-        disable: (target) => {
-            let button = getButton(target);
-            button?.classList.remove('r-display-none');
-            button?.setAttribute('disabled', '');
-        },
-        enable: (target) => {
-            let button = getButton(target);
-            button?.classList.remove('r-display-none');
-            button?.removeAttribute('disabled');
-        },
-        hide: (target) => {
-            let button = getButton(target);
-            button?.classList.add('r-display-none');
-        },
-        destroy: (target) => {
-            let button = getButton(target);
-            button?.remove();
         }
     };
 })();
@@ -2476,6 +2490,12 @@ class Rucula {
             destroy: (button) => buttonsDOM.destroy(button)
         };
     })();
+    on(query, event, callback) {
+        let itens = this.elementRucula.querySelectorAll(query);
+        itens.forEach((item) => {
+            item.addEventListener(event, (e) => callback(e));
+        });
+    }
 }
 
 export { Rucula };
