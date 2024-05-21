@@ -63,6 +63,14 @@
                                 maxLength: 40,
                                 requerid:true,
                                 width:350
+                            },
+                            {
+                                button: {
+                                    type: "button",
+                                    target: "get-cep",
+                                    text:"Verificar Cep",
+                                    color:"#1242ad"
+                                }
                             }
                         ]
                     },
@@ -155,9 +163,9 @@
                 rucula.loader.disable()
             })
 
-            form?.addEventListener('after.aliasViaCep.cep.undefined',(e) => {
-
-                let cep = e.detail.identity.element.value
+            rucula.on('#get-cep','click',(e)=> {
+                
+                let cep = rucula.object.getValue('aliasViaCep.cep')
 
                 fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(response => {
@@ -175,7 +183,9 @@
                         rucula.object.setValue(`aliasInfoCep.${chave}`,data[chave])
                     }
                 })
+        
             })
+
         </script>
     </body>
 </html>

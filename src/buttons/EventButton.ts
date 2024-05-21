@@ -26,7 +26,7 @@ export function eventButton(pathController:string, buttons:button[]){
             detail:{}
         }
 
-        let eventButton = new CustomEvent(`${button.target}.click`,object)
+        let eventButton = new CustomEvent(`${button.target}`,object)
         let eventButtonDependency = new CustomEvent(`${button.target}.dependency`,dependency)
         
         element?.addEventListener("click", () => {

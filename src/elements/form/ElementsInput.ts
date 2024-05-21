@@ -1,4 +1,4 @@
-import { constGroupFormat, constInputClass, constTypeFrame, constTypeInput } from "../../const";
+import { constGroupFormat, constInputClass, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
 import { ruculaGlobal } from "../../global/GlobalConfig";
 import { managmentObject } from "../../object/ObjectManagment";
@@ -15,12 +15,22 @@ import { FieldTextArea } from "./Field/FieldTextArea";
 export let fieldDOM = (() => {
 
     function createSpanLabelIsRequerid():HTMLSpanElement{
+        const floatLabel = ruculaGlobal.getConfigurationGlobal().floatLabel
 
         const span = document.createElement('span'); 
         span.innerText = " *"
         span.style.color = "red";
     
         return span
+    }
+    
+    function createGroupOfButton(element:HTMLButtonElement|HTMLAnchorElement):HTMLDivElement{
+        
+        const div = document.createElement('div');
+        div.classList.add('r-g-i-i');
+
+        div.appendChild(element)
+        return div;
     }
 
     function createGroupOfInput(field:field, element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement):HTMLDivElement{
@@ -122,6 +132,7 @@ export let fieldDOM = (() => {
     function isSelect(type:string){
             return type[0] == constTypeInput.SELECT
     }
+
     return {
         create:(field:field)=> {
 
@@ -170,12 +181,6 @@ export let fieldDOM = (() => {
         
             managmentObject.object.field.setValueContextIdentity(field.identity,field.type, element.value);
             
-            let type = managmentObject.field.type(field.identity)
-            
-            if(type == constTypeFrame.BLOCK){
-                return  createGroupOfInput(field,element) as HTMLDivElement
-            }
-            
             function isRadio(){
                 return field.type[0]  == constTypeInput.RADIO
             }
@@ -186,10 +191,14 @@ export let fieldDOM = (() => {
         
             return element as HTMLSelectElement|HTMLInputElement
         },
+        
         createSpanLabelIsRequerid:() => {
             return createSpanLabelIsRequerid()
         },
-
+        
+        createGroupOfInput: (field:field, element:HTMLSelectElement|HTMLInputElement|HTMLTextAreaElement) => createGroupOfInput(field, element),
+        
+        createGroupOfButton:(element:HTMLButtonElement|HTMLAnchorElement) => createGroupOfButton(element),
         dependency: {
             focusFieldsWithDependency:() => {
             

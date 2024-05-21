@@ -1,3 +1,5 @@
+import { button } from "./button"
+
 export interface field {
 
     description: string
@@ -17,6 +19,7 @@ export interface field {
     combo?:[],
     radio?:string[]
     value?: string
+    button?:button
 }
 
 interface checkbox {
