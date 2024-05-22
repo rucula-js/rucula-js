@@ -56,13 +56,13 @@
                         name: "Procurar CEP",
                         objectDto: "viaCep",
                         alias: "aliasViaCep",
+                        vertical:false,
                         fields: [
                             {
                                 propertDto: "cep",
                                 description: "Cep",                                
-                                maxLength: 40,
-                                requerid:true,
-                                width:350
+                                maxLength: 9,
+                                requerid:true
                             },
                             {
                                 button: {
@@ -154,16 +154,14 @@
                 ]
             }
 
-            var form = document.getElementById("js")
-
             let rucula = new Rucula(config,input,"js");
             
-            form?.addEventListener('r-a-save.click',(e) => {
+            rucula.event.on('r-a-save',(e) => {
                 rucula.loader.enable()
                 rucula.loader.disable()
             })
 
-            rucula.on('#get-cep','click',(e)=> {
+            rucula.event.on('click',(e)=> {
                 
                 let cep = rucula.object.getValue('aliasViaCep.cep')
 
@@ -184,7 +182,7 @@
                     }
                 })
         
-            })
+            },'#get-cep')
 
         </script>
     </body>
