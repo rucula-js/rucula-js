@@ -2382,6 +2382,36 @@ function logs() {
     window.rucula = rucula;
 }
 
+let eventManagment = (() => {
+    return {
+        field: {
+            getDetails: (event) => {
+                let identity = event.detail.identity;
+                return {
+                    identity: identity.element.getAttribute('identity'),
+                    name: identity.name,
+                    row: identity.row,
+                    value: managmentObject.object.object.getPropert(identity.name),
+                    targetPathWithRow: (targetPath) => {
+                        return `${targetPath}.${identity.row}`;
+                    }
+                };
+            }
+        },
+        on: (event, callback, query) => {
+            let rucula = windowBaseDOM.getElementRoot();
+            if (query == undefined) {
+                rucula.addEventListener(event, (e) => callback(e));
+                return;
+            }
+            let itens = rucula.querySelectorAll(query);
+            itens.forEach((item) => {
+                item.addEventListener(event, (e) => callback(e));
+            });
+        }
+    };
+})();
+
 class Rucula {
     window;
     elementRucula;
@@ -2450,6 +2480,8 @@ class Rucula {
     }
     loader = loaderManagment;
     popup = popup;
+    event = eventManagment;
+    buttons = buttonsDOM;
     object = (() => {
         return {
             objectUnique: (alias) => managmentObject.object.object.objectUnique(alias),
@@ -2466,36 +2498,6 @@ class Rucula {
             }
         };
     })();
-    event = (() => {
-        return {
-            details: (event) => {
-                let identity = event.detail.identity;
-                return {
-                    identity: identity.element.getAttribute('identity'),
-                    name: identity.name,
-                    row: identity.row,
-                    value: managmentObject.object.object.getPropert(identity.name),
-                    targetPathWithRow: (targetPath) => {
-                        return `${targetPath}.${identity.row}`;
-                    }
-                };
-            }
-        };
-    })();
-    buttons = (() => {
-        return {
-            disable: (button) => buttonsDOM.disable(button),
-            enable: (button) => buttonsDOM.enable(button),
-            hide: (button) => buttonsDOM.hide(button),
-            destroy: (button) => buttonsDOM.destroy(button)
-        };
-    })();
-    on(query, event, callback) {
-        let itens = this.elementRucula.querySelectorAll(query);
-        itens.forEach((item) => {
-            item.addEventListener(event, (e) => callback(e));
-        });
-    }
 }
 
 export { Rucula };
