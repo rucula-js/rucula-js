@@ -10,7 +10,102 @@ date: 2023-09-15
   <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
 
-Bem vindo ao rucula-js, um gerador de interface baseadas em formulário que cria e gerencia todos os pontos necessários da sua interface. Isso é possível graças ao seu **criador de objetos** internos e a sua **tabela de dependência** que gerencia todos os campos e frames presentes da tela em foco.
+<h2>
+  Um gerador de interface baseado em formulário que cria e gerencia todos os pontos necessários da sua interface. 
+</h2>
+
+Com o rucula você
+
+<details>
+  <summary>Cria uma tela com poucas linhas de código</summary>
+  <code>
+    <pre>
+  {
+      "name":"Exemplo Rucula",
+      "pathController":"",
+      "type":"crud",
+      "crud":"",
+      "messageHome":"Olá",
+      "grid":false,
+      "frames":[
+          {
+            "name":"Exemplo Frame",
+            "objectDto":"exemploFrame",
+            "alias":"aliasFrame",
+            "fields":[
+                {
+                  "propertDto":"mensagem",
+                  "description":"mensagem"
+                }
+              ]
+          }
+      ]
+    }
+    </pre>
+  </code>
+</details>
+
+<details>
+  <summary>Gerencia eventos</summary>
+  <code>
+    <pre>
+    rucula.event.on('click',(e)=> {
+    },'#get-cep')
+    </pre>
+  </code>
+  <code>
+    <pre>
+    rucula.event.on('r-a-save',(e)=> {
+    })
+    </pre>
+  </code>
+</details>
+
+<details>
+  <summary>Utiliza loaders</summary>
+  <code>
+    <pre>
+        rucula.loader.enable()
+        rucula.loader.disable()
+    </pre>
+  </code>
+</details>
+
+<details>
+  <summary>Trabalha com alerts</summary>
+  <code>
+    <pre>
+       rucula.popup.messsage.info({
+          text:"excluindo...", 
+          timeout:500, 
+          disableadFooter:true,
+          disableadHeader:true
+      },sucess)
+    </pre>
+  </code>
+</details>
+
+<details>
+  <summary>Insere ou obtém informações de inputs respeitando as depêndencias controladas</summary>
+  <code>
+    <pre>
+      rucula.object.getValue('alias.propertDto')
+      rucula.object.setValue('alias.propertDto', 'valor')
+    </pre>
+  </code>
+</details>
+<br>
+
+Entre outras coisas, como:
+- Inputs
+- Frames
+- Botões
+- Temas
+- Layout
+- Responsividade
+
+
+Além das possiveis coisas que podemos fazer com o rucula-js, por baixo dos panos existem duas rotinas importantes, conhecidas como tabela de depêndencia e o criador de objetos.
 
 ## Instalação
 
