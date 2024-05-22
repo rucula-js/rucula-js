@@ -41,6 +41,27 @@ export declare class Rucula {
             }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
         };
     };
+    event: {
+        field: {
+            getDetails: (event: CustomEvent<any>) => {
+                identity: string | null;
+                name: any;
+                row: any;
+                value: any;
+                targetPathWithRow: (targetPath: string) => string;
+            };
+        };
+        on: (event: string, callback: any, query?: string | undefined) => void;
+    };
+    buttons: {
+        createButtonOrLink: (button: import("./entities/form/button").button) => HTMLAnchorElement | HTMLButtonElement;
+        prepareButtonsInLeftBox: (button: import("./entities/form/button").button[]) => void;
+        buttonIsNotDefault: (target: string) => boolean;
+        disable: (target: string) => void;
+        enable: (target: string) => void;
+        hide: (target: string) => void;
+        destroy: (target: string) => void;
+    };
     object: {
         objectUnique: (alias: string) => any;
         getFullObject: () => any;
@@ -48,20 +69,4 @@ export declare class Rucula {
         setValue: (targetPath: string, value: any) => void;
         getValue: (config: string) => any;
     };
-    event: {
-        details: (event: CustomEvent) => {
-            identity: string | null;
-            name: any;
-            row: any;
-            value: any;
-            targetPathWithRow: (targetPath: string) => string;
-        };
-    };
-    buttons: {
-        disable: (button: string) => void;
-        enable: (button: string) => void;
-        hide: (button: string) => void;
-        destroy: (button: string) => void;
-    };
-    on(query: string, event: string, callback: any): void;
 }
