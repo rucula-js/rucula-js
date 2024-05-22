@@ -7,14 +7,12 @@ import "./public/normalize.css"
 import { callbackYesNo } from "./src/popup/callback";
 
 (()=> {
-        
-    var form = document.getElementById("js")
-        
+                
     let rucula = new Rucula(config as any,input as any,"js");
     
-    form?.addEventListener('input.itensServico.quantidade',(e) => {
+    rucula.event.on('input.itensServico.quantidade',(e:CustomEvent) => {
 
-        let _this = rucula.event.details(e as CustomEvent)
+        let _this = rucula.event.field.getDetails(e)
 
         let path_valorUnitario = _this.targetPathWithRow('itensServico.valorUnitario')
         let path_subTotal = _this.targetPathWithRow('itensServico.subtotal')
@@ -26,9 +24,9 @@ import { callbackYesNo } from "./src/popup/callback";
         rucula.object.setValue(path_subTotal,value_subTotal)
     })
 
-    form?.addEventListener('input.itensServico.quantidade',(e) => {
+    rucula.event.on('input.itensServico.quantidade',(e:CustomEvent) => {
       
-        let identity = (e as CustomEvent).detail.identity
+        let identity = e.detail.identity
         
         let element = identity.element as HTMLInputElement
 
@@ -50,7 +48,7 @@ import { callbackYesNo } from "./src/popup/callback";
         }
     })
 
-    form?.addEventListener('r-a-save',(e) => {
+    rucula.event.on('r-a-save',(e:CustomEvent) => {
 
         rucula.popup.messsage.info({
             text:"Registrando...", 
@@ -66,13 +64,12 @@ import { callbackYesNo } from "./src/popup/callback";
         );
     })
 
-    form?.addEventListener('r-a-alter',(e) => {
+    rucula.event.on('r-a-alter',(e:CustomEvent) => {
         rucula.popup.messsage.sucess({text:"Informações Alteradas"})
     })
         
-    form?.addEventListener('r-a-delete',(e) => {
-
-        rucula.popup.messsage.warning({text:"O registro será excluido permamentemente, deseja continuar?"},resultOption as callbackYesNo)
+    rucula.event.on('r-a-delete',(e:CustomEvent) => {
+        rucula.popup.messsage.warning({text:"O registro será excluido permanentemente, deseja continuar?"},resultOption as callbackYesNo)
     })
   
     function resultOption(yesNo:boolean):void{

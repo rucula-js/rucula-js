@@ -15,6 +15,7 @@ import { ruculaGlobal } from "./global/GlobalConfig";
 import { loaderManagment } from "./elements/loader/loader";
 import { popup } from "./popup/popup";
 import { logs } from "./console/Console";
+import { eventManagment } from "./Event/event";
 
 export class Rucula{
     private window: window
@@ -36,7 +37,6 @@ export class Rucula{
         let eventLoad = new Event('rucula.load')
         
         let rucula = windowBaseDOM.getElementRoot()
-        
         rucula.dispatchEvent(eventInit)
 
         configWindow.set(this.window)
@@ -107,9 +107,10 @@ export class Rucula{
     }
 
     public loader = loaderManagment
-
     public popup = popup;
-    
+    public event = eventManagment
+    public buttons = buttonsDOM
+
     public object = (() => {
         
         return {
@@ -134,48 +135,8 @@ export class Rucula{
         }
     })()
 
-    public event = (() => {
-        
-        return {
-            
-            details: (event:CustomEvent) => {
-                
-                let identity = event.detail.identity
-
-                return {
-                    identity: (identity.element as HTMLElement).getAttribute('identity'),
-                    name:identity.name,
-                    row: identity.row,
-                    value: managmentObject.object.object.getPropert(identity.name),
-                    targetPathWithRow:(targetPath:string) => {
-
-                        //? This method helps to create Target Path with the current event line
-                        return `${targetPath}.${identity.row}`
-                    }             
-                }
-            }
-        }
-    })()
-
-    public buttons = (() => {
-        return {
-            disable:(button:string) => buttonsDOM.disable(button),
-            enable:(button:string) => buttonsDOM.enable(button),
-            hide:(button:string) => buttonsDOM.hide(button),
-            destroy:(button:string) => buttonsDOM.destroy(button)
-        }
-    })()
-
-    public on(query:string, event:string, callback:any){
-
-        let itens = this.elementRucula.querySelectorAll(query)
-        
-        itens.forEach((item) => {
-            item.addEventListener(event, (e) => callback(e))
-        })
-        
-    }
 }
+
 
 
 
