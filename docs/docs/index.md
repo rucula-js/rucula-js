@@ -10,11 +10,9 @@ date: 2023-09-15
   <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
 
-<h2>
-  Um gerador de interface baseado em formulário que cria e gerencia todos os pontos necessários da sua interface. 
-</h2>
+## **Um gerador de interface baseado em formulário que cria e gerencia todos os pontos necessários da sua interface.** 
 
-Com o rucula você
+Com o rucula-js você
 
 <details>
   <summary>Cria uma tela com poucas linhas de código</summary>
@@ -96,7 +94,8 @@ Com o rucula você
 </details>
 <br>
 
-Entre outras coisas, como:
+## **Entre outras coisas, como**:
+
 - Inputs
 - Frames
 - Botões
@@ -105,7 +104,7 @@ Entre outras coisas, como:
 - Responsividade
 
 
-Além das possiveis coisas que podemos fazer com o rucula-js, por baixo dos panos existem duas rotinas importantes, conhecidas como tabela de depêndencia e o criador de objetos.
+> **Além das possiveis coisas que podemos fazer com o rucula-js, por baixo dos panos existem duas rotinas importantes conhecidas como tabela de depêndencia e o criador de objetos**.
 
 ## Instalação
 

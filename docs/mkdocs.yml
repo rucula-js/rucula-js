@@ -1,5 +1,6 @@
 site_name: rucula-js
 nav:
+  - Rucula-js: index.md
   - Compreendendo: 
     - Janelas: compreendendo/janelas.md
     - Frames: compreendendo/frames.md
@@ -9,12 +10,13 @@ nav:
     - Eventos: compreendendo/eventos.md
     - Urls: compreendendo/urls.md
     - Botões: compreendendo/botoes.md
-    - Terminal: compreendendo/terminal.md
   - Configurações Globais:
     - Configurações Globais: configuracoesGlobais.md
     - Ambientes: ambiente.md
     - Localizações: localizacoes.md
   - Api:
+    - Rucula: api/rucula.md
+    - Popup: api/popup.md
     - Janelas: api/janelas.md
     - Frames: api/frames.md
     - Fields: api/fields.md

@@ -156,15 +156,10 @@
 
             let rucula = new Rucula(config,input,"js");
             
-            rucula.event.on('r-a-save',(e) => {
-                rucula.loader.enable()
-                rucula.loader.disable()
-            })
-
             rucula.event.on('click',(e)=> {
                 
-                let cep = rucula.object.getValue('aliasViaCep.cep')
-
+                let cep = rucula.object.getValue('aliasViaCep.cep') 
+                
                 fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(response => {
                     if (!response.ok) {
@@ -174,12 +169,27 @@
                 })
                 .then(data => {
                     if (data.erro) {
-                        throw new Error('CEP inválido');
+                        rucula.popup.messsage.info({
+                            text:"Cep Invalido", 
+                            timeout:1300, 
+                            disableadFooter:true,
+                            disableadHeader:true
+                        },() => {});
+                    
+                        return
                     }
 
                     for (let chave in data) {
                         rucula.object.setValue(`aliasInfoCep.${chave}`,data[chave])
                     }
+
+                })
+                .catch(data => {
+                    rucula.popup.messsage.error({
+                            text:data, 
+                            timeout:1300, 
+                            disableadFooter:true
+                        },() => {});
                 })
         
             },'#get-cep')
