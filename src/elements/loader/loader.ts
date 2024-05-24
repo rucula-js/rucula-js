@@ -19,11 +19,9 @@ export let loaderManagment = (() => {
         disable: function (){            
 
             let loader = document.querySelector('.js-r-loader') as HTMLDivElement
-            
-            setTimeout(() => {
-                loaderBkp.appendChild(loader)
-                boxShow?.classList.remove('r-box-show-center')
-            },1000)
+            loaderBkp.appendChild(loader)
+            boxShow?.classList.remove('r-box-show-center')
+    
         }
     }
 })()
