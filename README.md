@@ -1,11 +1,3 @@
----
-title: Rucula
-summary: Primeira Apresentação do rucula-js
-authors:
-  - Reginaldo Marinho
-date: 2023-09-15
----
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/reginaldo-marinho/rucula-js/b76e809a44a66de3733e30388e29d672c8b61011/docs/assets/rucula.svg" style="width:200px">
 </p>
