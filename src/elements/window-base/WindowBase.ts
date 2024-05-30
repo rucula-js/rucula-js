@@ -76,7 +76,7 @@ export let windowBaseDOM = (() => {
                 <h3 id="r-f-home-title"></h3>
             </div>
         </div>
-        <div autocomplete="off" class="r-f container-r-f r-f-hidden js-open-close-container">
+        <div autocomplete="off" class="r-f container-r-f r-display-none js-open-close-container">
            
         <div class="r-facede-action top">
             <div class="r-window-name r-facede-action top">
@@ -111,15 +111,20 @@ export let windowBaseDOM = (() => {
                     <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
                     <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
                     <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
-                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL} class="r-a-b"><i class="bi bi-three-dots-vertical"></i></button>
-                    <ol id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_LIST} class="r-a-menu-vertical-list list-vertical-buttons list-vertical-buttons-pp-rigth r-display-none"> 
-                    </ol>    
+                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL} class="r-a-b"><i class="bi bi-arrows"></i></button>    
                 </div>
                 </div>
             </div>
 
-            <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
-            </form>
+            <div class="r-w-body">
+                <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
+                </form>
+                <div class="r-vertical-actions">
+                    <ol id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_LIST} class=""> 
+                    </ol>
+                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_MOBILE} class="r-a-b actions-mobile"><i class="bi bi-arrows"></i></button>    
+                </div>
+            </div>
             <div class="r-facede-action bottom">
             </div>
             <div class="r-box-show" id="r-box-show"> 
@@ -149,7 +154,7 @@ export let windowBaseDOM = (() => {
         let itemContainer = document.querySelectorAll(".js-open-close-container")
         
         itemContainer.forEach(item => {
-            item.classList.toggle("r-f-hidden")
+            item.classList.toggle("r-display-none")
         })
     }
     

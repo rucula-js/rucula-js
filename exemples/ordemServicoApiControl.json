@@ -233,7 +233,7 @@
       "endPoint": "delete-os"
     },
     {
-      "text": "Finalizar 💵",
+      "text": "Finalizar",
       "type": "button",
       "target": "finalll",
       "endPoint": "delete-os",
@@ -243,9 +243,13 @@
       "body":"."
     },
     {
-      "text": "Validar  🎲",
+      "text": "Validar",
       "type": "button",
       "target": "finalizar-compra",
       "endPoint": "delete-os"
+    },
+    {
+      "text": "Repositório",
+      "type": "link"
     }
   ]}
