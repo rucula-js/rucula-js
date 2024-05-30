@@ -50,6 +50,7 @@ export declare const constIdBaseWindow: {
     OLLI_ENVIROMENT: string;
     FORM_RUCULA_JS: string;
     BUTTONS_MENU_VERTICAL: string;
+    BUTTONS_MENU_VERTICAL_MOBILE: string;
     BUTTONS_MENU_VERTICAL_LIST: string;
     TITLE: string;
 };

@@ -17,9 +17,7 @@ export class ElementButton extends ElementBase implements ElementStrategy{
         let icon = createIcon(button)
         let span = document.createElement('span')
         span.textContent = button.text??"";
-        
-        span.style.marginLeft = "5px";
-        
+                
         this.element.appendChild(icon);
         this.element.appendChild(span);
 

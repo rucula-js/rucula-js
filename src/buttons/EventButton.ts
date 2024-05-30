@@ -4,6 +4,7 @@ import { fieldDOM } from '../elements/form/ElementsInput';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
 import { urlManagment } from '../URL/urlManagment';
 import { managmentObject } from '../object/ObjectManagment';
+import { constIdBaseWindow } from '../const';
 
 export function eventButton(pathController:string, buttons:button[]){
     
@@ -64,11 +65,15 @@ export function eventButton(pathController:string, buttons:button[]){
 export function openCloseRightListButtons(){
 
     const openClose = document.getElementById("r-a-menu-vertical")
-    const listRight = document.getElementById("r-a-menu-vertical-list")
+    const listRight = document.querySelector(".r-vertical-actions")
     
-    openClose?.addEventListener("click",() => {
+    const openClosemobile = document.getElementById(constIdBaseWindow.BUTTONS_MENU_VERTICAL_MOBILE)
 
+    openClose?.addEventListener("click",() => {
         listRight?.classList.toggle("r-display-none");
-    
+    })
+
+    openClosemobile?.addEventListener("click",() => {
+        listRight?.classList.toggle("r-display-none");
     })
 }

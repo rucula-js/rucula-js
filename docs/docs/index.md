@@ -132,6 +132,11 @@ npm i @reginaldo-marinho/rucula-js` ou `npm install @reginaldo-marinho/rucula-js
     - [Ao Vivo](https://rucula-js.github.io/exemples/via-cep.html)
 
 
+0. Ordem de Serviço
+    - [Código](https://github.com/rucula-js/rucula-js/blob/main/docs/docs/exemples/ordem-servico.html)
+    - [Ao Vivo](https://rucula-js.github.io/exemples/ordem-servico.html)
+
+
 ##### Contribuidores
 
 <br>
