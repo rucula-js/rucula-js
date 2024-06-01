@@ -1,6 +1,7 @@
 import { callbackYesNo } from "./callback";
 type configCommon = {
-    text: string;
+    text?: string;
+    htmlBody?: HTMLElement;
     timeout?: number;
     disableadFooter?: boolean;
     disableadHeader?: boolean;

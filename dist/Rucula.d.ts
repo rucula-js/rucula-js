@@ -16,25 +16,29 @@ export declare class Rucula {
     popup: {
         messsage: {
             info: (config: {
-                text: string;
+                text?: string | undefined;
+                htmlBody?: HTMLElement | undefined;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
                 disableadHeader?: boolean | undefined;
             }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
             sucess: (config: {
-                text: string;
+                text?: string | undefined;
+                htmlBody?: HTMLElement | undefined;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
                 disableadHeader?: boolean | undefined;
             }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
             warning: (config: {
-                text: string;
+                text?: string | undefined;
+                htmlBody?: HTMLElement | undefined;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
                 disableadHeader?: boolean | undefined;
             }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
             error: (config: {
-                text: string;
+                text?: string | undefined;
+                htmlBody?: HTMLElement | undefined;
                 timeout?: number | undefined;
                 disableadFooter?: boolean | undefined;
                 disableadHeader?: boolean | undefined;
@@ -54,7 +58,7 @@ export declare class Rucula {
         on: (event: string, callback: any, query?: string | undefined) => void;
     };
     buttons: {
-        createButtonOrLink: (button: import("./entities/form/button").button) => HTMLAnchorElement | HTMLButtonElement;
+        createButtonOrLink: (button: import("./entities/form/button").button) => HTMLButtonElement | HTMLAnchorElement;
         prepareButtonsInLeftBox: (button: import("./entities/form/button").button[]) => void;
         buttonIsNotDefault: (target: string) => boolean;
         disable: (target: string) => void;
