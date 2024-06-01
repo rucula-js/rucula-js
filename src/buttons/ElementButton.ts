@@ -14,6 +14,16 @@ export class ElementButton extends ElementBase implements ElementStrategy{
         this.element.classList.add("r-b-i");
         this.element.setAttribute('type','button');
         
+        if(button.fullWidth){
+            this.element.classList.add('r-button-full-width')
+        }
+
+        let _class = button?.class?.split(' ')
+        
+        _class?.forEach(item => {
+            this.element.classList.add(item)
+        })
+ 
         let icon = createIcon(button)
         let span = document.createElement('span')
         span.textContent = button.text??"";

@@ -10,5 +10,7 @@ export interface button{
         relative:string
         params:string
     },
-    body:string
+    body:string,
+    fullWidth:boolean,
+    class?:string
 }

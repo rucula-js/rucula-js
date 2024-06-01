@@ -65,6 +65,10 @@
     justify-content: center;
 }
 
+.r-button-full-width{
+    display: inline-block;
+    width: 100%;
+}
 .r-box-show {
     display: none;
     position: fixed;
@@ -188,6 +192,7 @@ input.r-i-control[identity][disabled] {
     border-radius: 3px;
     background-color: var(--bgc-frames);
     padding-left: 10px;
+    padding-right: 10px;
     
 }
 
@@ -803,6 +808,8 @@ input:-internal-autofill-selected {
     .r-vertical-actions ol {        
         margin-top: 10px;
         padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
         background-color: var(--bgc-frames);
         height: inherit;
     }

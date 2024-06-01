@@ -53,7 +53,9 @@
           "button": {
             "type": "button",
             "target": "get-cep",
-            "text":"Pesquisar Elemento"
+            "text":"Pesquisar Elemento",
+            "fullWidth":true,
+            "class":"color-green"
           }
         }
       ]
