@@ -552,6 +552,7 @@ form.r-f-items{
     background-color: var(--bgc-frames);
     border-radius: 10px;
     box-shadow: 0px 0px 2px var(--color-border-default);
+    z-index: 200;
 } 
 
 .r-message-header {
@@ -739,6 +740,34 @@ input:-internal-autofill-selected {
     background-color: var(--bgc-frames) !important;
 }
 
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    min-width: 300px;
+    background-color: var(--bgc-frames);
+    border-radius: 5px;
+    box-shadow: 0 0 1px var(--color-border-default);
+    color: var(--color-text-defaut);
+    padding: 5px;
+}
+
+.context-menu ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu button {
+    width: 100%;
+    padding: 5px;
+    background-color: var(--bgc-frames);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    color: inherit;
+}
 @media screen and (max-width:700px){
  
     .r-head {

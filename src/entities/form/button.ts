@@ -4,13 +4,13 @@ export interface button{
     text?:string
     type:string
     color?:string
-    target:"r-a-save"|"r-a-alter"|"r-a-delete"|""
-    URL:{
+    target:"r-a-save"|"r-a-alter"|"r-a-delete"|string
+    URL?:{
         absolute:string
         relative:string
         params:string
     },
-    body:string,
-    fullWidth:boolean,
+    body?:string,
+    fullWidth?:boolean,
     class?:string
 }

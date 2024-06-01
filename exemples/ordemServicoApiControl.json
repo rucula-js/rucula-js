@@ -15,7 +15,8 @@
         {
           "propertDto": "codigo",
           "description": "Código",
-          "maxLength": 40
+          "maxLength": 40,
+          "information": "Use guuid 😃👍🏻"
         },
         {
           "propertDto": "dataAbertura",

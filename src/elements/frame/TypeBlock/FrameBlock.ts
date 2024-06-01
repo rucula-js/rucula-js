@@ -3,6 +3,7 @@ import { frame } from "../../../entities/form/frame";
 import { managmentObject } from "../../../object/ObjectManagment";
 import { tableDependency } from "../../../table-dependency/TableDependency";
 import { fieldDOM } from "../../form/ElementsInput";
+import { fieldMenuContext } from "../../form/Field/fieldMenuContext";
 import { createFrame } from "../ElementFrame";
 import { frameEvent } from "../FrameEvent";
 import { frameValues } from "../FrameValues";
@@ -33,6 +34,10 @@ export function createFrameBlock(frame:frame){
         let groupElement = fieldDOM.createGroupOfInput(field, fieldElement) as HTMLDivElement
         div.appendChild(groupElement)
 
+        fieldMenuContext.info.set({
+            identity: field.identity,
+            field: field
+        })
     })
 
     frameValues.setValuesDefined(frame, div);

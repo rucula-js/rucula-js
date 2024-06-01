@@ -9,12 +9,14 @@ type config = {
     footer?:string
     disableadFooter?:boolean
     disableadHeader?:boolean
+    htmlBody?:HTMLElement
     timeout?:number
 
 }
 
 type configCommon = {
-    text:string
+    text?:string,
+    htmlBody?:HTMLElement
     timeout?:number
     disableadFooter?:boolean
     disableadHeader?:boolean
@@ -54,16 +56,20 @@ export let popup = (() => {
                 ${config.footer}
             </div>`
         
-            if(config?.disableadHeader){
-                let header = message.querySelector('.r-message-header')
-                header?.remove()
-            }
+        if(config?.disableadHeader){
+            let header = message.querySelector('.r-message-header')
+            header?.remove()
+        }
 
         if(config?.disableadFooter){
             let footer = message.querySelector('.r-message-footer')
             footer?.remove()
         }
         
+        if(config?.htmlBody){
+            let messageContent = message.querySelector('.r-message-content')
+            messageContent?.appendChild(config?.htmlBody)
+        }
 
         return message
     }
@@ -131,7 +137,8 @@ export let popup = (() => {
                         </div>
                     </div>`,
                     disableadFooter: config.disableadFooter,
-                    disableadHeader: config.disableadHeader
+                    disableadHeader: config.disableadHeader,
+                    htmlBody:config.htmlBody
                 });
                 
                 if(config?.timeout){
