@@ -42,7 +42,12 @@ export function eventButton(pathController:string, buttons:button[]){
             
             object.detail.url = urlManagment.createURL(pathController, button);
             
-            let option = button.body
+            let option = button?.body
+            
+            if(option == undefined){
+                rucula.dispatchEvent(eventButton)
+                return
+            }
             
             if(option  == ''){
                 object.detail.body = managmentObject.object.object.objectSeparate()

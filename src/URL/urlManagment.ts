@@ -8,8 +8,7 @@ export  let urlManagment = (() => {
         
         createURL: function (controller:string, button:button){
 
-        
-            
+            if(button.URL)
             if(button.URL?.absolute?.length > 0) {
                 let url = urlManagment.createPath(button.URL.absolute)
                 return url
@@ -22,12 +21,14 @@ export  let urlManagment = (() => {
 
             let params = ''
 
+            if(button.URL)
             if(button.URL?.params?.length > 0 ){
                 params = urlManagment.createPath(button.URL.params)
                 url = `${url}/${controller}?${params}`
                 return url 
             }
 
+            if(button.URL)
             if(button.URL?.relative?.length > 0 ){
                 let path = urlManagment.createPath(button.URL.relative)
                 return  `${url}/${path}` 

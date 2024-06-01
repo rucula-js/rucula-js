@@ -1,5 +1,7 @@
 import { cookie } from "../../common/coockie/coockie";
 import { constIdBaseWindow } from "../../const";
+import { menuContext } from "../../menu-context/menu-context";
+import { fieldMenuContext } from "../form/Field/fieldMenuContext";
 
 export let windowBaseDOM = (() => {
 
@@ -28,6 +30,9 @@ export let windowBaseDOM = (() => {
         eraseWindow()
         alterTheme()
         openActionswindow()
+        menuContext.init()
+        fieldMenuContext.init()
+        
         function calculateHeightRuculaWindow(){
             
             let offsetTop = Number(ruculaWindow.offsetTop)
@@ -128,7 +133,7 @@ export let windowBaseDOM = (() => {
             <div class="r-facede-action bottom">
             </div>
             <div class="r-box-show" id="r-box-show"> 
-            </div>    
+            </div>
         </div>
         `
     
@@ -138,15 +143,12 @@ export let windowBaseDOM = (() => {
     function prepareEventsButtonsCrud(){
     
         let rNew = document.getElementById(constIdBaseWindow.NEW)
-        
-        
+            
         rNew!.addEventListener("click", () => {
             openCloseContainer();
             rNew!.classList.toggle("r-btn-new-convert-close")
             rNew!.classList.toggle("r-btn-new-cancel-close")
         })
-    
-        reload()
     }
     
     function openCloseContainer(){
@@ -194,25 +196,7 @@ export let windowBaseDOM = (() => {
             form.reset();
         })
     }
-    
-    let objectReload:any = {}
-    
-    function setObjecReload(obj:any){
-        objectReload = obj
-    }
-    
-    function reload(){
-    
-        let reload = document.getElementById(constIdBaseWindow.RELOAD)
-        let form = windowBaseDOM.getPrincipalElementRucula()
-    
-        reload?.addEventListener('click', () => {
-            form.reset();
-            // setValueInForm(objectReload)
-        })    
-    }
-
-
+        
     function openActionswindow(){
 
         let actions = document.getElementById(constIdBaseWindow.ACTIONS_WINDOW)
@@ -254,9 +238,6 @@ export let windowBaseDOM = (() => {
         },
         createNameWindow: (name:string) => {
             createNameWindow(name)
-        },
-        setObjecReload: (obj:any) => {
-            setObjecReload(obj)
         },
         setElementRoot:(id:string) => {
             elementRoot = document.getElementById(id)!

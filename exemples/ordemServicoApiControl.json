@@ -15,7 +15,8 @@
         {
           "propertDto": "codigo",
           "description": "Código",
-          "maxLength": 40
+          "maxLength": 40,
+          "information": "Use guuid 😃👍🏻"
         },
         {
           "propertDto": "dataAbertura",
@@ -53,7 +54,9 @@
           "button": {
             "type": "button",
             "target": "get-cep",
-            "text":"Pesquisar Elemento"
+            "text":"Pesquisar Elemento",
+            "fullWidth":true,
+            "class":"r-color-Navy"
           }
         }
       ]

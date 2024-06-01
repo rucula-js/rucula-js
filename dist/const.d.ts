@@ -54,6 +54,9 @@ export declare const constIdBaseWindow: {
     BUTTONS_MENU_VERTICAL_LIST: string;
     TITLE: string;
 };
+export declare const contextMenu: {
+    INPUT: string;
+};
 export declare const constAttrInput: {
     ATTR_TYPE: string;
 };

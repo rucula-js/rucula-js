@@ -72,7 +72,9 @@ export const constIdBaseWindow =  {
     TITLE:"r-window-title"
 }
 
-
+export const contextMenu = {
+    INPUT:'context-menu-input'
+}
 export const constAttrInput = {
     ATTR_TYPE: "ruc-type"
 }

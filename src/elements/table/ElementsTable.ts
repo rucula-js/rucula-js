@@ -6,6 +6,7 @@ import { managmentObject } from "../../object/ObjectManagment";
 import { tableDependency } from "../../table-dependency/TableDependency";
 import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
+import { fieldMenuContext } from "../form/Field/fieldMenuContext";
 import { frameEvent } from "../frame/FrameEvent";
 import { frameValues } from "../frame/FrameValues";
 import { FrameLineEventDOM } from "../frame/TypeLine/FrameLineEvent";
@@ -96,6 +97,10 @@ export let frameLineTableDOM = (() => {
 
                         tr.appendChild(td)
     
+                        fieldMenuContext.info.set({
+                            identity: field.identity,
+                            field: field
+                        })
                     })
 
                     let rowCount = managmentObject.object.object.count(frame.identity)

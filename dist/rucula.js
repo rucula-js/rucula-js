@@ -53,6 +53,9 @@ const constIdBaseWindow = {
     BUTTONS_MENU_VERTICAL_LIST: "r-a-menu-vertical-list",
     TITLE: "r-window-title"
 };
+const contextMenu = {
+    INPUT: 'context-menu-input'
+};
 const constAttrInput = {
     ATTR_TYPE: "ruc-type"
 };
@@ -699,6 +702,297 @@ let cookie = (() => {
     };
 })();
 
+let menuContext = (() => {
+    let menusContext = [];
+    let elemetInFocu;
+    function createMenuContext(id) {
+        let div = document.createElement('div');
+        div.classList.add('context-menu');
+        div.setAttribute('id', id);
+        let ol = document.createElement('ol');
+        div.appendChild(ol);
+        menusContext.push({ id: id, element: div });
+        return div;
+    }
+    function findMenu(id) {
+        let menu = menusContext.find(c => c.id == contextMenu.INPUT);
+        return menu.element;
+    }
+    function addItem(idMenuContext, buttonConfig) {
+        let menu = findMenu().querySelector('ol');
+        var li = document.createElement('li');
+        var button = document.createElement('button');
+        button.classList.add('r-b-i');
+        button.setAttribute('id', buttonConfig.target);
+        button.textContent = buttonConfig.text;
+        li.appendChild(button);
+        menu.appendChild(li);
+    }
+    function menuContextInput() {
+        let detailsInput = {
+            target: 'input-check-details',
+            text: 'detalhe do campo',
+            type: 'button',
+        };
+        let menu = createMenuContext(contextMenu.INPUT);
+        addItem(contextMenu.INPUT, detailsInput);
+        return menu;
+    }
+    return {
+        init: function () {
+            let menuInput = menuContextInput();
+            let rw = document.querySelector('.r-w');
+            rw?.appendChild(menuInput);
+            rw?.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                let target = event.target;
+                elemetInFocu = target;
+                if (target.classList.contains('r-q-b') || target.classList.contains('r-q-l')) {
+                    return;
+                }
+                if (target.classList.contains('r-head')) ;
+                if (target.classList.contains('r-vertical-actions')) ;
+                if (target.nodeName == 'INPUT' || target.nodeName == 'SELECT' || target.nodeName == 'TEXTAREA') {
+                    let menuActions = findMenu();
+                    menuActions.style.display = 'block';
+                    menuActions.style.left = `${event.pageX}px`;
+                    menuActions.style.top = `${event.pageY}px`;
+                }
+            });
+            document.addEventListener('click', function (event) {
+                if (event.button !== 2) {
+                    let menuInput = findMenu();
+                    menuInput.style.display = 'none';
+                }
+            });
+        },
+        elemetInFocu: function () {
+            return elemetInFocu;
+        }
+    };
+})();
+
+let popup = (() => {
+    let boxShow;
+    function boxShowAppendChield(element) {
+        boxShow = document.querySelector('.r-box-show');
+        boxShow.appendChild(element);
+        boxShow.classList.add('r-box-show-center');
+    }
+    function messageElement(config) {
+        let message = document.createElement('div');
+        message.classList.add('r-message');
+        message.innerHTML = `
+            <div class="r-message-header">
+                <div class="r-message-header-icon">
+                    <i class="bi ${config.icon}"></i>
+                </div>   
+                <div class="r-message-header-title">
+                    ${config.title}
+                </div>
+            </div>
+            
+            <div class="r-message-content">
+                <div class="r-message-content-text">
+                    ${config.text}
+                </div>
+            </div>
+            <div class="r-message-footer">
+                ${config.footer}
+            </div>`;
+        if (config?.disableadHeader) {
+            let header = message.querySelector('.r-message-header');
+            header?.remove();
+        }
+        if (config?.disableadFooter) {
+            let footer = message.querySelector('.r-message-footer');
+            footer?.remove();
+        }
+        if (config?.htmlBody) {
+            let messageContent = message.querySelector('.r-message-content');
+            messageContent?.appendChild(config?.htmlBody);
+        }
+        return message;
+    }
+    function closeTimeout(div, timeout, callback) {
+        setTimeout(() => {
+            div.remove();
+            close();
+            if (callback) {
+                callback();
+            }
+        }, timeout);
+    }
+    function closeOKOrCancel(callback, div) {
+        let ok = div.querySelector('button.ok');
+        let cancel = div.querySelector('button.cancel');
+        ok?.addEventListener('click', () => {
+            div.remove();
+            close();
+            if (callback) {
+                callback(constYesNo.YES);
+            }
+        });
+        cancel?.addEventListener('click', () => {
+            div.remove();
+            close();
+            if (callback) {
+                callback(constYesNo.NO);
+            }
+        });
+    }
+    function close() {
+        boxShow.classList.remove('r-box-show-center');
+    }
+    return {
+        messsage: {
+            info: function (config, callback) {
+                let info = messageElement({
+                    icon: "bi-info-circle color-darkgrey",
+                    title: "Informação",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>
+                    </div>`,
+                    disableadFooter: config.disableadFooter,
+                    disableadHeader: config.disableadHeader,
+                    htmlBody: config.htmlBody
+                });
+                if (config?.timeout) {
+                    closeTimeout(info, config.timeout, callback);
+                }
+                closeOKOrCancel(callback, info);
+                boxShowAppendChield(info);
+            },
+            sucess: function (config, callback) {
+                let sucess = messageElement({
+                    icon: "bi-check2-circle color-green",
+                    title: "Sucesso",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(callback, sucess);
+                if (config.timeout) {
+                    closeTimeout(sucess, config.timeout);
+                }
+                boxShowAppendChield(sucess);
+            },
+            warning: function (config, callback) {
+                let warning = messageElement({
+                    icon: "bi-exclamation-triangle color-orange",
+                    title: "Atenção",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>
+                            <button class="cancel">Cancel</button>
+                        </div>    
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(callback, warning);
+                if (config.timeout) {
+                    closeTimeout(warning, config.timeout);
+                }
+                boxShowAppendChield(warning);
+            },
+            error: function (config, callback) {
+                let warning = messageElement({
+                    icon: "bi-x-circle color-red",
+                    title: "Erro",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>    
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(callback, warning);
+                if (config.timeout) {
+                    closeTimeout(warning, config.timeout);
+                }
+                boxShowAppendChield(warning);
+            },
+        }
+    };
+})();
+
+let fieldMenuContext = (() => {
+    let fieldsInfo = [];
+    let lastDetail;
+    return {
+        init: function () {
+            let menuOInput = document.getElementById(contextMenu.INPUT);
+            menuOInput?.addEventListener('click', () => {
+                if (lastDetail) {
+                    lastDetail.remove();
+                }
+                let ol = document.createElement('ol');
+                lastDetail = ol;
+                let identity = menuContext.elemetInFocu().getAttribute('identity');
+                let field = fieldMenuContext.info.get(identity)?.field;
+                let details = `  
+                <table>
+                    <tr>
+                        <td>Descrição</td>
+                        <td>${field?.description ?? ''}</td>
+                    </tr>
+                    <tr>
+                        <td>Propriedade</td>
+                        <td>${field?.propertDto}</td>
+                    </tr>
+                    <tr>
+                        <td>Obrigatório</td>
+                        <td><input type="checkbox" ${(field?.requerid ?? false) == true ? 'checked' : ''} disabled/></td>
+                    </tr>
+                    <tr>
+                        <td>Desabilitado</td>
+                        <td><input type="checkbox" ${(field?.disable ?? false) == true ? 'checked' : ''} disabled/></td>
+                    </tr>
+                    <tr>
+                        <td>Máximo</td>
+                        <td>${field?.max ?? 0}</td>
+                    </tr>
+                    <tr>
+                        <td>Minimo</td>
+                        <td>${field?.min ?? 0}</td>
+                    </tr>
+                    <tr>
+                        <td>Comprimento</td>
+                        <td>${field?.maxLength ?? 0}</td>
+                    </tr>
+                    <tr>
+                        <td>Informação</td>
+                        <td>${field?.information ?? ''}</td>
+                    </tr>
+              </table>
+            `;
+                ol.innerHTML = details;
+                popup.messsage.info({
+                    text: 'Detalhamento',
+                    htmlBody: ol
+                });
+            });
+        },
+        info: {
+            set: function (fieldInfo) {
+                fieldsInfo.push(fieldInfo);
+            },
+            get: function (identity) {
+                return fieldsInfo.find(c => c.identity == identity);
+            }
+        }
+    };
+})();
+
 let windowBaseDOM = (() => {
     let elementRoot;
     function createWindowBase(id) {
@@ -719,6 +1013,8 @@ let windowBaseDOM = (() => {
         eraseWindow();
         alterTheme();
         openActionswindow();
+        menuContext.init();
+        fieldMenuContext.init();
         function calculateHeightRuculaWindow() {
             let offsetTop = Number(ruculaWindow.offsetTop);
             let height = Number(window.innerHeight);
@@ -809,7 +1105,7 @@ let windowBaseDOM = (() => {
             <div class="r-facede-action bottom">
             </div>
             <div class="r-box-show" id="r-box-show"> 
-            </div>    
+            </div>
         </div>
         `;
         return CREATE_OR_EDIT;
@@ -821,7 +1117,6 @@ let windowBaseDOM = (() => {
             rNew.classList.toggle("r-btn-new-convert-close");
             rNew.classList.toggle("r-btn-new-cancel-close");
         });
-        reload();
     }
     function openCloseContainer() {
         let itemContainer = document.querySelectorAll(".js-open-close-container");
@@ -850,13 +1145,6 @@ let windowBaseDOM = (() => {
         let erase = document.getElementById(constIdBaseWindow.ERASE_WINDOW);
         let form = windowBaseDOM.getPrincipalElementRucula();
         erase?.addEventListener('click', () => {
-            form.reset();
-        });
-    }
-    function reload() {
-        let reload = document.getElementById(constIdBaseWindow.RELOAD);
-        let form = windowBaseDOM.getPrincipalElementRucula();
-        reload?.addEventListener('click', () => {
             form.reset();
         });
     }
@@ -890,8 +1178,6 @@ let windowBaseDOM = (() => {
         },
         createNameWindow: (name) => {
             createNameWindow(name);
-        },
-        setObjecReload: (obj) => {
         },
         setElementRoot: (id) => {
             elementRoot = document.getElementById(id);
@@ -933,6 +1219,13 @@ class ElementButton extends ElementBase {
         this.element = document.createElement('button');
         this.element.classList.add("r-b-i");
         this.element.setAttribute('type', 'button');
+        if (button.fullWidth) {
+            this.element.classList.add('r-button-full-width');
+        }
+        let _class = button?.class?.split(' ');
+        _class?.forEach(item => {
+            this.element.classList.add(item);
+        });
         let icon = createIcon(button);
         let span = document.createElement('span');
         span.textContent = button.text ?? "";
@@ -1068,9 +1361,11 @@ let buttonsDOM = (() => {
         createButtonOrLink: (button) => createButtonOrLink(button),
         prepareButtonsInLeftBox: (button) => {
             const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
-            button
-                .filter(c => buttonIsNotDefault(c.target))
-                .forEach(b => {
+            let buttons = button?.filter(c => buttonIsNotDefault(c.target));
+            if (buttons?.length == 0 || buttons == undefined) {
+                document.querySelector('.r-vertical-actions')?.classList.add('r-display-none');
+            }
+            buttons?.forEach(b => {
                 const li = document.createElement("li");
                 li.appendChild(createButtonOrLink(b));
                 ListRightButtons?.appendChild(li);
@@ -1667,6 +1962,10 @@ function createFrameBlock(frame) {
         let fieldElement = fieldDOM.create(field);
         let groupElement = fieldDOM.createGroupOfInput(field, fieldElement);
         div.appendChild(groupElement);
+        fieldMenuContext.info.set({
+            identity: field.identity,
+            field: field
+        });
     });
     frameValues.setValuesDefined(frame, div);
     frameElement.appendChild(div);
@@ -1869,6 +2168,10 @@ let frameLineTableDOM = (() => {
                             alignItem(field, td);
                         }
                         tr.appendChild(td);
+                        fieldMenuContext.info.set({
+                            identity: field.identity,
+                            field: field
+                        });
                     });
                     let rowCount = managmentObject.object.object.count(frame.identity);
                     frameValues.setValuesDefined(frame, tr);
@@ -1971,23 +2274,26 @@ let frameLineDOM = (() => {
 let urlManagment = (() => {
     return {
         createURL: function (controller, button) {
-            if (button.URL?.absolute?.length > 0) {
-                let url = urlManagment.createPath(button.URL.absolute);
-                return url;
-            }
+            if (button.URL)
+                if (button.URL?.absolute?.length > 0) {
+                    let url = urlManagment.createPath(button.URL.absolute);
+                    return url;
+                }
             let enviroment = ruculaGlobal.getEnvironment();
             let url = `${enviroment.hostname}:${enviroment.port}`;
             controller = controller.replace(/^\/+/gm, '');
             let params = '';
-            if (button.URL?.params?.length > 0) {
-                params = urlManagment.createPath(button.URL.params);
-                url = `${url}/${controller}?${params}`;
-                return url;
-            }
-            if (button.URL?.relative?.length > 0) {
-                let path = urlManagment.createPath(button.URL.relative);
-                return `${url}/${path}`;
-            }
+            if (button.URL)
+                if (button.URL?.params?.length > 0) {
+                    params = urlManagment.createPath(button.URL.params);
+                    url = `${url}/${controller}?${params}`;
+                    return url;
+                }
+            if (button.URL)
+                if (button.URL?.relative?.length > 0) {
+                    let path = urlManagment.createPath(button.URL.relative);
+                    return `${url}/${path}`;
+                }
             return url;
         },
         createWithParams: function (path) {
@@ -2042,7 +2348,11 @@ function eventButton(pathController, buttons) {
                 return;
             }
             object.detail.url = urlManagment.createURL(pathController, button);
-            let option = button.body;
+            let option = button?.body;
+            if (option == undefined) {
+                rucula.dispatchEvent(eventButton);
+                return;
+            }
             if (option == '') {
                 object.detail.body = managmentObject.object.object.objectSeparate();
             }
@@ -2221,154 +2531,6 @@ let loaderManagment = (() => {
             let loader = document.querySelector('.js-r-loader');
             loaderBkp.appendChild(loader);
             boxShow?.classList.remove('r-box-show-center');
-        }
-    };
-})();
-
-let popup = (() => {
-    let boxShow;
-    function boxShowAppendChield(element) {
-        boxShow = document.querySelector('.r-box-show');
-        boxShow.appendChild(element);
-        boxShow.classList.add('r-box-show-center');
-    }
-    function messageElement(config) {
-        let message = document.createElement('div');
-        message.classList.add('r-message');
-        message.innerHTML = `
-            <div class="r-message-header">
-                <div class="r-message-header-icon">
-                    <i class="bi ${config.icon}"></i>
-                </div>   
-                <div class="r-message-header-title">
-                    ${config.title}
-                </div>
-            </div>
-            
-            <div class="r-message-content">
-                <div class="r-message-content-text">
-                    ${config.text}
-                </div>
-            </div>
-            <div class="r-message-footer">
-                ${config.footer}
-            </div>`;
-        if (config?.disableadHeader) {
-            let header = message.querySelector('.r-message-header');
-            header?.remove();
-        }
-        if (config?.disableadFooter) {
-            let footer = message.querySelector('.r-message-footer');
-            footer?.remove();
-        }
-        return message;
-    }
-    function closeTimeout(div, timeout, callback) {
-        setTimeout(() => {
-            div.remove();
-            close();
-            if (callback) {
-                callback();
-            }
-        }, timeout);
-    }
-    function closeOKOrCancel(callback, div) {
-        let ok = div.querySelector('button.ok');
-        let cancel = div.querySelector('button.cancel');
-        ok?.addEventListener('click', () => {
-            div.remove();
-            close();
-            if (callback) {
-                callback(constYesNo.YES);
-            }
-        });
-        cancel?.addEventListener('click', () => {
-            div.remove();
-            close();
-            if (callback) {
-                callback(constYesNo.NO);
-            }
-        });
-    }
-    function close() {
-        boxShow.classList.remove('r-box-show-center');
-    }
-    return {
-        messsage: {
-            info: function (config, callback) {
-                let info = messageElement({
-                    icon: "bi-info-circle color-darkgrey",
-                    title: "Informação",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>
-                    </div>`,
-                    disableadFooter: config.disableadFooter,
-                    disableadHeader: config.disableadHeader
-                });
-                if (config?.timeout) {
-                    closeTimeout(info, config.timeout, callback);
-                }
-                closeOKOrCancel(callback, info);
-                boxShowAppendChield(info);
-            },
-            sucess: function (config, callback) {
-                let sucess = messageElement({
-                    icon: "bi-check2-circle color-green",
-                    title: "Sucesso",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                closeOKOrCancel(callback, sucess);
-                if (config.timeout) {
-                    closeTimeout(sucess, config.timeout);
-                }
-                boxShowAppendChield(sucess);
-            },
-            warning: function (config, callback) {
-                let warning = messageElement({
-                    icon: "bi-exclamation-triangle color-orange",
-                    title: "Atenção",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>
-                            <button class="cancel">Cancel</button>
-                        </div>    
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                closeOKOrCancel(callback, warning);
-                if (config.timeout) {
-                    closeTimeout(warning, config.timeout);
-                }
-                boxShowAppendChield(warning);
-            },
-            error: function (config, callback) {
-                let warning = messageElement({
-                    icon: "bi-x-circle color-red",
-                    title: "Erro",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>    
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                closeOKOrCancel(callback, warning);
-                if (config.timeout) {
-                    closeTimeout(warning, config.timeout);
-                }
-                boxShowAppendChield(warning);
-            },
         }
     };
 })();

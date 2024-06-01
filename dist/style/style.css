@@ -65,6 +65,10 @@
     justify-content: center;
 }
 
+.r-button-full-width{
+    display: inline-block;
+    width: 100%;
+}
 .r-box-show {
     display: none;
     position: fixed;
@@ -188,6 +192,7 @@ input.r-i-control[identity][disabled] {
     border-radius: 3px;
     background-color: var(--bgc-frames);
     padding-left: 10px;
+    padding-right: 10px;
     
 }
 
@@ -508,8 +513,10 @@ form.r-f-items{
 .r-vertical-actions ol li button,
 .r-vertical-actions ol li a {
     font-size: 1rem;
+    display: inline-block;
     padding: 5px 5px 7px 5px;
     margin: 0;
+    margin-top: 2px;
     cursor: pointer;
     border: none;
     background-color: var(--bgc-frames);
@@ -545,6 +552,7 @@ form.r-f-items{
     background-color: var(--bgc-frames);
     border-radius: 10px;
     box-shadow: 0px 0px 2px var(--color-border-default);
+    z-index: 200;
 } 
 
 .r-message-header {
@@ -732,6 +740,34 @@ input:-internal-autofill-selected {
     background-color: var(--bgc-frames) !important;
 }
 
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    min-width: 300px;
+    background-color: var(--bgc-frames);
+    border-radius: 5px;
+    box-shadow: 0 0 1px var(--color-border-default);
+    color: var(--color-text-defaut);
+    padding: 5px;
+}
+
+.context-menu ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu button {
+    width: 100%;
+    padding: 5px;
+    background-color: var(--bgc-frames);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    color: inherit;
+}
 @media screen and (max-width:700px){
  
     .r-head {
@@ -779,7 +815,7 @@ input:-internal-autofill-selected {
     }
 
     .r-vertical-actions {
-        position: absolute;
+        position: fixed;
         margin: 0;
         padding-bottom: 10px;
         padding-left: 10px;
@@ -800,13 +836,77 @@ input:-internal-autofill-selected {
     }
     .r-vertical-actions ol {        
         margin-top: 10px;
+        padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
         background-color: var(--bgc-frames);
         height: inherit;
     }
     .r-vertical-actions ol li button,
-    .r-vertical-actions ol li {
+    .r-vertical-actions ol li a{
         text-align: center;
     }
-
-    
 }
+
+.r-color-White {
+    color: #FFFFFF;	
+} 
+
+.r-color-Silver{
+    color: #C0C0C0;
+} 
+
+.r-color-Gray {
+    color: #808080;
+} 
+
+.r-color-Black{
+    color: #000000;
+} 
+
+.r-color-red {
+    color: #FF0000;	
+}
+
+.r-color-Maroon {
+  color: #800000;	
+} 
+
+.r-color-Yellow {
+    color: #FFFF00	;	
+}   
+
+.r-color-Olive {
+    color: #808000	;	
+} 
+
+.r-color-Green {
+    color: #008000;	
+} 
+
+.r-color-Aqua {
+    color: #00FFFF;	
+} 
+
+.r-color-Teal {
+    color: #008080;	
+} 
+
+.r-color-Blue	 {
+    color: #0000FF;	
+} 
+
+.r-color-Navy	 {
+    color: #000080;	
+} 
+
+.r-color-Fuchsia	 {
+    color: #FF00FF;	
+} 
+
+.r-color-Purple	 {
+    color: #800080;	
+} 
+
+
+
