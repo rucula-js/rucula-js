@@ -817,6 +817,67 @@ input:-internal-autofill-selected {
     .r-vertical-actions ol li a{
         text-align: center;
     }
-
-    
 }
+
+.r-color-White {
+    color: #FFFFFF;	
+} 
+
+.r-color-Silver{
+    color: #C0C0C0;
+} 
+
+.r-color-Gray {
+    color: #808080;
+} 
+
+.r-color-Black{
+    color: #000000;
+} 
+
+.r-color-red {
+    color: #FF0000;	
+}
+
+.r-color-Maroon {
+  color: #800000;	
+} 
+
+.r-color-Yellow {
+    color: #FFFF00	;	
+}   
+
+.r-color-Olive {
+    color: #808000	;	
+} 
+
+.r-color-Green {
+    color: #008000;	
+} 
+
+.r-color-Aqua {
+    color: #00FFFF;	
+} 
+
+.r-color-Teal {
+    color: #008080;	
+} 
+
+.r-color-Blue	 {
+    color: #0000FF;	
+} 
+
+.r-color-Navy	 {
+    color: #000080;	
+} 
+
+.r-color-Fuchsia	 {
+    color: #FF00FF;	
+} 
+
+.r-color-Purple	 {
+    color: #800080;	
+} 
+
+
+

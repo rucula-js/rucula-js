@@ -55,7 +55,7 @@
             "target": "get-cep",
             "text":"Pesquisar Elemento",
             "fullWidth":true,
-            "class":"color-green"
+            "class":"r-color-Navy"
           }
         }
       ]
