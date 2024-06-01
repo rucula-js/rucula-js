@@ -508,8 +508,10 @@ form.r-f-items{
 .r-vertical-actions ol li button,
 .r-vertical-actions ol li a {
     font-size: 1rem;
+    display: inline-block;
     padding: 5px 5px 7px 5px;
     margin: 0;
+    margin-top: 2px;
     cursor: pointer;
     border: none;
     background-color: var(--bgc-frames);
