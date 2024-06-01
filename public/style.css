@@ -781,7 +781,7 @@ input:-internal-autofill-selected {
     }
 
     .r-vertical-actions {
-        position: absolute;
+        position: fixed;
         margin: 0;
         padding-bottom: 10px;
         padding-left: 10px;
@@ -802,11 +802,12 @@ input:-internal-autofill-selected {
     }
     .r-vertical-actions ol {        
         margin-top: 10px;
+        padding-top: 30px;
         background-color: var(--bgc-frames);
         height: inherit;
     }
     .r-vertical-actions ol li button,
-    .r-vertical-actions ol li {
+    .r-vertical-actions ol li a{
         text-align: center;
     }
 
