@@ -92,10 +92,10 @@ export let buttonsDOM = (()=> {
             
             let buttons = button?.filter(c=> buttonIsNotDefault(c.target))
             
-            if(buttons?.length == 0){
-                ListRightButtons?.classList.add('r-display-none')
+            if(buttons?.length == 0 || buttons == undefined){
+                document.querySelector('.r-vertical-actions')?.classList.add('r-display-none')
             }
-
+            
             buttons?.forEach(b => {
                     
                 const li = document.createElement("li")
