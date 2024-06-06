@@ -222,6 +222,11 @@ export let popup = (() => {
 
                 boxShowAppendChield(warning)
             },
+        },
+        notify:{
+            sucess: function (){
+                
+            }
         }
     }
 })()

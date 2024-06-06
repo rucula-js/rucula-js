@@ -1,5 +1,6 @@
 import { constGroupFormat, constInputClass, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
+import { exportTableDependency } from "../../exports";
 import { ruculaGlobal } from "../../global/GlobalConfig";
 import { managmentObject } from "../../object/ObjectManagment";
 import { tableDependency } from "../../table-dependency/TableDependency";
@@ -202,7 +203,7 @@ export let fieldDOM = (() => {
         dependency: {
             focusFieldsWithDependency:() => {
             
-                   tableDependency
+                exportTableDependency
                    .getDependenciesNotResolded()
                    .filter(c => c.isHibernate == false)
                    ?.forEach(object => {

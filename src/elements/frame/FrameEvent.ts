@@ -1,6 +1,6 @@
+import { exportTableDependency } from "../../exports";
 import { fragment } from "../../fragment/fragment";
 import { managmentObject } from "../../object/ObjectManagment";
-import { tableDependency } from "../../table-dependency/TableDependency";
 
 export let frameEvent = (() => {
 
@@ -28,7 +28,7 @@ export let frameEvent = (() => {
                 }
 
                 if(target){                    
-                    tableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)
+                    exportTableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)
                 }
             }
         },
@@ -46,11 +46,11 @@ export let frameEvent = (() => {
                 let count = managmentObject.object.object.count(fragmentObject.key.identity)
         
                 if(count  >1){
-                    tableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)
+                    exportTableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)
                 }
                 if(key == 'Escape' && count  == 1){
  
-                    tableDependency.moveNotResolvedToImbernate(fragmentObject.key.identity)
+                    exportTableDependency.moveNotResolvedToImbernate(fragmentObject.key.identity)
                     resetManageFrameTypeLine(frameElement)       
                     resetManageFrameTypeBlock(frameElement)
                 }

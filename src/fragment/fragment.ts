@@ -1,5 +1,5 @@
+import { exportTableDependency } from "../exports";
 import { entityConfiguration, fragmentField, fragmentObject } from "../object/ObjectAliases";
-import { tableDependency } from "../table-dependency/TableDependency";
 
 export let fragment = (() => {
 
@@ -94,7 +94,7 @@ export let fragment = (() => {
                     let indexOf = fields.indexOf(field)
 
                     if(indexOf > -1){
-                        tableDependency.removeExpectedDependency(field.key.identity)
+                        exportTableDependency.removeExpectedDependency(field.key.identity)
                         fields.splice(indexOf,1)
                     }
                 })

@@ -1,5 +1,5 @@
-import {tableDependency}  from '../table-dependency/TableDependency';
 import { managmentObject } from '../object/ObjectManagment';
+import { exportTableDependency } from '../exports';
     
 let rucula  = {
     log: (()=>{
@@ -7,7 +7,7 @@ let rucula  = {
         return {
             dependencies: function(){
             
-                return  tableDependency.getDependenciesNotResolded();
+                return  exportTableDependency.getDependenciesNotResolded();
             },
             object: function(){
                 return managmentObject.object.object.objectFull()

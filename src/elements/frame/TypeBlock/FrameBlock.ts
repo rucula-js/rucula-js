@@ -1,7 +1,7 @@
 import { buttonsDOM } from "../../../buttons/Button";
 import { frame } from "../../../entities/form/frame";
+import { exportTableDependency } from "../../../exports";
 import { managmentObject } from "../../../object/ObjectManagment";
-import { tableDependency } from "../../../table-dependency/TableDependency";
 import { fieldDOM } from "../../form/ElementsInput";
 import { fieldMenuContext } from "../../form/Field/fieldMenuContext";
 import { createFrame } from "../ElementFrame";
@@ -44,7 +44,7 @@ export function createFrameBlock(frame:frame){
     frameElement.appendChild(div)
     
     if(frame.requerid == false){
-        tableDependency.moveNotResolvedToImbernate(frame.alias)
+        exportTableDependency.moveNotResolvedToImbernate(frame.alias)
         frameEvent.managedFrame(div)
         frameEvent.cleanRequeridDependency(div)
     }

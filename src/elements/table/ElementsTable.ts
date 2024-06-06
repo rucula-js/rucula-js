@@ -1,9 +1,9 @@
 import { alignItem } from "../../Helpers/Helper";
 import { field } from "../../entities/form/field";
 import { frame } from "../../entities/form/frame";
+import { exportTableDependency } from "../../exports";
 import { fragment } from "../../fragment/fragment";
 import { managmentObject } from "../../object/ObjectManagment";
-import { tableDependency } from "../../table-dependency/TableDependency";
 import { configWindow } from "../../window/Window";
 import { fieldDOM } from "../form/ElementsInput";
 import { fieldMenuContext } from "../form/Field/fieldMenuContext";
@@ -110,11 +110,11 @@ export let frameLineTableDOM = (() => {
                     if(frame.requerid == false && rowCount == 1){
                         frameEvent.managedFrame(tr)
                         frameEvent.cleanRequeridDependency(tr)
-                        tableDependency.moveNotResolvedToImbernate(frame.identity)
+                        exportTableDependency.moveNotResolvedToImbernate(frame.identity)
                     }
 
                     if(frame.requerid == false && rowCount > 1){
-                        tableDependency.moveImbernateToNotResolved(frame.identity)
+                        exportTableDependency.moveImbernateToNotResolved(frame.identity)
                     }
 
                     return tr;

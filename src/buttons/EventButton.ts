@@ -1,10 +1,10 @@
 import { button } from '../entities/form/button';
-import { tableDependency } from '../table-dependency/TableDependency';
 import { fieldDOM } from '../elements/form/ElementsInput';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
 import { urlManagment } from '../URL/urlManagment';
 import { managmentObject } from '../object/ObjectManagment';
 import { constIdBaseWindow } from '../const';
+import { exportTableDependency } from '../exports';
 
 export function eventButton(pathController:string, buttons:button[]){
     
@@ -32,7 +32,7 @@ export function eventButton(pathController:string, buttons:button[]){
         
         element?.addEventListener("click", () => {
                             
-            let dependencyCount = tableDependency.dependenciesCount()
+            let dependencyCount = exportTableDependency.dependenciesCount()
             
             if( dependencyCount > 0){
                 fieldDOM.dependency.focusFieldsWithDependency()
@@ -69,8 +69,8 @@ export function eventButton(pathController:string, buttons:button[]){
 
 export function openCloseRightListButtons(){
 
-    const openClose = document.getElementById("r-a-menu-vertical")
-    const listRight = document.querySelector(".r-vertical-actions")
+    const openClose = document.getElementById("r-a-menu-vertical") as HTMLElement
+    const listRight = document.querySelector(".r-vertical-actions") as HTMLElement
     
     const openClosemobile = document.getElementById(constIdBaseWindow.BUTTONS_MENU_VERTICAL_MOBILE)
 

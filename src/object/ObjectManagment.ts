@@ -1,8 +1,8 @@
 import { convertValueType } from '../Helpers/Helper';
 import { constTypeFrame } from '../const';
 import { frame } from '../entities/form/frame';
+import { exportTableDependency } from '../exports';
 import { fragment } from '../fragment/fragment';
-import { tableDependency } from '../table-dependency/TableDependency';
 import { entityConfiguration, fragmentField, fragmentObject } from './ObjectAliases';
 import { generateUUID } from './ObjectHelper';
 
@@ -76,9 +76,9 @@ export let managmentObject = (()=> {
                     dependency:''  
                 } 
             }
-            config.config.dependency =  tableDependency.createExpectedDependency(field,config)
+            config.config.dependency =  exportTableDependency.createExpectedDependency(field,config)
             
-            tableDependency.toApplyOrRemoveDependency(config, field.value)
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value)
                         
             fragment.fields.add(config)
         })    
@@ -114,9 +114,9 @@ export let managmentObject = (()=> {
                 }    
             }
 
-            config.config.dependency = tableDependency.createExpectedDependency(field,config)
+            config.config.dependency = exportTableDependency.createExpectedDependency(field,config)
 
-            tableDependency.toApplyOrRemoveDependency(config, field.value)
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value)
 
             fragment.fields.add(config)
 
@@ -249,7 +249,7 @@ export let managmentObject = (()=> {
             return fragmentField?.config.line != undefined
         }
 
-        tableDependency.toApplyOrRemoveDependency(fragmentField,value)
+        exportTableDependency.toApplyOrRemoveDependency(fragmentField,value)
     }
 
     function createConfigurationField(config:string):entityConfiguration {
@@ -404,7 +404,7 @@ export let managmentObject = (()=> {
                 
                 fragment.fields.remove(_fragment)
 
-                tableDependency.removeExpectedDependency(identity)
+                exportTableDependency.removeExpectedDependency(identity)
             }
         }
     }

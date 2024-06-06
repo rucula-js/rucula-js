@@ -3,7 +3,7 @@ import { fragmentField } from "../object/ObjectAliases";
 
 'use strict';
 
-export let tableDependency = (() => {
+export let tableDependency = () => {
 
     type dependency = {
         identityObject:string,
@@ -315,4 +315,4 @@ export let tableDependency = (() => {
     
         
     }
-})()
+}
