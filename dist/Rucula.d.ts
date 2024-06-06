@@ -44,6 +44,9 @@ export declare class Rucula {
                 disableadHeader?: boolean | undefined;
             }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
         };
+        notify: {
+            sucess: () => void;
+        };
     };
     event: {
         field: {

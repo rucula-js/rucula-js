@@ -13,5 +13,8 @@ export declare let popup: {
         warning: (config: configCommon, callback?: callbackYesNo) => void;
         error: (config: configCommon, callback?: callbackYesNo) => void;
     };
+    notify: {
+        sucess: () => void;
+    };
 };
 export {};

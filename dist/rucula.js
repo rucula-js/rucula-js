@@ -122,7 +122,7 @@ function alignItem(field, item) {
     }
 }
 
-let tableDependency = (() => {
+let tableDependency = () => {
     let dependencyesNotResolved = [];
     let REQUERID = '1';
     let MAX_LENGHT = '2';
@@ -326,7 +326,9 @@ let tableDependency = (() => {
         moveImbernateToNotResolved: (identityObject) => moveImbernateToNotResolved(identityObject),
         moveNotResolvedToImbernate: (identityObject) => moveNotResolvedToImbernate(identityObject)
     };
-})();
+};
+
+let exportTableDependency = tableDependency();
 
 let fragment = (() => {
     let objects = new Array();
@@ -391,7 +393,7 @@ let fragment = (() => {
                 _fields.forEach(field => {
                     let indexOf = fields.indexOf(field);
                     if (indexOf > -1) {
-                        tableDependency.removeExpectedDependency(field.key.identity);
+                        exportTableDependency.removeExpectedDependency(field.key.identity);
                         fields.splice(indexOf, 1);
                     }
                 });
@@ -470,8 +472,8 @@ let managmentObject = (() => {
                     dependency: ''
                 }
             };
-            config.config.dependency = tableDependency.createExpectedDependency(field, config);
-            tableDependency.toApplyOrRemoveDependency(config, field.value);
+            config.config.dependency = exportTableDependency.createExpectedDependency(field, config);
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value);
             fragment.fields.add(config);
         });
     }
@@ -494,8 +496,8 @@ let managmentObject = (() => {
                     dependency: ''
                 }
             };
-            config.config.dependency = tableDependency.createExpectedDependency(field, config);
-            tableDependency.toApplyOrRemoveDependency(config, field.value);
+            config.config.dependency = exportTableDependency.createExpectedDependency(field, config);
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value);
             fragment.fields.add(config);
         });
     }
@@ -578,7 +580,7 @@ let managmentObject = (() => {
         function isTypeLine() {
             return fragmentField?.config.line != undefined;
         }
-        tableDependency.toApplyOrRemoveDependency(fragmentField, value);
+        exportTableDependency.toApplyOrRemoveDependency(fragmentField, value);
     }
     function createConfigurationField(config) {
         let opt = config.split('.');
@@ -681,7 +683,7 @@ let managmentObject = (() => {
             removeFragment: (identity) => {
                 let _fragment = fragment.fields.getForIdentity(identity);
                 fragment.fields.remove(_fragment);
-                tableDependency.removeExpectedDependency(identity);
+                exportTableDependency.removeExpectedDependency(identity);
             }
         }
     };
@@ -921,6 +923,10 @@ let popup = (() => {
                 }
                 boxShowAppendChield(warning);
             },
+        },
+        notify: {
+            sucess: function () {
+            }
         }
     };
 })();
@@ -1836,7 +1842,7 @@ let fieldDOM = (() => {
         createGroupOfButton: (element) => createGroupOfButton(element),
         dependency: {
             focusFieldsWithDependency: () => {
-                tableDependency
+                exportTableDependency
                     .getDependenciesNotResolded()
                     .filter(c => c.isHibernate == false)
                     ?.forEach(object => {
@@ -1887,7 +1893,7 @@ let frameEvent = (() => {
                     return;
                 }
                 if (target) {
-                    tableDependency.moveImbernateToNotResolved(fragmentObject.key.identity);
+                    exportTableDependency.moveImbernateToNotResolved(fragmentObject.key.identity);
                 }
             }
         },
@@ -1898,10 +1904,10 @@ let frameEvent = (() => {
                 let fragmentObject = fragment.objects.getForFieldIdentity(identity);
                 let count = managmentObject.object.object.count(fragmentObject.key.identity);
                 if (count > 1) {
-                    tableDependency.moveImbernateToNotResolved(fragmentObject.key.identity);
+                    exportTableDependency.moveImbernateToNotResolved(fragmentObject.key.identity);
                 }
                 if (key == 'Escape' && count == 1) {
-                    tableDependency.moveNotResolvedToImbernate(fragmentObject.key.identity);
+                    exportTableDependency.moveNotResolvedToImbernate(fragmentObject.key.identity);
                     resetManageFrameTypeLine(frameElement);
                     resetManageFrameTypeBlock(frameElement);
                 }
@@ -1970,7 +1976,7 @@ function createFrameBlock(frame) {
     frameValues.setValuesDefined(frame, div);
     frameElement.appendChild(div);
     if (frame.requerid == false) {
-        tableDependency.moveNotResolvedToImbernate(frame.alias);
+        exportTableDependency.moveNotResolvedToImbernate(frame.alias);
         frameEvent.managedFrame(div);
         frameEvent.cleanRequeridDependency(div);
     }
@@ -2178,10 +2184,10 @@ let frameLineTableDOM = (() => {
                     if (frame.requerid == false && rowCount == 1) {
                         frameEvent.managedFrame(tr);
                         frameEvent.cleanRequeridDependency(tr);
-                        tableDependency.moveNotResolvedToImbernate(frame.identity);
+                        exportTableDependency.moveNotResolvedToImbernate(frame.identity);
                     }
                     if (frame.requerid == false && rowCount > 1) {
-                        tableDependency.moveImbernateToNotResolved(frame.identity);
+                        exportTableDependency.moveImbernateToNotResolved(frame.identity);
                     }
                     return tr;
                 },
@@ -2341,7 +2347,7 @@ function eventButton(pathController, buttons) {
         let eventButton = new CustomEvent(`${button.target}`, object);
         let eventButtonDependency = new CustomEvent(`${button.target}.dependency`, dependency);
         element?.addEventListener("click", () => {
-            let dependencyCount = tableDependency.dependenciesCount();
+            let dependencyCount = exportTableDependency.dependenciesCount();
             if (dependencyCount > 0) {
                 fieldDOM.dependency.focusFieldsWithDependency();
                 rucula.dispatchEvent(eventButtonDependency);
@@ -2539,7 +2545,7 @@ let rucula = {
     log: (() => {
         return {
             dependencies: function () {
-                return tableDependency.getDependenciesNotResolded();
+                return exportTableDependency.getDependenciesNotResolded();
             },
             object: function () {
                 return managmentObject.object.object.objectFull();
