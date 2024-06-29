@@ -89,7 +89,7 @@ export let windowBaseDOM = (() => {
             </div>
             <div class="r-head r-read-new r-facede-action top">
                
-                <div style="z-index: 10;">
+                <div style="z-index: 10; width: 100%;">
                     <button id="${constIdBaseWindow.ACTIONS_WINDOW}" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
                     <div class="r-display-inline-block r-actions-window r-actions-window-itens">
                         <div class="r-display-inline-block">
