@@ -131,6 +131,14 @@ button.r-actions-window{
 {
     margin: 0 !important;
 }
+.r-w-t {
+    font-weight: bold;
+    color:  var(--color-default);
+}
+
+.r-act-grid,.searh-items-grid {
+    left: 5px; 
+}
 
 /* inputs */
 .r-i-control{
@@ -311,6 +319,7 @@ input.r-i-focus-dependency {
 
 .r-head{
     height: var(--heigth-r-facede-action);
+    background-color: var(--bgc-frames);
 }
 
 
@@ -341,10 +350,9 @@ form.r-f-items{
     margin-bottom: 10px;
     overflow-y: auto;
 }
-.r-facede-action {
-    background-color: var(--bgc-r-facede-action)
-}
-.r-facede-action.top {
+
+.r-facede-action.top,
+.r-act-opt {
     height: var(--heigth-r-facede-action);
     border-bottom: 1px solid var(--color-border-facede-action);
 
@@ -354,7 +362,6 @@ form.r-f-items{
 }
 
 .r-head {
-    position: fixed;
     display: flex;
     align-items: center;
     color: var(--color-write);
@@ -407,7 +414,6 @@ form.r-f-items{
 }
 
 .r-f-home-round{
-    background-color: var(--color-black);
     border-radius: 50px;
     padding: 15px;
     margin-bottom: 10px;
@@ -437,10 +443,8 @@ form.r-f-items{
 .searh-items-grid {
     display: flex;
     justify-content: space-between;
-    width: 96%;
     border-radius: 20px;
     border: 2px solid var(--color-black);
-    margin:auto;
     margin-top: 10px;
     margin-bottom: 10px;
     border-spacing: 0;
