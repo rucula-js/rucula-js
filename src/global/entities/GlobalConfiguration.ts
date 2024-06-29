@@ -5,6 +5,6 @@ export interface globalConfiguration{
     floatLabel: boolean
     localizations:localization[];
     environments:enviroment[];
-    chosenLocalization:localization;
-    chosenEnvironment:enviroment;
+    chosenLocalization:localization | undefined ;
+    chosenEnvironment:enviroment | undefined;
 }
