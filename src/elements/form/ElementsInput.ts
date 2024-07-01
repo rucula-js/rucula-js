@@ -173,7 +173,7 @@ export let fieldDOM = (() => {
             let fragmentField = managmentObject.fragment.getFragmentForIdentity(field.identity)
 
             let identity = { 
-                    name:`${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}`,
+                    name: fragmentField.config.line ? `${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}` : `${fragmentField.config.alias}.${field.propertDto}`,
                     element: element as HTMLElement,
                     row:fragmentField.config.line
             }

@@ -23,7 +23,7 @@ export abstract class FileEvent{
         
         let fragment = managmentObject.fragment.getFragmentForIdentity(identity)
          
-        let eventName = `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}`
+        let eventName = fragment.config.line ? `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}` : `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}`
         
         let event = eventsCustom.field().get(eventName)
         
