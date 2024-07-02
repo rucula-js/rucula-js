@@ -2663,10 +2663,19 @@ class Rucula {
             getFullObject: () => managmentObject.object.object.objectFull(),
             getSepareteObject: () => managmentObject.object.object.objectSeparate(),
             setValue: (targetPath, value) => {
+                const ATTR_DISABLED = 'disabled';
                 let identity = managmentObject.object.field.convertAliasToIdenty(targetPath);
                 let input = document.querySelector('[identity=' + identity + ']');
+                let disabled = input.getAttribute(ATTR_DISABLED) == null ? null : ATTR_DISABLED;
+                if (disabled) {
+                    input.removeAttribute(ATTR_DISABLED);
+                }
                 input.value = value;
-                input.click();
+                input.focus({ preventScroll: true });
+                input.blur();
+                if (disabled) {
+                    input.setAttribute(ATTR_DISABLED, '');
+                }
             },
             getValue: (config) => {
                 return managmentObject.object.object.getPropert(config);
