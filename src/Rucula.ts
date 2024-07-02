@@ -121,13 +121,25 @@ export class Rucula{
 
             setValue: (targetPath:string, value: any) => {
         
+                const ATTR_DISABLED = 'disabled'
                 let identity = managmentObject.object.field.convertAliasToIdenty(targetPath);
         
-                let input = document.querySelector('[identity='+identity+']') as any
+                let input = document.querySelector('[identity='+identity+']') as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
         
+                let disabled = input.getAttribute(ATTR_DISABLED) == null ?  null : ATTR_DISABLED
+
+                if(disabled){
+                    input.removeAttribute(ATTR_DISABLED)
+                }
+
                 input.value = value
-        
-                input.click() //! This command forces the objectmanagment and tableDependecy processes to run
+                input.focus({preventScroll: true}) //! This command forces the objectmanagment and tableDependecy processes to run
+                input.blur()
+                
+                if(disabled){
+                    input.setAttribute(ATTR_DISABLED,'')
+                }
+
             },
             getValue:(config:string):any => {
                 return managmentObject.object.object.getPropert(config)
