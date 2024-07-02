@@ -1497,7 +1497,7 @@ class FileEvent {
     dispatchEvent(prefixEvent) {
         let identity = this.input.getAttribute("identity");
         let fragment = managmentObject.fragment.getFragmentForIdentity(identity);
-        let eventName = `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}`;
+        let eventName = fragment.config.line ? `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}` : `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}`;
         let event = eventsCustom.field().get(eventName);
         this.ruculaForm?.dispatchEvent(event);
     }
@@ -1821,7 +1821,7 @@ let fieldDOM = (() => {
             element.setAttribute("identity", field.identity);
             let fragmentField = managmentObject.fragment.getFragmentForIdentity(field.identity);
             let identity = {
-                name: `${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}`,
+                name: fragmentField.config.line ? `${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}` : `${fragmentField.config.alias}.${field.propertDto}`,
                 element: element,
                 row: fragmentField.config.line
             };
