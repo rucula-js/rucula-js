@@ -97,8 +97,15 @@ export const constFrameLineActions = {
     REMOVE:'f-l-action-remove'
 }
 
-
 export const constYesNo = {
     NO: false,
     YES: true    
+}
+
+export const constPagination = {
+    ROW_NUMBER:"r-pagination-row-number",
+    FIRST:"r-pagination-first",
+    LAST:"r-pagination-last",
+    PREVIOUS:"r-pagination-previous",
+    NEXT:"r-pagination-next"
 }

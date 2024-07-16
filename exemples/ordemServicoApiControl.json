@@ -3,9 +3,8 @@
   "pathController": "/OrdemServico",
   "type": "crud",
   "crud":"crud",
-  "messageHome": "Ordem de Serviço",
+  "messageHome": "Ordem de Serviço com teste de Desenvolvimento",
   "iconHome": "bi-rocket-takeoff",
-  "grid":false,
   "frames": [
     {
       "name": "Header OS",
@@ -16,7 +15,8 @@
           "propertDto": "codigo",
           "description": "Código",
           "maxLength": 40,
-          "information": "Use guuid 😃👍🏻"
+          "information": "Use guuid 😃👍🏻",
+          "requerid": true
         },
         {
           "propertDto": "dataAbertura",

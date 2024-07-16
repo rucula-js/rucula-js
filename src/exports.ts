@@ -1,8 +1,7 @@
+import { pagination } from "./pagination/pagination"
 import { tableDependency } from "./table-dependency/TableDependency"
 
  
-let exportTableDependency = tableDependency()
+export let exportTableDependency = tableDependency()
+export let exportPagination = pagination()
 
-export {
-    exportTableDependency
-}

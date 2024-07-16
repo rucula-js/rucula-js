@@ -57,11 +57,13 @@ export let windowBaseDOM = (() => {
                     </div>
                     <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
                 </div>
-                <div class="searh-items-grid">
-                <button><i class="bi bi-search"></i></button>
-                    <input type="text"/>
-                </div>
                 <div class="r-act-grid" id="w-grid">
+                <div class="searh-items-grid">
+                    <button><i class="bi bi-search"></i></button>
+                        <input type="text"/>
+                    </div>
+                </div>
+                <div id="w-grid" class="r-act-grid-body">
                 </div>
             </div>` 
     

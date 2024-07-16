@@ -88,4 +88,6 @@ import { callbackYesNo } from "./src/popup/callback";
     function sucess(){
         rucula.popup.messsage.sucess({text:"Item Excluido",timeout:2000})   
     }
+
+    rucula.event.on('r-pagination',(e:any) => console.log(e.detail.page))
 })()
