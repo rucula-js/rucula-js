@@ -1,4 +1,4 @@
-declare let exportTableDependency: {
+export declare let exportTableDependency: {
     removeExpectedDependency: (identity: string) => void;
     createExpectedDependency: (field: import("./entities/form/field").field, fragmentField: import("./object/ObjectAliases").fragmentField) => string;
     toApplyOrRemoveDependency: (fragment: import("./object/ObjectAliases").fragmentField, value: any) => boolean;
@@ -11,4 +11,6 @@ declare let exportTableDependency: {
     moveImbernateToNotResolved: (identityObject: string) => void;
     moveNotResolvedToImbernate: (identityObject: string) => void;
 };
-export { exportTableDependency };
+export declare let exportPagination: {
+    init: (yesNo?: boolean) => void;
+};

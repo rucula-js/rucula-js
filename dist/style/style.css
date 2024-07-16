@@ -140,6 +140,22 @@ button.r-actions-window{
     left: 5px; 
 }
 
+.r-act-grid,
+.r-act-grid-body {
+    width: inherit;
+}
+
+.r-act-grid-footer {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 5px;
+    width: inherit;
+    height: 40px;
+    bottom: 0;
+}
+
 /* inputs */
 .r-i-control{
     border-radius: 6px;
@@ -406,7 +422,7 @@ form.r-f-items{
 
 .r-f-home{
     width: 100%;
-    height: 100%;
+    height: calc(100% - var(--heigth-r-facede-action));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -446,7 +462,6 @@ form.r-f-items{
     border-radius: 20px;
     border: 2px solid var(--color-black);
     margin-top: 10px;
-    margin-bottom: 10px;
     border-spacing: 0;
     padding: 5;
     overflow: hidden;
@@ -911,6 +926,5 @@ input:-internal-autofill-selected {
 .r-color-Purple	 {
     color: #800080;	
 } 
-
 
 

@@ -76,3 +76,10 @@ export declare const constYesNo: {
     NO: boolean;
     YES: boolean;
 };
+export declare const constPagination: {
+    ROW_NUMBER: string;
+    FIRST: string;
+    LAST: string;
+    PREVIOUS: string;
+    NEXT: string;
+};

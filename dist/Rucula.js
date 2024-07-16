@@ -75,6 +75,13 @@ const constYesNo = {
     NO: false,
     YES: true
 };
+const constPagination = {
+    ROW_NUMBER: "r-pagination-row-number",
+    FIRST: "r-pagination-first",
+    LAST: "r-pagination-last",
+    PREVIOUS: "r-pagination-previous",
+    NEXT: "r-pagination-next"
+};
 
 function convertValueType(value, type) {
     type = GetType(type);
@@ -121,6 +128,568 @@ function alignItem(field, item) {
         item.classList.add('r-t-align-center');
     }
 }
+
+let cookie = (() => {
+    return {
+        read: function (name) {
+            var cookies = document.cookie.split('; ');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].split('=');
+                if (cookie[0] === name) {
+                    return decodeURIComponent(cookie[1]);
+                }
+            }
+            return null;
+        }
+    };
+})();
+
+let menuContext = (() => {
+    let menusContext = [];
+    let elemetInFocu;
+    function createMenuContext(id) {
+        let div = document.createElement('div');
+        div.classList.add('context-menu');
+        div.setAttribute('id', id);
+        let ol = document.createElement('ol');
+        div.appendChild(ol);
+        menusContext.push({ id: id, element: div });
+        return div;
+    }
+    function findMenu(id) {
+        let menu = menusContext.find(c => c.id == contextMenu.INPUT);
+        return menu.element;
+    }
+    function addItem(idMenuContext, buttonConfig) {
+        let menu = findMenu().querySelector('ol');
+        var li = document.createElement('li');
+        var button = document.createElement('button');
+        button.classList.add('r-b-i');
+        button.setAttribute('id', buttonConfig.target);
+        button.textContent = buttonConfig.text;
+        li.appendChild(button);
+        menu.appendChild(li);
+    }
+    function menuContextInput() {
+        let detailsInput = {
+            target: 'input-check-details',
+            text: 'detalhe do campo',
+            type: 'button',
+        };
+        let menu = createMenuContext(contextMenu.INPUT);
+        addItem(contextMenu.INPUT, detailsInput);
+        return menu;
+    }
+    return {
+        init: function () {
+            let menuInput = menuContextInput();
+            let rw = document.querySelector('.r-w');
+            rw?.appendChild(menuInput);
+            rw?.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                let target = event.target;
+                elemetInFocu = target;
+                if (target.classList.contains('r-q-b') || target.classList.contains('r-q-l')) {
+                    return;
+                }
+                if (target.classList.contains('r-head')) ;
+                if (target.classList.contains('r-vertical-actions')) ;
+                if (target.nodeName == 'INPUT' || target.nodeName == 'SELECT' || target.nodeName == 'TEXTAREA') {
+                    let menuActions = findMenu();
+                    menuActions.style.display = 'block';
+                    menuActions.style.left = `${event.pageX}px`;
+                    menuActions.style.top = `${event.pageY}px`;
+                }
+            });
+            document.addEventListener('click', function (event) {
+                if (event.button !== 2) {
+                    let menuInput = findMenu();
+                    menuInput.style.display = 'none';
+                }
+            });
+        },
+        elemetInFocu: function () {
+            return elemetInFocu;
+        }
+    };
+})();
+
+let popup = (() => {
+    let boxShow;
+    function boxShowAppendChield(element) {
+        boxShow = document.querySelector('.r-box-show');
+        boxShow.appendChild(element);
+        boxShow.classList.add('r-box-show-center');
+    }
+    function messageElement(config) {
+        let message = document.createElement('div');
+        message.classList.add('r-message');
+        message.innerHTML = `
+            <div class="r-message-header">
+                <div class="r-message-header-icon">
+                    <i class="bi ${config.icon}"></i>
+                </div>   
+                <div class="r-message-header-title">
+                    ${config.title}
+                </div>
+            </div>
+            
+            <div class="r-message-content">
+                <div class="r-message-content-text">
+                    ${config.text}
+                </div>
+            </div>
+            <div class="r-message-footer">
+                ${config.footer}
+            </div>`;
+        if (config?.disableadHeader) {
+            let header = message.querySelector('.r-message-header');
+            header?.remove();
+        }
+        if (config?.disableadFooter) {
+            let footer = message.querySelector('.r-message-footer');
+            footer?.remove();
+        }
+        if (config?.htmlBody) {
+            let messageContent = message.querySelector('.r-message-content');
+            messageContent?.appendChild(config?.htmlBody);
+        }
+        return message;
+    }
+    function closeTimeout(div, timeout, callback) {
+        setTimeout(() => {
+            div.remove();
+            close();
+            if (callback) {
+                callback();
+            }
+        }, timeout);
+    }
+    function closeOKOrCancel(callback, div) {
+        let ok = div.querySelector('button.ok');
+        let cancel = div.querySelector('button.cancel');
+        ok?.addEventListener('click', () => {
+            div.remove();
+            close();
+            if (callback) {
+                callback(constYesNo.YES);
+            }
+        });
+        cancel?.addEventListener('click', () => {
+            div.remove();
+            close();
+            if (callback) {
+                callback(constYesNo.NO);
+            }
+        });
+    }
+    function close() {
+        boxShow.classList.remove('r-box-show-center');
+    }
+    return {
+        messsage: {
+            info: function (config, callback) {
+                let info = messageElement({
+                    icon: "bi-info-circle color-darkgrey",
+                    title: "Informação",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>
+                    </div>`,
+                    disableadFooter: config.disableadFooter,
+                    disableadHeader: config.disableadHeader,
+                    htmlBody: config.htmlBody
+                });
+                if (config?.timeout) {
+                    closeTimeout(info, config.timeout, callback);
+                }
+                closeOKOrCancel(callback, info);
+                boxShowAppendChield(info);
+            },
+            sucess: function (config, callback) {
+                let sucess = messageElement({
+                    icon: "bi-check2-circle color-green",
+                    title: "Sucesso",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(callback, sucess);
+                if (config.timeout) {
+                    closeTimeout(sucess, config.timeout);
+                }
+                boxShowAppendChield(sucess);
+            },
+            warning: function (config, callback) {
+                let warning = messageElement({
+                    icon: "bi-exclamation-triangle color-orange",
+                    title: "Atenção",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>
+                            <button class="cancel">Cancel</button>
+                        </div>    
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(callback, warning);
+                if (config.timeout) {
+                    closeTimeout(warning, config.timeout);
+                }
+                boxShowAppendChield(warning);
+            },
+            error: function (config, callback) {
+                let warning = messageElement({
+                    icon: "bi-x-circle color-red",
+                    title: "Erro",
+                    text: config.text,
+                    footer: `<div class="r-message-footer">
+                        <div class="cancel-ok">
+                            <button class="ok">OK</button>        
+                        </div>    
+                    </div>`,
+                    disableadFooter: config.disableadFooter
+                });
+                closeOKOrCancel(callback, warning);
+                if (config.timeout) {
+                    closeTimeout(warning, config.timeout);
+                }
+                boxShowAppendChield(warning);
+            },
+        },
+        notify: {
+            sucess: function () {
+            }
+        }
+    };
+})();
+
+let fieldMenuContext = (() => {
+    let fieldsInfo = [];
+    let lastDetail;
+    return {
+        init: function () {
+            let menuOInput = document.getElementById(contextMenu.INPUT);
+            menuOInput?.addEventListener('click', () => {
+                if (lastDetail) {
+                    lastDetail.remove();
+                }
+                let ol = document.createElement('ol');
+                lastDetail = ol;
+                let identity = menuContext.elemetInFocu().getAttribute('identity');
+                let field = fieldMenuContext.info.get(identity)?.field;
+                let details = `  
+                <table>
+                    <tr>
+                        <td>Descrição</td>
+                        <td>${field?.description ?? ''}</td>
+                    </tr>
+                    <tr>
+                        <td>Propriedade</td>
+                        <td>${field?.propertDto}</td>
+                    </tr>
+                    <tr>
+                        <td>Obrigatório</td>
+                        <td><input type="checkbox" ${(field?.requerid ?? false) == true ? 'checked' : ''} disabled/></td>
+                    </tr>
+                    <tr>
+                        <td>Desabilitado</td>
+                        <td><input type="checkbox" ${(field?.disable ?? false) == true ? 'checked' : ''} disabled/></td>
+                    </tr>
+                    <tr>
+                        <td>Máximo</td>
+                        <td>${field?.max ?? 0}</td>
+                    </tr>
+                    <tr>
+                        <td>Minimo</td>
+                        <td>${field?.min ?? 0}</td>
+                    </tr>
+                    <tr>
+                        <td>Comprimento</td>
+                        <td>${field?.maxLength ?? 0}</td>
+                    </tr>
+                    <tr>
+                        <td>Informação</td>
+                        <td>${field?.information ?? ''}</td>
+                    </tr>
+              </table>
+            `;
+                ol.innerHTML = details;
+                popup.messsage.info({
+                    text: 'Detalhamento',
+                    htmlBody: ol
+                });
+            });
+        },
+        info: {
+            set: function (fieldInfo) {
+                fieldsInfo.push(fieldInfo);
+            },
+            get: function (identity) {
+                return fieldsInfo.find(c => c.identity == identity);
+            }
+        }
+    };
+})();
+
+let windowBaseDOM = (() => {
+    let elementRoot;
+    function createWindowBase(id) {
+        const ruculaWindow = document.createElement("div");
+        ruculaWindow.classList.add("r-w");
+        const actions = document.createElement("div");
+        actions.innerHTML = componentActions();
+        ruculaWindow.appendChild(actions);
+        const contentForm = document.createElement("div");
+        contentForm.innerHTML = createComponentCreateOrEdit();
+        ruculaWindow.appendChild(contentForm.childNodes[0]);
+        ruculaWindow.appendChild(contentForm.childNodes[1]);
+        const div = document.getElementById(id);
+        div?.appendChild(ruculaWindow);
+        calculateHeightRuculaWindow();
+        prepareEventsButtonsCrud();
+        maximizeWindow();
+        eraseWindow();
+        alterTheme();
+        openActionswindow();
+        menuContext.init();
+        fieldMenuContext.init();
+        function calculateHeightRuculaWindow() {
+            let offsetTop = Number(ruculaWindow.offsetTop);
+            let height = Number(window.innerHeight);
+            ruculaWindow.style.height = `${height - offsetTop}px`;
+        }
+    }
+    function createNameWindow(name) {
+        let window = document.querySelector(".r-w-t");
+        window.innerHTML = name;
+    }
+    function componentActions() {
+        const ACTIONS = `<div class="r-act" id="actions">
+                <div class="r-act-opt r-head" id="w-title">
+                    <button id="${constIdBaseWindow.NEW}" class="r-a-b r-btn-new-cancel-close"><i class="bi bi-plus-lg"></i></button>
+                    <div class="r-w-t">
+                    </div>
+                    <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
+                </div>
+                <div class="r-act-grid" id="w-grid">
+                <div class="searh-items-grid">
+                    <button><i class="bi bi-search"></i></button>
+                        <input type="text"/>
+                    </div>
+                </div>
+                <div id="w-grid" class="r-act-grid-body">
+                </div>
+            </div>`;
+        return ACTIONS;
+    }
+    function createComponentCreateOrEdit() {
+        const CREATE_OR_EDIT = `<div class="container-r-f  js-open-close-container">
+            <div class="r-act-opt r-head" id="w-title">
+            </div>
+            <div class="r-f-items r-f-home">
+                <div class="r-f-home-round">
+                    <i id="r-f-home-icon"class="bi" ></i>
+                </div>
+                <h3 id="r-f-home-title"></h3>
+            </div>
+        </div>
+        <div autocomplete="off" class="r-f container-r-f r-display-none js-open-close-container">
+           
+        <div class="r-facede-action top">
+            <div class="r-window-name r-facede-action top">
+                <h3 class="${constIdBaseWindow.TITLE}"></h3>
+            </div>
+            <div class="r-head r-read-new r-facede-action top">
+               
+                <div style="z-index: 10; width: 100%;">
+                    <button id="${constIdBaseWindow.ACTIONS_WINDOW}" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
+                    <div class="r-display-inline-block r-actions-window r-actions-window-itens">
+                        <div class="r-display-inline-block">
+                            <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
+                            <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
+                            <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
+                            <button id="${constIdBaseWindow.ALTER_THEME}" class="r-a-b "><i class="bi bi-circle-half"></i></button>
+                        </div>
+                        <div class="actions-view">
+                            <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
+                                <i class="bi bi-globe-americas"></i>
+                                <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
+                                </ol>                        
+                            </button> 
+                            <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
+                                <i class="bi bi-fire"></i>
+                                <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
+                                </ol>                        
+                            </button>    
+                        </div>
+                    </div>
+                </div>
+                <div class="r-head r-read-edit">
+                    <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
+                    <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
+                    <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
+                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL} class="r-a-b"><i class="bi bi-arrows"></i></button>    
+                </div>
+                </div>
+            </div>
+
+            <div class="r-w-body">
+                <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
+                </form>
+                <div class="r-vertical-actions">
+                    <ol id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_LIST} class=""> 
+                    </ol>
+                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_MOBILE} class="r-a-b actions-mobile"><i class="bi bi-arrows"></i></button>    
+                </div>
+            </div>
+            <div class="r-facede-action bottom">
+            </div>
+            <div class="r-box-show" id="r-box-show"> 
+            </div>
+        </div>
+        `;
+        return CREATE_OR_EDIT;
+    }
+    function prepareEventsButtonsCrud() {
+        let rNew = document.getElementById(constIdBaseWindow.NEW);
+        rNew.addEventListener("click", () => {
+            openCloseContainer();
+            rNew.classList.toggle("r-btn-new-convert-close");
+            rNew.classList.toggle("r-btn-new-cancel-close");
+        });
+    }
+    function openCloseContainer() {
+        let itemContainer = document.querySelectorAll(".js-open-close-container");
+        itemContainer.forEach(item => {
+            item.classList.toggle("r-display-none");
+        });
+    }
+    function closeLeftGrid(grid) {
+        if (grid == false) {
+            let buttonNew = document.getElementById(constIdBaseWindow.NEW);
+            buttonNew?.click();
+            let actions = document.getElementById("actions");
+            actions?.remove();
+            let maximizeWindow = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
+            maximizeWindow?.remove();
+        }
+    }
+    function maximizeWindow() {
+        let maximize = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
+        maximize?.addEventListener('click', () => {
+            let actions = document.getElementById("actions");
+            actions?.classList.toggle("r-close-grid");
+        });
+    }
+    function eraseWindow() {
+        let erase = document.getElementById(constIdBaseWindow.ERASE_WINDOW);
+        let form = windowBaseDOM.getPrincipalElementRucula();
+        erase?.addEventListener('click', () => {
+            form.reset();
+        });
+    }
+    function openActionswindow() {
+        let actions = document.getElementById(constIdBaseWindow.ACTIONS_WINDOW);
+        actions?.addEventListener('click', (e) => {
+            actions?.nextElementSibling?.classList.toggle('r-actions-window-active');
+            actions?.nextElementSibling?.classList.toggle('r-actions-window');
+        });
+    }
+    function alterTheme() {
+        let rw = document.querySelector('.r-w');
+        let actions = document.getElementById(constIdBaseWindow.ALTER_THEME);
+        let theme = cookie.read('theme');
+        if (theme == 'dark') {
+            rw?.classList.add('dark-theme');
+        }
+        actions?.addEventListener('click', (e) => {
+            rw?.classList.toggle('dark-theme');
+            if (rw?.classList.contains('dark-theme')) {
+                document.cookie = "theme=dark";
+            }
+            else {
+                document.cookie = "theme=light";
+            }
+        });
+    }
+    return {
+        createWindowBase: (id) => {
+            createWindowBase(id);
+        },
+        createNameWindow: (name) => {
+            createNameWindow(name);
+        },
+        setElementRoot: (id) => {
+            elementRoot = document.getElementById(id);
+        },
+        getElementRoot: () => {
+            return elementRoot;
+        },
+        getPrincipalElementRucula: () => {
+            return document.getElementById(constIdBaseWindow.FORM_RUCULA_JS);
+        },
+        closeLeftGrid: (grid) => closeLeftGrid(grid)
+    };
+})();
+
+let pagination = (function () {
+    return {
+        init: function (yesNo = true) {
+            if (yesNo == false) {
+                return;
+            }
+            let wGrid = document.getElementById('w-grid');
+            const divElement = document.createElement('div');
+            divElement.className = 'r-act-grid-footer';
+            divElement.innerHTML =
+                `<div class="r-act-grid-footer">
+                    <div>
+                        <span>N. Linha</span>
+                        <select id="${constPagination.ROW_NUMBER}" name="len-page">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="${constPagination.FIRST}" class="r-a-b"><i class="bi bi-arrow-up"></i></button>
+                        <button id="${constPagination.LAST}" class="r-a-b"><i class="bi bi-arrow-down"></i></button>
+                        <button id="${constPagination.PREVIOUS}" class="r-a-b"><i class="bi bi-arrow-left"></i></button>
+                        <button id="${constPagination.NEXT}" class="r-a-b"><i class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>`;
+            wGrid?.appendChild(divElement);
+            setEvents();
+        }
+    };
+    function setEvents() {
+        let pagination = {
+            detail: {
+                page: ''
+            }
+        };
+        let event = new CustomEvent('r-pagination', pagination);
+        document.getElementById(constPagination.FIRST)?.addEventListener('click', () => dispatchEvent('first'));
+        document.getElementById(constPagination.LAST)?.addEventListener('click', () => dispatchEvent('last'));
+        document.getElementById(constPagination.PREVIOUS)?.addEventListener('click', () => dispatchEvent('previous'));
+        document.getElementById(constPagination.NEXT)?.addEventListener('click', () => dispatchEvent('next'));
+        let elementRoot = windowBaseDOM.getElementRoot();
+        function dispatchEvent(page) {
+            pagination.detail.page = page;
+            elementRoot.dispatchEvent(event);
+        }
+    }
+});
 
 let tableDependency = () => {
     let dependencyesNotResolved = [];
@@ -329,6 +898,7 @@ let tableDependency = () => {
 };
 
 let exportTableDependency = tableDependency();
+let exportPagination = pagination();
 
 let fragment = (() => {
     let objects = new Array();
@@ -686,515 +1256,6 @@ let managmentObject = (() => {
                 exportTableDependency.removeExpectedDependency(identity);
             }
         }
-    };
-})();
-
-let cookie = (() => {
-    return {
-        read: function (name) {
-            var cookies = document.cookie.split('; ');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].split('=');
-                if (cookie[0] === name) {
-                    return decodeURIComponent(cookie[1]);
-                }
-            }
-            return null;
-        }
-    };
-})();
-
-let menuContext = (() => {
-    let menusContext = [];
-    let elemetInFocu;
-    function createMenuContext(id) {
-        let div = document.createElement('div');
-        div.classList.add('context-menu');
-        div.setAttribute('id', id);
-        let ol = document.createElement('ol');
-        div.appendChild(ol);
-        menusContext.push({ id: id, element: div });
-        return div;
-    }
-    function findMenu(id) {
-        let menu = menusContext.find(c => c.id == contextMenu.INPUT);
-        return menu.element;
-    }
-    function addItem(idMenuContext, buttonConfig) {
-        let menu = findMenu().querySelector('ol');
-        var li = document.createElement('li');
-        var button = document.createElement('button');
-        button.classList.add('r-b-i');
-        button.setAttribute('id', buttonConfig.target);
-        button.textContent = buttonConfig.text;
-        li.appendChild(button);
-        menu.appendChild(li);
-    }
-    function menuContextInput() {
-        let detailsInput = {
-            target: 'input-check-details',
-            text: 'detalhe do campo',
-            type: 'button',
-        };
-        let menu = createMenuContext(contextMenu.INPUT);
-        addItem(contextMenu.INPUT, detailsInput);
-        return menu;
-    }
-    return {
-        init: function () {
-            let menuInput = menuContextInput();
-            let rw = document.querySelector('.r-w');
-            rw?.appendChild(menuInput);
-            rw?.addEventListener('contextmenu', (event) => {
-                event.preventDefault();
-                let target = event.target;
-                elemetInFocu = target;
-                if (target.classList.contains('r-q-b') || target.classList.contains('r-q-l')) {
-                    return;
-                }
-                if (target.classList.contains('r-head')) ;
-                if (target.classList.contains('r-vertical-actions')) ;
-                if (target.nodeName == 'INPUT' || target.nodeName == 'SELECT' || target.nodeName == 'TEXTAREA') {
-                    let menuActions = findMenu();
-                    menuActions.style.display = 'block';
-                    menuActions.style.left = `${event.pageX}px`;
-                    menuActions.style.top = `${event.pageY}px`;
-                }
-            });
-            document.addEventListener('click', function (event) {
-                if (event.button !== 2) {
-                    let menuInput = findMenu();
-                    menuInput.style.display = 'none';
-                }
-            });
-        },
-        elemetInFocu: function () {
-            return elemetInFocu;
-        }
-    };
-})();
-
-let popup = (() => {
-    let boxShow;
-    function boxShowAppendChield(element) {
-        boxShow = document.querySelector('.r-box-show');
-        boxShow.appendChild(element);
-        boxShow.classList.add('r-box-show-center');
-    }
-    function messageElement(config) {
-        let message = document.createElement('div');
-        message.classList.add('r-message');
-        message.innerHTML = `
-            <div class="r-message-header">
-                <div class="r-message-header-icon">
-                    <i class="bi ${config.icon}"></i>
-                </div>   
-                <div class="r-message-header-title">
-                    ${config.title}
-                </div>
-            </div>
-            
-            <div class="r-message-content">
-                <div class="r-message-content-text">
-                    ${config.text}
-                </div>
-            </div>
-            <div class="r-message-footer">
-                ${config.footer}
-            </div>`;
-        if (config?.disableadHeader) {
-            let header = message.querySelector('.r-message-header');
-            header?.remove();
-        }
-        if (config?.disableadFooter) {
-            let footer = message.querySelector('.r-message-footer');
-            footer?.remove();
-        }
-        if (config?.htmlBody) {
-            let messageContent = message.querySelector('.r-message-content');
-            messageContent?.appendChild(config?.htmlBody);
-        }
-        return message;
-    }
-    function closeTimeout(div, timeout, callback) {
-        setTimeout(() => {
-            div.remove();
-            close();
-            if (callback) {
-                callback();
-            }
-        }, timeout);
-    }
-    function closeOKOrCancel(callback, div) {
-        let ok = div.querySelector('button.ok');
-        let cancel = div.querySelector('button.cancel');
-        ok?.addEventListener('click', () => {
-            div.remove();
-            close();
-            if (callback) {
-                callback(constYesNo.YES);
-            }
-        });
-        cancel?.addEventListener('click', () => {
-            div.remove();
-            close();
-            if (callback) {
-                callback(constYesNo.NO);
-            }
-        });
-    }
-    function close() {
-        boxShow.classList.remove('r-box-show-center');
-    }
-    return {
-        messsage: {
-            info: function (config, callback) {
-                let info = messageElement({
-                    icon: "bi-info-circle color-darkgrey",
-                    title: "Informação",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>
-                    </div>`,
-                    disableadFooter: config.disableadFooter,
-                    disableadHeader: config.disableadHeader,
-                    htmlBody: config.htmlBody
-                });
-                if (config?.timeout) {
-                    closeTimeout(info, config.timeout, callback);
-                }
-                closeOKOrCancel(callback, info);
-                boxShowAppendChield(info);
-            },
-            sucess: function (config, callback) {
-                let sucess = messageElement({
-                    icon: "bi-check2-circle color-green",
-                    title: "Sucesso",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                closeOKOrCancel(callback, sucess);
-                if (config.timeout) {
-                    closeTimeout(sucess, config.timeout);
-                }
-                boxShowAppendChield(sucess);
-            },
-            warning: function (config, callback) {
-                let warning = messageElement({
-                    icon: "bi-exclamation-triangle color-orange",
-                    title: "Atenção",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>
-                            <button class="cancel">Cancel</button>
-                        </div>    
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                closeOKOrCancel(callback, warning);
-                if (config.timeout) {
-                    closeTimeout(warning, config.timeout);
-                }
-                boxShowAppendChield(warning);
-            },
-            error: function (config, callback) {
-                let warning = messageElement({
-                    icon: "bi-x-circle color-red",
-                    title: "Erro",
-                    text: config.text,
-                    footer: `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>    
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                closeOKOrCancel(callback, warning);
-                if (config.timeout) {
-                    closeTimeout(warning, config.timeout);
-                }
-                boxShowAppendChield(warning);
-            },
-        },
-        notify: {
-            sucess: function () {
-            }
-        }
-    };
-})();
-
-let fieldMenuContext = (() => {
-    let fieldsInfo = [];
-    let lastDetail;
-    return {
-        init: function () {
-            let menuOInput = document.getElementById(contextMenu.INPUT);
-            menuOInput?.addEventListener('click', () => {
-                if (lastDetail) {
-                    lastDetail.remove();
-                }
-                let ol = document.createElement('ol');
-                lastDetail = ol;
-                let identity = menuContext.elemetInFocu().getAttribute('identity');
-                let field = fieldMenuContext.info.get(identity)?.field;
-                let details = `  
-                <table>
-                    <tr>
-                        <td>Descrição</td>
-                        <td>${field?.description ?? ''}</td>
-                    </tr>
-                    <tr>
-                        <td>Propriedade</td>
-                        <td>${field?.propertDto}</td>
-                    </tr>
-                    <tr>
-                        <td>Obrigatório</td>
-                        <td><input type="checkbox" ${(field?.requerid ?? false) == true ? 'checked' : ''} disabled/></td>
-                    </tr>
-                    <tr>
-                        <td>Desabilitado</td>
-                        <td><input type="checkbox" ${(field?.disable ?? false) == true ? 'checked' : ''} disabled/></td>
-                    </tr>
-                    <tr>
-                        <td>Máximo</td>
-                        <td>${field?.max ?? 0}</td>
-                    </tr>
-                    <tr>
-                        <td>Minimo</td>
-                        <td>${field?.min ?? 0}</td>
-                    </tr>
-                    <tr>
-                        <td>Comprimento</td>
-                        <td>${field?.maxLength ?? 0}</td>
-                    </tr>
-                    <tr>
-                        <td>Informação</td>
-                        <td>${field?.information ?? ''}</td>
-                    </tr>
-              </table>
-            `;
-                ol.innerHTML = details;
-                popup.messsage.info({
-                    text: 'Detalhamento',
-                    htmlBody: ol
-                });
-            });
-        },
-        info: {
-            set: function (fieldInfo) {
-                fieldsInfo.push(fieldInfo);
-            },
-            get: function (identity) {
-                return fieldsInfo.find(c => c.identity == identity);
-            }
-        }
-    };
-})();
-
-let windowBaseDOM = (() => {
-    let elementRoot;
-    function createWindowBase(id) {
-        const ruculaWindow = document.createElement("div");
-        ruculaWindow.classList.add("r-w");
-        const actions = document.createElement("div");
-        actions.innerHTML = componentActions();
-        ruculaWindow.appendChild(actions);
-        const contentForm = document.createElement("div");
-        contentForm.innerHTML = createComponentCreateOrEdit();
-        ruculaWindow.appendChild(contentForm.childNodes[0]);
-        ruculaWindow.appendChild(contentForm.childNodes[1]);
-        const div = document.getElementById(id);
-        div?.appendChild(ruculaWindow);
-        calculateHeightRuculaWindow();
-        prepareEventsButtonsCrud();
-        maximizeWindow();
-        eraseWindow();
-        alterTheme();
-        openActionswindow();
-        menuContext.init();
-        fieldMenuContext.init();
-        function calculateHeightRuculaWindow() {
-            let offsetTop = Number(ruculaWindow.offsetTop);
-            let height = Number(window.innerHeight);
-            ruculaWindow.style.height = `${height - offsetTop}px`;
-        }
-    }
-    function createNameWindow(name) {
-        let window = document.querySelector(".r-w-t");
-        window.innerHTML = name;
-    }
-    function componentActions() {
-        const ACTIONS = `<div class="r-act" id="actions">
-                <div class="r-act-opt r-head" id="w-title">
-                    <button id="${constIdBaseWindow.NEW}" class="r-a-b r-btn-new-cancel-close"><i class="bi bi-plus-lg"></i></button>
-                    <div class="r-w-t">
-                    </div>
-                    <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
-                </div>
-                <div class="searh-items-grid">
-                <button><i class="bi bi-search"></i></button>
-                    <input type="text"/>
-                </div>
-                <div class="r-act-grid" id="w-grid">
-                </div>
-            </div>`;
-        return ACTIONS;
-    }
-    function createComponentCreateOrEdit() {
-        const CREATE_OR_EDIT = `<div class="container-r-f  js-open-close-container">
-            <div class="r-act-opt r-head" id="w-title">
-            </div>
-            <div class="r-f-items r-f-home">
-                <div class="r-f-home-round">
-                    <i id="r-f-home-icon"class="bi" ></i>
-                </div>
-                <h3 id="r-f-home-title"></h3>
-            </div>
-        </div>
-        <div autocomplete="off" class="r-f container-r-f r-display-none js-open-close-container">
-           
-        <div class="r-facede-action top">
-            <div class="r-window-name r-facede-action top">
-                <h3 class="${constIdBaseWindow.TITLE}"></h3>
-            </div>
-            <div class="r-head r-read-new r-facede-action top">
-               
-                <div style="z-index: 10; width: 100%;">
-                    <button id="${constIdBaseWindow.ACTIONS_WINDOW}" class="r-a-b r-actions-window"><i class="bi bi-nut"></i></button>
-                    <div class="r-display-inline-block r-actions-window r-actions-window-itens">
-                        <div class="r-display-inline-block">
-                            <button id="${constIdBaseWindow.MAXIMIZE_WINDOW}" class="r-a-b"><i class="bi bi-arrows"></i></button>
-                            <button id="${constIdBaseWindow.RELOAD}" class="r-a-b "><i class="bi bi-arrow-repeat"></i></button>
-                            <button id="${constIdBaseWindow.ERASE_WINDOW}" class="r-a-b "><i class="bi bi-eraser"></i></button>
-                            <button id="${constIdBaseWindow.ALTER_THEME}" class="r-a-b "><i class="bi bi-circle-half"></i></button>
-                        </div>
-                        <div class="actions-view">
-                            <button id="${constIdBaseWindow.GLOBALIZATION}" class="r-a-b">
-                                <i class="bi bi-globe-americas"></i>
-                                <ol id="${constIdBaseWindow.OLLI_GLOBALIZATION}" class="${constIdBaseWindow.OLLI_GLOBALIZATION} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                                </ol>                        
-                            </button> 
-                            <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
-                                <i class="bi bi-fire"></i>
-                                <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
-                                </ol>                        
-                            </button>    
-                        </div>
-                    </div>
-                </div>
-                <div class="r-head r-read-edit">
-                    <button id="r-a-save" class="r-a-b "><i class="bi bi-box-arrow-in-down"></i></button>
-                    <button id="r-a-alter" class="r-a-b"><i class="bi bi-pen"></i></button>
-                    <button id="r-a-delete" class="r-a-b"><i class="bi bi-trash"></i></button>    
-                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL} class="r-a-b"><i class="bi bi-arrows"></i></button>    
-                </div>
-                </div>
-            </div>
-
-            <div class="r-w-body">
-                <form class="r-f-items" id="${constIdBaseWindow.FORM_RUCULA_JS}" autocomplete="off">
-                </form>
-                <div class="r-vertical-actions">
-                    <ol id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_LIST} class=""> 
-                    </ol>
-                    <button id=${constIdBaseWindow.BUTTONS_MENU_VERTICAL_MOBILE} class="r-a-b actions-mobile"><i class="bi bi-arrows"></i></button>    
-                </div>
-            </div>
-            <div class="r-facede-action bottom">
-            </div>
-            <div class="r-box-show" id="r-box-show"> 
-            </div>
-        </div>
-        `;
-        return CREATE_OR_EDIT;
-    }
-    function prepareEventsButtonsCrud() {
-        let rNew = document.getElementById(constIdBaseWindow.NEW);
-        rNew.addEventListener("click", () => {
-            openCloseContainer();
-            rNew.classList.toggle("r-btn-new-convert-close");
-            rNew.classList.toggle("r-btn-new-cancel-close");
-        });
-    }
-    function openCloseContainer() {
-        let itemContainer = document.querySelectorAll(".js-open-close-container");
-        itemContainer.forEach(item => {
-            item.classList.toggle("r-display-none");
-        });
-    }
-    function closeLeftGrid(grid) {
-        if (grid == false) {
-            let buttonNew = document.getElementById(constIdBaseWindow.NEW);
-            buttonNew?.click();
-            let actions = document.getElementById("actions");
-            actions?.remove();
-            let maximizeWindow = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
-            maximizeWindow?.remove();
-        }
-    }
-    function maximizeWindow() {
-        let maximize = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW);
-        maximize?.addEventListener('click', () => {
-            let actions = document.getElementById("actions");
-            actions?.classList.toggle("r-close-grid");
-        });
-    }
-    function eraseWindow() {
-        let erase = document.getElementById(constIdBaseWindow.ERASE_WINDOW);
-        let form = windowBaseDOM.getPrincipalElementRucula();
-        erase?.addEventListener('click', () => {
-            form.reset();
-        });
-    }
-    function openActionswindow() {
-        let actions = document.getElementById(constIdBaseWindow.ACTIONS_WINDOW);
-        actions?.addEventListener('click', (e) => {
-            actions?.nextElementSibling?.classList.toggle('r-actions-window-active');
-            actions?.nextElementSibling?.classList.toggle('r-actions-window');
-        });
-    }
-    function alterTheme() {
-        let rw = document.querySelector('.r-w');
-        let actions = document.getElementById(constIdBaseWindow.ALTER_THEME);
-        let theme = cookie.read('theme');
-        if (theme == 'dark') {
-            rw?.classList.add('dark-theme');
-        }
-        actions?.addEventListener('click', (e) => {
-            rw?.classList.toggle('dark-theme');
-            if (rw?.classList.contains('dark-theme')) {
-                document.cookie = "theme=dark";
-            }
-            else {
-                document.cookie = "theme=light";
-            }
-        });
-    }
-    return {
-        createWindowBase: (id) => {
-            createWindowBase(id);
-        },
-        createNameWindow: (name) => {
-            createNameWindow(name);
-        },
-        setElementRoot: (id) => {
-            elementRoot = document.getElementById(id);
-        },
-        getElementRoot: () => {
-            return elementRoot;
-        },
-        getPrincipalElementRucula: () => {
-            return document.getElementById(constIdBaseWindow.FORM_RUCULA_JS);
-        },
-        closeLeftGrid: (grid) => closeLeftGrid(grid)
     };
 })();
 
@@ -2611,6 +2672,7 @@ class Rucula {
         windowBaseDOM.createNameWindow(this.window.name);
         windowBaseDOM.closeLeftGrid(this.window.grid);
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula();
+        exportPagination.init(this.window.pagination);
         layoutFrames.configureLayout(this.window);
         this.createFrames();
         this.createButtons();
