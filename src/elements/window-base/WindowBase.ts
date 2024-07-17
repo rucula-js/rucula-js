@@ -1,5 +1,5 @@
 import { cookie } from "../../common/coockie/coockie";
-import { constIdBaseWindow } from "../../const";
+import { constIdBaseWindow, constPagination } from "../../const";
 import { menuContext } from "../../menu-context/menu-context";
 import { fieldMenuContext } from "../form/Field/fieldMenuContext";
 
@@ -12,6 +12,7 @@ export let windowBaseDOM = (() => {
         ruculaWindow.classList.add("r-w");
     
         const actions = document.createElement("div");
+        actions.className = "r-left-block"
         actions.innerHTML = componentActions();    
         ruculaWindow.appendChild(actions)
     
@@ -57,15 +58,33 @@ export let windowBaseDOM = (() => {
                     </div>
                     <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
                 </div>
-                <div class="r-act-grid" id="w-grid">
-                <div class="searh-items-grid">
-                    <button><i class="bi bi-search"></i></button>
-                        <input type="text"/>
+                <div class="r-left-block-grid" id="w-grid">
+                    <form class="searh-items-grid" id="${constPagination.FIND}" autocomplete=off>
+                        <input name="r-find-value" type="text"/>
+                        <button><i class="bi bi-search"></i></button>
+                    </form>
+                    <div class="r-act-grid-body">
+                    </div>
+                    <div class="r-act-grid-footer" id="r-act-grid-footer">
+                        <div>
+                            <span>N. Linha</span>
+                            <select id="${constPagination.ROW_NUMBER}" name="len-page">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="1000">1000</option>
+                            </select>
+                        </div>
+                         <div>
+                            <button id="${constPagination.FIRST}" class="r-a-b"><i class="bi bi-arrow-up"></i></button>
+                            <button id="${constPagination.LAST}" class="r-a-b"><i class="bi bi-arrow-down"></i></button>
+                            <button id="${constPagination.PREVIOUS}" class="r-a-b"><i class="bi bi-arrow-left"></i></button>
+                            <button id="${constPagination.NEXT}" class="r-a-b"><i class="bi bi-arrow-right"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div id="w-grid" class="r-act-grid-body">
-                </div>
-            </div>` 
+             </div>` 
     
         return ACTIONS;
     }

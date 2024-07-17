@@ -35,6 +35,10 @@ export let defaultValues = (() => {
     return {
         setDefault:(window: window) => {
             
+            window.grid ??= true
+            window.gridFooter ??= true
+            window.gridSearch ??= true
+            
             window.frames.forEach(frame => {
         
                 setDefaultFrame(frame)

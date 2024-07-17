@@ -90,4 +90,6 @@ import { callbackYesNo } from "./src/popup/callback";
     }
 
     rucula.event.on('r-pagination',(e:any) => console.log(e.detail.page))
+    rucula.event.on('r-pagination-row',(e:any) => console.log(e.detail.row))
+    rucula.event.on('r-pagination-find',(e:any) => console.log(e.detail.value))    
 })()

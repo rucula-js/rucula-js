@@ -104,6 +104,7 @@ export const constYesNo = {
 
 export const constPagination = {
     ROW_NUMBER:"r-pagination-row-number",
+    FIND:"r-find",
     FIRST:"r-pagination-first",
     LAST:"r-pagination-last",
     PREVIOUS:"r-pagination-previous",

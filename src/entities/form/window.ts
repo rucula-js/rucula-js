@@ -16,7 +16,8 @@ export interface window{
     pathController: string
     frames: Array<frame>
     grid: boolean
-    pagination: boolean
+    gridFooter: boolean
+    gridSearch: boolean
     paramsGrid: string
     button: button[]
     joinChield: string[]

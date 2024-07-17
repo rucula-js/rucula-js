@@ -16,7 +16,7 @@ import { loaderManagment } from "./elements/loader/loader";
 import { popup } from "./popup/popup";
 import { logs } from "./console/Console";
 import { eventManagment } from "./Event/event";
-import { exportPagination } from "./exports";
+import { exportPaginationEvents } from "./exports";
 
 export class Rucula{
     private window: window
@@ -48,7 +48,8 @@ export class Rucula{
         windowBaseDOM.createNameWindow(this.window.name)
         windowBaseDOM.closeLeftGrid(this.window.grid)
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
-        exportPagination.init(this.window.pagination);
+        exportPaginationEvents.headerSearch(this.window.gridSearch);
+        exportPaginationEvents.fotter(this.window.gridFooter);
         layoutFrames.configureLayout(this.window)
         this.createFrames()
         this.createButtons()
