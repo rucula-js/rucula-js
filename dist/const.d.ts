@@ -78,6 +78,7 @@ export declare const constYesNo: {
 };
 export declare const constPagination: {
     ROW_NUMBER: string;
+    FIND: string;
     FIRST: string;
     LAST: string;
     PREVIOUS: string;

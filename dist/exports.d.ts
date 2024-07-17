@@ -11,6 +11,7 @@ export declare let exportTableDependency: {
     moveImbernateToNotResolved: (identityObject: string) => void;
     moveNotResolvedToImbernate: (identityObject: string) => void;
 };
-export declare let exportPagination: {
-    init: (yesNo?: boolean) => void;
+export declare let exportPaginationEvents: {
+    headerSearch: (gridSearch: boolean) => void;
+    fotter: (gridFooter: boolean) => void;
 };

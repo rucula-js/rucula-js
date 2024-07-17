@@ -77,6 +77,7 @@ const constYesNo = {
 };
 const constPagination = {
     ROW_NUMBER: "r-pagination-row-number",
+    FIND: "r-find",
     FIRST: "r-pagination-first",
     LAST: "r-pagination-last",
     PREVIOUS: "r-pagination-previous",
@@ -445,6 +446,7 @@ let windowBaseDOM = (() => {
         const ruculaWindow = document.createElement("div");
         ruculaWindow.classList.add("r-w");
         const actions = document.createElement("div");
+        actions.className = "r-left-block";
         actions.innerHTML = componentActions();
         ruculaWindow.appendChild(actions);
         const contentForm = document.createElement("div");
@@ -479,15 +481,33 @@ let windowBaseDOM = (() => {
                     </div>
                     <button id="r-a-many" class="r-a-b"><i class="bi bi-list"></i></button>
                 </div>
-                <div class="r-act-grid" id="w-grid">
-                <div class="searh-items-grid">
-                    <button><i class="bi bi-search"></i></button>
-                        <input type="text"/>
+                <div class="r-left-block-grid" id="w-grid">
+                    <form class="searh-items-grid" id="${constPagination.FIND}" autocomplete=off>
+                        <input name="r-find-value" type="text"/>
+                        <button><i class="bi bi-search"></i></button>
+                    </form>
+                    <div class="r-act-grid-body">
+                    </div>
+                    <div class="r-act-grid-footer" id="r-act-grid-footer">
+                        <div>
+                            <span>N. Linha</span>
+                            <select id="${constPagination.ROW_NUMBER}" name="len-page">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="1000">1000</option>
+                            </select>
+                        </div>
+                         <div>
+                            <button id="${constPagination.FIRST}" class="r-a-b"><i class="bi bi-arrow-up"></i></button>
+                            <button id="${constPagination.LAST}" class="r-a-b"><i class="bi bi-arrow-down"></i></button>
+                            <button id="${constPagination.PREVIOUS}" class="r-a-b"><i class="bi bi-arrow-left"></i></button>
+                            <button id="${constPagination.NEXT}" class="r-a-b"><i class="bi bi-arrow-right"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div id="w-grid" class="r-act-grid-body">
-                </div>
-            </div>`;
+             </div>`;
         return ACTIONS;
     }
     function createComponentCreateOrEdit() {
@@ -640,55 +660,59 @@ let windowBaseDOM = (() => {
     };
 })();
 
-let pagination = (function () {
+let paginationEvents = (function () {
     return {
-        init: function (yesNo = true) {
-            if (yesNo == false) {
-                return;
+        headerSearch: function (gridSearch) {
+            let search = document.getElementById(constPagination.FIND);
+            if (gridSearch == false) {
+                search?.remove();
             }
-            let wGrid = document.getElementById('w-grid');
-            const divElement = document.createElement('div');
-            divElement.className = 'r-act-grid-footer';
-            divElement.innerHTML =
-                `<div class="r-act-grid-footer">
-                    <div>
-                        <span>N. Linha</span>
-                        <select id="${constPagination.ROW_NUMBER}" name="len-page">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="1000">1000</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button id="${constPagination.FIRST}" class="r-a-b"><i class="bi bi-arrow-up"></i></button>
-                        <button id="${constPagination.LAST}" class="r-a-b"><i class="bi bi-arrow-down"></i></button>
-                        <button id="${constPagination.PREVIOUS}" class="r-a-b"><i class="bi bi-arrow-left"></i></button>
-                        <button id="${constPagination.NEXT}" class="r-a-b"><i class="bi bi-arrow-right"></i></button>
-                    </div>
-                </div>`;
-            wGrid?.appendChild(divElement);
-            setEvents();
+            let elementRoot = windowBaseDOM.getElementRoot();
+            let body = {
+                detail: {
+                    value: ''
+                }
+            };
+            let event = new CustomEvent('r-pagination-find', body);
+            search?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                var formData = new FormData(e.target);
+                body.detail.value = String(formData.get('r-find-value'));
+                elementRoot.dispatchEvent(event);
+            });
+        },
+        fotter: function (gridFooter) {
+            if (gridFooter == false) {
+                document.getElementById('r-act-grid-footer')?.remove();
+            }
+            let elementRoot = windowBaseDOM.getElementRoot();
+            let pagination = {
+                detail: {
+                    page: ''
+                }
+            };
+            let event = new CustomEvent('r-pagination', pagination);
+            document.getElementById(constPagination.FIRST)?.addEventListener('click', () => dispatchEvent('first'));
+            document.getElementById(constPagination.LAST)?.addEventListener('click', () => dispatchEvent('last'));
+            document.getElementById(constPagination.PREVIOUS)?.addEventListener('click', () => dispatchEvent('previous'));
+            document.getElementById(constPagination.NEXT)?.addEventListener('click', () => dispatchEvent('next'));
+            function dispatchEvent(page) {
+                pagination.detail.page = page;
+                elementRoot.dispatchEvent(event);
+            }
+            let row = {
+                detail: {
+                    row: 0
+                }
+            };
+            let eventRow = new CustomEvent('r-pagination-row', row);
+            document.getElementById(constPagination.ROW_NUMBER)?.addEventListener('change', (e) => {
+                var select = e.target;
+                row.detail.row = Number(select.value);
+                elementRoot.dispatchEvent(eventRow);
+            });
         }
     };
-    function setEvents() {
-        let pagination = {
-            detail: {
-                page: ''
-            }
-        };
-        let event = new CustomEvent('r-pagination', pagination);
-        document.getElementById(constPagination.FIRST)?.addEventListener('click', () => dispatchEvent('first'));
-        document.getElementById(constPagination.LAST)?.addEventListener('click', () => dispatchEvent('last'));
-        document.getElementById(constPagination.PREVIOUS)?.addEventListener('click', () => dispatchEvent('previous'));
-        document.getElementById(constPagination.NEXT)?.addEventListener('click', () => dispatchEvent('next'));
-        let elementRoot = windowBaseDOM.getElementRoot();
-        function dispatchEvent(page) {
-            pagination.detail.page = page;
-            elementRoot.dispatchEvent(event);
-        }
-    }
 });
 
 let tableDependency = () => {
@@ -898,7 +922,7 @@ let tableDependency = () => {
 };
 
 let exportTableDependency = tableDependency();
-let exportPagination = pagination();
+let exportPaginationEvents = paginationEvents();
 
 let fragment = (() => {
     let objects = new Array();
@@ -2469,6 +2493,9 @@ let defaultValues = (() => {
     }
     return {
         setDefault: (window) => {
+            window.grid ??= true;
+            window.gridFooter ??= true;
+            window.gridSearch ??= true;
             window.frames.forEach(frame => {
                 setDefaultFrame(frame);
                 frame.fields?.forEach(field => {
@@ -2672,7 +2699,8 @@ class Rucula {
         windowBaseDOM.createNameWindow(this.window.name);
         windowBaseDOM.closeLeftGrid(this.window.grid);
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula();
-        exportPagination.init(this.window.pagination);
+        exportPaginationEvents.headerSearch(this.window.gridSearch);
+        exportPaginationEvents.fotter(this.window.gridFooter);
         layoutFrames.configureLayout(this.window);
         this.createFrames();
         this.createButtons();

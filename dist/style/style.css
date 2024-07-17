@@ -112,6 +112,7 @@ button.r-actions-window{
     display: inline-block
 }
 
+
 .r-btn-new-convert-close{
     transform: rotate(45deg);
     transition: transform 0.3s ease;
@@ -136,22 +137,22 @@ button.r-actions-window{
     color:  var(--color-default);
 }
 
-.r-act-grid,.searh-items-grid {
-    left: 5px; 
+.r-left-block-grid{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    height: 100%;
 }
 
-.r-act-grid,
-.r-act-grid-body {
-    width: inherit;
+.r-act-grid-body{
+    padding-top: 10px;
+    height: 100%;
 }
-
 .r-act-grid-footer {
-    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     padding: 5px;
-    width: inherit;
     height: 40px;
     bottom: 0;
 }
@@ -327,8 +328,13 @@ input.r-i-focus-dependency {
     opacity: 50%;
 }
 
+.r-left-block{
+    border-right: 1px solid var(--color-border-facede-action);
+}
+
 .r-act{
     width: 500px;
+    height: calc(100% - var(--heigth-r-facede-action));
     max-width: 500px;
     transition: width 0.6s ease;
 }
@@ -458,23 +464,28 @@ form.r-f-items{
 }
 .searh-items-grid {
     display: flex;
+    height: 30px;
     justify-content: space-between;
     border-radius: 20px;
-    border: 2px solid var(--color-black);
-    margin-top: 10px;
+    border: 1px solid var(--color-black);
     border-spacing: 0;
-    padding: 5;
     overflow: hidden;
 }
 
 .searh-items-grid input {
-    border: none;
     width: 100%;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .searh-items-grid button {
     border: none;
-    background-color: inherit;
+    background-color: rgb(0, 192, 118);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .r-vertical-actions ol,
