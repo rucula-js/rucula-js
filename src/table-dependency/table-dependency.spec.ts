@@ -3,6 +3,7 @@ import { tableDependency } from './TableDependency';
 import { field } from '../entities/form/field';
 import { fragmentField } from '../object/ObjectAliases';
 
+let table = tableDependency();
 describe('TableDependency', function () {
 
     describe('object', function () {
@@ -22,7 +23,7 @@ describe('TableDependency', function () {
           min: 1
         } as field
         
-        let expected = tableDependency.createExpectedDependency(field,fragment as any)
+        let expected = table.createExpectedDependency(field,fragment as any)
         
         assert.equal(expected,'1,2:12,3:2,4:1')
       })
@@ -39,7 +40,7 @@ describe('TableDependency', function () {
           requerid: true,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
+        let createExpectedDependency = table.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -55,12 +56,12 @@ describe('TableDependency', function () {
           }    
         }
 
-        let toApply0 = tableDependency.toApplyOrRemoveDependency(fragmentField,'')
-        let toApply1 = tableDependency.toApplyOrRemoveDependency(fragmentField,'1')
-        let toApply2 = tableDependency.toApplyOrRemoveDependency(fragmentField,null)
-        let toApply3 = tableDependency.toApplyOrRemoveDependency(fragmentField,'scs')
-        let toApply4 = tableDependency.toApplyOrRemoveDependency(fragmentField,undefined)
-        let toApply5 = tableDependency.toApplyOrRemoveDependency(fragmentField,'scsccs')
+        let toApply0 = table.toApplyOrRemoveDependency(fragmentField,'')
+        let toApply1 = table.toApplyOrRemoveDependency(fragmentField,'1')
+        let toApply2 = table.toApplyOrRemoveDependency(fragmentField,null)
+        let toApply3 = table.toApplyOrRemoveDependency(fragmentField,'scs')
+        let toApply4 = table.toApplyOrRemoveDependency(fragmentField,undefined)
+        let toApply5 = table.toApplyOrRemoveDependency(fragmentField,'scsccs')
         
         assert.equal(toApply0,true)
         assert.equal(toApply1,false)
@@ -84,7 +85,7 @@ describe('TableDependency', function () {
            maxLength: 2,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
+        let createExpectedDependency = table.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -100,7 +101,7 @@ describe('TableDependency', function () {
           }    
         }
 
-        let toApply = tableDependency.toApplyOrRemoveDependency(fragmentField,'VAL')
+        let toApply = table.toApplyOrRemoveDependency(fragmentField,'VAL')
         assert.equal(toApply,true)
       });
 
@@ -116,7 +117,7 @@ describe('TableDependency', function () {
            max: 5,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
+        let createExpectedDependency = table.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -132,7 +133,7 @@ describe('TableDependency', function () {
           }    
         }
 
-        let toApply = tableDependency.toApplyOrRemoveDependency(fragmentField,99)
+        let toApply = table.toApplyOrRemoveDependency(fragmentField,99)
         assert.equal(toApply,true)
       });
 
@@ -147,7 +148,7 @@ describe('TableDependency', function () {
            min: 1,
         } as field
         
-        let createExpectedDependency = tableDependency.createExpectedDependency(field,fragment as any)
+        let createExpectedDependency = table.createExpectedDependency(field,fragment as any)
 
         let fragmentField:fragmentField = {
           key : {
@@ -163,7 +164,7 @@ describe('TableDependency', function () {
           }    
         }
 
-        let toApply = tableDependency.toApplyOrRemoveDependency(fragmentField,-1)
+        let toApply = table.toApplyOrRemoveDependency(fragmentField,-1)
         assert.equal(toApply,true)
       });
     })    

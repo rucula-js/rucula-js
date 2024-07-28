@@ -2,7 +2,7 @@ import { button } from "../entities/form/button";
 import { ruculaGlobal } from "../global/GlobalConfig"
 import { managmentObject } from "../object/ObjectManagment";
 
-export  let urlManagment = (() => {
+export  let urlManagment = () => {
         
     return {
         
@@ -10,7 +10,7 @@ export  let urlManagment = (() => {
 
             if(button.URL)
             if(button.URL?.absolute?.length > 0) {
-                let url = urlManagment.createPath(button.URL.absolute)
+                let url = createPath(button.URL.absolute)
                 return url
             }
             
@@ -23,62 +23,64 @@ export  let urlManagment = (() => {
 
             if(button.URL)
             if(button.URL?.params?.length > 0 ){
-                params = urlManagment.createPath(button.URL.params)
+                params = createPath(button.URL.params)
                 url = `${url}/${controller}?${params}`
                 return url 
             }
 
             if(button.URL)
             if(button.URL?.relative?.length > 0 ){
-                let path = urlManagment.createPath(button.URL.relative)
+                let path = createPath(button.URL.relative)
                 return  `${url}/${path}` 
             }
 
             return url
         },
 
-        createWithParams: function (path:string){
-            var regex = /([^&]+=)({([^}&]+)})/g;
-
-            var matches = path.matchAll(regex);
-
-            for (const match of matches) {
-                
-                var propertValue = match[3]
-
-                 var value = managmentObject.object.object.getPropert(propertValue)
-
-                 path = path.replace(match[0],`${match[1]}${value}`)
-            }
-
-            return path
-        },
-
-        createWithoutParams: function (path:string){
-        
-            var regex = /\/{([^}&]+)}/gm
-
-            var matches = path.matchAll(regex);
-
-            for (const match of matches) {
-                
-                var propertValue = match[1]
-
-                var value = managmentObject.object.object.getPropert(propertValue)
-
-                path = path.replace(match[0],`/${value}`)
-            }
-
-            return path
-        },
-
-        createPath: function (path:string){
-
-            path = urlManagment.createWithParams(path)
-            path = urlManagment.createWithoutParams(path)
-
-            return path
-        }
+        createWithParams: (path:string) => createWithParams(path),
+        createWithoutParams: (path:string) => createWithoutParams(path),
+        createPath: (path:string) => createPath (path)
     }
 
-})()
+    function createPath(path:string){
+
+        path = createWithParams(path)
+        path = createWithoutParams(path)
+
+        return path
+    }
+
+    function createWithParams (path:string){
+        var regex = /([^&]+=)({([^}&]+)})/g;
+
+        var matches = path.matchAll(regex);
+
+        for (const match of matches) {
+            
+            var propertValue = match[3]
+
+             var value = managmentObject.object.object.getPropert(propertValue)
+
+             path = path.replace(match[0],`${match[1]}${value}`)
+        }
+
+        return path
+    }
+
+    function createWithoutParams (path:string){
+        
+        var regex = /\/{([^}&]+)}/gm
+
+        var matches = path.matchAll(regex);
+
+        for (const match of matches) {
+            
+            var propertValue = match[1]
+
+            var value = managmentObject.object.object.getPropert(propertValue)
+
+            path = path.replace(match[0],`/${value}`)
+        }
+        return path
+    }
+}

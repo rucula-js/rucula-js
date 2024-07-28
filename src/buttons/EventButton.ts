@@ -1,10 +1,9 @@
 import { button } from '../entities/form/button';
 import { fieldDOM } from '../elements/form/ElementsInput';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
-import { urlManagment } from '../URL/urlManagment';
 import { managmentObject } from '../object/ObjectManagment';
 import { constIdBaseWindow } from '../const';
-import { exportTableDependency } from '../exports';
+import { exportTableDependency, exportUrlManagment } from '../exports';
 
 export function eventButton(pathController:string, buttons:button[]){
     
@@ -40,7 +39,7 @@ export function eventButton(pathController:string, buttons:button[]){
                 return;
             }
             
-            object.detail.url = urlManagment.createURL(pathController, button);
+            object.detail.url = exportUrlManagment.createURL(pathController, button);
             
             let option = button?.body
             

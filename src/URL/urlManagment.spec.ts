@@ -2,6 +2,8 @@ import assert from 'assert';
 import { ruculaGlobal } from '../global/GlobalConfig';
 import { urlManagment } from './urlManagment';
 
+let url = urlManagment();
+
 describe('urlManagment', function () {
 
     ruculaGlobal.initGlobalConfiguration(
@@ -30,7 +32,8 @@ describe('urlManagment', function () {
                     params:'codigo={aliasCliente.codigo}'
                 }
             }
-            let result = urlManagment.createURL('Cliente',button);
+            let result = url.createURL('Cliente',button);
+
         })
 
         it('UrlBase shold create url by path', function () {
@@ -41,7 +44,7 @@ describe('urlManagment', function () {
                     params:''
                 }
             }
-            let result = urlManagment.createURL('Cliente',button);
+            let result = url.createURL('Cliente',button);
         })
     })    
 });
