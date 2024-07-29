@@ -1,4 +1,5 @@
 import { constFrameLineActions } from "../../../const";
+import { exportManagmentObject } from "../../../exports";
 import { fragment } from "../../../fragment/fragment";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../../global/KeyEvents";
 import { managmentObject } from "../../../object/ObjectManagment";
@@ -144,7 +145,7 @@ export let FrameLineEventDOM = (() => {
             
             let tdActions = tr.querySelector('td')
             
-            let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identity)
+            let fragmentObject =  exportManagmentObject.fragment.getFragmentForIdentity(identity)
             
             tr.addEventListener('mouseover',(e) => {
 

@@ -1,5 +1,5 @@
 import { field } from "../../../../entities/form/field";
-import { managmentObject } from "../../../../object/ObjectManagment";
+import { exportManagmentObject } from "../../../../exports";
 import { windowBaseDOM } from "../../../window-base/WindowBase";
 import { eventsCustom } from "../../Field/EventsFieldsCustom";
 
@@ -21,7 +21,7 @@ export abstract class FileEvent{
 
         let identity = this.input.getAttribute("identity")!;
         
-        let fragment = managmentObject.fragment.getFragmentForIdentity(identity)
+        let fragment = exportManagmentObject.fragment.getFragmentForIdentity(identity)
          
         let eventName = fragment.config.line ? `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}` : `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}`
         
@@ -37,6 +37,6 @@ export abstract class FileEvent{
 
         let identity = this.input.getAttribute("identity")!
 
-        managmentObject.object.field.setValueContextIdentity(identity,this.field?.type, this.input.value)
+        exportManagmentObject.object.field.setValueContextIdentity(identity,this.field?.type, this.input.value)
     }
 }  

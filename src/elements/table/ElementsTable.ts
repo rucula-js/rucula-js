@@ -1,7 +1,7 @@
 import { alignItem } from "../../Helpers/Helper";
 import { field } from "../../entities/form/field";
 import { frame } from "../../entities/form/frame";
-import { exportTableDependency } from "../../exports";
+import { exportManagmentObject, exportTableDependency } from "../../exports";
 import { fragment } from "../../fragment/fragment";
 import { managmentObject } from "../../object/ObjectManagment";
 import { configWindow } from "../../window/Window";
@@ -66,7 +66,7 @@ export let frameLineTableDOM = (() => {
                 
                 createRowDetail: (frame:frame) => {
                     
-                    managmentObject.frame.addLine(frame) //! This function must be started immediately at the beginning of line creation
+                    exportManagmentObject.frame.addLine(frame) //! This function must be started immediately at the beginning of line creation
 
                     let tr = document.createElement('tr');
                          
@@ -103,7 +103,7 @@ export let frameLineTableDOM = (() => {
                         })
                     })
 
-                    let rowCount = managmentObject.object.object.count(frame.identity)
+                    let rowCount = exportManagmentObject.object.object.count(frame.identity)
 
                     frameValues.setValuesDefined(frame, tr);
 
@@ -144,7 +144,7 @@ export let frameLineTableDOM = (() => {
                      
                     let identityInputTartget = inputTargetEvent.getAttribute("identity")!
             
-                    let fragmentObject =  managmentObject.fragment.getFragmentForIdentity(identityInputTartget)
+                    let fragmentObject =  exportManagmentObject.fragment.getFragmentForIdentity(identityInputTartget)
             
                     let field = fragment.fields.getForIdentity(identityInputTartget)
                         
@@ -152,13 +152,13 @@ export let frameLineTableDOM = (() => {
                     
                     moveActions(fragmentObject.config.fragmentObjectIdentity)
                     
-                    let count = managmentObject.object.object.count(frame.identity)
+                    let count = exportManagmentObject.object.object.count(frame.identity)
                     
                     let actions = currentLineElement.querySelector('td div') as HTMLDivElement
                     
                     currentLineElement.remove(); //! Importante! This call must be before object and fragment. Otherwise there will be unexpected errors. 
-                    managmentObject.object.object.removeLine(frame.identity,field.config.line as number)
-                    managmentObject.fragment.removeFragmentsLine(frame.identity,field.config.line as number)
+                    exportManagmentObject.object.object.removeLine(frame.identity,field.config.line as number)
+                    exportManagmentObject.fragment.removeFragmentsLine(frame.identity,field.config.line as number)
                     
                     if(count <= 1){
                         

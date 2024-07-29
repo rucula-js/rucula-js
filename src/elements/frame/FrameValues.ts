@@ -1,5 +1,5 @@
 import { frame } from "../../entities/form/frame";
-import { managmentObject } from "../../object/ObjectManagment";
+import { exportManagmentObject } from "../../exports";
 
 export let frameValues = (() => {
     return {
@@ -10,7 +10,7 @@ export let frameValues = (() => {
                 let input = htmlElement.querySelector(field.identity) as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
                 
                 if(input){
-                    managmentObject.object.field.setValueContextIdentity(field.identity,field.type, input.value);
+                    exportManagmentObject.object.field.setValueContextIdentity(field.identity,field.type, input.value);
                 }
             })
         }

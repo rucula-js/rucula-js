@@ -1,4 +1,5 @@
 import { button } from "../entities/form/button";
+import { exportManagmentObject } from "../exports";
 import { ruculaGlobal } from "../global/GlobalConfig"
 import { managmentObject } from "../object/ObjectManagment";
 
@@ -59,7 +60,7 @@ export  let urlManagment = () => {
             
             var propertValue = match[3]
 
-             var value = managmentObject.object.object.getPropert(propertValue)
+             var value = exportManagmentObject.object.object.getPropert(propertValue)
 
              path = path.replace(match[0],`${match[1]}${value}`)
         }
@@ -77,7 +78,7 @@ export  let urlManagment = () => {
             
             var propertValue = match[1]
 
-            var value = managmentObject.object.object.getPropert(propertValue)
+            var value = exportManagmentObject.object.object.getPropert(propertValue)
 
             path = path.replace(match[0],`/${value}`)
         }

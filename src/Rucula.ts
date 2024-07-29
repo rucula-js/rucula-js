@@ -1,5 +1,4 @@
 import { window } from "./entities/form/window";
-import { managmentObject } from "./object/ObjectManagment";
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
 import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
@@ -16,7 +15,7 @@ import { loaderManagment } from "./elements/loader/loader";
 import { popup } from "./popup/popup";
 import { logs } from "./console/Console";
 import { eventManagment } from "./Event/event";
-import { exportPaginationEvents } from "./exports";
+import { exportManagmentObject, exportPaginationEvents } from "./exports";
 
 export class Rucula{
     private window: window
@@ -44,7 +43,7 @@ export class Rucula{
         defaultValues.setDefault(this.window)
         windowBaseDOM.createWindowBase(this.elementRucula.id)
         this.addHomeWindow();
-        managmentObject.frame.initObjects(this.window.frames)
+        exportManagmentObject.frame.initObjects(this.window.frames)
         windowBaseDOM.createNameWindow(this.window.name)
         windowBaseDOM.closeLeftGrid(this.window.grid)
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
@@ -118,14 +117,14 @@ export class Rucula{
         
         return {
             
-            objectUnique: (alias:string) => managmentObject.object.object.objectUnique(alias),
-            getFullObject:() => managmentObject.object.object.objectFull(),
-            getSepareteObject:() => managmentObject.object.object.objectSeparate(),
+            objectUnique: (alias:string) => exportManagmentObject.object.object.objectUnique(alias),
+            getFullObject:() => exportManagmentObject.object.object.objectFull(),
+            getSepareteObject:() => exportManagmentObject.object.object.objectSeparate(),
 
             setValue: (targetPath:string, value: any) => {
         
                 const ATTR_DISABLED = 'disabled'
-                let identity = managmentObject.object.field.convertAliasToIdenty(targetPath);
+                let identity = exportManagmentObject.object.field.convertAliasToIdenty(targetPath);
         
                 let input = document.querySelector('[identity='+identity+']') as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
         
@@ -145,7 +144,7 @@ export class Rucula{
 
             },
             getValue:(config:string):any => {
-                return managmentObject.object.object.getPropert(config)
+                return exportManagmentObject.object.object.getPropert(config)
             }
         }
     })()

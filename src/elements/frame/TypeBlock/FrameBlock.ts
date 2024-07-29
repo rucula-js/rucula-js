@@ -1,7 +1,6 @@
 import { buttonsDOM } from "../../../buttons/Button";
 import { frame } from "../../../entities/form/frame";
-import { exportTableDependency } from "../../../exports";
-import { managmentObject } from "../../../object/ObjectManagment";
+import { exportManagmentObject, exportTableDependency } from "../../../exports";
 import { fieldDOM } from "../../form/ElementsInput";
 import { fieldMenuContext } from "../../form/Field/fieldMenuContext";
 import { createFrame } from "../ElementFrame";
@@ -10,7 +9,7 @@ import { frameValues } from "../FrameValues";
 
 export function createFrameBlock(frame:frame){
     
-    managmentObject.frame.configFieldBlock(frame)
+    exportManagmentObject.frame.configFieldBlock(frame)
     
     const frameElement = createFrame(frame)
     

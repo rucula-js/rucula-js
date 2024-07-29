@@ -1,6 +1,5 @@
-import { exportTableDependency } from "../../exports";
+import { exportManagmentObject, exportTableDependency } from "../../exports";
 import { fragment } from "../../fragment/fragment";
-import { managmentObject } from "../../object/ObjectManagment";
 
 export let frameEvent = (() => {
 
@@ -19,7 +18,7 @@ export let frameEvent = (() => {
                 
                 let fragmentObject = fragment.objects.getForFieldIdentity(identity)
 
-                let count = managmentObject.object.object.count(fragmentObject.key.identity)
+                let count = exportManagmentObject.object.object.count(fragmentObject.key.identity)
 
                 if(count > 1){
                     // This option indicates that the Frame previously obtained user input, 
@@ -43,7 +42,7 @@ export let frameEvent = (() => {
 
                 let fragmentObject = fragment.objects.getForFieldIdentity(identity)
 
-                let count = managmentObject.object.object.count(fragmentObject.key.identity)
+                let count = exportManagmentObject.object.object.count(fragmentObject.key.identity)
         
                 if(count  >1){
                     exportTableDependency.moveImbernateToNotResolved(fragmentObject.key.identity)

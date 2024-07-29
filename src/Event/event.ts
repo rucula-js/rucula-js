@@ -1,5 +1,5 @@
 import { windowBaseDOM } from "../elements/window-base/WindowBase"
-import { managmentObject } from "../object/ObjectManagment"
+import { exportManagmentObject } from "../exports"
 
 export let eventManagment = (() => {
 
@@ -14,7 +14,7 @@ export let eventManagment = (() => {
                     identity: (identity.element as HTMLElement).getAttribute('identity'),
                     name:identity.name,
                     row: identity.row,
-                    value: managmentObject.object.object.getPropert(identity.name),
+                    value: exportManagmentObject.object.object.getPropert(identity.name),
                     targetPathWithRow:(targetPath:string) => {
 
                         //? This method helps to create Target Path with the current event line

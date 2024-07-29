@@ -1,9 +1,8 @@
 import { button } from '../entities/form/button';
 import { fieldDOM } from '../elements/form/ElementsInput';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
-import { managmentObject } from '../object/ObjectManagment';
 import { constIdBaseWindow } from '../const';
-import { exportTableDependency, exportUrlManagment } from '../exports';
+import { exportManagmentObject, exportTableDependency, exportUrlManagment } from '../exports';
 
 export function eventButton(pathController:string, buttons:button[]){
     
@@ -49,15 +48,15 @@ export function eventButton(pathController:string, buttons:button[]){
             }
             
             if(option  == ''){
-                object.detail.body = managmentObject.object.object.objectSeparate()
+                object.detail.body = exportManagmentObject.object.object.objectSeparate()
             }
 
             if(option == '.'){
-                object.detail.body = managmentObject.object.object.objectFull()
+                object.detail.body = exportManagmentObject.object.object.objectFull()
             }
 
             if(['','.',undefined].find(c=> c != option) == undefined){
-                object.detail.body = managmentObject.object.object.objectUnique(option)
+                object.detail.body = exportManagmentObject.object.object.objectUnique(option)
             }
 
             rucula.dispatchEvent(eventButton)

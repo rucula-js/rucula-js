@@ -1,9 +1,7 @@
 import { constGroupFormat, constInputClass, constTypeInput } from "../../const";
 import { field } from "../../entities/form/field";
-import { exportTableDependency } from "../../exports";
+import { exportManagmentObject, exportTableDependency } from "../../exports";
 import { ruculaGlobal } from "../../global/GlobalConfig";
-import { managmentObject } from "../../object/ObjectManagment";
-import { tableDependency } from "../../table-dependency/TableDependency";
 import { eventsCustom } from "./Field/EventsFieldsCustom";
 import { FieldCheckbox } from "./Field/FieldCheckbox";
 import { FieldCommon } from "./Field/FieldCommon";
@@ -170,7 +168,7 @@ export let fieldDOM = (() => {
             
             element.setAttribute("identity",field.identity);
                             
-            let fragmentField = managmentObject.fragment.getFragmentForIdentity(field.identity)
+            let fragmentField = exportManagmentObject.fragment.getFragmentForIdentity(field.identity)
 
             let identity = { 
                     name: fragmentField.config.line ? `${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}` : `${fragmentField.config.alias}.${field.propertDto}`,
@@ -180,7 +178,7 @@ export let fieldDOM = (() => {
         
             eventsCustom.field().set(identity)
         
-            managmentObject.object.field.setValueContextIdentity(field.identity,field.type, element.value);
+            exportManagmentObject.object.field.setValueContextIdentity(field.identity,field.type, element.value);
             
             function isRadio(){
                 return field.type[0]  == constTypeInput.RADIO

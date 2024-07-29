@@ -8,7 +8,7 @@ import { generateUUID } from './ObjectHelper';
 
 'use strict';
 
-export let managmentObject = (()=> {
+export let managmentObject = ()=> {
     
     let initialized = false;
             
@@ -408,4 +408,4 @@ export let managmentObject = (()=> {
             }
         }
     }
-})()
+}
