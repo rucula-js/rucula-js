@@ -40,7 +40,7 @@ export function eventButton(pathController:string, buttons:button[]){
             }
             
             if(button.URL){
-                let url = new URLRucula(button.URL, exportManagmentObject.object.object);
+                let url = new URLRucula(exportManagmentObject.object.object, button.URL);
                 object.detail.url = url.getURL();
             }
         
