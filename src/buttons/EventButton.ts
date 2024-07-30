@@ -2,7 +2,8 @@ import { button } from '../entities/form/button';
 import { fieldDOM } from '../elements/form/ElementsInput';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
 import { constIdBaseWindow } from '../const';
-import { exportManagmentObject, exportTableDependency, exportUrlManagment } from '../exports';
+import { exportManagmentObject, exportTableDependency } from '../exports';
+import { URLRucula } from '../URL/urlManagment';
 
 export function eventButton(pathController:string, buttons:button[]){
     
@@ -38,7 +39,11 @@ export function eventButton(pathController:string, buttons:button[]){
                 return;
             }
             
-            object.detail.url = exportUrlManagment.createURL(pathController, button);
+            if(button.URL){
+                let url = new URLRucula(button.URL, exportManagmentObject.object.object);
+                object.detail.url = url.getURL();
+            }
+        
             
             let option = button?.body
             

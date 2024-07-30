@@ -1,8 +1,10 @@
 import assert from 'assert';
 import { ruculaGlobal } from '../global/GlobalConfig';
-import { urlManagment } from './urlManagment';
+import { URLRucula } from './urlManagment';
+import { exportManagmentObject } from '../exports';
 
-let url = urlManagment();
+
+let managmentObjectTest = exportManagmentObject;
 
 describe('urlManagment', function () {
 
@@ -22,6 +24,26 @@ describe('urlManagment', function () {
 
     } as any);
 
+
+    var frames:any[] = [
+          {
+            name: "frame",
+            type: "block",
+            objectDto: "frame",
+            alias: "aliasTestURL",
+            fields: [
+                {
+                propertDto: "codigo",
+                description: "Codigo"
+              }
+            ]
+          },
+    
+    ]
+     
+    managmentObjectTest.frame.initObjects(frames);
+    managmentObjectTest.object.field.setValueContextAlias("aliasTestURL.codigo","MyValueTest")
+
     describe('UrlBase shold create url by controller', function () {
   
         it('createURL  ', function () {
@@ -29,10 +51,13 @@ describe('urlManagment', function () {
             let button:any = {
                 URL:{
                     path:'',
-                    params:'codigo={aliasCliente.codigo}'
+                    params:'codigo={aliasTestURL.codigo}'
                 }
             }
-            let result = url.createURL('Cliente',button);
+            
+            let url = new URLRucula(button.URL,managmentObjectTest.object.field);
+
+            let result = url.getURL();
 
         })
 
@@ -40,11 +65,11 @@ describe('urlManagment', function () {
 
             let button:any = {
                 URL:{
-                    path:'servico/venda/cliente?codigo={aliasCliente.codigo}',
-                    params:''
+                    relative:'servico/venda/cliente?codigo={aliasCliente.codigo}',
                 }
             }
-            let result = url.createURL('Cliente',button);
+             let result = new URLRucula(button.URL, exportManagmentObject.object.object);
+
         })
     })    
 });
