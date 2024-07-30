@@ -16,6 +16,7 @@ import { popup } from "./popup/popup";
 import { logs } from "./console/Console";
 import { eventManagment } from "./Event/event";
 import { exportManagmentObject, exportPaginationEvents } from "./exports";
+import { URLRucula } from "./URL/urlManagment";
 
 export class Rucula{
     private window: window
@@ -112,7 +113,9 @@ export class Rucula{
     public popup = popup;
     public event = eventManagment
     public buttons = buttonsDOM
-
+    
+    public url = (URL?: { absolute: string; relative: string; params: string; }) => new URLRucula(exportManagmentObject.object.object, URL);
+    
     public object = (() => {
         
         return {

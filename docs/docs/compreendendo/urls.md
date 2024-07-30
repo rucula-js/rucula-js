@@ -1,19 +1,15 @@
 # Url's 
 
-No rucula-js a criação de url's é um processo dinâmico, que ocorre a partir da leitura de algumas propriedades presentes na configuração global, na janela e nos botões.
+No rucula-js a criação de url's é feita seguindo regras de prioridade. Isso ocorre porque o rucula tenta resolver dinamicamente grante parte das url's e com base no que está configurado na janela.
+
+> Também podemos usar rucula.url() para gerenciar manualmente.
+
+
+Atualmente o rucula tenta obter em dois locais a base para criação das url's, primeiramente ele tentará verificar o ambiente atual, depois tentará verificar se há configurão vinculada ao botão.
+
 
 ```js
-{
-    name: "Clientes",
-    pathController: "Cliente", 👈
-    type: "crud",
-    grid:false,
-    frames: []
-    ...
-}
-```
-
-```js
+// configuração do ambiente
 environments:[
     {
         env:"development",
@@ -23,11 +19,12 @@ environments:[
 ]
 ```
 ```js
+// configuração da url(pode estar ou não vinculada ao botão)
 {
     URL:{
-        absolute:string 👈
-        relative:string, 👈
-        params:string 👈
+        absolute:'www.novo.com/images?code={os.codigoImagem}' 👈
+        relative:'OdemDeServico', 👈
+        params:'?numero={os.codOS}' 👈
     }
 }
 ```
@@ -35,51 +32,48 @@ environments:[
 
 ## A URL Principal 
 
-A URL principal usada por todas as janelas é criada a partir da configuração global `environments`, nela existe uma array de ambientes que dão suporte à todas as janelas.
+A URL principal é criada a partir da configuração global `environments`, nela existe uma array de ambientes que dão suporte à todas as janelas.
 
-Durante o processo de criação de url, o ruculs-js cria a URL principa padrão na seguinte forma `http://localhost:5016`
+Durante o processo de criação de url, o ruculs-js cria a URL principal padrão na seguinte forma `http://localhost:5016`.
 
+> Nota: Ela poderá ser substituida por outra url principal se `URL.absolute` for informada. De qualquer forma sempre haverá uma url principal. 
 
-## Path Controller 
+## Path Relativo
 
-Normalmente temos janelas que fazem referência à um único caminho path, por exemplo, ao criar uma janela chamada `Ordem de Servico` é provável que o path de serviço utilizado pela janela seja `/OrdemServico` ou algo muito semelhante, o fato é que a janela terá os serviços que utiliza dentro de `/OrdemServico`. Complementado, podemos utilizar a propriedade `button.URL.params` para complementar a URL, como em casos **GET**.
+O path relativo é um complemento da url principal, ao ser informado o rucula concatena e retorna a nova url.
 
-Para esse caso a url seria criada utilizando a URL de domínio do ambiente atual, tendo o apoio do exemplo acima, teriamos uma url completa na seguinte forma: `http://localhost:5016/OrdemServico`
-
-## Path Relativo no Contexto de Mesmo Ambiente
-
-O path relativo de mesmo ambiente traz maior flexibilidade ao se fazer referencias a outros path's que estão presentes no mesmo ambiente.
-
-Isso ocorre porque se informado em `button.URL.relative`, `pathController` será ignorado, o que garante ao desenvolvedor criar variações de URL's ao ambiente atual.
-
-O Path Relativo tem o mesmo peso do `pathController`, entretanto, substitui o `pathController`. 
-
-## Path Absoluto ou nova URL
-
-Nesse modalidade de criação, toda configuração criada é ignorada e uma nova URL é criada. Para isso utilize a propriedade  `button.URL.absolute`.
-
-
-O objetivo aqui é criar URL's que façam por exemplo referência a aplicações terceiras.
+`http://localhost:5016/OdemDeServico`
 
 ## Os Parametros de URL
 
-Existem casos em que as URL's devem ser criadas com parametros, para esses casos o rucula-js lê as propriedade presente em `button.URL` e resolve a URL.
+Existem casos em que as URL's devem ser criadas com parametros, para esses casos o rucula-js lê as propriedade presente em `URL.params` e resolve a URL.
 
-Com a url quase pronta  `http://localhost:5016/OrdemServico`, podemos passar os parametros em duas formas: 
+`http://localhost:5016/OdemDeServico/?numero=2e82e892e`
+
+
+
 
 ### A Sintaxe dos Parametros
 
 Para que a devida substituição entre propriedade do objeto seja feita, utilizamos duas sintaxes
 
-1. `parametro={aliasFrame.namePropert}`. Caso tenha mais de um parametro, teriamos algo como `parametro={aliasFrame.namePropert}&parametro={aliasFrame2.namePropert2}`
-    - `nome=reginaldo` 
-2. `/{aliasFrame.namePropert}`. 
-    - `/Cliente/234`
 
-**Nota: A sintaxe de objeto propriedade {{objeto.propriedade}}, pode ser substituida por constantes, exemplo: `?id=12345` ou `/12345`**
+1. `parametro={aliasFrame.namePropert}`. Caso tenha mais de um parametro, teriamos algo como `parametro={aliasFrame.namePropert}&parametro={aliasFrame2.namePropert2}`
+2. `/{aliasFrame.namePropert}`. 
+
+**Nota: A sintaxe de objeto propriedade {objeto.propriedade}, pode ser substituida por constantes, exemplo: `?id=12345` ou `/12345`**
 
 Após a construção completa da url, teriamos `http://localhost:5016/OrdemServico?id=12345`, `http://localhost:5016/OrdemServico/12345`  ou outra URL absoluta.
 
+
+
+
+## Path Absoluto ou nova URL
+
+Nesse modalidade de criação, toda configuração criada é ignorada e uma nova URL é criada. Para isso utilize a propriedade  `button.URL.absolute`.
+`www.novo.com/images?code=21wequweui`
+
+O objetivo aqui é criar URL's que façam por exemplo referência a aplicações terceiras.
 <br>
 
 ##### Itens Relacionados

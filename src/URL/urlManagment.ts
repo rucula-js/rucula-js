@@ -3,15 +3,19 @@ import { ruculaGlobal } from "../global/GlobalConfig"
 
 export class URLRucula{
     
-    private _URL:{absolute:string, relative:string, params:string}
+    private _URL?:{absolute:string, relative:string, params:string}
     private callbackGetPropert:any
     
-    constructor(URL:{absolute:string, relative:string, params:string}, callbackGetPropert:any){
+    constructor(callbackGetPropert:any, URL?:{absolute:string, relative:string, params:string}){
         this._URL = URL
         this.callbackGetPropert = callbackGetPropert
     }
 
     getURL(){
+
+        if(this._URL == undefined){
+            return this.domain()
+        }
 
         let URL = this._URL;
 
@@ -52,7 +56,7 @@ export class URLRucula{
     }
 
     path(path:string){
-
+        
         path = this.createWithParams(path)
         path = this.createWithoutParams(path)
 
@@ -77,7 +81,7 @@ export class URLRucula{
         return path
     }
 
-    createWithoutParams (path:string){
+    private createWithoutParams (path:string){
         
         var regex = /\/{([^}&]+)}/gm
 
