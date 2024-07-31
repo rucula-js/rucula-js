@@ -496,7 +496,7 @@ form.r-f-items{
 .list-vertical-buttons {
     position: absolute;
     top:40px;
-    background-color: var(--color-black);
+    background-color: var(--bgc-r-w);
     min-width: 200px;
     margin: 0;
     z-index: 1;
@@ -520,7 +520,8 @@ form.r-f-items{
     cursor: pointer;
     border: none;
     font-weight: bold;
-    color: var(--color-write);
+    color: var(--color-text-defaut);
+    text-align: left;
 }
 .r-globalization-list.list-vertical-buttons li:hover,
 .r-enviroment-list.list-vertical-buttons li:hover,
@@ -797,6 +798,15 @@ input:-internal-autofill-selected {
     margin: 0;
     color: inherit;
 }
+
+.desc-environment {
+    border: 1px solid var(--color-border-facede-action);
+    border-radius: 20px;
+    padding: 1px 10px;
+    font-weight: bold;
+    color: var(--color-text-defaut);
+}
+
 @media screen and (max-width:700px){
  
     .r-head {

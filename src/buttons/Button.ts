@@ -4,6 +4,7 @@ import { ElementButton } from './ElementButton';
 import { ElementLink } from './ElementLink';
 import { constIdBaseWindow, constTargetButtonCrudDefault } from '../const';
 import { ruculaGlobal } from '../global/GlobalConfig';
+import { enviroment } from '../global/entities/Enviroments';
 
 export let buttonsDOM = (()=> {
     
@@ -61,27 +62,45 @@ export let buttonsDOM = (()=> {
 
     function prepareEnviroments(){
      
-        let enviroment = document.getElementById(constIdBaseWindow.ENVIROMENT)
+        let baseEnvironments = document.getElementById(constIdBaseWindow.ENVIROMENT)!
         let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT)
+        let description = baseEnvironments.querySelector('.description')!
+        let icon = baseEnvironments.querySelector('i')!
+        
+        let atualEnvironment = ruculaGlobal.getEnvironment();
+        setDescription(atualEnvironment)
 
-        enviroment?.addEventListener("click", () => {
+        baseEnvironments?.addEventListener("click", () => {
             olliEnviroment?.classList.toggle("r-display-none")
         })
-
+        
         let globalConf = ruculaGlobal.getConfigurationGlobal()
 
         globalConf.environments.forEach(enviroment => {
             
             const li = document.createElement("li")
             
-            li.textContent = enviroment.env;
+            li.textContent = enviroment.description
             
             olliEnviroment?.appendChild(li)
             
             li.addEventListener("click",() => {
+
                 ruculaGlobal.setEnviroment(enviroment.env)
+                setDescription(enviroment)
             })
         })
+
+        function setDescription(enviroment:enviroment){
+            
+            description.textContent = enviroment.description
+            if(enviroment.env.toLocaleLowerCase() == 'production'){
+                icon.style.color = 'red'
+            }
+            if(enviroment.env != 'production'){
+                icon.style.color = ''
+            }
+        }
     }
     return {
         createButtonOrLink: (button:button) => createButtonOrLink(button),

@@ -126,7 +126,7 @@ export let windowBaseDOM = (() => {
                                 </ol>                        
                             </button> 
                             <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
-                                <i class="bi bi-fire"></i>
+                                <div class="desc-environment"><i class="bi bi-fire"></i> <span class="description"></span> </div>
                                 <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
                                 </ol>                        
                             </button>    

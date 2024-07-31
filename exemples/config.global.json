@@ -3,18 +3,13 @@
     "environments":[
         {
             "env":"development",
+            "description":"Desenvolvimento",
             "hostname":"http://localhost",
-            "port": "5016",
-
-            "outsides": [{
-                "env":"development",
-                "hostname":"http://localhost",
-                "port": "5016"
-            }
-            ]
+            "port": "5016"
         },
         {
             "env":"production",
+            "description":"Produção",
             "hostname":"http://ruculaerp",
             "port": "4320"
         }
