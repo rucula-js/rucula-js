@@ -25,17 +25,18 @@ export class URLRucula{
         }
         
         let url = this.domain()
+        
+        if (URL?.relative?.length > 0) {
+            let path = this.path(URL.relative);
+            url = `${url}/${path}`;
+        }
+        
         let params = ''
 
         if(URL?.params?.length > 0 ){
             params = this.path(URL.params)
             url = `${url}?${params}`
             return url 
-        }
-
-        if(URL?.relative?.length > 0 ){
-            let path = this.path(URL.relative)
-            return  `${url}/${path}` 
         }
 
         return url
