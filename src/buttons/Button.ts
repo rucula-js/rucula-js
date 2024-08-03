@@ -5,6 +5,7 @@ import { ElementLink } from './ElementLink';
 import { constIdBaseWindow, constTargetButtonCrudDefault } from '../const';
 import { ruculaGlobal } from '../global/GlobalConfig';
 import { enviroment } from '../global/entities/Enviroments';
+import { cookie } from '../common/coockie/coockie';
 
 export let buttonsDOM = (()=> {
     
@@ -67,11 +68,22 @@ export let buttonsDOM = (()=> {
         let description = baseEnvironments.querySelector('.description')!
         let icon = baseEnvironments.querySelector('i')!
         
+        let env = cookie.read('enviroment')
+        
+        if(env){
+            ruculaGlobal.setEnviroment(env)
+        }
+
         let atualEnvironment = ruculaGlobal.getEnvironment();
+        
         setDescription(atualEnvironment)
 
-        baseEnvironments?.addEventListener("click", () => {
+        baseEnvironments?.addEventListener("click", (e) => {
+            
             olliEnviroment?.classList.toggle("r-display-none")
+            let target = (e.target as HTMLElement)
+            let env = target.getAttribute('env')
+            document.cookie = `enviroment=${env}`  
         })
         
         let globalConf = ruculaGlobal.getConfigurationGlobal()
@@ -80,6 +92,7 @@ export let buttonsDOM = (()=> {
             
             const li = document.createElement("li")
             
+            li.setAttribute('env',enviroment.env)
             li.textContent = enviroment.description
             
             olliEnviroment?.appendChild(li)
