@@ -355,6 +355,7 @@ form.r-f-items,
 }
 form.r-f-items{
     display: grid;
+    grid-auto-rows: max-content;
     width: 100%;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
@@ -363,6 +364,7 @@ form.r-f-items{
     padding-top: 10px;
     padding-bottom: 10px;
     overflow: auto;
+    
 }
 .r-vertical-actions{
     width: 200px;

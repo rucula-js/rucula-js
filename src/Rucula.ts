@@ -39,7 +39,6 @@ export class Rucula{
         
         let rucula = windowBaseDOM.getElementRoot()
         rucula.dispatchEvent(eventInit)
-
         configWindow.set(this.window)
         defaultValues.setDefault(this.window)
         windowBaseDOM.createWindowBase(this.elementRucula.id)
@@ -58,8 +57,6 @@ export class Rucula{
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);        
         rucula.dispatchEvent(eventLoad)
         logs()
-        
-
     }
 
     private addHomeWindow(){
