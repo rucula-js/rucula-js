@@ -165,11 +165,24 @@ export let windowBaseDOM = (() => {
     
         let rNew = document.getElementById(constIdBaseWindow.NEW)
             
+        let framesOn = cookie.read("frames-on"); 
+        if(framesOn != "false"){
+            openClose()
+        }
+                
         rNew!.addEventListener("click", () => {
+            
+            let value = cookie.read("frames-on") == "true"
+            document.cookie=`frames-on=${!value}`
+            openClose()
+            
+        })
+        
+        function openClose(){
             openCloseContainer();
             rNew!.classList.toggle("r-btn-new-convert-close")
             rNew!.classList.toggle("r-btn-new-cancel-close")
-        })
+        }
     }
     
     function openCloseContainer(){

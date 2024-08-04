@@ -495,8 +495,9 @@ form.r-f-items{
 
 .list-vertical-buttons {
     position: absolute;
-    top:40px;
+    top:48px;
     background-color: var(--bgc-r-w);
+    border: 1px solid var(--color-border-default);
     min-width: 200px;
     margin: 0;
     z-index: 1;

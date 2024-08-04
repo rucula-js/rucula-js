@@ -70,7 +70,7 @@ export let buttonsDOM = (()=> {
         
         let env = cookie.read('enviroment')
         
-        if(env){
+        if(env != "null" && env != null){
             ruculaGlobal.setEnviroment(env)
         }
 

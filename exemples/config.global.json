@@ -8,6 +8,12 @@
             "port": "5016"
         },
         {
+            "env":"staging",
+            "description":"Homologação",
+            "hostname":"http://ruculaerp",
+            "port": "4320"
+        },
+        {
             "env":"production",
             "description":"Produção",
             "hostname":"http://ruculaerp",
