@@ -1,5 +1,5 @@
-import config from "./exemples/config.global.json";
-import input from './exemples/ordemServicoApiControl.json'
+import global from "./exemples/config.global.json";
+import os from './exemples/ordemServicoApiControl.json'
 import { Rucula } from "./src/Rucula"
 
 import "./public/style.css"
@@ -7,8 +7,12 @@ import "./public/normalize.css"
 import { callbackYesNo } from "./src/popup/callback";
 
 (()=> {
-                
-    let rucula = new Rucula(config as any,input as any,"js");
+    
+    let rucula = new Rucula({
+        global:global as any,
+        window: os as any,
+        id:'js'
+    });
     
     rucula.event.on('input.itensServico.quantidade',(e:CustomEvent) => {
 
@@ -92,4 +96,10 @@ import { callbackYesNo } from "./src/popup/callback";
     rucula.event.on('r-pagination',(e:any) => console.log(e.detail.page))
     rucula.event.on('r-pagination-row',(e:any) => console.log(e.detail.row))
     rucula.event.on('r-pagination-find',(e:any) => console.log(e.detail.value))    
+
+    rucula.event.on('frame.cliente.complete',(e:any) => {
+    })
+    
+
+    rucula.create();
 })()

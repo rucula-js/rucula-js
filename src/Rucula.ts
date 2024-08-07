@@ -23,16 +23,19 @@ export class Rucula{
     private elementRucula: HTMLElement
     private elementFormRucula!: HTMLFormElement
     
-    constructor(config:globalConfiguration, window:window, id:string = 'rucula-js'){
-        
-        ruculaGlobal.initGlobalConfiguration(config)
-        windowBaseDOM.setElementRoot(id)
-        this.window = window
-        this.elementRucula = document.getElementById(id)!
-        this.initWindow()
+    constructor(config: {
+        global:globalConfiguration, 
+        window:window, 
+        id:string|undefined 
+    }){
+        config.id ??= 'rucula-js';
+        ruculaGlobal.initGlobalConfiguration(config.global)
+        windowBaseDOM.setElementRoot(config.id)
+        this.window = config.window
+        this.elementRucula = document.getElementById(config.id)!
     }
-    
-    private initWindow(){
+
+    create(){
         
         let eventInit = new Event('rucula.init')
         let eventLoad = new Event('rucula.load')
@@ -96,13 +99,29 @@ export class Rucula{
 
                 const block = createFrameBlock(frame)
                 this.elementFormRucula.appendChild(block)
+                eventCreated(block) 
             }
             
             if(frame.type == constTypeFrame.LINE){
                             
                 const line = frameLineDOM.createFrameLine(frame)
                 this.elementFormRucula.appendChild(line)
+                eventCreated(line)
             }  
+            
+            function eventCreated(frameElement:HTMLDivElement){
+                
+                var eventName = `frame.${frame.alias}.complete`
+                let event = new CustomEvent(eventName, {
+                    detail: {
+                        height: frameElement.offsetHeight,
+                        width: frameElement.offsetWidth
+                    }
+                })
+                let rucula = windowBaseDOM.getElementRoot();
+                
+                rucula.dispatchEvent(event)
+            }
         })
     }
 
