@@ -5,8 +5,10 @@ import { window } from '../entities/form/window';
 import { frame } from '../entities/form/frame';
 import { objectIsEqual } from '../test/Helper';
 
+let obj = managmentObject();
+
 describe('ObjectManagment', function () {
-  managmentObject.frame.initObjects(windowValue.frames as frame[])
+  obj.frame.initObjects(windowValue.frames as frame[])
 
     describe('frame', function () {
   
@@ -45,7 +47,7 @@ describe('ObjectManagment', function () {
           
         }
 
-        let objectResult = managmentObject.object.object.objectFull()
+        let objectResult = obj.object.object.objectFull()
         
         let result = objectIsEqual(objectResult,objectExpected)
       
@@ -55,7 +57,7 @@ describe('ObjectManagment', function () {
 
       it('should return separate object for alias', function () {
         
-        let objectResult = managmentObject.object.object.objectSeparate()
+        let objectResult = obj.object.object.objectSeparate()
 
         let objectExpected = {
           AliasFaturaHeader: {},
@@ -77,11 +79,11 @@ describe('ObjectManagment', function () {
         
         let valCep = '13255432'
         
-        managmentObject.object.field.setValueContextAlias("enderecoAliasVX.cep",valCep)
+        obj.object.field.setValueContextAlias("enderecoAliasVX.cep",valCep)
         
         let objectExpected = { cep: '13255432' }
 
-        let objectUnique = managmentObject.object.object.objectUnique("enderecoAliasVX")
+        let objectUnique = obj.object.object.objectUnique("enderecoAliasVX")
         
          let result = objectIsEqual(objectUnique,objectExpected)
 
@@ -94,13 +96,13 @@ describe('ObjectManagment', function () {
         let valDataAbertura = "2023-01-02"
         let valDataEncerramento = "2023-02-02"
         
-        managmentObject.object.field.setValueContextAlias("AliasFaturaHeader.codigo",valCodigo)
-        managmentObject.object.field.setValueContextAlias("AliasFaturaHeader.dataAbertura",valDataAbertura)
-        managmentObject.object.field.setValueContextAlias("AliasFaturaHeader.dataEncerramento",valDataEncerramento)
+        obj.object.field.setValueContextAlias("AliasFaturaHeader.codigo",valCodigo)
+        obj.object.field.setValueContextAlias("AliasFaturaHeader.dataAbertura",valDataAbertura)
+        obj.object.field.setValueContextAlias("AliasFaturaHeader.dataEncerramento",valDataEncerramento)
         
-        let codigo = managmentObject.object.object.getPropert("AliasFaturaHeader.codigo")
-        let dataAbertura = managmentObject.object.object.getPropert("AliasFaturaHeader.dataAbertura")     
-        let dataEncerramento = managmentObject.object.object.getPropert("AliasFaturaHeader.dataEncerramento")         
+        let codigo = obj.object.object.getPropert("AliasFaturaHeader.codigo")
+        let dataAbertura = obj.object.object.getPropert("AliasFaturaHeader.dataAbertura")     
+        let dataEncerramento = obj.object.object.getPropert("AliasFaturaHeader.dataEncerramento")         
         
         assert.equal(codigo,valCodigo);
         assert.equal(dataAbertura,valDataAbertura);
@@ -112,9 +114,9 @@ describe('ObjectManagment', function () {
 
         let valCep = '13255432'
 
-        managmentObject.object.field.setValueContextAlias("enderecoAliasVX.cep",valCep)
+        obj.object.field.setValueContextAlias("enderecoAliasVX.cep",valCep)
         
-        let cep = managmentObject.object.object.getPropert("enderecoAliasVX.cep")
+        let cep = obj.object.object.getPropert("enderecoAliasVX.cep")
 
         assert.equal(cep,valCep);
      

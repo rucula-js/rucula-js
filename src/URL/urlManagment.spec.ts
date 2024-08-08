@@ -55,7 +55,7 @@ describe('urlManagment', function () {
                 }
             }
             
-            let url = new URLRucula(button.URL,managmentObjectTest.object.field);
+            let url = new URLRucula(managmentObjectTest.object.field, button.URL);
 
             let result = url.getURL();
 
@@ -68,7 +68,7 @@ describe('urlManagment', function () {
                     relative:'servico/venda/cliente?codigo={aliasCliente.codigo}',
                 }
             }
-             let result = new URLRucula(button.URL, exportManagmentObject.object.object);
+             let result = new URLRucula(managmentObjectTest.object.field, button.URL);
 
         })
     })    
