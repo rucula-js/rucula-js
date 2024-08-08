@@ -9,6 +9,6 @@ export declare let fieldMenuContext: {
         get: (identity: string) => {
             identity: string;
             field: field;
-        } | undefined;
+        };
     };
 };

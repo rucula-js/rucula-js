@@ -1,3 +1,3 @@
 export declare let cookie: {
-    read: (name: string) => string | null;
+    read: (name: string) => string;
 };

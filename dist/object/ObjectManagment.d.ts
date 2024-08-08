@@ -1,6 +1,6 @@
 import { frame } from '../entities/form/frame';
 import { fragmentField } from './ObjectAliases';
-export declare let managmentObject: {
+export declare let managmentObject: () => {
     frame: {
         initObjects: (frames: frame[]) => void;
         configFieldBlock: (frame: frame) => void;

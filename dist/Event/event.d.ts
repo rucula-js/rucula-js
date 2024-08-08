@@ -1,7 +1,7 @@
 export declare let eventManagment: {
     field: {
         getDetails: (event: CustomEvent) => {
-            identity: string | null;
+            identity: string;
             name: any;
             row: any;
             value: any;

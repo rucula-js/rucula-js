@@ -145,7 +145,7 @@ button.r-actions-window{
 }
 
 .r-act-grid-body{
-    padding-top: 10px;
+    margin-top: 10px;
     height: 100%;
 }
 .r-act-grid-footer {
@@ -340,7 +340,6 @@ input.r-i-focus-dependency {
 }
 
 .r-head{
-    height: var(--heigth-r-facede-action);
     background-color: var(--bgc-frames);
 }
 
@@ -356,6 +355,7 @@ form.r-f-items,
 }
 form.r-f-items{
     display: grid;
+    grid-auto-rows: max-content;
     width: 100%;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
@@ -364,6 +364,7 @@ form.r-f-items{
     padding-top: 10px;
     padding-bottom: 10px;
     overflow: auto;
+    
 }
 .r-vertical-actions{
     width: 200px;
@@ -496,8 +497,9 @@ form.r-f-items{
 
 .list-vertical-buttons {
     position: absolute;
-    top:40px;
-    background-color: var(--color-black);
+    top:48px;
+    background-color: var(--bgc-r-w);
+    border: 1px solid var(--color-border-default);
     min-width: 200px;
     margin: 0;
     z-index: 1;
@@ -521,7 +523,8 @@ form.r-f-items{
     cursor: pointer;
     border: none;
     font-weight: bold;
-    color: var(--color-write);
+    color: var(--color-text-defaut);
+    text-align: left;
 }
 .r-globalization-list.list-vertical-buttons li:hover,
 .r-enviroment-list.list-vertical-buttons li:hover,
@@ -798,6 +801,15 @@ input:-internal-autofill-selected {
     margin: 0;
     color: inherit;
 }
+
+.desc-environment {
+    border: 1px solid var(--color-border-facede-action);
+    border-radius: 20px;
+    padding: 1px 10px;
+    font-weight: bold;
+    color: var(--color-text-defaut);
+}
+
 @media screen and (max-width:700px){
  
     .r-head {

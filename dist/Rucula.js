@@ -1,3 +1,18 @@
+let cookie = (() => {
+    return {
+        read: function (name) {
+            var cookies = document.cookie.split('; ');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].split('=');
+                if (cookie[0] === name) {
+                    return decodeURIComponent(cookie[1]);
+                }
+            }
+            return null;
+        }
+    };
+})();
+
 ({
     RESET_BACKGROUND: "reset-background",
     RESET_BACKGROUND_EVENT: new Event("reset-background"),
@@ -83,67 +98,6 @@ const constPagination = {
     PREVIOUS: "r-pagination-previous",
     NEXT: "r-pagination-next"
 };
-
-function convertValueType(value, type) {
-    type = GetType(type);
-    if (isBoolean()) {
-        return convertToBoolean();
-    }
-    if (isNumeric()) {
-        return convertToNumeric();
-    }
-    return value;
-    function isNumeric() {
-        return type == constTypeInput.CURRENCY ||
-            type == constTypeInput.NUMBER;
-    }
-    function isBoolean() {
-        return type == constTypeInput.BOOLEAN;
-    }
-    function convertToNumeric() {
-        return Number(value);
-    }
-    function convertToBoolean() {
-        if (value == "true") {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    function GetType(type) {
-        if (type.length == 2) {
-            return type[1];
-        }
-        return type;
-    }
-}
-function alignItem(field, item) {
-    if (field.type == constTypeInput.TEXT || field.type == undefined || field.type[0] == constTypeInput.SELECT) {
-        item.classList.add('r-t-align-left');
-    }
-    if (field.type == constTypeInput.NUMBER || field.type == constTypeInput.CURRENCY) {
-        item.classList.add('r-t-align-right');
-    }
-    if (field.type[0] == constTypeInput.CHECKBOX) {
-        item.classList.add('r-t-align-center');
-    }
-}
-
-let cookie = (() => {
-    return {
-        read: function (name) {
-            var cookies = document.cookie.split('; ');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].split('=');
-                if (cookie[0] === name) {
-                    return decodeURIComponent(cookie[1]);
-                }
-            }
-            return null;
-        }
-    };
-})();
 
 let menuContext = (() => {
     let menusContext = [];
@@ -545,7 +499,7 @@ let windowBaseDOM = (() => {
                                 </ol>                        
                             </button> 
                             <button id="${constIdBaseWindow.ENVIROMENT}" class="r-a-b">
-                                <i class="bi bi-fire"></i>
+                                <div class="desc-environment"><i class="bi bi-fire"></i> <span class="description"></span> </div>
                                 <ol id="${constIdBaseWindow.OLLI_ENVIROMENT}" class="${constIdBaseWindow.OLLI_ENVIROMENT} list-vertical-buttons list-vertical-buttons-pp-left r-display-none">
                                 </ol>                        
                             </button>    
@@ -580,11 +534,20 @@ let windowBaseDOM = (() => {
     }
     function prepareEventsButtonsCrud() {
         let rNew = document.getElementById(constIdBaseWindow.NEW);
+        let framesOn = cookie.read("frames-on");
+        if (framesOn != "false") {
+            openClose();
+        }
         rNew.addEventListener("click", () => {
+            let value = cookie.read("frames-on") == "true";
+            document.cookie = `frames-on=${!value}`;
+            openClose();
+        });
+        function openClose() {
             openCloseContainer();
             rNew.classList.toggle("r-btn-new-convert-close");
             rNew.classList.toggle("r-btn-new-cancel-close");
-        });
+        }
     }
     function openCloseContainer() {
         let itemContainer = document.querySelectorAll(".js-open-close-container");
@@ -659,6 +622,636 @@ let windowBaseDOM = (() => {
         closeLeftGrid: (grid) => closeLeftGrid(grid)
     };
 })();
+
+class ElementBase {
+    element;
+    addDataIdAttribute(button) {
+        this.element.setAttribute("id", button.target);
+    }
+    addColor(color) {
+        if (color)
+            this.element.style.backgroundColor = color;
+    }
+}
+
+function createIcon(button) {
+    let icon = document.createElement('i');
+    if (button.icon === undefined || button.icon.trim() === "")
+        return icon;
+    button.icon?.split(" ").forEach(item => icon.classList.add(item));
+    return icon;
+}
+
+class ElementButton extends ElementBase {
+    createElement(button) {
+        if (button.target == null || button.target == "") {
+            throw new Error("target is requerid!");
+        }
+        this.element = document.createElement('button');
+        this.element.classList.add("r-b-i");
+        this.element.setAttribute('type', 'button');
+        if (button.fullWidth) {
+            this.element.classList.add('r-button-full-width');
+        }
+        let _class = button?.class?.split(' ');
+        _class?.forEach(item => {
+            this.element.classList.add(item);
+        });
+        let icon = createIcon(button);
+        let span = document.createElement('span');
+        span.textContent = button.text ?? "";
+        this.element.appendChild(icon);
+        this.element.appendChild(span);
+        this.addColor(button.color);
+        this.addDataIdAttribute(button);
+        return this.element;
+    }
+}
+
+class ElementLink extends ElementBase {
+    createElement(button) {
+        this.element = document.createElement('a');
+        this.element.textContent = button.text + "";
+        this.element.href = `${button.link}`;
+        this.element.classList.add("btn-link");
+        this.element.setAttribute('target', "_blank");
+        this.element.appendChild(createIcon(button));
+        return this.element;
+    }
+}
+
+let ruculaGlobal = (() => {
+    let configuration;
+    function checkLocalizations(localizations) {
+        if (localizations.length == 0) {
+            throw new Error("🌿 localization must be informed");
+        }
+    }
+    function checkEnvironments(environments) {
+        if (environments.length == 0) {
+            throw new Error("🌿 environment must be informed");
+        }
+    }
+    return {
+        initGlobalConfiguration: function (config) {
+            configuration = config;
+            ruculaGlobal.setEnviroment();
+            ruculaGlobal.setLocalization();
+        },
+        setLocalization: function (locales = 0) {
+            checkLocalizations(configuration.localizations);
+            if (typeof locales === "number") {
+                configuration.chosenLocalization = configuration.localizations[0];
+                return;
+            }
+            let loc = configuration.localizations.find(c => c.locales === locales);
+            if (loc == undefined || loc == null) {
+                throw new Error("🌿 localization not found");
+            }
+            configuration.chosenLocalization = loc;
+        },
+        setEnviroment: function (enviroment = 0) {
+            checkEnvironments(configuration.environments);
+            if (typeof enviroment === "number") {
+                configuration.chosenEnvironment = configuration.environments[0];
+                return;
+            }
+            let env = configuration.environments.find(c => c.env === enviroment);
+            if (env == undefined || env == null) {
+                throw new Error("🌿 environment not found");
+            }
+            configuration.chosenEnvironment = env;
+        },
+        getEnvironment: function () {
+            return configuration.chosenEnvironment;
+        },
+        getLocalization: function () {
+            return configuration.chosenLocalization;
+        },
+        getConfigurationGlobal: function () {
+            return configuration;
+        }
+    };
+})();
+
+let buttonsDOM = (() => {
+    let elementStrategy;
+    function buttonIsNotDefault(target) {
+        return target != constTargetButtonCrudDefault.SAVE &&
+            target != constTargetButtonCrudDefault.ALTER &&
+            target != constTargetButtonCrudDefault.DELETE;
+    }
+    function createButtonOrLink(button) {
+        if (button.type != "button" && button.type != "link") {
+            throw new Error("tipo do botão deve ser button ou link");
+        }
+        if (button.type == "button") {
+            elementStrategy = new ElementButton();
+        }
+        if (button.type == "link") {
+            elementStrategy = new ElementLink();
+        }
+        return elementStrategy.createElement(button);
+    }
+    function getButton(target) {
+        return document.getElementById(target);
+    }
+    function prepareLocalizations() {
+        let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION);
+        let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION);
+        globalization?.addEventListener("click", () => {
+            olliGlobalization?.classList.toggle("r-display-none");
+        });
+        let globalConf = ruculaGlobal.getConfigurationGlobal();
+        globalConf.localizations.forEach(loc => {
+            const li = document.createElement("li");
+            li.textContent = loc.language;
+            olliGlobalization?.appendChild(li);
+            li.addEventListener("click", () => {
+                ruculaGlobal.setLocalization(loc.locales);
+            });
+        });
+    }
+    function prepareEnviroments() {
+        let baseEnvironments = document.getElementById(constIdBaseWindow.ENVIROMENT);
+        let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT);
+        let description = baseEnvironments.querySelector('.description');
+        let icon = baseEnvironments.querySelector('i');
+        let env = cookie.read('enviroment');
+        if (env != "null" && env != null) {
+            ruculaGlobal.setEnviroment(env);
+        }
+        let atualEnvironment = ruculaGlobal.getEnvironment();
+        setDescription(atualEnvironment);
+        baseEnvironments?.addEventListener("click", (e) => {
+            olliEnviroment?.classList.toggle("r-display-none");
+            let target = e.target;
+            let env = target.getAttribute('env');
+            document.cookie = `enviroment=${env}`;
+        });
+        let globalConf = ruculaGlobal.getConfigurationGlobal();
+        globalConf.environments.forEach(enviroment => {
+            const li = document.createElement("li");
+            li.setAttribute('env', enviroment.env);
+            li.textContent = enviroment.description;
+            olliEnviroment?.appendChild(li);
+            li.addEventListener("click", () => {
+                ruculaGlobal.setEnviroment(enviroment.env);
+                setDescription(enviroment);
+            });
+        });
+        function setDescription(enviroment) {
+            description.textContent = enviroment.description;
+            if (enviroment.env.toLocaleLowerCase() == 'production') {
+                icon.style.color = 'red';
+            }
+            if (enviroment.env != 'production') {
+                icon.style.color = '';
+            }
+        }
+    }
+    return {
+        createButtonOrLink: (button) => createButtonOrLink(button),
+        prepareButtonsInLeftBox: (button) => {
+            const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
+            let buttons = button?.filter(c => buttonIsNotDefault(c.target));
+            if (buttons?.length == 0 || buttons == undefined) {
+                document.querySelector('.r-vertical-actions')?.classList.add('r-display-none');
+            }
+            buttons?.forEach(b => {
+                const li = document.createElement("li");
+                li.appendChild(createButtonOrLink(b));
+                ListRightButtons?.appendChild(li);
+            });
+            prepareLocalizations();
+            prepareEnviroments();
+        },
+        buttonIsNotDefault: (target) => buttonIsNotDefault(target),
+        disable: (target) => {
+            let button = getButton(target);
+            button?.classList.remove('r-display-none');
+            button?.setAttribute('disabled', '');
+        },
+        enable: (target) => {
+            let button = getButton(target);
+            button?.classList.remove('r-display-none');
+            button?.removeAttribute('disabled');
+        },
+        hide: (target) => {
+            let button = getButton(target);
+            button?.classList.add('r-display-none');
+        },
+        destroy: (target) => {
+            let button = getButton(target);
+            button?.remove();
+        }
+    };
+})();
+
+function convertValueType(value, type) {
+    type = GetType(type);
+    if (isBoolean()) {
+        return convertToBoolean();
+    }
+    if (isNumeric()) {
+        return convertToNumeric();
+    }
+    return value;
+    function isNumeric() {
+        return type == constTypeInput.CURRENCY ||
+            type == constTypeInput.NUMBER;
+    }
+    function isBoolean() {
+        return type == constTypeInput.BOOLEAN;
+    }
+    function convertToNumeric() {
+        return Number(value);
+    }
+    function convertToBoolean() {
+        if (value == "true") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function GetType(type) {
+        if (type.length == 2) {
+            return type[1];
+        }
+        return type;
+    }
+}
+function alignItem(field, item) {
+    if (field.type == constTypeInput.TEXT || field.type == undefined || field.type[0] == constTypeInput.SELECT) {
+        item.classList.add('r-t-align-left');
+    }
+    if (field.type == constTypeInput.NUMBER || field.type == constTypeInput.CURRENCY) {
+        item.classList.add('r-t-align-right');
+    }
+    if (field.type[0] == constTypeInput.CHECKBOX) {
+        item.classList.add('r-t-align-center');
+    }
+}
+
+let fragment = (() => {
+    let objects = new Array();
+    let fields = new Array();
+    function checkIdentity(identity) {
+        if (identity === undefined) {
+            throw new Error('identity is requerid');
+        }
+    }
+    return {
+        objects: {
+            add: function (object) {
+                checkIdentity(object.key.identity);
+                let exist = objects.find(c => c.key.identity == object.key.identity);
+                if (exist) {
+                    throw new Error('Object identity exists!!!');
+                }
+                objects.push(object);
+            },
+            getForFieldIdentity: function (identity) {
+                let field = fragment.fields.getForIdentity(identity);
+                return fragment.objects.getForIdentity(field.config.fragmentObjectIdentity);
+            },
+            getForIdentity: function (identity) {
+                if (identity === undefined) {
+                    throw new Error('identity requerid!');
+                }
+                let object = objects.find(c => c.key.identity == identity);
+                if (object) {
+                    return object;
+                }
+                throw new Error("Object not Found");
+            },
+            getForAlias: function (alias) {
+                if (alias === undefined) {
+                    throw new Error('alias is requerid');
+                }
+                let object = objects.find((c) => c.key.alias == alias);
+                if (object) {
+                    return object;
+                }
+                throw new Error('object not found');
+            }
+        },
+        fields: {
+            add: function (field) {
+                checkIdentity(field.key.identity);
+                let exist = fields.find(c => c.key.identity == field.key.identity);
+                if (exist) {
+                    throw new Error('Field identity exists!!!');
+                }
+                fields.push(field);
+            },
+            remove: function (fragment) {
+                let index = fields.indexOf(fragment);
+                if (index > -1) {
+                    fields.splice(index, 1);
+                }
+            },
+            removeLine: function (objectIDentity, line) {
+                let _fields = fields.filter(item => item.config.fragmentObjectIdentity == objectIDentity && item.config.line == line);
+                _fields.forEach(field => {
+                    let indexOf = fields.indexOf(field);
+                    if (indexOf > -1) {
+                        exportTableDependency.removeExpectedDependency(field.key.identity);
+                        fields.splice(indexOf, 1);
+                    }
+                });
+            },
+            getForIdentity: function (identity) {
+                if (identity === undefined) {
+                    throw new Error('identity is requerid');
+                }
+                let field = fields.find(c => c.key.identity == identity);
+                if (field) {
+                    return field;
+                }
+                throw new Error("field not Found");
+            },
+            getForAliasAndPropert: function (config) {
+                if (config === undefined) {
+                    throw new Error('entityConfiguration is requerid');
+                }
+                return fields.find((c) => c.config.alias == config.aliasOrIDentity &&
+                    c.config.propertDto == config.propertDto &&
+                    c.config.line == config.line);
+            }
+        }
+    };
+})();
+
+function generateUUID(sinal) {
+    return `RUC${sinal}xxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+let managmentObject = () => {
+    let initialized = false;
+    let pathObjectBase = [];
+    function initObjects(frames) {
+        if (initialized) {
+            throw new Error('Routine already initialized');
+        }
+        initialized = true;
+        frames?.forEach(frame => {
+            frame.identity = generateUUID('F');
+            if (frame.alias === undefined) {
+                throw new Error('propert alias is Requerid');
+            }
+            let fragmentObject = {
+                key: {
+                    identity: frame.identity,
+                    alias: frame.alias
+                },
+                config: {
+                    objectDto: frame.objectDto,
+                    identity: frame.identity,
+                    object: frame.type == constTypeFrame.BLOCK ? {} : [],
+                    getValueInObjectFragment: getValueInObjectFragment
+                }
+            };
+            fragment.objects.add(fragmentObject);
+            pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame: frame.identity });
+        });
+    }
+    function configFieldBlock(frame) {
+        frame.fields?.forEach(field => {
+            field.identity = generateUUID('I');
+            let config = {
+                key: {
+                    identity: field.identity,
+                },
+                config: {
+                    alias: frame.alias,
+                    fragmentObjectIdentity: frame.identity,
+                    identity: field.identity,
+                    propertDto: field.propertDto,
+                    line: undefined,
+                    dependency: ''
+                }
+            };
+            config.config.dependency = exportTableDependency.createExpectedDependency(field, config);
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value);
+            fragment.fields.add(config);
+        });
+    }
+    function addLine(frame) {
+        let object = fragment.objects.getForIdentity(frame.identity);
+        let newLine = object.config.object.length + 1;
+        object.config.object.push({ rucLine: newLine });
+        frame.fields?.forEach(field => {
+            field.identity = generateUUID('I');
+            let config = {
+                key: {
+                    identity: field.identity,
+                },
+                config: {
+                    alias: frame.alias,
+                    fragmentObjectIdentity: frame.identity,
+                    identity: field.identity,
+                    propertDto: field.propertDto,
+                    line: newLine,
+                    dependency: ''
+                }
+            };
+            config.config.dependency = exportTableDependency.createExpectedDependency(field, config);
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value);
+            fragment.fields.add(config);
+        });
+    }
+    function createObject() {
+        let configBase = pathObjectBase.find(c => c.parent === undefined || c.parent === '');
+        let configFrameBase = fragment.objects.getForIdentity(configBase.configFrame);
+        let newObject = Object.assign({}, configFrameBase?.config.object);
+        pathObjectBase.forEach((config) => {
+            let fragmentObject = fragment.objects.getForIdentity(config.configFrame);
+            if (config.parent == '.') {
+                insertObjectRoot();
+                return;
+            }
+            if (config.parent != '.' && config.parent !== undefined && config.parent !== '') {
+                insertObjectParent(config.parent.split('.'), newObject);
+                return;
+            }
+            function insertObjectRoot() {
+                newObject[fragmentObject.config.objectDto] = fragmentObject.config.object;
+            }
+            function insertObjectParent(parent, newObject) {
+                if (parent.length == 0) {
+                    return;
+                }
+                let propert = parent[0];
+                if (parent.length == 1) {
+                    createPropertForObject();
+                    return;
+                }
+                if (parent.length > 1) {
+                    createPropertForPath();
+                    let newPath = parent.slice(1, parent.length);
+                    insertObjectParent(newPath, newObject[propert]);
+                    return;
+                }
+                function createPropertForObject() {
+                    if (newObject[propert] === undefined) {
+                        newObject[propert] = {};
+                    }
+                    newObject[propert][fragmentObject.config.objectDto] = fragmentObject.config.object;
+                }
+                function createPropertForPath() {
+                    if (newObject[propert] === undefined) {
+                        newObject[propert] = {};
+                    }
+                }
+            }
+        });
+        return newObject;
+    }
+    function createObjectSeparete() {
+        let objectSeparate = {};
+        pathObjectBase.forEach((config) => {
+            let configFragment = fragment.objects.getForIdentity(config.configFrame);
+            objectSeparate[config.alias] = configFragment.config.object;
+        });
+        return objectSeparate;
+    }
+    function createObjectForAlias(alias) {
+        let object = fragment.objects.getForAlias(alias);
+        return object.config.object;
+    }
+    function setValue(fragmentField, value) {
+        let fragmentObject = fragment.objects.getForIdentity(fragmentField.config.fragmentObjectIdentity);
+        if (isTypeObject()) {
+            fragmentObject.config.object[fragmentField?.config.propertDto] = value;
+        }
+        if (isTypeLine()) {
+            let line = fragmentField?.config.line;
+            let item = fragmentObject.config.object.find((c) => c.rucLine == line);
+            if (item == undefined) {
+                item = { rucLine: line };
+                fragmentObject.config.object.push(item);
+            }
+            item[fragmentField?.config.propertDto] = value;
+        }
+        function isTypeObject() {
+            return fragmentField?.config.line == undefined;
+        }
+        function isTypeLine() {
+            return fragmentField?.config.line != undefined;
+        }
+        exportTableDependency.toApplyOrRemoveDependency(fragmentField, value);
+    }
+    function createConfigurationField(config) {
+        let opt = config.split('.');
+        let entityConfiguration = {
+            aliasOrIDentity: opt[0],
+            propertDto: opt[1],
+            line: opt[2] == undefined ? undefined : Number(opt[2])
+        };
+        return entityConfiguration;
+    }
+    function getValueInObjectFragment(object, propertDto, line) {
+        for (var propert in object) {
+            if (object.hasOwnProperty(propertDto) && line == undefined) {
+                return object[propertDto];
+            }
+            if (Array.isArray(object) && line != undefined) {
+                return getValueInObjectFragment(object[line], propertDto);
+            }
+            if (typeof object === 'object') {
+                return getValueInObjectFragment(object[propert], propertDto);
+            }
+        }
+    }
+    return {
+        frame: {
+            initObjects: (frames) => initObjects(frames),
+            configFieldBlock: (frame) => configFieldBlock(frame),
+            addLine: (frame) => addLine(frame),
+        },
+        field: {
+            type: (identityField) => {
+                let fragmentField = fragment.fields.getForIdentity(identityField);
+                if (fragmentField.config.line == undefined) {
+                    return constTypeFrame.BLOCK;
+                }
+                return constTypeFrame.LINE;
+            }
+        },
+        object: {
+            field: {
+                convertAliasToIdenty: (config) => {
+                    let entityConfiguration = createConfigurationField(config);
+                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration);
+                    return fragmentField.key.identity;
+                },
+                setValueContextAlias: (config, value) => {
+                    let entityConfiguration = createConfigurationField(config);
+                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration);
+                    setValue(fragmentField, value);
+                },
+                setValueContextIdentity: (identity, type, value) => {
+                    value = convertValueType(value, type);
+                    let fragmentField = fragment.fields.getForIdentity(identity);
+                    setValue(fragmentField, value);
+                },
+            },
+            object: {
+                objectFull: () => {
+                    return createObject();
+                },
+                objectSeparate: () => {
+                    return createObjectSeparete();
+                },
+                objectUnique: (alias) => {
+                    return createObjectForAlias(alias);
+                },
+                objectUniqueLine: (alias, line) => {
+                    let object = createObjectForAlias(alias);
+                    object = object[line];
+                    return object;
+                },
+                count: (identity) => {
+                    let object = fragment.objects.getForIdentity(identity);
+                    if (Array.isArray(object.config.object) == false) {
+                        return -1;
+                    }
+                    return object.config.object.length;
+                },
+                removeLine: (identity, line) => {
+                    let objectFragment = fragment.objects.getForIdentity(identity);
+                    var indexOf = objectFragment.config.object.findIndex((c) => c.rucLine == line);
+                    objectFragment.config.object.splice(indexOf, 1);
+                },
+                getPropert: (config) => {
+                    let entityConfiguration = createConfigurationField(config);
+                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration);
+                    let fragmentObject = fragment.objects.getForIdentity(fragmentField.config.fragmentObjectIdentity);
+                    let object = fragmentObject.config.object;
+                    return fragmentObject.config.getValueInObjectFragment(object, entityConfiguration.propertDto, entityConfiguration.line);
+                }
+            }
+        },
+        fragment: {
+            getFragmentForIdentity: (identity) => {
+                return fragment.fields.getForIdentity(identity);
+            },
+            removeFragmentsLine: (objectIDentity, line) => {
+                fragment.fields.removeLine(objectIDentity, line);
+            },
+            removeFragment: (identity) => {
+                let _fragment = fragment.fields.getForIdentity(identity);
+                fragment.fields.remove(_fragment);
+                exportTableDependency.removeExpectedDependency(identity);
+            }
+        }
+    };
+};
 
 let paginationEvents = (function () {
     return {
@@ -922,569 +1515,8 @@ let tableDependency = () => {
 };
 
 let exportTableDependency = tableDependency();
+let exportManagmentObject = managmentObject();
 let exportPaginationEvents = paginationEvents();
-
-let fragment = (() => {
-    let objects = new Array();
-    let fields = new Array();
-    function checkIdentity(identity) {
-        if (identity === undefined) {
-            throw new Error('identity is requerid');
-        }
-    }
-    return {
-        objects: {
-            add: function (object) {
-                checkIdentity(object.key.identity);
-                let exist = objects.find(c => c.key.identity == object.key.identity);
-                if (exist) {
-                    throw new Error('Object identity exists!!!');
-                }
-                objects.push(object);
-            },
-            getForFieldIdentity: function (identity) {
-                let field = fragment.fields.getForIdentity(identity);
-                return fragment.objects.getForIdentity(field.config.fragmentObjectIdentity);
-            },
-            getForIdentity: function (identity) {
-                if (identity === undefined) {
-                    throw new Error('identity requerid!');
-                }
-                let object = objects.find(c => c.key.identity == identity);
-                if (object) {
-                    return object;
-                }
-                throw new Error("Object not Found");
-            },
-            getForAlias: function (alias) {
-                if (alias === undefined) {
-                    throw new Error('alias is requerid');
-                }
-                let object = objects.find((c) => c.key.alias == alias);
-                if (object) {
-                    return object;
-                }
-                throw new Error('object not found');
-            }
-        },
-        fields: {
-            add: function (field) {
-                checkIdentity(field.key.identity);
-                let exist = fields.find(c => c.key.identity == field.key.identity);
-                if (exist) {
-                    throw new Error('Field identity exists!!!');
-                }
-                fields.push(field);
-            },
-            remove: function (fragment) {
-                let index = fields.indexOf(fragment);
-                if (index > -1) {
-                    fields.splice(index, 1);
-                }
-            },
-            removeLine: function (objectIDentity, line) {
-                let _fields = fields.filter(item => item.config.fragmentObjectIdentity == objectIDentity && item.config.line == line);
-                _fields.forEach(field => {
-                    let indexOf = fields.indexOf(field);
-                    if (indexOf > -1) {
-                        exportTableDependency.removeExpectedDependency(field.key.identity);
-                        fields.splice(indexOf, 1);
-                    }
-                });
-            },
-            getForIdentity: function (identity) {
-                if (identity === undefined) {
-                    throw new Error('identity is requerid');
-                }
-                let field = fields.find(c => c.key.identity == identity);
-                if (field) {
-                    return field;
-                }
-                throw new Error("field not Found");
-            },
-            getForAliasAndPropert: function (config) {
-                if (config === undefined) {
-                    throw new Error('entityConfiguration is requerid');
-                }
-                return fields.find((c) => c.config.alias == config.aliasOrIDentity &&
-                    c.config.propertDto == config.propertDto &&
-                    c.config.line == config.line);
-            }
-        }
-    };
-})();
-
-function generateUUID(sinal) {
-    return `RUC${sinal}xxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
-
-let managmentObject = (() => {
-    let initialized = false;
-    let pathObjectBase = [];
-    function initObjects(frames) {
-        if (initialized) {
-            throw new Error('Routine already initialized');
-        }
-        initialized = true;
-        frames?.forEach(frame => {
-            frame.identity = generateUUID('F');
-            if (frame.alias === undefined) {
-                throw new Error('propert alias is Requerid');
-            }
-            let fragmentObject = {
-                key: {
-                    identity: frame.identity,
-                    alias: frame.alias
-                },
-                config: {
-                    objectDto: frame.objectDto,
-                    identity: frame.identity,
-                    object: frame.type == constTypeFrame.BLOCK ? {} : [],
-                    getValueInObjectFragment: getValueInObjectFragment
-                }
-            };
-            fragment.objects.add(fragmentObject);
-            pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame: frame.identity });
-        });
-    }
-    function configFieldBlock(frame) {
-        frame.fields?.forEach(field => {
-            field.identity = generateUUID('I');
-            let config = {
-                key: {
-                    identity: field.identity,
-                },
-                config: {
-                    alias: frame.alias,
-                    fragmentObjectIdentity: frame.identity,
-                    identity: field.identity,
-                    propertDto: field.propertDto,
-                    line: undefined,
-                    dependency: ''
-                }
-            };
-            config.config.dependency = exportTableDependency.createExpectedDependency(field, config);
-            exportTableDependency.toApplyOrRemoveDependency(config, field.value);
-            fragment.fields.add(config);
-        });
-    }
-    function addLine(frame) {
-        let object = fragment.objects.getForIdentity(frame.identity);
-        let newLine = object.config.object.length + 1;
-        object.config.object.push({ rucLine: newLine });
-        frame.fields?.forEach(field => {
-            field.identity = generateUUID('I');
-            let config = {
-                key: {
-                    identity: field.identity,
-                },
-                config: {
-                    alias: frame.alias,
-                    fragmentObjectIdentity: frame.identity,
-                    identity: field.identity,
-                    propertDto: field.propertDto,
-                    line: newLine,
-                    dependency: ''
-                }
-            };
-            config.config.dependency = exportTableDependency.createExpectedDependency(field, config);
-            exportTableDependency.toApplyOrRemoveDependency(config, field.value);
-            fragment.fields.add(config);
-        });
-    }
-    function createObject() {
-        let configBase = pathObjectBase.find(c => c.parent === undefined || c.parent === '');
-        let configFrameBase = fragment.objects.getForIdentity(configBase.configFrame);
-        let newObject = Object.assign({}, configFrameBase?.config.object);
-        pathObjectBase.forEach((config) => {
-            let fragmentObject = fragment.objects.getForIdentity(config.configFrame);
-            if (config.parent == '.') {
-                insertObjectRoot();
-                return;
-            }
-            if (config.parent != '.' && config.parent !== undefined && config.parent !== '') {
-                insertObjectParent(config.parent.split('.'), newObject);
-                return;
-            }
-            function insertObjectRoot() {
-                newObject[fragmentObject.config.objectDto] = fragmentObject.config.object;
-            }
-            function insertObjectParent(parent, newObject) {
-                if (parent.length == 0) {
-                    return;
-                }
-                let propert = parent[0];
-                if (parent.length == 1) {
-                    createPropertForObject();
-                    return;
-                }
-                if (parent.length > 1) {
-                    createPropertForPath();
-                    let newPath = parent.slice(1, parent.length);
-                    insertObjectParent(newPath, newObject[propert]);
-                    return;
-                }
-                function createPropertForObject() {
-                    if (newObject[propert] === undefined) {
-                        newObject[propert] = {};
-                    }
-                    newObject[propert][fragmentObject.config.objectDto] = fragmentObject.config.object;
-                }
-                function createPropertForPath() {
-                    if (newObject[propert] === undefined) {
-                        newObject[propert] = {};
-                    }
-                }
-            }
-        });
-        return newObject;
-    }
-    function createObjectSeparete() {
-        let objectSeparate = {};
-        pathObjectBase.forEach((config) => {
-            let configFragment = fragment.objects.getForIdentity(config.configFrame);
-            objectSeparate[config.alias] = configFragment.config.object;
-        });
-        return objectSeparate;
-    }
-    function createObjectForAlias(alias) {
-        let object = fragment.objects.getForAlias(alias);
-        return object.config.object;
-    }
-    function setValue(fragmentField, value) {
-        let fragmentObject = fragment.objects.getForIdentity(fragmentField.config.fragmentObjectIdentity);
-        if (isTypeObject()) {
-            fragmentObject.config.object[fragmentField?.config.propertDto] = value;
-        }
-        if (isTypeLine()) {
-            let line = fragmentField?.config.line;
-            let item = fragmentObject.config.object.find((c) => c.rucLine == line);
-            if (item == undefined) {
-                item = { rucLine: line };
-                fragmentObject.config.object.push(item);
-            }
-            item[fragmentField?.config.propertDto] = value;
-        }
-        function isTypeObject() {
-            return fragmentField?.config.line == undefined;
-        }
-        function isTypeLine() {
-            return fragmentField?.config.line != undefined;
-        }
-        exportTableDependency.toApplyOrRemoveDependency(fragmentField, value);
-    }
-    function createConfigurationField(config) {
-        let opt = config.split('.');
-        let entityConfiguration = {
-            aliasOrIDentity: opt[0],
-            propertDto: opt[1],
-            line: opt[2] == undefined ? undefined : Number(opt[2])
-        };
-        return entityConfiguration;
-    }
-    function getValueInObjectFragment(object, propertDto, line) {
-        for (var propert in object) {
-            if (object.hasOwnProperty(propertDto) && line == undefined) {
-                return object[propertDto];
-            }
-            if (Array.isArray(object) && line != undefined) {
-                return getValueInObjectFragment(object[line], propertDto);
-            }
-            if (typeof object === 'object') {
-                return getValueInObjectFragment(object[propert], propertDto);
-            }
-        }
-    }
-    return {
-        frame: {
-            initObjects: (frames) => initObjects(frames),
-            configFieldBlock: (frame) => configFieldBlock(frame),
-            addLine: (frame) => addLine(frame),
-        },
-        field: {
-            type: (identityField) => {
-                let fragmentField = fragment.fields.getForIdentity(identityField);
-                if (fragmentField.config.line == undefined) {
-                    return constTypeFrame.BLOCK;
-                }
-                return constTypeFrame.LINE;
-            }
-        },
-        object: {
-            field: {
-                convertAliasToIdenty: (config) => {
-                    let entityConfiguration = createConfigurationField(config);
-                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration);
-                    return fragmentField.key.identity;
-                },
-                setValueContextAlias: (config, value) => {
-                    let entityConfiguration = createConfigurationField(config);
-                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration);
-                    setValue(fragmentField, value);
-                },
-                setValueContextIdentity: (identity, type, value) => {
-                    value = convertValueType(value, type);
-                    let fragmentField = fragment.fields.getForIdentity(identity);
-                    setValue(fragmentField, value);
-                },
-            },
-            object: {
-                objectFull: () => {
-                    return createObject();
-                },
-                objectSeparate: () => {
-                    return createObjectSeparete();
-                },
-                objectUnique: (alias) => {
-                    return createObjectForAlias(alias);
-                },
-                objectUniqueLine: (alias, line) => {
-                    let object = createObjectForAlias(alias);
-                    object = object[line];
-                    return object;
-                },
-                count: (identity) => {
-                    let object = fragment.objects.getForIdentity(identity);
-                    if (Array.isArray(object.config.object) == false) {
-                        return -1;
-                    }
-                    return object.config.object.length;
-                },
-                removeLine: (identity, line) => {
-                    let objectFragment = fragment.objects.getForIdentity(identity);
-                    var indexOf = objectFragment.config.object.findIndex((c) => c.rucLine == line);
-                    objectFragment.config.object.splice(indexOf, 1);
-                },
-                getPropert: (config) => {
-                    let entityConfiguration = createConfigurationField(config);
-                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration);
-                    let fragmentObject = fragment.objects.getForIdentity(fragmentField.config.fragmentObjectIdentity);
-                    let object = fragmentObject.config.object;
-                    return fragmentObject.config.getValueInObjectFragment(object, entityConfiguration.propertDto, entityConfiguration.line);
-                }
-            }
-        },
-        fragment: {
-            getFragmentForIdentity: (identity) => {
-                return fragment.fields.getForIdentity(identity);
-            },
-            removeFragmentsLine: (objectIDentity, line) => {
-                fragment.fields.removeLine(objectIDentity, line);
-            },
-            removeFragment: (identity) => {
-                let _fragment = fragment.fields.getForIdentity(identity);
-                fragment.fields.remove(_fragment);
-                exportTableDependency.removeExpectedDependency(identity);
-            }
-        }
-    };
-})();
-
-class ElementBase {
-    element;
-    addDataIdAttribute(button) {
-        this.element.setAttribute("id", button.target);
-    }
-    addColor(color) {
-        if (color)
-            this.element.style.backgroundColor = color;
-    }
-}
-
-function createIcon(button) {
-    let icon = document.createElement('i');
-    if (button.icon === undefined || button.icon.trim() === "")
-        return icon;
-    button.icon?.split(" ").forEach(item => icon.classList.add(item));
-    return icon;
-}
-
-class ElementButton extends ElementBase {
-    createElement(button) {
-        if (button.target == null || button.target == "") {
-            throw new Error("target is requerid!");
-        }
-        this.element = document.createElement('button');
-        this.element.classList.add("r-b-i");
-        this.element.setAttribute('type', 'button');
-        if (button.fullWidth) {
-            this.element.classList.add('r-button-full-width');
-        }
-        let _class = button?.class?.split(' ');
-        _class?.forEach(item => {
-            this.element.classList.add(item);
-        });
-        let icon = createIcon(button);
-        let span = document.createElement('span');
-        span.textContent = button.text ?? "";
-        this.element.appendChild(icon);
-        this.element.appendChild(span);
-        this.addColor(button.color);
-        this.addDataIdAttribute(button);
-        return this.element;
-    }
-}
-
-class ElementLink extends ElementBase {
-    createElement(button) {
-        this.element = document.createElement('a');
-        this.element.textContent = button.text + "";
-        this.element.href = `${button.link}`;
-        this.element.classList.add("btn-link");
-        this.element.setAttribute('target', "_blank");
-        this.element.appendChild(createIcon(button));
-        return this.element;
-    }
-}
-
-let ruculaGlobal = (() => {
-    let configuration;
-    function checkLocalizations(localizations) {
-        if (localizations.length == 0) {
-            throw new Error("🌿 localization must be informed");
-        }
-    }
-    function checkEnvironments(environments) {
-        if (environments.length == 0) {
-            throw new Error("🌿 environment must be informed");
-        }
-    }
-    return {
-        initGlobalConfiguration: function (config) {
-            configuration = config;
-            ruculaGlobal.setEnviroment();
-            ruculaGlobal.setLocalization();
-        },
-        setLocalization: function (locales = 0) {
-            checkLocalizations(configuration.localizations);
-            if (typeof locales === "number") {
-                configuration.chosenLocalization = configuration.localizations[0];
-                return;
-            }
-            let loc = configuration.localizations.find(c => c.locales === locales);
-            if (loc == undefined || loc == null) {
-                throw new Error("🌿 localization not found");
-            }
-            configuration.chosenLocalization = loc;
-        },
-        setEnviroment: function (enviroment = 0) {
-            checkEnvironments(configuration.environments);
-            if (typeof enviroment === "number") {
-                configuration.chosenEnvironment = configuration.environments[0];
-                return;
-            }
-            let env = configuration.environments.find(c => c.env === enviroment);
-            if (env == undefined || env == null) {
-                throw new Error("🌿 environment not found");
-            }
-            configuration.chosenEnvironment = env;
-        },
-        getEnvironment: function () {
-            return configuration.chosenEnvironment;
-        },
-        getLocalization: function () {
-            return configuration.chosenLocalization;
-        },
-        getConfigurationGlobal: function () {
-            return configuration;
-        }
-    };
-})();
-
-let buttonsDOM = (() => {
-    let elementStrategy;
-    function buttonIsNotDefault(target) {
-        return target != constTargetButtonCrudDefault.SAVE &&
-            target != constTargetButtonCrudDefault.ALTER &&
-            target != constTargetButtonCrudDefault.DELETE;
-    }
-    function createButtonOrLink(button) {
-        if (button.type != "button" && button.type != "link") {
-            throw new Error("tipo do botão deve ser button ou link");
-        }
-        if (button.type == "button") {
-            elementStrategy = new ElementButton();
-        }
-        if (button.type == "link") {
-            elementStrategy = new ElementLink();
-        }
-        return elementStrategy.createElement(button);
-    }
-    function getButton(target) {
-        return document.getElementById(target);
-    }
-    function prepareLocalizations() {
-        let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION);
-        let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION);
-        globalization?.addEventListener("click", () => {
-            olliGlobalization?.classList.toggle("r-display-none");
-        });
-        let globalConf = ruculaGlobal.getConfigurationGlobal();
-        globalConf.localizations.forEach(loc => {
-            const li = document.createElement("li");
-            li.textContent = loc.language;
-            olliGlobalization?.appendChild(li);
-            li.addEventListener("click", () => {
-                ruculaGlobal.setLocalization(loc.locales);
-            });
-        });
-    }
-    function prepareEnviroments() {
-        let enviroment = document.getElementById(constIdBaseWindow.ENVIROMENT);
-        let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT);
-        enviroment?.addEventListener("click", () => {
-            olliEnviroment?.classList.toggle("r-display-none");
-        });
-        let globalConf = ruculaGlobal.getConfigurationGlobal();
-        globalConf.environments.forEach(enviroment => {
-            const li = document.createElement("li");
-            li.textContent = enviroment.env;
-            olliEnviroment?.appendChild(li);
-            li.addEventListener("click", () => {
-                ruculaGlobal.setEnviroment(enviroment.env);
-            });
-        });
-    }
-    return {
-        createButtonOrLink: (button) => createButtonOrLink(button),
-        prepareButtonsInLeftBox: (button) => {
-            const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
-            let buttons = button?.filter(c => buttonIsNotDefault(c.target));
-            if (buttons?.length == 0 || buttons == undefined) {
-                document.querySelector('.r-vertical-actions')?.classList.add('r-display-none');
-            }
-            buttons?.forEach(b => {
-                const li = document.createElement("li");
-                li.appendChild(createButtonOrLink(b));
-                ListRightButtons?.appendChild(li);
-            });
-            prepareLocalizations();
-            prepareEnviroments();
-        },
-        buttonIsNotDefault: (target) => buttonIsNotDefault(target),
-        disable: (target) => {
-            let button = getButton(target);
-            button?.classList.remove('r-display-none');
-            button?.setAttribute('disabled', '');
-        },
-        enable: (target) => {
-            let button = getButton(target);
-            button?.classList.remove('r-display-none');
-            button?.removeAttribute('disabled');
-        },
-        hide: (target) => {
-            let button = getButton(target);
-            button?.classList.add('r-display-none');
-        },
-        destroy: (target) => {
-            let button = getButton(target);
-            button?.remove();
-        }
-    };
-})();
 
 let eventsCustom = (() => {
     let events = new Map();
@@ -1581,14 +1613,14 @@ class FileEvent {
     }
     dispatchEvent(prefixEvent) {
         let identity = this.input.getAttribute("identity");
-        let fragment = managmentObject.fragment.getFragmentForIdentity(identity);
+        let fragment = exportManagmentObject.fragment.getFragmentForIdentity(identity);
         let eventName = fragment.config.line ? `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}` : `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}`;
         let event = eventsCustom.field().get(eventName);
         this.ruculaForm?.dispatchEvent(event);
     }
     set() {
         let identity = this.input.getAttribute("identity");
-        managmentObject.object.field.setValueContextIdentity(identity, this.field?.type, this.input.value);
+        exportManagmentObject.object.field.setValueContextIdentity(identity, this.field?.type, this.input.value);
     }
 }
 
@@ -1904,14 +1936,14 @@ let fieldDOM = (() => {
                 element.setAttribute('maxlength', `${field.maxLength}`);
             }
             element.setAttribute("identity", field.identity);
-            let fragmentField = managmentObject.fragment.getFragmentForIdentity(field.identity);
+            let fragmentField = exportManagmentObject.fragment.getFragmentForIdentity(field.identity);
             let identity = {
                 name: fragmentField.config.line ? `${fragmentField.config.alias}.${field.propertDto}.${fragmentField.config.line}` : `${fragmentField.config.alias}.${field.propertDto}`,
                 element: element,
                 row: fragmentField.config.line
             };
             eventsCustom.field().set(identity);
-            managmentObject.object.field.setValueContextIdentity(field.identity, field.type, element.value);
+            exportManagmentObject.object.field.setValueContextIdentity(field.identity, field.type, element.value);
             function isRadio() {
                 return field.type[0] == constTypeInput.RADIO;
             }
@@ -1973,7 +2005,7 @@ let frameEvent = (() => {
                 let target = event.target;
                 let identity = target.getAttribute('identity');
                 let fragmentObject = fragment.objects.getForFieldIdentity(identity);
-                let count = managmentObject.object.object.count(fragmentObject.key.identity);
+                let count = exportManagmentObject.object.object.count(fragmentObject.key.identity);
                 if (count > 1) {
                     return;
                 }
@@ -1987,7 +2019,7 @@ let frameEvent = (() => {
                 const key = event.key;
                 let identity = event.target.getAttribute('identity');
                 let fragmentObject = fragment.objects.getForFieldIdentity(identity);
-                let count = managmentObject.object.object.count(fragmentObject.key.identity);
+                let count = exportManagmentObject.object.object.count(fragmentObject.key.identity);
                 if (count > 1) {
                     exportTableDependency.moveImbernateToNotResolved(fragmentObject.key.identity);
                 }
@@ -2028,7 +2060,7 @@ let frameValues = (() => {
             frame.fields?.forEach(field => {
                 let input = htmlElement.querySelector(field.identity);
                 if (input) {
-                    managmentObject.object.field.setValueContextIdentity(field.identity, field.type, input.value);
+                    exportManagmentObject.object.field.setValueContextIdentity(field.identity, field.type, input.value);
                 }
             });
         }
@@ -2036,7 +2068,7 @@ let frameValues = (() => {
 })();
 
 function createFrameBlock(frame) {
-    managmentObject.frame.configFieldBlock(frame);
+    exportManagmentObject.frame.configFieldBlock(frame);
     const frameElement = createFrame(frame);
     const div = document.createElement("div");
     div.classList.add("r-q-i");
@@ -2193,7 +2225,7 @@ let FrameLineEventDOM = (() => {
         },
         addActionsInCell: (tr, identity) => {
             let tdActions = tr.querySelector('td');
-            let fragmentObject = managmentObject.fragment.getFragmentForIdentity(identity);
+            let fragmentObject = exportManagmentObject.fragment.getFragmentForIdentity(identity);
             tr.addEventListener('mouseover', (e) => {
                 let actions = document.getElementById(fragmentObject.config.fragmentObjectIdentity);
                 tdActions?.appendChild(actions);
@@ -2239,7 +2271,7 @@ let frameLineTableDOM = (() => {
             detail: {
                 getCellActions: (tr) => getCellActions(tr),
                 createRowDetail: (frame) => {
-                    managmentObject.frame.addLine(frame);
+                    exportManagmentObject.frame.addLine(frame);
                     let tr = document.createElement('tr');
                     const tdActions = document.createElement('td');
                     tdActions.setAttribute('ruc-action', '');
@@ -2264,7 +2296,7 @@ let frameLineTableDOM = (() => {
                             field: field
                         });
                     });
-                    let rowCount = managmentObject.object.object.count(frame.identity);
+                    let rowCount = exportManagmentObject.object.object.count(frame.identity);
                     frameValues.setValuesDefined(frame, tr);
                     if (frame.requerid == false && rowCount == 1) {
                         frameEvent.managedFrame(tr);
@@ -2290,15 +2322,15 @@ let frameLineTableDOM = (() => {
                     let rowElement = currentLineElement;
                     currentLineElement = rowElement;
                     let identityInputTartget = inputTargetEvent.getAttribute("identity");
-                    let fragmentObject = managmentObject.fragment.getFragmentForIdentity(identityInputTartget);
+                    let fragmentObject = exportManagmentObject.fragment.getFragmentForIdentity(identityInputTartget);
                     let field = fragment.fields.getForIdentity(identityInputTartget);
                     let frame = configWindow.frame.get(field.config.fragmentObjectIdentity);
                     moveActions(fragmentObject.config.fragmentObjectIdentity);
-                    let count = managmentObject.object.object.count(frame.identity);
+                    let count = exportManagmentObject.object.object.count(frame.identity);
                     let actions = currentLineElement.querySelector('td div');
                     currentLineElement.remove();
-                    managmentObject.object.object.removeLine(frame.identity, field.config.line);
-                    managmentObject.fragment.removeFragmentsLine(frame.identity, field.config.line);
+                    exportManagmentObject.object.object.removeLine(frame.identity, field.config.line);
+                    exportManagmentObject.fragment.removeFragmentsLine(frame.identity, field.config.line);
                     if (count <= 1) {
                         let newLine = frameLineTableDOM.table.detail.createNewRowDetail(frame.identity);
                         let tdActions = getCellActions(newLine);
@@ -2362,58 +2394,69 @@ let frameLineDOM = (() => {
     };
 })();
 
-let urlManagment = (() => {
-    return {
-        createURL: function (controller, button) {
-            if (button.URL)
-                if (button.URL?.absolute?.length > 0) {
-                    let url = urlManagment.createPath(button.URL.absolute);
-                    return url;
-                }
-            let enviroment = ruculaGlobal.getEnvironment();
-            let url = `${enviroment.hostname}:${enviroment.port}`;
-            controller = controller.replace(/^\/+/gm, '');
-            let params = '';
-            if (button.URL)
-                if (button.URL?.params?.length > 0) {
-                    params = urlManagment.createPath(button.URL.params);
-                    url = `${url}/${controller}?${params}`;
-                    return url;
-                }
-            if (button.URL)
-                if (button.URL?.relative?.length > 0) {
-                    let path = urlManagment.createPath(button.URL.relative);
-                    return `${url}/${path}`;
-                }
-            return url;
-        },
-        createWithParams: function (path) {
-            var regex = /([^&]+=)({([^}&]+)})/g;
-            var matches = path.matchAll(regex);
-            for (const match of matches) {
-                var propertValue = match[3];
-                var value = managmentObject.object.object.getPropert(propertValue);
-                path = path.replace(match[0], `${match[1]}${value}`);
-            }
-            return path;
-        },
-        createWithoutParams: function (path) {
-            var regex = /\/{([^}&]+)}/gm;
-            var matches = path.matchAll(regex);
-            for (const match of matches) {
-                var propertValue = match[1];
-                var value = managmentObject.object.object.getPropert(propertValue);
-                path = path.replace(match[0], `/${value}`);
-            }
-            return path;
-        },
-        createPath: function (path) {
-            path = urlManagment.createWithParams(path);
-            path = urlManagment.createWithoutParams(path);
-            return path;
+class URLRucula {
+    _URL;
+    callbackGetPropert;
+    constructor(callbackGetPropert, URL) {
+        this._URL = URL;
+        this.callbackGetPropert = callbackGetPropert;
+    }
+    getURL() {
+        if (this._URL == undefined) {
+            return this.domain();
         }
-    };
-})();
+        let URL = this._URL;
+        if (URL?.absolute?.length > 0) {
+            let url = this.path(URL.absolute);
+            return url;
+        }
+        let url = this.domain();
+        if (URL?.relative?.length > 0) {
+            let path = this.path(URL.relative);
+            url = `${url}/${path}`;
+        }
+        let params = '';
+        if (URL?.params?.length > 0) {
+            params = this.path(URL.params);
+            url = `${url}?${params}`;
+            return url;
+        }
+        return url;
+    }
+    domain(env = '') {
+        ruculaGlobal.getEnvironment();
+        let enviroment = ruculaGlobal.getEnvironment();
+        if (enviroment.port) {
+            return `${enviroment.hostname}:${enviroment.port}`;
+        }
+        return `${enviroment.hostname}`;
+    }
+    path(path) {
+        path = this.createWithParams(path);
+        path = this.createWithoutParams(path);
+        return path;
+    }
+    createWithParams(path) {
+        var regex = /([^&]+=)({([^}&]+)})/g;
+        var matches = path.matchAll(regex);
+        for (const match of matches) {
+            var propertValue = match[3];
+            var value = this.callbackGetPropert.getPropert(propertValue);
+            path = path.replace(match[0], `${match[1]}${value}`);
+        }
+        return path;
+    }
+    createWithoutParams(path) {
+        var regex = /\/{([^}&]+)}/gm;
+        var matches = path.matchAll(regex);
+        for (const match of matches) {
+            var propertValue = match[1];
+            var value = this.callbackGetPropert.getPropert(propertValue);
+            path = path.replace(match[0], `/${value}`);
+        }
+        return path;
+    }
+}
 
 function eventButton(pathController, buttons) {
     let rucula = windowBaseDOM.getElementRoot();
@@ -2438,20 +2481,23 @@ function eventButton(pathController, buttons) {
                 rucula.dispatchEvent(eventButtonDependency);
                 return;
             }
-            object.detail.url = urlManagment.createURL(pathController, button);
+            if (button.URL) {
+                let url = new URLRucula(exportManagmentObject.object.object, button.URL);
+                object.detail.url = url.getURL();
+            }
             let option = button?.body;
             if (option == undefined) {
                 rucula.dispatchEvent(eventButton);
                 return;
             }
             if (option == '') {
-                object.detail.body = managmentObject.object.object.objectSeparate();
+                object.detail.body = exportManagmentObject.object.object.objectSeparate();
             }
             if (option == '.') {
-                object.detail.body = managmentObject.object.object.objectFull();
+                object.detail.body = exportManagmentObject.object.object.objectFull();
             }
             if (['', '.', undefined].find(c => c != option) == undefined) {
-                object.detail.body = managmentObject.object.object.objectUnique(option);
+                object.detail.body = exportManagmentObject.object.object.objectUnique(option);
             }
             rucula.dispatchEvent(eventButton);
         });
@@ -2513,9 +2559,6 @@ let layoutFrames = (() => {
         }
         let rowLength = window.layout.items.length;
         let colLength = window.layout.items[0].length;
-        window.layout.tamplateColumns = colLength;
-        window.layout.tamplateRow = rowLength;
-        setGridContainer(window.layout.tamplateColumns, window.layout.tamplateRow);
         for (let row = 1; row <= rowLength; row++) {
             for (let col = 1; col <= colLength; col++) {
                 let item = window.frames.find(c => c.alias == window.layout.items[row - 1][col - 1]);
@@ -2535,11 +2578,6 @@ let layoutFrames = (() => {
                 item.layout.col.end = col + 1;
             }
         }
-    }
-    function setGridContainer(tamplateColumns, tamplateRows) {
-        let form = windowBaseDOM.getPrincipalElementRucula();
-        form.style.gridTemplateColumns = `repeat(${tamplateColumns},1fr)`;
-        form.style.gridTemplateRows = `repeat(${tamplateRows},1fr )`;
     }
     return {
         configureLayout: (window) => configureLayout(window)
@@ -2636,7 +2674,7 @@ let rucula = {
                 return exportTableDependency.getDependenciesNotResolded();
             },
             object: function () {
-                return managmentObject.object.object.objectFull();
+                return exportManagmentObject.object.object.objectFull();
             }
         };
     })()
@@ -2654,7 +2692,7 @@ let eventManagment = (() => {
                     identity: identity.element.getAttribute('identity'),
                     name: identity.name,
                     row: identity.row,
-                    value: managmentObject.object.object.getPropert(identity.name),
+                    value: exportManagmentObject.object.object.getPropert(identity.name),
                     targetPathWithRow: (targetPath) => {
                         return `${targetPath}.${identity.row}`;
                     }
@@ -2679,14 +2717,14 @@ class Rucula {
     window;
     elementRucula;
     elementFormRucula;
-    constructor(config, window, id = 'rucula-js') {
-        ruculaGlobal.initGlobalConfiguration(config);
-        windowBaseDOM.setElementRoot(id);
-        this.window = window;
-        this.elementRucula = document.getElementById(id);
-        this.initWindow();
+    constructor(config) {
+        config.id ??= 'rucula-js';
+        ruculaGlobal.initGlobalConfiguration(config.global);
+        windowBaseDOM.setElementRoot(config.id);
+        this.window = config.window;
+        this.elementRucula = document.getElementById(config.id);
     }
-    initWindow() {
+    create() {
         let eventInit = new Event('rucula.init');
         let eventLoad = new Event('rucula.load');
         let rucula = windowBaseDOM.getElementRoot();
@@ -2695,7 +2733,7 @@ class Rucula {
         defaultValues.setDefault(this.window);
         windowBaseDOM.createWindowBase(this.elementRucula.id);
         this.addHomeWindow();
-        managmentObject.frame.initObjects(this.window.frames);
+        exportManagmentObject.frame.initObjects(this.window.frames);
         windowBaseDOM.createNameWindow(this.window.name);
         windowBaseDOM.closeLeftGrid(this.window.grid);
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula();
@@ -2736,10 +2774,23 @@ class Rucula {
             if (frame.type == constTypeFrame.BLOCK) {
                 const block = createFrameBlock(frame);
                 this.elementFormRucula.appendChild(block);
+                eventCreated(block);
             }
             if (frame.type == constTypeFrame.LINE) {
                 const line = frameLineDOM.createFrameLine(frame);
                 this.elementFormRucula.appendChild(line);
+                eventCreated(line);
+            }
+            function eventCreated(frameElement) {
+                var eventName = `frame.${frame.alias}.complete`;
+                let event = new CustomEvent(eventName, {
+                    detail: {
+                        height: frameElement.offsetHeight,
+                        width: frameElement.offsetWidth
+                    }
+                });
+                let rucula = windowBaseDOM.getElementRoot();
+                rucula.dispatchEvent(event);
             }
         });
     }
@@ -2747,14 +2798,15 @@ class Rucula {
     popup = popup;
     event = eventManagment;
     buttons = buttonsDOM;
+    url = (URL) => new URLRucula(exportManagmentObject.object.object, URL);
     object = (() => {
         return {
-            objectUnique: (alias) => managmentObject.object.object.objectUnique(alias),
-            getFullObject: () => managmentObject.object.object.objectFull(),
-            getSepareteObject: () => managmentObject.object.object.objectSeparate(),
+            objectUnique: (alias) => exportManagmentObject.object.object.objectUnique(alias),
+            getFullObject: () => exportManagmentObject.object.object.objectFull(),
+            getSepareteObject: () => exportManagmentObject.object.object.objectSeparate(),
             setValue: (targetPath, value) => {
                 const ATTR_DISABLED = 'disabled';
-                let identity = managmentObject.object.field.convertAliasToIdenty(targetPath);
+                let identity = exportManagmentObject.object.field.convertAliasToIdenty(targetPath);
                 let input = document.querySelector('[identity=' + identity + ']');
                 let disabled = input.getAttribute(ATTR_DISABLED) == null ? null : ATTR_DISABLED;
                 if (disabled) {
@@ -2768,7 +2820,7 @@ class Rucula {
                 }
             },
             getValue: (config) => {
-                return managmentObject.object.object.getPropert(config);
+                return exportManagmentObject.object.object.getPropert(config);
             }
         };
     })();

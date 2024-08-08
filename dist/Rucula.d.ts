@@ -1,11 +1,16 @@
 import { window } from "./entities/form/window";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
+import { URLRucula } from "./URL/urlManagment";
 export declare class Rucula {
     private window;
     private elementRucula;
     private elementFormRucula;
-    constructor(config: globalConfiguration, window: window, id?: string);
-    private initWindow;
+    constructor(config: {
+        global: globalConfiguration;
+        window: window;
+        id: string | undefined;
+    });
+    create(): void;
     private addHomeWindow;
     private createButtons;
     private createFrames;
@@ -16,33 +21,33 @@ export declare class Rucula {
     popup: {
         messsage: {
             info: (config: {
-                text?: string | undefined;
-                htmlBody?: HTMLElement | undefined;
-                timeout?: number | undefined;
-                disableadFooter?: boolean | undefined;
-                disableadHeader?: boolean | undefined;
-            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
+                text?: string;
+                htmlBody?: HTMLElement;
+                timeout?: number;
+                disableadFooter?: boolean;
+                disableadHeader?: boolean;
+            }, callback?: import("./popup/callback").callbackYesNo) => void;
             sucess: (config: {
-                text?: string | undefined;
-                htmlBody?: HTMLElement | undefined;
-                timeout?: number | undefined;
-                disableadFooter?: boolean | undefined;
-                disableadHeader?: boolean | undefined;
-            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
+                text?: string;
+                htmlBody?: HTMLElement;
+                timeout?: number;
+                disableadFooter?: boolean;
+                disableadHeader?: boolean;
+            }, callback?: import("./popup/callback").callbackYesNo) => void;
             warning: (config: {
-                text?: string | undefined;
-                htmlBody?: HTMLElement | undefined;
-                timeout?: number | undefined;
-                disableadFooter?: boolean | undefined;
-                disableadHeader?: boolean | undefined;
-            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
+                text?: string;
+                htmlBody?: HTMLElement;
+                timeout?: number;
+                disableadFooter?: boolean;
+                disableadHeader?: boolean;
+            }, callback?: import("./popup/callback").callbackYesNo) => void;
             error: (config: {
-                text?: string | undefined;
-                htmlBody?: HTMLElement | undefined;
-                timeout?: number | undefined;
-                disableadFooter?: boolean | undefined;
-                disableadHeader?: boolean | undefined;
-            }, callback?: import("./popup/callback").callbackYesNo | undefined) => void;
+                text?: string;
+                htmlBody?: HTMLElement;
+                timeout?: number;
+                disableadFooter?: boolean;
+                disableadHeader?: boolean;
+            }, callback?: import("./popup/callback").callbackYesNo) => void;
         };
         notify: {
             sucess: () => void;
@@ -51,17 +56,17 @@ export declare class Rucula {
     event: {
         field: {
             getDetails: (event: CustomEvent<any>) => {
-                identity: string | null;
+                identity: string;
                 name: any;
                 row: any;
                 value: any;
                 targetPathWithRow: (targetPath: string) => string;
             };
         };
-        on: (event: string, callback: any, query?: string | undefined) => void;
+        on: (event: string, callback: any, query?: string) => void;
     };
     buttons: {
-        createButtonOrLink: (button: import("./entities/form/button").button) => HTMLButtonElement | HTMLAnchorElement;
+        createButtonOrLink: (button: import("./entities/form/button").button) => HTMLAnchorElement | HTMLButtonElement;
         prepareButtonsInLeftBox: (button: import("./entities/form/button").button[]) => void;
         buttonIsNotDefault: (target: string) => boolean;
         disable: (target: string) => void;
@@ -69,6 +74,11 @@ export declare class Rucula {
         hide: (target: string) => void;
         destroy: (target: string) => void;
     };
+    url: (URL?: {
+        absolute: string;
+        relative: string;
+        params: string;
+    }) => URLRucula;
     object: {
         objectUnique: (alias: string) => any;
         getFullObject: () => any;

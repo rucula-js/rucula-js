@@ -23,7 +23,7 @@
     },
     "scripts": {
         "test": "jest",
-        "compile": "rollup -c && copyfiles -u 1  public/**/*.css dist/style",
+        "compile": "rimraf dist/ && rollup -c && copyfiles -u 1  public/**/*.css dist/style && npx -p typescript tsc src/**.ts --declaration --allowJs --emitDeclarationOnly --downlevelIteration  --outDir dist",
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
         "clean": "rimraf dist/"

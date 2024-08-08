@@ -5,7 +5,7 @@ export declare let frameLineTableDOM: {
             createHeader: (frame: frame) => HTMLTableSectionElement;
         };
         detail: {
-            getCellActions: (tr: HTMLTableRowElement) => HTMLTableCellElement | null;
+            getCellActions: (tr: HTMLTableRowElement) => HTMLTableCellElement;
             createRowDetail: (frame: frame) => HTMLTableRowElement;
             createNewRowDetail: (identityObject: string) => HTMLTableRowElement;
             deleteRowDetail: (currentLineElement: HTMLTableRowElement, inputTargetEvent: HTMLInputElement) => void;

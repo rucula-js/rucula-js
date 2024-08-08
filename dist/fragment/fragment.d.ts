@@ -10,7 +10,15 @@ export declare let fragment: {
         add: (field: fragmentField) => void;
         remove: (fragment: fragmentField) => void;
         removeLine: (objectIDentity: string, line: number) => void;
+        /**
+        * @param {string} identity
+        * @return {fragmentField}
+        */
         getForIdentity: (identity: string) => fragmentField;
-        getForAliasAndPropert: (config: entityConfiguration) => fragmentField | undefined;
+        /**
+         * @param {entityConfiguration} config
+         * @return {fragmentField}
+        */
+        getForAliasAndPropert: (config: entityConfiguration) => fragmentField;
     };
 };

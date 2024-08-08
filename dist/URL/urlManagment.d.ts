@@ -1,7 +1,14 @@
-import { button } from "../entities/form/button";
-export declare let urlManagment: {
-    createURL: (controller: string, button: button) => string;
-    createWithParams: (path: string) => string;
-    createWithoutParams: (path: string) => string;
-    createPath: (path: string) => string;
-};
+export declare class URLRucula {
+    private _URL?;
+    private callbackGetPropert;
+    constructor(callbackGetPropert: any, URL?: {
+        absolute: string;
+        relative: string;
+        params: string;
+    });
+    getURL(): string;
+    domain(env?: string): string;
+    path(path: string): string;
+    private createWithParams;
+    private createWithoutParams;
+}
