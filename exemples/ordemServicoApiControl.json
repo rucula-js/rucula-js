@@ -3,6 +3,7 @@
   "pathController": "/OrdemServico",
   "type": "crud",
   "crud":"crud",
+  "grid":false,
   "messageHome": "Ordem de Serviço com teste de Desenvolvimento",
   "iconHome": "bi-rocket-takeoff",
   "frames": [
@@ -59,7 +60,11 @@
             "class":"r-color-Navy"
           }
         }
-      ]
+      ],
+      "style":{
+        "width":"600px",
+        "height":"300px"
+      }
     },
     {
       "name": "Cliente",

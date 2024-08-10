@@ -198,16 +198,28 @@ export let windowBaseDOM = (() => {
     function closeLeftGrid(grid:boolean){
         
         if(grid == false){
-
-            let buttonNew = document.getElementById(constIdBaseWindow.NEW);
-            buttonNew?.click()
-
+            
+            if(blockRuculaFrameNotfocus()){
+                let buttonNew = document.getElementById(constIdBaseWindow.NEW);
+                buttonNew?.click()
+            }
+            
             let actions = document.getElementById("actions");
             actions?.remove()
 
             let maximizeWindow = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW)
             maximizeWindow?.remove()
+            
+            function blockRuculaFrameNotfocus(){
+                let rf = document.querySelector('.r-f.r-display-none')
+                return rf != null
+            }
         }
+
+
+
+
+
     }
 
     function maximizeWindow(){
