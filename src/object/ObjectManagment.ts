@@ -9,9 +9,7 @@ import { generateUUID } from './ObjectHelper';
 'use strict';
 
 export let managmentObject = ()=> {
-    
-    let initialized = false;
-            
+                
     let pathObjectBase:{parent:string, alias:string, configFrame:string, }[] = [];
                     
     /**
@@ -19,12 +17,9 @@ export let managmentObject = ()=> {
      * @param {frame[]} frames
      */
     function initObjects(frames:frame[]){
-                
-        if(initialized){
-            throw new Error('Routine already initialized')
-        }
-        initialized = true;
-
+    
+        pathObjectBase = []
+        
         frames?.forEach(frame => {
             
             frame.identity = generateUUID('F')
