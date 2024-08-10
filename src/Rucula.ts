@@ -114,6 +114,8 @@ export class Rucula{
                 var eventName = `frame.${frame.alias}.complete`
                 let event = new CustomEvent(eventName, {
                     detail: {
+
+                        element: frameElement,
                         height: frameElement.offsetHeight,
                         width: frameElement.offsetWidth
                     }
