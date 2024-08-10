@@ -12,4 +12,8 @@ export interface frame{
     fields?:Array<field>
     layout: {col:{start:number, end:number}, row: {start:number, end:number}}
     requerid:boolean
+    style?:{
+        width?:string
+        height?:string
+    }
 }

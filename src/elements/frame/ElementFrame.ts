@@ -25,6 +25,10 @@ export function createFrame(frame:frame){
     h3.textContent = frame.name
     h3.classList.add('r-t-f')
     div.appendChild(h3)
+
+    if(frame?.style?.width) div.style.width = frame.style.width
+    if(frame?.style?.height) div.style.height = frame.style.height
     
+
     return div
 }
