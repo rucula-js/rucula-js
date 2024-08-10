@@ -234,13 +234,16 @@ input.r-i-control[identity][disabled] {
     height: 14px;
 }
 
-
 .r-q-i{
     display: flex; 
     flex-wrap: wrap;
     padding-top: 10px;
     height: 100%;
     width: 100%;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items:end;
+
 }
 
 .r-q-b .r-g-i-i{
