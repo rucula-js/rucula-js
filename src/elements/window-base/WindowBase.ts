@@ -199,7 +199,9 @@ export let windowBaseDOM = (() => {
         
         if(grid == false){
             
-            if(blockRuculaFrameNotfocus()){
+            let rf = document.querySelector('.r-f.r-display-none')
+            
+            if(rf != null){
                 let buttonNew = document.getElementById(constIdBaseWindow.NEW);
                 buttonNew?.click()
             }
@@ -209,17 +211,8 @@ export let windowBaseDOM = (() => {
 
             let maximizeWindow = document.getElementById(constIdBaseWindow.MAXIMIZE_WINDOW)
             maximizeWindow?.remove()
-            
-            function blockRuculaFrameNotfocus(){
-                let rf = document.querySelector('.r-f.r-display-none')
-                return rf != null
-            }
+
         }
-
-
-
-
-
     }
 
     function maximizeWindow(){
