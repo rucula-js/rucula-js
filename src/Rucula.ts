@@ -12,7 +12,7 @@ import { buttonsDOM } from "./buttons/Button";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
 import { ruculaGlobal } from "./global/GlobalConfig";
 import { loaderManagment } from "./elements/loader/loader";
-import { popup } from "./popup/popup";
+import { Popup } from "./popup/popup";
 import { logs } from "./console/Console";
 import { eventManagment } from "./Event/event";
 import { exportManagmentObject, exportPaginationEvents } from "./exports";
@@ -33,6 +33,7 @@ export class Rucula{
         windowBaseDOM.setElementRoot(config.id)
         this.window = config.window
         this.elementRucula = document.getElementById(config.id)!
+        this.popup = new Popup();
     }
 
     create(){
@@ -128,7 +129,7 @@ export class Rucula{
     }
 
     public loader = loaderManagment
-    public popup = popup;
+    public popup:Popup
     public event = eventManagment
     public buttons = buttonsDOM
     

@@ -54,12 +54,12 @@ import { callbackYesNo } from "./src/popup/callback";
 
     rucula.event.on('r-a-save',(e:CustomEvent) => {
 
-        rucula.popup.messsage.info({
+        rucula.popup.info({
             text:"Registrando...", 
             timeout:500, 
             disableadFooter:true
         },
-        () => rucula.popup.messsage.sucess({
+        () => rucula.popup.sucess({
                 text:"Informações Registradas", 
                 timeout:1000, 
                 disableadFooter:true
@@ -69,17 +69,17 @@ import { callbackYesNo } from "./src/popup/callback";
     })
 
     rucula.event.on('r-a-alter',(e:CustomEvent) => {
-        rucula.popup.messsage.sucess({text:"Informações Alteradas"})
+        rucula.popup.sucess({text:"Informações Alteradas"})
     })
         
     rucula.event.on('r-a-delete',(e:CustomEvent) => {
-        rucula.popup.messsage.warning({text:"O registro será excluido permanentemente, deseja continuar?"},resultOption as callbackYesNo)
+        rucula.popup.warning({text:"O registro será excluido permanentemente, deseja continuar?"},resultOption as callbackYesNo)
     })
   
     function resultOption(yesNo:boolean):void{
         
         if(yesNo){
-            rucula.popup.messsage.info({
+            rucula.popup.info({
                     text:"excluindo...", 
                     timeout:500, 
                     disableadFooter:true,
@@ -90,7 +90,7 @@ import { callbackYesNo } from "./src/popup/callback";
     }
 
     function sucess(){
-        rucula.popup.messsage.sucess({text:"Item Excluido",timeout:2000})   
+        rucula.popup.sucess({text:"Item Excluido",timeout:2000})   
     }
 
     rucula.event.on('r-pagination',(e:any) => console.log(e.detail.page))

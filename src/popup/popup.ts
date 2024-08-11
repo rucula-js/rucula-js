@@ -22,17 +22,17 @@ type configCommon = {
     disableadHeader?:boolean
 }
 
-export let popup = (() => {
+export class Popup {
 
-    let boxShow:HTMLElement
-    
-    function boxShowAppendChield(element:HTMLElement){
-        boxShow = document.querySelector('.r-box-show') as HTMLElement
-        boxShow.appendChild(element)
-        boxShow.classList.add('r-box-show-center')
+    boxShow!:HTMLElement;
+
+    boxShowAppendChield(element:HTMLElement){
+        this.boxShow = document.querySelector('.r-box-show') as HTMLElement
+        this.boxShow.appendChild(element)
+        this.boxShow.classList.add('r-box-show-center')
     }
 
-    function messageElement(config:config){
+    messageElement(config:config){
                 
         let message = document.createElement('div')
         message.classList.add('r-message')
@@ -74,13 +74,12 @@ export let popup = (() => {
         return message
     }
     
-    function closeTimeout(div:HTMLElement,timeout:number,callback?:callbackYesNo){
+    closeTimeout(div:HTMLElement,timeout:number,callback?:callbackYesNo){
 
         setTimeout(() => {
             
             div.remove()
-            close()
-            
+            this.close()
             if(callback){
                 callback()
             }
@@ -88,7 +87,7 @@ export let popup = (() => {
         timeout)   
     }
 
-    function closeOKOrCancel(callback:any, div:HTMLElement){
+    closeOKOrCancel(callback:any, div:HTMLElement){
         
         
         let ok = div.querySelector('button.ok')
@@ -108,7 +107,7 @@ export let popup = (() => {
         cancel?.addEventListener('click',()=> {
             
             div.remove()
-            close()
+            this.close()
 
             if(callback){
                 callback(constYesNo.NO)
@@ -117,116 +116,106 @@ export let popup = (() => {
         })
     }
 
-    function close(){
-        boxShow.classList.remove('r-box-show-center')
+    close(){
+        this.boxShow.classList.remove('r-box-show-center')
     }
 
-    return {
-        messsage: {
-            
-            info: function (config: configCommon, callback?:callbackYesNo){
+    info(config: configCommon, callback?:callbackYesNo){
 
-                let info = messageElement({
-                    icon:"bi-info-circle color-darkgrey",
-                    title:"Informação",
-                    text:config.text,
-                    footer: 
-                    `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>
-                    </div>`,
-                    disableadFooter: config.disableadFooter,
-                    disableadHeader: config.disableadHeader,
-                    htmlBody:config.htmlBody
-                });
+        let info = this.messageElement({
+            icon:"bi-info-circle color-darkgrey",
+            title:"Informação",
+            text:config.text,
+            footer: 
+            `<div class="r-message-footer">
+                <div class="cancel-ok">
+                    <button class="ok">OK</button>        
+                </div>
+            </div>`,
+            disableadFooter: config.disableadFooter,
+            disableadHeader: config.disableadHeader,
+            htmlBody:config.htmlBody
+        });
                 
-                if(config?.timeout){
-                    closeTimeout(info,config.timeout,callback)
-                }
-
-                closeOKOrCancel(callback, info)
-
-                boxShowAppendChield(info)
-            },
-
-            sucess: function (config: configCommon, callback?:callbackYesNo){
-
-                let sucess = messageElement({
-                    icon:"bi-check2-circle color-green",
-                    title:"Sucesso",
-                    text:config.text,
-                    footer: 
-                    `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                
-                closeOKOrCancel(callback, sucess)
-
-                if(config.timeout){
-                    closeTimeout(sucess,config.timeout)
-                }
-
-                boxShowAppendChield(sucess)
-            },
-
-            warning: function (config: configCommon, callback?:callbackYesNo){
-
-                let warning = messageElement({
-                    icon:"bi-exclamation-triangle color-orange",
-                    title:"Atenção",
-                    text:config.text,
-                    footer: 
-                    `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>
-                            <button class="cancel">Cancel</button>
-                        </div>    
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                
-                closeOKOrCancel(callback, warning)
-
-                if(config.timeout){
-                    closeTimeout(warning,config.timeout)
-                }
-
-                boxShowAppendChield(warning)
-            },
-            
-            error: function (config: configCommon, callback?:callbackYesNo){
-
-                let warning = messageElement({
-                    icon:"bi-x-circle color-red",
-                    title:"Erro",
-                    text:config.text,
-                    footer: 
-                    `<div class="r-message-footer">
-                        <div class="cancel-ok">
-                            <button class="ok">OK</button>        
-                        </div>    
-                    </div>`,
-                    disableadFooter: config.disableadFooter
-                });
-                
-                closeOKOrCancel(callback, warning)
-
-                if(config.timeout){
-                    closeTimeout(warning,config.timeout)
-                }
-
-                boxShowAppendChield(warning)
-            },
-        },
-        notify:{
-            sucess: function (){
-                
-            }
+        if(config?.timeout){
+            this.closeTimeout(info,config.timeout,callback)
         }
+
+        this.closeOKOrCancel(callback, info)
+
+        this.boxShowAppendChield(info)
     }
-})()
+
+    sucess (config: configCommon, callback?:callbackYesNo){
+
+        let sucess = this.messageElement({
+            icon:"bi-check2-circle color-green",
+            title:"Sucesso",
+            text:config.text,
+            footer: 
+            `<div class="r-message-footer">
+                <div class="cancel-ok">
+                    <button class="ok">OK</button>        
+                </div>
+            </div>`,
+            disableadFooter: config.disableadFooter
+        });
+        
+        this.closeOKOrCancel(callback, sucess)
+
+        if(config.timeout){
+            this.closeTimeout(sucess,config.timeout)
+        }
+
+        this.boxShowAppendChield(sucess)
+    }
+
+    warning (config: configCommon, callback?:callbackYesNo){
+
+        let warning = this.messageElement({
+            icon:"bi-exclamation-triangle color-orange",
+            title:"Atenção",
+            text:config.text,
+            footer: 
+            `<div class="r-message-footer">
+                <div class="cancel-ok">
+                    <button class="ok">OK</button>
+                    <button class="cancel">Cancel</button>
+                </div>    
+            </div>`,
+            disableadFooter: config.disableadFooter
+        });
+        
+        this.closeOKOrCancel(callback, warning)
+
+        if(config.timeout){
+            this.closeTimeout(warning,config.timeout)
+        }
+
+        this.boxShowAppendChield(warning)
+    }
+    
+    error  (config: configCommon, callback?:callbackYesNo){
+
+        let warning = this.messageElement({
+            icon:"bi-x-circle color-red",
+            title:"Erro",
+            text:config.text,
+            footer: 
+            `<div class="r-message-footer">
+                <div class="cancel-ok">
+                    <button class="ok">OK</button>        
+                </div>    
+            </div>`,
+            disableadFooter: config.disableadFooter
+        });
+        
+        this.closeOKOrCancel(callback, warning)
+
+        if(config.timeout){
+            this.closeTimeout(warning,config.timeout)
+        }
+
+        this.boxShowAppendChield(warning)
+    }
+}

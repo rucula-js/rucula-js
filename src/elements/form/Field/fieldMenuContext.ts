@@ -1,13 +1,15 @@
 import { contextMenu } from "../../../const"
 import { field } from "../../../entities/form/field"
 import { menuContext } from "../../../menu-context/menu-context"
-import { popup } from "../../../popup/popup"
+import { Popup } from "../../../popup/popup"
 
 export let fieldMenuContext = (() => {
 
     let fieldsInfo: { identity: string, field: field }[] = []
     
     let lastDetail:HTMLElement
+
+    let popup = new Popup();
 
     return {
         init: function () {
@@ -66,7 +68,7 @@ export let fieldMenuContext = (() => {
             `             
                 ol.innerHTML = details
 
-                popup.messsage.info({
+                popup.info({
                     text:'Detalhamento',
                     htmlBody: ol
                 })
