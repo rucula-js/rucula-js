@@ -6,7 +6,7 @@ import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
-import { layoutFrames } from "./Layout/layout";
+import { LayoutFrame } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
 import { buttonsDOM } from "./buttons/Button";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
@@ -22,6 +22,10 @@ export class Rucula{
     private window: window
     private elementRucula: HTMLElement
     private elementFormRucula!: HTMLFormElement
+    
+    private layoutFrame = new LayoutFrame();
+
+    public popup:Popup
     
     constructor(config: {
         global:globalConfiguration, 
@@ -53,7 +57,7 @@ export class Rucula{
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
         exportPaginationEvents.headerSearch(this.window.gridSearch);
         exportPaginationEvents.fotter(this.window.gridFooter);
-        layoutFrames.configureLayout(this.window)
+        this.layoutFrame.configureLayout(this.window)
         this.createFrames()
         this.createButtons()
         buttonsBase.initButtonsTypeCrudDefault();
@@ -129,7 +133,6 @@ export class Rucula{
     }
 
     public loader = loaderManagment
-    public popup:Popup
     public event = eventManagment
     public buttons = buttonsDOM
     
