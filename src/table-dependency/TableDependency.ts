@@ -1,42 +1,47 @@
 import { field } from "../entities/form/field";
 import { fragmentField } from "../object/ObjectAliases";
 
-'use strict';
+type dependency = {
+    identityObject:string,
+    isHibernate:boolean,
+    fieldsNotResolved:string[]
+}
 
-export let tableDependency = () => {
+export class  TableDependency {
 
-    type dependency = {
-        identityObject:string,
-        isHibernate:boolean,
-        fieldsNotResolved:string[]
-    }
 
-    let dependencyesNotResolved:dependency[] = []
+    dependencyesNotResolved:dependency[] = []
     
-    let REQUERID:string = '1' as const;
-    let MAX_LENGHT:string = '2' as const;
-    let MAX:string = '3' as const;
-    let MIN:string = '4' as const;
+    REQUERID:string = '1' as const;
+    MAX_LENGHT:string = '2' as const;
+    MAX:string = '3' as const;
+    MIN:string = '4' as const;
 
-    function moveImbernateToNotResolved(identityObject:string){
+    
+    moveImbernateToNotResolved(identityObject:string){
 
-        let dependency = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
+        let dependency = this.dependencyesNotResolved.find(c=> c.identityObject == identityObject)
 
         if(dependency){
             dependency.isHibernate = false
         } 
     }
 
-    function moveNotResolvedToImbernate(identityObject:string){
+    moveNotResolvedToImbernate(identityObject:string){
 
-        let dependency = dependencyesNotResolved.find(c=> c.identityObject == identityObject)
+        let dependency = this.dependencyesNotResolved.find(c=> c.identityObject == identityObject)
         if(dependency){
             dependency.isHibernate = true
         }        
     }
 
-    function createExpectedDependency(field:field, fragmentField:fragmentField):string {   
+    public  createExpectedDependency(field:field, fragmentField:fragmentField):string {   
     
+        let REQUERID = this.REQUERID
+        let MAX_LENGHT = this.MAX_LENGHT
+        let MAX = this.MAX
+        let MIN = this.MIN
+        
         //! Important!! This function must be called in the fragmentField creation process
 
         let valueDependency = ''
@@ -69,11 +74,11 @@ export let tableDependency = () => {
                 valueDependency += `${MIN}:${field.min},`
         }
     
-        valueDependency = removeLastComa(valueDependency)
+        valueDependency = this.removeLastComa(valueDependency)
                 
         if(valueDependency){
 
-            let index = dependencyesNotResolved.findIndex(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)            
+            let index = this.dependencyesNotResolved.findIndex(c=> c.identityObject == fragmentField.config.fragmentObjectIdentity)            
             if( index == -1){
                 
                 let objectDependency:dependency = {
@@ -81,23 +86,27 @@ export let tableDependency = () => {
                     identityObject:fragmentField.config.fragmentObjectIdentity,
                     fieldsNotResolved:[field.identity]  
                 }
-                dependencyesNotResolved.push(objectDependency)
+                this.dependencyesNotResolved.push(objectDependency)
             }
             if( index != -1){
                 
-               let indexDependency = dependencyesNotResolved[index].fieldsNotResolved.findIndex(c => c == field.identity) 
+               let indexDependency = this.dependencyesNotResolved[index].fieldsNotResolved.findIndex(c => c == field.identity) 
                 
                if(indexDependency == -1){
-                   dependencyesNotResolved[index].fieldsNotResolved.push(field.identity)
+                    this.dependencyesNotResolved[index].fieldsNotResolved.push(field.identity)
                }
             }            
         }
 
-
         return valueDependency
     }    
 
-    function toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
+    toApplyOrRemoveDependency(fragment:fragmentField, value:string|number|boolean){
+
+        let REQUERID = this.REQUERID
+        let MAX_LENGHT = this.MAX_LENGHT
+        let MAX = this.MAX
+        let MIN = this.MIN
 
         let dependencyExpected = fragment.config.dependency
 
@@ -111,7 +120,7 @@ export let tableDependency = () => {
             
             if(identification == REQUERID){
                 
-                let result = consist.requerid(value)
+                let result = this.consistRequerid(value)
                 
                 if(result){
                     dependencyResolved += `${REQUERID},`
@@ -120,7 +129,7 @@ export let tableDependency = () => {
     
             if(identification == MAX_LENGHT){
                 
-                let result = consist.maxLen(dependencyExpected,value);
+                let result = this.consistMaxLen(dependencyExpected,value);
             
                 if(result){
                     dependencyResolved += `${MAX_LENGHT},`
@@ -129,7 +138,7 @@ export let tableDependency = () => {
 
             if(identification == MAX){
                 
-                let result = consist.max(dependencyExpected,value as string);
+                let result = this.consistMax(dependencyExpected,value as string);
             
                 if(result){
                     dependencyResolved += `${MAX},`
@@ -138,7 +147,7 @@ export let tableDependency = () => {
             
             if(identification == MIN){
                 
-                let result = consist.min(dependencyExpected,value as string);
+                let result = this.consistMin(dependencyExpected,value as string);
             
                 if(result){
                     dependencyResolved += `${MIN},`
@@ -146,7 +155,7 @@ export let tableDependency = () => {
             }
         })
                 
-        dependencyResolved = removeLastComa(dependencyResolved)
+        dependencyResolved = this.removeLastComa(dependencyResolved)
 
         let dependencyExpectedOnlyKeys = dependencyExpected.split(',').map(c => c.split(':')[0])
         
@@ -164,7 +173,7 @@ export let tableDependency = () => {
             } 
         }
 
-        let dependencyObject = dependencyesNotResolved.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
+        let dependencyObject = this.dependencyesNotResolved.find(objectDep => objectDep.identityObject == fragment.config.fragmentObjectIdentity)
         
         let dependency = dependencyObject?.fieldsNotResolved.find(dependency => dependency == fragment.key.identity)
 
@@ -180,84 +189,78 @@ export let tableDependency = () => {
         return existDependecy
     }
 
-    function removeLastComa(value:string){
+    removeLastComa(value:string){
         return value.replace(/, *$/,'')
     }
     
-    let consist = (() => {
         
-        function getValueInDependency(dependencyExpected:string){
-            return dependencyExpected.split(':')[1]
-        }
+    private getValueInDependency(dependencyExpected:string){
+        return dependencyExpected.split(':')[1]
+    }
         
-        return {
-            requerid: (value:string|number|boolean):boolean => {
+    consistRequerid(value:string|number|boolean) {
        
-               if( value == undefined || value as number == 0){
-                   //todo implement event
-                   return false;
-               }
-           
-               return true;
-           },
-            
-           maxLen:(dependencyExpected:string,value:string|number|boolean) => {
-                      
-               let maxLength = getValueInDependency(dependencyExpected)
-               
-               value = addValueDefault().typeString((value))
-       
-               if ((value as string).length > Number(maxLength)){
-                   //todo implement event
-                   return  false;
-               }
-               
-               return true;
-           },
-
-           max:(dependencyExpected:string,value:string|number) => {
-        
-            let max = getValueInDependency(dependencyExpected)
-            
-            value = Number(addValueDefault().typeNumber((value)))
-    
-            if(Number.NaN == value){
-                alert('value not is number')
-                return false
-            }
-    
-            if (value > Number(max)){
-                //todo implement event
-                return  false
-            }
-    
-            return true
-        },
-    
-        min:(dependencyExpected:string,value:string|number)=> {
-        
-            let max = getValueInDependency(dependencyExpected)
-    
-            value = Number(addValueDefault().typeNumber((value)))
-    
-    
-            if(Number.NaN == value){
-                alert('value not is number')
-                return false
-            }
-    
-            if (value < Number(max)){
-                //todo implement event
-                return  false;
-            }
-            
-            return true
+        if( value == undefined || value as number == 0){
+            //todo implement event
+            return false;
         }
+        return true;
+    }
+            
+    consistMaxLen(dependencyExpected:string,value:string|number|boolean){
+                
+        let maxLength = this.getValueInDependency(dependencyExpected)
+        
+        value = this.addValueDefault().typeString((value))
+
+        if ((value as string).length > Number(maxLength)){
+            //todo implement event
+            return  false;
+        }
+        
+        return true;
+    }
+
+    consistMax(dependencyExpected:string,value:string|number) {
+
+        let max = this.getValueInDependency(dependencyExpected)
+        
+        value = Number(this.addValueDefault().typeNumber((value)))
+
+        if(Number.NaN == value){
+            alert('value not is number')
+            return false
         }
 
-    })()
+        if (value > Number(max)){
+            //todo implement event
+            return  false
+        }
 
-    function addValueDefault(){
+        return true
+    }
+    
+    consistMin(dependencyExpected:string,value:string|number){
+
+        let max = this.getValueInDependency(dependencyExpected)
+
+        value = Number(this.addValueDefault().typeNumber((value)))
+
+
+        if(Number.NaN == value){
+            alert('value not is number')
+            return false
+        }
+
+        if (value < Number(max)){
+            //todo implement event
+            return  false;
+        }
+        
+        return true
+    }
+    
+    addValueDefault(){
         return {
             typeString: (value:any) => {
 
@@ -277,42 +280,27 @@ export let tableDependency = () => {
         }
     }
     
-    return {
-       
-        removeExpectedDependency: (identity:string) => {
+    removeExpectedDependency (identity:string) {
+        
+        let dependency = this.dependencyesNotResolved.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
+
+        if(dependency){
             
-            let dependency = dependencyesNotResolved.find(c=> c.fieldsNotResolved.indexOf(identity) > -1)
+            let index = dependency.fieldsNotResolved.indexOf(identity)
 
-            if(dependency){
-                
-                let index = dependency.fieldsNotResolved.indexOf(identity)
+            if(index > -1){
 
-                if(index > -1){
-
-                    dependency.fieldsNotResolved.splice(index,1)
-                }   
-            }
-        },
-        
-        createExpectedDependency: (field:field, fragmentField:fragmentField) => {
-            return createExpectedDependency(field,fragmentField)
-        },
-
-        toApplyOrRemoveDependency: (fragment: fragmentField, value:any) => {
-            
-            return toApplyOrRemoveDependency(fragment,value)
-        },
-        
-        getDependenciesNotResolded:() =>{ 
-            return dependencyesNotResolved
-        },
-        dependenciesCount:() => {
-            return dependencyesNotResolved
-            .filter(c=> c.fieldsNotResolved.length > 0).length
-        },
-        moveImbernateToNotResolved: (identityObject:string) => moveImbernateToNotResolved(identityObject),
-        moveNotResolvedToImbernate: (identityObject:string) => moveNotResolvedToImbernate(identityObject)
-    
-        
+                dependency.fieldsNotResolved.splice(index,1)
+            }   
+        }
     }
+       
+    getDependenciesNotResolded(){ 
+        return this.dependencyesNotResolved
+    }
+    
+    dependenciesCount() {
+        return this.dependencyesNotResolved
+        .filter(c=> c.fieldsNotResolved.length > 0).length
+    }       
 }

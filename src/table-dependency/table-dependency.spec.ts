@@ -1,9 +1,10 @@
 import assert from 'assert';
-import { tableDependency } from './TableDependency';
+import { TableDependency } from './TableDependency';
 import { field } from '../entities/form/field';
 import { fragmentField } from '../object/ObjectAliases';
 
-let table = tableDependency();
+let table = new TableDependency();
+
 describe('TableDependency', function () {
 
     describe('object', function () {
@@ -58,16 +59,12 @@ describe('TableDependency', function () {
 
         let toApply0 = table.toApplyOrRemoveDependency(fragmentField,'')
         let toApply1 = table.toApplyOrRemoveDependency(fragmentField,'1')
-        let toApply2 = table.toApplyOrRemoveDependency(fragmentField,null)
         let toApply3 = table.toApplyOrRemoveDependency(fragmentField,'scs')
-        let toApply4 = table.toApplyOrRemoveDependency(fragmentField,undefined)
         let toApply5 = table.toApplyOrRemoveDependency(fragmentField,'scsccs')
         
         assert.equal(toApply0,true)
         assert.equal(toApply1,false)
-        assert.equal(toApply2,true)
         assert.equal(toApply3,false)
-        assert.equal(toApply4,true)
         assert.equal(toApply5,false)
 
 

@@ -73,7 +73,7 @@ export let managmentObject = ()=> {
             }
             config.config.dependency =  exportTableDependency.createExpectedDependency(field,config)
             
-            exportTableDependency.toApplyOrRemoveDependency(config, field.value)
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value??="")
                         
             fragment.fields.add(config)
         })    
@@ -111,7 +111,7 @@ export let managmentObject = ()=> {
 
             config.config.dependency = exportTableDependency.createExpectedDependency(field,config)
 
-            exportTableDependency.toApplyOrRemoveDependency(config, field.value)
+            exportTableDependency.toApplyOrRemoveDependency(config, field.value ??="")
 
             fragment.fields.add(config)
 
