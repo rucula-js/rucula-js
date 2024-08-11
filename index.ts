@@ -16,7 +16,7 @@ import { callbackYesNo } from "./src/popup/callback";
     
     rucula.event.on('input.itensServico.quantidade',(e:CustomEvent) => {
 
-        let _this = rucula.event.field.getDetails(e)
+        let _this = rucula.event.getFieldDetails(e)
 
         let path_valorUnitario = _this.targetPathWithRow('itensServico.valorUnitario')
         let path_subTotal = _this.targetPathWithRow('itensServico.subtotal')
