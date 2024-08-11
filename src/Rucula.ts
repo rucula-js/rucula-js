@@ -14,7 +14,7 @@ import { ruculaGlobal } from "./global/GlobalConfig";
 import { loaderManagment } from "./elements/loader/loader";
 import { Popup } from "./popup/popup";
 import { logs } from "./console/Console";
-import { eventManagment } from "./Event/event";
+import { EventManagment } from "./Event/event";
 import { exportManagmentObject, exportPaginationEvents } from "./exports";
 import { URLRucula } from "./URL/urlManagment";
 
@@ -24,8 +24,10 @@ export class Rucula{
     private elementFormRucula!: HTMLFormElement
     
     private layoutFrame = new LayoutFrame();
-
+    
+    
     public popup:Popup
+    public event:EventManagment
     
     constructor(config: {
         global:globalConfiguration, 
@@ -38,6 +40,7 @@ export class Rucula{
         this.window = config.window
         this.elementRucula = document.getElementById(config.id)!
         this.popup = new Popup();
+        this.event = new EventManagment();
     }
 
     create(){
@@ -133,7 +136,6 @@ export class Rucula{
     }
 
     public loader = loaderManagment
-    public event = eventManagment
     public buttons = buttonsDOM
     
     public url = (URL?: { absolute: string; relative: string; params: string; }) => new URLRucula(exportManagmentObject.object.object, URL);
