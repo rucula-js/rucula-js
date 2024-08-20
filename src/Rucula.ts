@@ -1,8 +1,6 @@
 import { window } from "./entities/form/window";
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
-import { createFrameBlock } from "./elements/frame/TypeBlock/FrameBlock";
-import { frameLineDOM } from "./elements/frame/TypeLine/FrameLine";
 import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
 import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
@@ -17,6 +15,8 @@ import { logs } from "./console/Console";
 import { EventManagment } from "./Event/event";
 import { exportManagmentObject, exportPaginationEvents } from "./exports";
 import { URLRucula } from "./URL/urlManagment";
+import { FrameElementBlock } from "./elements/frame/FrameElementBlock";
+import { FrameElementLine } from "./elements/frame/FrameElementLine";
 
 export class Rucula{
     private window: window
@@ -100,19 +100,22 @@ export class Rucula{
     }
 
     private createFrames(){
-    
+
+        let frameBlock = new FrameElementBlock();
+        let frameLine = new FrameElementLine();
+
         this.window.frames?.forEach(frame => {
             
             if(frame.type == constTypeFrame.BLOCK){
 
-                const block = createFrameBlock(frame)
+                const block = frameBlock.create(frame)
                 this.elementFormRucula.appendChild(block)
                 eventCreated(block) 
             }
             
             if(frame.type == constTypeFrame.LINE){
                             
-                const line = frameLineDOM.createFrameLine(frame)
+                const line = frameLine.create(frame)
                 this.elementFormRucula.appendChild(line)
                 eventCreated(line)
             }  

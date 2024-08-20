@@ -1,12 +1,11 @@
-import { constFrameLineActions } from "../../../const";
-import { frame } from "../../../entities/form/frame";
-import { frameLineTableDOM } from "../../table/ElementsTable";
-import { createFrame } from "../ElementFrame";
-import { FrameLineEventDOM } from "./FrameLineEvent";
+import { constFrameLineActions, constTypeFrame } from "../../const";
+import { frame } from "../../entities/form/frame";
+import { frameLineTableDOM } from "../table/ElementsTable";
+import { FrameElement } from "./FrameElement";
+import { FrameLineEventDOM } from "./TypeLine/FrameLineEvent";
 
-export let frameLineDOM =  (() => {
-
-    function createTDActions(identity:string){
+export class FrameElementLine extends FrameElement{
+    private createTDActions(identity:string){
 
         const div = document.createElement('div') as HTMLDivElement
         div.setAttribute('id', identity);
@@ -20,9 +19,9 @@ export let frameLineDOM =  (() => {
         return div
     }
     
-    function createFrameLine(frame:frame){     
+    create(frame:frame){     
 
-        const frameLine = createFrame(frame)
+        const frameLine = this.createbase(frame)
         
         const table = document.createElement('table');
         table.classList.add("f-t-line")
@@ -42,7 +41,7 @@ export let frameLineDOM =  (() => {
         
         let td = frameLineTableDOM.table.detail.getCellActions(rowDetail)
         
-        td?.appendChild(createTDActions(frame.identity))
+        td?.appendChild(this.createTDActions(frame.identity))
         
         tbody.appendChild(rowDetail)
         table.appendChild(tbody)
@@ -51,12 +50,4 @@ export let frameLineDOM =  (() => {
         FrameLineEventDOM.eventKeyDownKeyUpLineFrame(rowDetail)         
         return frameLine
     }
-    
-    
-    return {
-        createFrameLine: (frame:frame) => {
-            return createFrameLine(frame)
-        },
-
-    }
-})()
+}
