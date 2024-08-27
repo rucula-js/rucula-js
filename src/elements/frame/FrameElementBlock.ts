@@ -1,18 +1,19 @@
 import { buttonsDOM } from "../../buttons/Button";
-import { constTypeFrame } from "../../const";
 import { frame } from "../../entities/form/frame";
-import { exportManagmentObject, exportTableDependency } from "../../exports";
-import { fieldDOM } from "../form/ElementsInput";
+import { ManagmentObject } from "../../object/ObjectManagment";
+import { FieldDOM } from "../form/ElementsInput";
 import { fieldMenuContext } from "../form/Field/fieldMenuContext";
 import { FrameElement } from "./FrameElement";
-import { frameEvent } from "./FrameEvent";
-import { frameValues } from "./FrameValues";
-
+import { FrameEvent } from "./FrameEvent";
+    
 export class FrameElementBlock extends FrameElement{
-
+    
+    constructor(managmentObject:ManagmentObject,fieldDOM:FieldDOM, frameEvent:FrameEvent) {
+        super(managmentObject,fieldDOM,frameEvent);
+    }
     create(frame:frame){
     
-        exportManagmentObject.frame.configFieldBlock(frame)
+        this.managmentObject.configFieldBlock(frame)
         
         const frameElement = this.createbase(frame)
         
@@ -27,13 +28,13 @@ export class FrameElementBlock extends FrameElement{
                     
             if(field?.button){
                 let buttonElement = buttonsDOM.createButtonOrLink(field.button)
-                let groupElement = fieldDOM.createGroupOfButton(buttonElement as HTMLButtonElement|HTMLAnchorElement) as HTMLDivElement
+                let groupElement = this.fieldDOM.createGroupOfButton(buttonElement as HTMLButtonElement|HTMLAnchorElement) as HTMLDivElement
                 div.appendChild(groupElement)
                 return
             }
             
-            let fieldElement = fieldDOM.create(field)
-            let groupElement = fieldDOM.createGroupOfInput(field, fieldElement) as HTMLDivElement
+            let fieldElement = this.fieldDOM.create(field)
+            let groupElement = this.fieldDOM.createGroupOfInput(field, fieldElement) as HTMLDivElement
             div.appendChild(groupElement)
     
             fieldMenuContext.info.set({
@@ -42,13 +43,13 @@ export class FrameElementBlock extends FrameElement{
             })
         })
     
-        frameValues.setValuesDefined(frame, div);
+        this.setValuesDefined(frame, div);
         frameElement.appendChild(div)
         
         if(frame.requerid == false){
-            exportTableDependency.moveNotResolvedToImbernate(frame.alias)
-            frameEvent.managedFrame(div)
-            frameEvent.cleanRequeridDependency(div)
+            this.managmentObject.tableDependency.moveNotResolvedToImbernate(frame.alias)
+            this.frameEvent.managedFrame(div)
+            this.frameEvent.cleanRequeridDependency(div)
         }
     
         return frameElement

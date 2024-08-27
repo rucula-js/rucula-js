@@ -1,5 +1,5 @@
 import { field } from "../../../../entities/form/field";
-import { exportManagmentObject } from "../../../../exports";
+import { ManagmentObject } from "../../../../object/ObjectManagment";
 import { windowBaseDOM } from "../../../window-base/WindowBase";
 import { eventsCustom } from "../../Field/EventsFieldsCustom";
 
@@ -10,8 +10,10 @@ export abstract class FileEvent{
     
     protected ruculaForm = windowBaseDOM.getElementRoot()
 
-    constructor(input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement,field: field) {
+    protected managmentObject:ManagmentObject
+    constructor(managmentObject:ManagmentObject, input: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement,field: field) {
 
+        this.managmentObject = managmentObject
         this.input = input
         this.field = field
         this.setEventListener()
@@ -21,7 +23,7 @@ export abstract class FileEvent{
 
         let identity = this.input.getAttribute("identity")!;
         
-        let fragment = exportManagmentObject.fragment.getFragmentForIdentity(identity)
+        let fragment = this.managmentObject.getFragmentForIdentity(identity)
          
         let eventName = fragment.config.line ? `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}.${fragment.config.line}` : `${prefixEvent}.${fragment.config.alias}.${fragment.config.propertDto}`
         
@@ -37,6 +39,6 @@ export abstract class FileEvent{
 
         let identity = this.input.getAttribute("identity")!
 
-        exportManagmentObject.object.field.setValueContextIdentity(identity,this.field?.type, this.input.value)
+        this.managmentObject.setValueContextIdentity(identity,this.field?.type, this.input.value)
     }
 }  

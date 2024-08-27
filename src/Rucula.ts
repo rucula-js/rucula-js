@@ -1,7 +1,7 @@
 import { window } from "./entities/form/window";
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
 import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
-import { eventButton, openCloseRightListButtons } from "./buttons/EventButton";
+import { EventButton } from "./buttons/EventButton";
 import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
 import { LayoutFrame } from "./Layout/layout";
@@ -11,12 +11,17 @@ import { globalConfiguration } from "./global/entities/GlobalConfiguration";
 import { ruculaGlobal } from "./global/GlobalConfig";
 import { loaderManagment } from "./elements/loader/loader";
 import { Popup } from "./popup/popup";
-import { logs } from "./console/Console";
+import { RuculaLogs } from "./console/Console";
 import { EventManagment } from "./Event/event";
-import { exportManagmentObject, exportPaginationEvents } from "./exports";
+import { exportPaginationEvents } from "./exports";
 import { URLRucula } from "./URL/urlManagment";
 import { FrameElementBlock } from "./elements/frame/FrameElementBlock";
 import { FrameElementLine } from "./elements/frame/FrameElementLine";
+import { ManagmentObject } from "./object/ObjectManagment";
+import { TableDependency } from "./table-dependency/TableDependency";
+import { Fragment } from "./fragment/fragment";
+import { FieldDOM } from "./elements/form/ElementsInput";
+import { FrameEvent } from "./elements/frame/FrameEvent";
 
 export class Rucula{
     private window: window
@@ -28,7 +33,13 @@ export class Rucula{
     
     public popup:Popup
     public event:EventManagment
-    
+    public managmentObject:ManagmentObject
+    public tableDependency:TableDependency
+    private fragment: Fragment
+    private fieldDOM:FieldDOM
+    private eventButton:EventButton
+    private frameEvent:FrameEvent
+
     constructor(config: {
         global:globalConfiguration, 
         window:window, 
@@ -40,7 +51,14 @@ export class Rucula{
         this.window = config.window
         this.elementRucula = document.getElementById(config.id)!
         this.popup = new Popup();
-        this.event = new EventManagment();
+        this.fragment = new Fragment();
+        this.tableDependency = new TableDependency();
+        this.managmentObject = new ManagmentObject(this.fragment, this.tableDependency);
+        this.event = new EventManagment(this.managmentObject);
+        this.fieldDOM = new FieldDOM(this.managmentObject)
+        this.eventButton = new EventButton(this.fieldDOM, this.managmentObject)
+        this.frameEvent = new FrameEvent(this.managmentObject)
+
     }
 
     create(){
@@ -54,7 +72,7 @@ export class Rucula{
         defaultValues.setDefault(this.window)
         windowBaseDOM.createWindowBase(this.elementRucula.id)
         this.addHomeWindow();
-        exportManagmentObject.frame.initObjects(this.window.frames)
+        this.managmentObject.initObjects(this.window.frames)
         windowBaseDOM.createNameWindow(this.window.name)
         windowBaseDOM.closeLeftGrid(this.window.grid)
         this.elementFormRucula = windowBaseDOM.getPrincipalElementRucula() as HTMLFormElement
@@ -66,8 +84,9 @@ export class Rucula{
         buttonsBase.initButtonsTypeCrudDefault();
         buttonsBase.initButtonPlus();
         buttonsBase.buttonsTypeCrud.crud(this.window?.crud);        
-        rucula.dispatchEvent(eventLoad)
-        logs()
+        rucula.dispatchEvent(eventLoad);
+        
+        (window as any).rucula = new RuculaLogs(this.managmentObject);
     }
 
     private addHomeWindow(){
@@ -95,14 +114,14 @@ export class Rucula{
         if(type == "CRUD"){
             buttonsDOM.prepareButtonsInLeftBox(this.window.button)
         }
-        eventButton(this.window.pathController, this.window.button)
-        openCloseRightListButtons()
+        this.eventButton.eventButton(this.window.pathController, this.window.button)
+        this.eventButton.openCloseRightListButtons()
     }
 
     private createFrames(){
-
-        let frameBlock = new FrameElementBlock();
-        let frameLine = new FrameElementLine();
+        
+        let frameBlock = new FrameElementBlock(this.managmentObject,this.fieldDOM, this.frameEvent);
+        let frameLine = new FrameElementLine(this.managmentObject,this.fieldDOM,this.frameEvent);
 
         this.window.frames?.forEach(frame => {
             
@@ -141,20 +160,20 @@ export class Rucula{
     public loader = loaderManagment
     public buttons = buttonsDOM
     
-    public url = (URL?: { absolute: string; relative: string; params: string; }) => new URLRucula(exportManagmentObject.object.object, URL);
+    public url = (URL?: { absolute: string; relative: string; params: string; }) => new URLRucula(this.managmentObject, URL);
     
     public object = (() => {
         
         return {
             
-            objectUnique: (alias:string) => exportManagmentObject.object.object.objectUnique(alias),
-            getFullObject:() => exportManagmentObject.object.object.objectFull(),
-            getSepareteObject:() => exportManagmentObject.object.object.objectSeparate(),
+            objectUnique: (alias:string) => this.managmentObject.objectUnique(alias),
+            getFullObject:() => this.managmentObject.objectFull(),
+            getSepareteObject:() => this.managmentObject.objectSeparate(),
 
             setValue: (targetPath:string, value: any) => {
         
                 const ATTR_DISABLED = 'disabled'
-                let identity = exportManagmentObject.object.field.convertAliasToIdenty(targetPath);
+                let identity = this.managmentObject.convertAliasToIdenty(targetPath);
         
                 let input = document.querySelector('[identity='+identity+']') as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
         
@@ -174,7 +193,7 @@ export class Rucula{
 
             },
             getValue:(config:string):any => {
-                return exportManagmentObject.object.object.getPropert(config)
+                return this.managmentObject.getPropert(config)
             }
         }
     })()

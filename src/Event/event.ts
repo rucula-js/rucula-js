@@ -1,8 +1,12 @@
 import { windowBaseDOM } from "../elements/window-base/WindowBase"
-import { exportManagmentObject } from "../exports"
+import { ManagmentObject } from "../object/ObjectManagment"
 
 export class EventManagment {
 
+    public managmentObject:ManagmentObject
+    constructor(managmentObject:ManagmentObject) {
+        this.managmentObject =  managmentObject
+    }
     getFieldDetails (event:CustomEvent) {
     
         let identity = event.detail.identity
@@ -11,7 +15,7 @@ export class EventManagment {
             identity: (identity.element as HTMLElement).getAttribute('identity'),
             name:identity.name,
             row: identity.row,
-            value: exportManagmentObject.object.object.getPropert(identity.name),
+            value: this.managmentObject.getPropert(identity.name),
             targetPathWithRow:(targetPath:string) => {
 
                 //? This method helps to create Target Path with the current event line

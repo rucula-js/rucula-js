@@ -1,8 +1,20 @@
 import { constTypeFrame } from "../../const";
 import { frame } from "../../entities/form/frame";
+import { ManagmentObject } from "../../object/ObjectManagment";
+import { FieldDOM } from "../form/ElementsInput";
+import { FrameEvent } from "./FrameEvent";
 
 export class FrameElement{
 
+    protected managmentObject:ManagmentObject 
+    protected fieldDOM:FieldDOM
+    protected frameEvent:FrameEvent
+    constructor(managmentObject:ManagmentObject,fieldDOM:FieldDOM,frameEvent:FrameEvent) {
+        this.managmentObject = managmentObject
+        this.fieldDOM = fieldDOM
+        this.frameEvent = frameEvent
+    }
+    
     protected createbase(frame:frame){
 
         const div = document.createElement('div');
@@ -31,8 +43,18 @@ export class FrameElement{
         if(frame?.style?.width) div.style.width = frame.style.width
         if(frame?.style?.height) div.style.height = frame.style.height
         
-    
         return div
     }
-    
+
+    protected setValuesDefined (frame:frame, htmlElement:HTMLElement){
+
+        frame.fields?.forEach(field => {
+
+            let input = htmlElement.querySelector(field.identity) as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
+            
+            if(input){
+                this.managmentObject.setValueContextIdentity(field.identity,field.type, input.value);
+            }
+        })
+    }
 }

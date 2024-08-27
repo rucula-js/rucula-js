@@ -1,20 +1,18 @@
-import { exportManagmentObject, exportTableDependency } from '../exports';
-    
-let rucula  = {
-    log: (()=>{
- 
-        return {
-            dependencies: function(){
-            
-                return  exportTableDependency.getDependenciesNotResolded();
-            },
-            object: function(){
-                return exportManagmentObject.object.object.objectFull()
-            }  
-        }
-    })()
-}
+import { ManagmentObject } from "../object/ObjectManagment";
 
-export function logs(){
-    (window as any).rucula = rucula
+export  class RuculaLogs {
+
+    private managmentObject:ManagmentObject
+    
+    constructor(managmentObject:ManagmentObject) {
+        this.managmentObject = managmentObject;
+    }
+
+    dependencies(){
+        return  this.managmentObject.tableDependency.getDependenciesNotResolded();
+    }
+    object (){
+        return this.managmentObject.objectFull()
+    }  
+    
 }

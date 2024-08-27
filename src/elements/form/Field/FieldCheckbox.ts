@@ -1,3 +1,4 @@
+import { ManagmentObject } from "../../../object/ObjectManagment";
 import { FieldInput } from "./FieldInput";
 import { FileEventCheckBox } from "./event/FileEventCheckBox";
 
@@ -21,7 +22,7 @@ export class FieldCheckbox extends FieldInput{
         return input;
     }
     protected setEvents(): void {
-        new FileEventCheckBox(this.input, this.field)
+        new FileEventCheckBox(this.managmentObject, this.input, this.field)
     }
 
 }

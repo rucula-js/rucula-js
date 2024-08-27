@@ -1,24 +1,30 @@
 import { convertValueType } from '../Helpers/Helper';
 import { constTypeFrame } from '../const';
 import { frame } from '../entities/form/frame';
-import { exportTableDependency } from '../exports';
-import { fragment } from '../fragment/fragment';
+import { Fragment } from '../fragment/fragment';
+import { TableDependency } from '../table-dependency/TableDependency';
 import { entityConfiguration, fragmentField, fragmentObject } from './ObjectAliases';
 import { generateUUID } from './ObjectHelper';
 
-'use strict';
+export class ManagmentObject {
+             
+    public fragment:Fragment
+    public tableDependency:TableDependency
 
-export let managmentObject = ()=> {
-                
-    let pathObjectBase:{parent:string, alias:string, configFrame:string, }[] = [];
+    constructor(fragment:Fragment,tableDependency:TableDependency) {                
+        this.fragment = fragment
+        this.tableDependency = tableDependency
+    }
+
+    pathObjectBase:{parent:string, alias:string, configFrame:string, }[] = [];
                     
     /**
      * @description Creates an array of fragments of type object
      * @param {frame[]} frames
      */
-    function initObjects(frames:frame[]){
+    initObjects(frames:frame[]){
     
-        pathObjectBase = []
+        this.pathObjectBase = []
         
         frames?.forEach(frame => {
             
@@ -37,13 +43,13 @@ export let managmentObject = ()=> {
                     objectDto: frame.objectDto,
                     identity: frame.identity,
                     object: frame.type == constTypeFrame.BLOCK ? {} : [],
-                    getValueInObjectFragment: getValueInObjectFragment
+                    getValueInObjectFragment: this.getValueInObjectFragment
                 }
             }
 
-            fragment.objects.add(fragmentObject)
+            this.fragment.objects_add(fragmentObject)
 
-            pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame:frame.identity })
+            this.pathObjectBase.push({ parent: frame.parent, alias: frame.alias, configFrame:frame.identity })
                         
         });
     }
@@ -52,7 +58,7 @@ export let managmentObject = ()=> {
     * @description Creates an array of fragments of type Field for Frames of type 'block'
     * @param {frame} frame
     */
-    function configFieldBlock(frame:frame){
+    configFieldBlock(frame:frame){
         
         frame.fields?.forEach(field => {
             
@@ -71,11 +77,12 @@ export let managmentObject = ()=> {
                     dependency:''  
                 } 
             }
-            config.config.dependency =  exportTableDependency.createExpectedDependency(field,config)
+
+            config.config.dependency =  this.tableDependency.createExpectedDependency(field,config)
             
-            exportTableDependency.toApplyOrRemoveDependency(config, field.value??="")
-                        
-            fragment.fields.add(config)
+            this.tableDependency.toApplyOrRemoveDependency(config, field.value??="")
+
+            this.fragment.fields_add(config)
         })    
     }    
 
@@ -83,9 +90,9 @@ export let managmentObject = ()=> {
      * @description Creates an array of fragments of type Field for Frames of type 'line', This function must be called every time a new line is created on the screen
      * @param {frame} frame
     */
-    function addLine(frame:frame){
+    addLine(frame:frame){
         
-        let object = fragment.objects.getForIdentity(frame.identity)
+        let object = this.fragment.objects_getForIdentity(frame.identity)
         
         let newLine = object.config.object.length + 1
 
@@ -109,30 +116,30 @@ export let managmentObject = ()=> {
                 }    
             }
 
-            config.config.dependency = exportTableDependency.createExpectedDependency(field,config)
+            config.config.dependency = this.tableDependency.createExpectedDependency(field,config)
 
-            exportTableDependency.toApplyOrRemoveDependency(config, field.value ??="")
+            this.tableDependency.toApplyOrRemoveDependency(config, field.value ??="")
 
-            fragment.fields.add(config)
+            this.fragment.fields_add(config)
 
         })    
     }    
-       
+        
     /**
      * @description Creates an object respecting the parent property hierarchy.
      * @return {*} 
      */
-    function createObject(){
+    createObject(){
 
-        let configBase = pathObjectBase.find(c=> c.parent === undefined || c.parent === '')!
+        let configBase = this.pathObjectBase.find(c=> c.parent === undefined || c.parent === '')!
             
-        let configFrameBase = fragment.objects.getForIdentity(configBase.configFrame)  
+        let configFrameBase = this.fragment.objects_getForIdentity(configBase.configFrame)  
 
         let newObject  = Object.assign({},configFrameBase?.config.object) 
         
-        pathObjectBase.forEach((config:{parent:string, configFrame:string }) => {
+        this.pathObjectBase.forEach((config:{parent:string, configFrame:string }) => {
             
-            let fragmentObject = fragment.objects.getForIdentity(config.configFrame)
+            let fragmentObject = this.fragment.objects_getForIdentity(config.configFrame)
             
             if(config.parent == '.'){
                 insertObjectRoot()
@@ -193,13 +200,13 @@ export let managmentObject = ()=> {
      * @description Creates an object bringing without respecting the hierarchy of the parent property
      * @return {*} 
     */
-    function createObjectSeparete(){
+    createObjectSeparete(){
         
         let objectSeparate = {} as any;
         
-        pathObjectBase.forEach((config:{parent:string, alias:string, configFrame:string }) => {
+        this.pathObjectBase.forEach((config:{parent:string, alias:string, configFrame:string }) => {
             
-            let configFragment  = fragment.objects.getForIdentity(config.configFrame)
+            let configFragment  = this.fragment.objects_getForIdentity(config.configFrame)
                         
             objectSeparate[config.alias] = configFragment.config.object
         })
@@ -207,16 +214,16 @@ export let managmentObject = ()=> {
         return objectSeparate
     }
 
-    function createObjectForAlias(alias:string){
+    createObjectForAlias(alias:string){
         
-        let object  = fragment.objects.getForAlias(alias)
+        let object  = this.fragment.objects_getForAlias(alias)
                         
         return object.config.object
     }
 
-    function setValue(fragmentField:fragmentField, value:any){
+    setValue(fragmentField:fragmentField, value:any){
         
-        let fragmentObject =  fragment.objects.getForIdentity(fragmentField.config.fragmentObjectIdentity)
+        let fragmentObject =  this.fragment.objects_getForIdentity(fragmentField.config.fragmentObjectIdentity)
 
         if(isTypeObject()){
             fragmentObject.config.object[fragmentField?.config.propertDto] = value
@@ -244,10 +251,10 @@ export let managmentObject = ()=> {
             return fragmentField?.config.line != undefined
         }
 
-        exportTableDependency.toApplyOrRemoveDependency(fragmentField,value)
+        this.tableDependency.toApplyOrRemoveDependency(fragmentField,value)
     }
 
-    function createConfigurationField(config:string):entityConfiguration {
+    createConfigurationField(config:string):entityConfiguration {
 
         let opt = config.split('.')
 
@@ -260,7 +267,7 @@ export let managmentObject = ()=> {
         return entityConfiguration
     }
 
-    function getValueInObjectFragment(object:any,propertDto:string,line?:number) {
+    getValueInObjectFragment(object:any,propertDto:string,line?:number):any {
         //! This function should only be used for fragmentObject
         for (var propert in object) {
 
@@ -269,138 +276,119 @@ export let managmentObject = ()=> {
             }
             if (Array.isArray(object) && line != undefined) {
 
-                return getValueInObjectFragment(object[line!],propertDto)
+                return this.getValueInObjectFragment(object[line!],propertDto)
             }
 
             if(typeof object === 'object') {
-                return getValueInObjectFragment(object[propert],propertDto)
+                return this.getValueInObjectFragment(object[propert],propertDto)
             }
         }
     }
 
-    return {
+    fieldType (identityField:string){
+            
+        let fragmentField = this.fragment.fields_getForIdentity(identityField)
 
-        frame: {
-            initObjects:(frames:frame[]) => initObjects(frames),
-            configFieldBlock:(frame:frame) => configFieldBlock(frame),
-            addLine:(frame:frame) => addLine(frame),                
-        },
-
-        field: {
-            type: (identityField:string) => {
-                
-                let fragmentField = fragment.fields.getForIdentity(identityField)
-
-                if(fragmentField.config.line == undefined){
-                    return constTypeFrame.BLOCK
-                }
-
-                return constTypeFrame.LINE
-            }
-        },
-
-        object: {
-
-            field: {
-                convertAliasToIdenty:(config:string) => {
-    
-                    let entityConfiguration = createConfigurationField(config)
-                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration) as fragmentField
-                    return fragmentField.key.identity
-                    
-                },
-                setValueContextAlias:(config:string, value:any) => {
-    
-                    let entityConfiguration = createConfigurationField(config)
-                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration) as fragmentField
-                    setValue(fragmentField,value)
-                    
-                },
-                setValueContextIdentity:(identity:string, type:string|string[2], value:any) => {
-
-                    value = convertValueType(value, type)
-
-                    let fragmentField = fragment.fields.getForIdentity(identity)
-        
-                    setValue(fragmentField,value)
-                },
-            },
-
-            object: {
-
-                objectFull:() => {
-                    return createObject();
-                },
-    
-                objectSeparate:() => {
-                    return createObjectSeparete() 
-                },
-
-                objectUnique:(alias:string,) => {
-                    return createObjectForAlias(alias) 
-                },
-                objectUniqueLine:(alias:string,line:number) => {
-                    let object = createObjectForAlias(alias)
-                    
-                    object = object[line]
-
-                    return object 
-                },
-                
-                count:(identity:string) => {
-                    
-                    let object = fragment.objects.getForIdentity(identity) 
-
-                    if(Array.isArray(object.config.object) == false){
-                        return -1
-                    }
-                    
-                    return object.config.object.length               
-                 },
-
-                removeLine:(identity:string, line:number) => {
-                                              
-                    let objectFragment = fragment.objects.getForIdentity(identity) 
-                    
-                    var indexOf = objectFragment.config.object.findIndex((c:any) => c.rucLine == line)
-                    
-                    objectFragment.config.object.splice(indexOf,1)
-                                            
-                },
-
-                getPropert: (config:string) => {
-
-                    let entityConfiguration = createConfigurationField(config)   
-                    
-                    let fragmentField = fragment.fields.getForAliasAndPropert(entityConfiguration) as fragmentField
-                    
-                    let fragmentObject = fragment.objects.getForIdentity(fragmentField.config.fragmentObjectIdentity)
-                    
-                    let object = fragmentObject.config.object
-
-                    return fragmentObject.config.getValueInObjectFragment(object,entityConfiguration.propertDto,entityConfiguration.line) 
-                }
-            }
-        },
-
-        fragment: {
-
-            getFragmentForIdentity:(identity:string):fragmentField => {
-                return fragment.fields.getForIdentity(identity)
-            },
-
-            removeFragmentsLine:(objectIDentity:string, line:number) => {
-                fragment.fields.removeLine(objectIDentity,line)
-            },
-            removeFragment:(identity:string) => {
-
-                //TODO - manually tested - do automated testing
-                let _fragment = fragment.fields.getForIdentity(identity)
-                
-                fragment.fields.remove(_fragment)
-
-                exportTableDependency.removeExpectedDependency(identity)
-            }
+        if(fragmentField.config.line == undefined){
+            return constTypeFrame.BLOCK
         }
+
+        return constTypeFrame.LINE
+    }
+
+    convertAliasToIdenty (config:string) {
+    
+        let entityConfiguration = this.createConfigurationField(config)
+        let fragmentField = this.fragment.fields_getForAliasAndPropert(entityConfiguration) as fragmentField
+        return fragmentField.key.identity
+        
+    }
+    setValueContextAlias(config:string, value:any) {
+
+        let entityConfiguration = this.createConfigurationField(config)
+        let fragmentField = this.fragment.fields_getForAliasAndPropert(entityConfiguration) as fragmentField
+        this.setValue(fragmentField,value)
+        
+    }
+
+    setValueContextIdentity (identity:string, type:string|string[2], value:any) {
+
+        value = convertValueType(value, type)
+
+        let fragmentField = this.fragment.fields_getForIdentity(identity)
+
+        this.setValue(fragmentField,value)
+    }
+
+    objectFull() {
+        return this.createObject();
+    }
+
+    objectSeparate() {
+        return this.createObjectSeparete() 
+    }
+
+    objectUnique(alias:string){
+        return this.createObjectForAlias(alias) 
+    }
+    
+    objectUniqueLine(alias:string,line:number) {
+        let object = this.createObjectForAlias(alias)
+        
+        object = object[line]
+
+        return object 
+    }
+    
+    count(identity:string){
+        
+        let object = this.fragment.objects_getForIdentity(identity) 
+
+        if(Array.isArray(object.config.object) == false){
+            return -1
+        }
+        
+        return object.config.object.length               
+        }
+
+    removeLine(identity:string, line:number){
+                                    
+        let objectFragment = this.fragment.objects_getForIdentity(identity) 
+        
+        var indexOf = objectFragment.config.object.findIndex((c:any) => c.rucLine == line)
+        
+        objectFragment.config.object.splice(indexOf,1)
+                                
+    }
+
+    getPropert (config:string) {
+
+        let entityConfiguration = this.createConfigurationField(config)   
+        
+        let fragmentField = this.fragment.fields_getForAliasAndPropert(entityConfiguration) as fragmentField
+        
+        let fragmentObject = this.fragment.objects_getForIdentity(fragmentField.config.fragmentObjectIdentity)
+        
+        let object = fragmentObject.config.object
+
+        return fragmentObject.config.getValueInObjectFragment(object,entityConfiguration.propertDto,entityConfiguration.line) 
+    }
+    
+    getFragmentForIdentity(identity:string):fragmentField {
+        return this.fragment.fields_getForIdentity(identity)
+    }
+
+    removeFragmentsLine(objectIDentity:string, line:number){
+        this.fragment.fields_removeLine(objectIDentity,line, this.tableDependency.removeExpectedDependency)
+    }
+
+    removeFragment(identity:string) {
+
+        //TODO - manually tested - do automated testing
+        let _fragment = this.fragment.fields_getForIdentity(identity)
+        
+        this.fragment.fields_remove(_fragment)
+
+        this.tableDependency.removeExpectedDependency(identity)
     }
 }

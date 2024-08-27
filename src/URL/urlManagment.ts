@@ -74,7 +74,7 @@ export class URLRucula{
             
             var propertValue = match[3]
 
-             var value = this.callbackGetPropert.getPropert(propertValue)
+             var value = this.callbackGetPropert(propertValue)
 
              path = path.replace(match[0],`${match[1]}${value}`)
         }
@@ -92,7 +92,7 @@ export class URLRucula{
             
             var propertValue = match[1]
 
-            var value = this.callbackGetPropert.getPropert(propertValue)
+            var value = this.callbackGetPropert(propertValue)
 
             path = path.replace(match[0],`/${value}`)
         }

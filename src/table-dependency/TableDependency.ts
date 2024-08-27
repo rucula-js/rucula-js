@@ -10,12 +10,12 @@ type dependency = {
 export class  TableDependency {
 
 
-    dependencyesNotResolved:dependency[] = []
+    private dependencyesNotResolved:dependency[] = []
     
-    REQUERID:string = '1' as const;
-    MAX_LENGHT:string = '2' as const;
-    MAX:string = '3' as const;
-    MIN:string = '4' as const;
+    private REQUERID:string = '1' as const;
+    private MAX_LENGHT:string = '2' as const;
+    private MAX:string = '3' as const;
+    private MIN:string = '4' as const;
 
     
     moveImbernateToNotResolved(identityObject:string){

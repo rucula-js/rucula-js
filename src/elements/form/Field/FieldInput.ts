@@ -1,16 +1,19 @@
 import { constTypeInput } from "../../../const";
 import { field } from "../../../entities/form/field";
 import { ruculaGlobal } from "../../../global/GlobalConfig";
+import { ManagmentObject } from "../../../object/ObjectManagment";
 
 export abstract class FieldInput{
     
+    protected managmentObject:ManagmentObject
     protected floatLabel = ruculaGlobal.getConfigurationGlobal().floatLabel
 
     protected field:field
     public input!: HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
 
-    constructor(field:field) {
+    constructor(field:field, managmentObject:ManagmentObject) {
         this.field = field;
+        this.managmentObject = managmentObject
     }
 
     protected abstract create():void;

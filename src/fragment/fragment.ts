@@ -1,138 +1,131 @@
-import { exportTableDependency } from "../exports";
 import { entityConfiguration, fragmentField, fragmentObject } from "../object/ObjectAliases";
 
-export let fragment = (() => {
+export class Fragment {
 
-    let objects: Array<fragmentObject> = new Array<fragmentObject>();
-    let fields: Array<fragmentField> = new Array<fragmentField>();
+    objects: Array<fragmentObject> = new Array<fragmentObject>();
+    fields: Array<fragmentField> = new Array<fragmentField>();
     
-    function checkIdentity(identity:string){
+    checkIdentity(identity:string){
         if(identity === undefined){
             throw new Error('identity is requerid')   
         }
     }
 
-    return {
-        objects:{
-            add: function(object:fragmentObject){
+    objects_add(object:fragmentObject){
 
-                checkIdentity(object.key.identity)
-                
-                let exist = objects.find( c => c.key.identity == object.key.identity)
+        this.checkIdentity(object.key.identity)
+        
+        let exist = this.objects.find( c => c.key.identity == object.key.identity)
 
-                if(exist){
-                    throw new Error('Object identity exists!!!');
-                }
+        if(exist){
+            throw new Error('Object identity exists!!!');
+        }
 
-                objects.push(object)
-            },
+        this.objects.push(object)
+    }
 
-            getForFieldIdentity: function(identity:string):fragmentObject{
+    objects_getForFieldIdentity(identity:string):fragmentObject{
 
-                let field = fragment.fields.getForIdentity(identity)
-                
-                return fragment.objects.getForIdentity(field.config.fragmentObjectIdentity)
-            },
-            getForIdentity: function(identity:string):fragmentObject{
-
-                if(identity === undefined){
-                    throw new Error('identity requerid!');
-                }
-
-                let object = objects.find( c => c.key.identity == identity)
-
-                if(object){
-                    return object
-                }
-
-                throw new Error("Object not Found");
-            },
-            getForAlias: function(alias:string):fragmentObject{
+        let field = this.fields_getForIdentity(identity)
+        
+        return this.objects_getForIdentity(field.config.fragmentObjectIdentity)
+    }
     
-                if(alias === undefined){
-                    throw new Error('alias is requerid')   
-                }
-                
-                let object  = objects.find( (c:any )=> c.key.alias == alias)
+    objects_getForIdentity(identity:string):fragmentObject{
 
-                if(object) {
-                    return object
-                }
+        if(identity === undefined){
+            throw new Error('identity requerid!');
+        }
 
-                throw new Error('object not found')   
-            }
+        let object = this.objects.find( c => c.key.identity == identity)
 
-        },
-        fields: {
+        if(object){
+            return object
+        }
 
-            add:function(field:fragmentField){
+        throw new Error("Object not Found");
+    }
+    objects_getForAlias(alias:string):fragmentObject{
 
-                checkIdentity(field.key.identity)
-
-                let exist = fields.find( c => c.key.identity == field.key.identity)
-
-                if(exist){
-                    throw new Error('Field identity exists!!!');
-                }
-
-                fields.push(field)
-            },
-
-            remove: function(fragment:fragmentField){
-                let index = fields.indexOf(fragment)
-
-                if(index > -1){
-                    fields.splice(index,1)
-                }
-            },
-            removeLine: function(objectIDentity:string, line:number){
-                
-                let _fields = fields.filter(item => item.config.fragmentObjectIdentity == objectIDentity && item.config.line == line)
-
-                _fields.forEach(field => {
-                    
-                    let indexOf = fields.indexOf(field)
-
-                    if(indexOf > -1){
-                        exportTableDependency.removeExpectedDependency(field.key.identity)
-                        fields.splice(indexOf,1)
-                    }
-                })
-            },
-             /**
-             * @param {string} identity
-             * @return {fragmentField} 
-             */
-            getForIdentity: function(identity:string):fragmentField{
+        if(alias === undefined){
+            throw new Error('alias is requerid')   
+        }
         
-                if(identity === undefined){
-                    throw new Error('identity is requerid')   
-                }
+        let object  = this.objects.find( (c:any )=> c.key.alias == alias)
 
-                let field = fields.find( c => c.key.identity == identity)
+        if(object) {
+            return object
+        }
 
-                if(field){
-                    return field
-                }
+        throw new Error('object not found')   
+    }
 
-                throw new Error("field not Found");
-                
-            },
-            /**
-             * @param {entityConfiguration} config
-             * @return {fragmentField} 
-            */
-            getForAliasAndPropert:function (config:entityConfiguration){
-        
-                if(config === undefined){
-                 throw new Error('entityConfiguration is requerid')   
-                }
-        
-                return  fields.find((c:any) => 
-                    c.config.alias == config.aliasOrIDentity &&
-                    c.config.propertDto == config.propertDto &&
-                    c.config.line == config.line)
-            }
+    fields_add(field:fragmentField){
+
+        this.checkIdentity(field.key.identity)
+
+        let exist = this.fields.find( c => c.key.identity == field.key.identity)
+
+        if(exist){
+            throw new Error('Field identity exists!!!');
+        }
+
+        this.fields.push(field)
+    }
+
+    fields_remove(fragment:fragmentField){
+        let index = this.fields.indexOf(fragment)
+
+        if(index > -1){
+            this.fields.splice(index,1)
         }
     }
-})()
+    fields_removeLine(objectIDentity:string, line:number, callbackRemoveExpectedDependency:any){
+        
+        let _fields = this.fields.filter(item => item.config.fragmentObjectIdentity == objectIDentity && item.config.line == line)
+
+        _fields.forEach(field => {
+            
+            let indexOf = this.fields.indexOf(field)
+
+            if(indexOf > -1){
+                callbackRemoveExpectedDependency(field.key.identity)
+                this.fields.splice(indexOf,1)
+            }
+        })
+    }
+        /**
+     * @param {string} identity
+     * @return {fragmentField} 
+     */
+    fields_getForIdentity(identity:string):fragmentField{
+
+        if(identity === undefined){
+            throw new Error('identity is requerid')   
+        }
+
+        let field = this.fields.find( c => c.key.identity == identity)
+
+        if(field){
+            return field
+        }
+
+        throw new Error("field not Found");
+        
+    }
+    /**
+     * @param {entityConfiguration} config
+     * @return {fragmentField} 
+    */
+    fields_getForAliasAndPropert (config:entityConfiguration){
+
+        if(config === undefined){
+            throw new Error('entityConfiguration is requerid')   
+        }
+
+        return  this.fields.find((c:any) => 
+            c.config.alias == config.aliasOrIDentity &&
+            c.config.propertDto == config.propertDto &&
+            c.config.line == config.line)
+    }
+}
