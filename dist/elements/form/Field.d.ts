@@ -1,6 +1,6 @@
 import { field } from "../../entities/form/field";
 import { ManagmentObject } from "../../object/ObjectManagment";
-export declare class FieldDOM {
+export declare class Field {
     private managmentObject;
     constructor(managmentObject: ManagmentObject);
     createSpanLabelIsRequerid(): HTMLSpanElement;

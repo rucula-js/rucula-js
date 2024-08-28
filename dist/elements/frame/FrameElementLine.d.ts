@@ -1,12 +1,12 @@
 import { frame } from "../../entities/form/frame";
 import { ManagmentObject } from "../../object/ObjectManagment";
-import { FieldDOM } from "../form/ElementsInput";
+import { Field } from "../form/Field";
 import { FameLineTable } from "../table/ElementsTable";
 import { FrameElement } from "./FrameElement";
 import { FrameEvent } from "./FrameEvent";
 export declare class FrameElementLine extends FrameElement {
     fameLineTable: FameLineTable;
-    constructor(managmentObject: ManagmentObject, fieldDOM: FieldDOM, frameEvent: FrameEvent);
+    constructor(managmentObject: ManagmentObject, field: Field, frameEvent: FrameEvent);
     private createTDActions;
     create(frame: frame): HTMLDivElement;
     currentLineElement?: HTMLElement;

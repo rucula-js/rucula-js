@@ -1,10 +1,10 @@
 import { button } from '../entities/form/button';
-import { FieldDOM } from '../elements/form/ElementsInput';
+import { Field } from '../elements/form/Field';
 import { ManagmentObject } from '../object/ObjectManagment';
 export declare class EventButton {
-    fieldDOM: FieldDOM;
+    field: Field;
     managmentObject: ManagmentObject;
-    constructor(fieldDOM: FieldDOM, managmentObject: ManagmentObject);
+    constructor(field: Field, managmentObject: ManagmentObject);
     eventButton(pathController: string, buttons: button[]): void;
     openCloseRightListButtons(): void;
 }

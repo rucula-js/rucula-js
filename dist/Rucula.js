@@ -738,10 +738,10 @@ class URLRucula {
 }
 
 class EventButton {
-    fieldDOM;
+    field;
     managmentObject;
-    constructor(fieldDOM, managmentObject) {
-        this.fieldDOM = fieldDOM;
+    constructor(field, managmentObject) {
+        this.field = field;
         this.managmentObject = managmentObject;
     }
     eventButton(pathController, buttons) {
@@ -763,7 +763,7 @@ class EventButton {
             element?.addEventListener("click", () => {
                 let dependencyCount = this.managmentObject.tableDependency.dependenciesCount();
                 if (dependencyCount > 0) {
-                    this.fieldDOM.focusFieldsWithDependency();
+                    this.field.focusFieldsWithDependency();
                     rucula.dispatchEvent(eventButtonDependency);
                     return;
                 }
@@ -1252,11 +1252,11 @@ let exportPaginationEvents = paginationEvents();
 
 class FrameElement {
     managmentObject;
-    fieldDOM;
+    field;
     frameEvent;
-    constructor(managmentObject, fieldDOM, frameEvent) {
+    constructor(managmentObject, field, frameEvent) {
         this.managmentObject = managmentObject;
-        this.fieldDOM = fieldDOM;
+        this.field = field;
         this.frameEvent = frameEvent;
     }
     createbase(frame) {
@@ -1293,8 +1293,8 @@ class FrameElement {
 }
 
 class FrameElementBlock extends FrameElement {
-    constructor(managmentObject, fieldDOM, frameEvent) {
-        super(managmentObject, fieldDOM, frameEvent);
+    constructor(managmentObject, field, frameEvent) {
+        super(managmentObject, field, frameEvent);
     }
     create(frame) {
         this.managmentObject.configFieldBlock(frame);
@@ -1307,12 +1307,12 @@ class FrameElementBlock extends FrameElement {
         frame.fields?.forEach(field => {
             if (field?.button) {
                 let buttonElement = buttonsDOM.createButtonOrLink(field.button);
-                let groupElement = this.fieldDOM.createGroupOfButton(buttonElement);
+                let groupElement = this.field.createGroupOfButton(buttonElement);
                 div.appendChild(groupElement);
                 return;
             }
-            let fieldElement = this.fieldDOM.create(field);
-            let groupElement = this.fieldDOM.createGroupOfInput(field, fieldElement);
+            let fieldElement = this.field.create(field);
+            let groupElement = this.field.createGroupOfInput(field, fieldElement);
             div.appendChild(groupElement);
             fieldMenuContext.info.set({
                 identity: field.identity,
@@ -1392,13 +1392,13 @@ function alignItem(field, item) {
 
 class FameLineTable {
     managmentObject;
-    fieldDOM;
+    field;
     frameEvent;
     frameElementLine;
     callbackSetValuesDefined;
-    constructor(managmentObject, fieldDOM, frameElementLine, frameEvent, callbackSetValuesDefined) {
+    constructor(managmentObject, field, frameElementLine, frameEvent, callbackSetValuesDefined) {
         this.managmentObject = managmentObject;
-        this.fieldDOM = fieldDOM;
+        this.field = field;
         this.frameEvent = frameEvent;
         this.frameElementLine = frameElementLine;
         this.callbackSetValuesDefined = callbackSetValuesDefined;
@@ -1423,7 +1423,7 @@ class FameLineTable {
             th.textContent = field.description;
             if (field.requerid == true) {
                 th.textContent = th.textContent;
-                th.append(this.fieldDOM.createSpanLabelIsRequerid().cloneNode(true));
+                th.append(this.field.createSpanLabelIsRequerid().cloneNode(true));
             }
             alignItem(field, th);
             trColumns.appendChild(th);
@@ -1443,7 +1443,7 @@ class FameLineTable {
         }
         frame.fields?.forEach((field) => {
             const td = document.createElement('td');
-            const elementInput = this.fieldDOM.create(field);
+            const elementInput = this.field.create(field);
             td.appendChild(elementInput);
             var alignInInput = elementInput.getAttribute('type') != "checkbox";
             if (alignInInput) {
@@ -1519,9 +1519,9 @@ class FameLineTable {
 
 class FrameElementLine extends FrameElement {
     fameLineTable;
-    constructor(managmentObject, fieldDOM, frameEvent) {
-        super(managmentObject, fieldDOM, frameEvent);
-        this.fameLineTable = new FameLineTable(managmentObject, fieldDOM, this, frameEvent, this.setValuesDefined);
+    constructor(managmentObject, field, frameEvent) {
+        super(managmentObject, field, frameEvent);
+        this.fameLineTable = new FameLineTable(managmentObject, field, this, frameEvent, this.setValuesDefined);
     }
     createTDActions(identity) {
         const div = document.createElement('div');
@@ -2492,7 +2492,7 @@ class FieldTextArea extends FieldInput {
     }
 }
 
-class FieldDOM {
+class Field {
     managmentObject;
     constructor(managmentObject) {
         this.managmentObject = managmentObject;
@@ -2710,9 +2710,9 @@ class Rucula {
     event;
     managmentObject;
     tableDependency;
-    layoutFrame = new LayoutFrame();
+    layoutFrame;
     fragment;
-    fieldDOM;
+    field;
     eventButton;
     frameEvent;
     constructor(config) {
@@ -2722,12 +2722,13 @@ class Rucula {
         this.window = config.window;
         this.elementRucula = document.getElementById(config.id);
         this.popup = new Popup();
+        this.layoutFrame = new LayoutFrame();
         this.fragment = new Fragment();
         this.tableDependency = new TableDependency();
         this.managmentObject = new ManagmentObject(this.fragment, this.tableDependency);
         this.event = new EventManagment(this.managmentObject);
-        this.fieldDOM = new FieldDOM(this.managmentObject);
-        this.eventButton = new EventButton(this.fieldDOM, this.managmentObject);
+        this.field = new Field(this.managmentObject);
+        this.eventButton = new EventButton(this.field, this.managmentObject);
         this.frameEvent = new FrameEvent(this.managmentObject);
     }
     create() {
@@ -2776,8 +2777,8 @@ class Rucula {
         this.eventButton.openCloseRightListButtons();
     }
     createFrames() {
-        let frameBlock = new FrameElementBlock(this.managmentObject, this.fieldDOM, this.frameEvent);
-        let frameLine = new FrameElementLine(this.managmentObject, this.fieldDOM, this.frameEvent);
+        let frameBlock = new FrameElementBlock(this.managmentObject, this.field, this.frameEvent);
+        let frameLine = new FrameElementLine(this.managmentObject, this.field, this.frameEvent);
         this.window.frames?.forEach(frame => {
             if (frame.type == constTypeFrame.BLOCK) {
                 const block = frameBlock.create(frame);

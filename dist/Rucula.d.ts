@@ -15,7 +15,7 @@ export declare class Rucula {
     tableDependency: TableDependency;
     private layoutFrame;
     private fragment;
-    private fieldDOM;
+    private field;
     private eventButton;
     private frameEvent;
     constructor(config: {
