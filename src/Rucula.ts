@@ -1,6 +1,6 @@
 import { window } from "./entities/form/window";
 import { windowBaseDOM } from "./elements/window-base/WindowBase";
-import { constIdBaseWindow, constTypeFrame, eventRucula } from "./const";
+import { constIdBaseWindow, constTypeFrame } from "./const";
 import { EventButton } from "./buttons/EventButton";
 import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
@@ -20,26 +20,26 @@ import { FrameElementLine } from "./elements/frame/FrameElementLine";
 import { ManagmentObject } from "./object/ObjectManagment";
 import { TableDependency } from "./table-dependency/TableDependency";
 import { Fragment } from "./fragment/fragment";
-import { FieldDOM } from "./elements/form/ElementsInput";
+import { Field } from "./elements/form/Field";
 import { FrameEvent } from "./elements/frame/FrameEvent";
 
 export class Rucula{
+    
     private window: window
     private elementRucula: HTMLElement
     private elementFormRucula!: HTMLFormElement
-    
-    private layoutFrame = new LayoutFrame();
-    
     
     public popup:Popup
     public event:EventManagment
     public managmentObject:ManagmentObject
     public tableDependency:TableDependency
+    
+    private layoutFrame:LayoutFrame
     private fragment: Fragment
-    private fieldDOM:FieldDOM
+    private field:Field
     private eventButton:EventButton
     private frameEvent:FrameEvent
-
+ 
     constructor(config: {
         global:globalConfiguration, 
         window:window, 
@@ -51,14 +51,14 @@ export class Rucula{
         this.window = config.window
         this.elementRucula = document.getElementById(config.id)!
         this.popup = new Popup();
+        this.layoutFrame = new LayoutFrame()
         this.fragment = new Fragment();
         this.tableDependency = new TableDependency();
         this.managmentObject = new ManagmentObject(this.fragment, this.tableDependency);
         this.event = new EventManagment(this.managmentObject);
-        this.fieldDOM = new FieldDOM(this.managmentObject)
-        this.eventButton = new EventButton(this.fieldDOM, this.managmentObject)
+        this.field = new Field(this.managmentObject)
+        this.eventButton = new EventButton(this.field, this.managmentObject)
         this.frameEvent = new FrameEvent(this.managmentObject)
-
     }
 
     create(){
@@ -120,8 +120,8 @@ export class Rucula{
 
     private createFrames(){
         
-        let frameBlock = new FrameElementBlock(this.managmentObject,this.fieldDOM, this.frameEvent);
-        let frameLine = new FrameElementLine(this.managmentObject,this.fieldDOM,this.frameEvent);
+        let frameBlock = new FrameElementBlock(this.managmentObject,this.field, this.frameEvent);
+        let frameLine = new FrameElementLine(this.managmentObject,this.field,this.frameEvent);
 
         this.window.frames?.forEach(frame => {
             
@@ -197,7 +197,6 @@ export class Rucula{
             }
         }
     })()
-
 }
 
 

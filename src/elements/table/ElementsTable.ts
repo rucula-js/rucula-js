@@ -3,7 +3,7 @@ import { field } from "../../entities/form/field";
 import { frame } from "../../entities/form/frame";
 import { ManagmentObject } from "../../object/ObjectManagment";
 import { configWindow } from "../../window/Window";
-import { FieldDOM } from "../form/ElementsInput";
+import { Field } from "../form/Field";
 import { fieldMenuContext } from "../form/Field/fieldMenuContext";
 import { FrameElementLine } from "../frame/FrameElementLine";
 import { FrameEvent } from "../frame/FrameEvent";
@@ -11,14 +11,14 @@ import { FrameEvent } from "../frame/FrameEvent";
 export class FameLineTable {
   
     private managmentObject:ManagmentObject 
-    private fieldDOM:FieldDOM
+    private field:Field
     private frameEvent:FrameEvent
     private frameElementLine:FrameElementLine
     private callbackSetValuesDefined:any
 
-    constructor(managmentObject:ManagmentObject,fieldDOM:FieldDOM, frameElementLine:FrameElementLine, frameEvent:FrameEvent, callbackSetValuesDefined:any) {
+    constructor(managmentObject:ManagmentObject,field:Field, frameElementLine:FrameElementLine, frameEvent:FrameEvent, callbackSetValuesDefined:any) {
         this.managmentObject = managmentObject
-        this.fieldDOM = fieldDOM
+        this.field = field
         this.frameEvent = frameEvent
         this.frameElementLine = frameElementLine
         this.callbackSetValuesDefined = callbackSetValuesDefined
@@ -53,7 +53,7 @@ export class FameLineTable {
             
             if(field.requerid == true){
                 th.textContent = th.textContent
-                th.append(this.fieldDOM.createSpanLabelIsRequerid().cloneNode(true))
+                th.append(this.field.createSpanLabelIsRequerid().cloneNode(true))
             }
     
             alignItem(field,th)
@@ -86,7 +86,7 @@ export class FameLineTable {
                     
             const td = document.createElement('td');
 
-            const elementInput = this.fieldDOM.create(field) as HTMLInputElement; 
+            const elementInput = this.field.create(field) as HTMLInputElement; 
             
             td.appendChild(elementInput)
             

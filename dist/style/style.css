@@ -234,11 +234,16 @@ input.r-i-control[identity][disabled] {
     height: 14px;
 }
 
-
 .r-q-i{
     display: flex; 
     flex-wrap: wrap;
     padding-top: 10px;
+    height: 100%;
+    width: 100%;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items:end;
+
 }
 
 .r-q-b .r-g-i-i{
@@ -355,7 +360,6 @@ form.r-f-items,
 }
 form.r-f-items{
     display: grid;
-    grid-auto-rows: max-content;
     width: 100%;
     grid-column-gap: 10px;
     grid-row-gap: 10px;

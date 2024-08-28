@@ -1,4 +1,5 @@
 import { window } from "../entities/form/window";
-export declare let layoutFrames: {
-    configureLayout: (window: window) => void;
-};
+export declare class LayoutFrame {
+    configureLayout(window: window): void;
+    private setGridContainer;
+}

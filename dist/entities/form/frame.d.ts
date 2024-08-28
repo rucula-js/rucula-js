@@ -20,4 +20,8 @@ export interface frame {
         };
     };
     requerid: boolean;
+    style?: {
+        width?: string;
+        height?: string;
+    };
 }

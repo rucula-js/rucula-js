@@ -1,4 +1,8 @@
-export declare let frameEvent: {
-    managedFrame: (frameElement: HTMLElement) => void;
-    cleanRequeridDependency: (frameElement: HTMLDivElement) => void;
-};
+import { ManagmentObject } from "../../object/ObjectManagment";
+export declare class FrameEvent {
+    managmentObject: ManagmentObject;
+    constructor(managmentObject: ManagmentObject);
+    managedFrame(frameElement: HTMLElement): void;
+    valueInformed(event: Event): void;
+    cleanRequeridDependency(frameElement: HTMLDivElement): void;
+}

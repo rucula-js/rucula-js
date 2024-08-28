@@ -11,7 +11,7 @@ import { FieldStrategy } from "./Field/FieldStrategy";
 import { FieldTextArea } from "./Field/FieldTextArea";
 
 
-export class FieldDOM  {
+export class Field  {
 
     private managmentObject:ManagmentObject
 

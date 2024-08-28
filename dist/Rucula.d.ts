@@ -1,10 +1,23 @@
 import { window } from "./entities/form/window";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
+import { Popup } from "./popup/popup";
+import { EventManagment } from "./Event/event";
 import { URLRucula } from "./URL/urlManagment";
+import { ManagmentObject } from "./object/ObjectManagment";
+import { TableDependency } from "./table-dependency/TableDependency";
 export declare class Rucula {
     private window;
     private elementRucula;
     private elementFormRucula;
+    popup: Popup;
+    event: EventManagment;
+    managmentObject: ManagmentObject;
+    tableDependency: TableDependency;
+    private layoutFrame;
+    private fragment;
+    private fieldDOM;
+    private eventButton;
+    private frameEvent;
     constructor(config: {
         global: globalConfiguration;
         window: window;
@@ -17,53 +30,6 @@ export declare class Rucula {
     loader: {
         enable: () => void;
         disable: () => void;
-    };
-    popup: {
-        messsage: {
-            info: (config: {
-                text?: string;
-                htmlBody?: HTMLElement;
-                timeout?: number;
-                disableadFooter?: boolean;
-                disableadHeader?: boolean;
-            }, callback?: import("./popup/callback").callbackYesNo) => void;
-            sucess: (config: {
-                text?: string;
-                htmlBody?: HTMLElement;
-                timeout?: number;
-                disableadFooter?: boolean;
-                disableadHeader?: boolean;
-            }, callback?: import("./popup/callback").callbackYesNo) => void;
-            warning: (config: {
-                text?: string;
-                htmlBody?: HTMLElement;
-                timeout?: number;
-                disableadFooter?: boolean;
-                disableadHeader?: boolean;
-            }, callback?: import("./popup/callback").callbackYesNo) => void;
-            error: (config: {
-                text?: string;
-                htmlBody?: HTMLElement;
-                timeout?: number;
-                disableadFooter?: boolean;
-                disableadHeader?: boolean;
-            }, callback?: import("./popup/callback").callbackYesNo) => void;
-        };
-        notify: {
-            sucess: () => void;
-        };
-    };
-    event: {
-        field: {
-            getDetails: (event: CustomEvent<any>) => {
-                identity: string;
-                name: any;
-                row: any;
-                value: any;
-                targetPathWithRow: (targetPath: string) => string;
-            };
-        };
-        on: (event: string, callback: any, query?: string) => void;
     };
     buttons: {
         createButtonOrLink: (button: import("./entities/form/button").button) => HTMLAnchorElement | HTMLButtonElement;

@@ -2,7 +2,7 @@ import { constFrameLineActions } from "../../const";
 import { frame } from "../../entities/form/frame";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../global/KeyEvents";
 import { ManagmentObject } from "../../object/ObjectManagment";
-import { FieldDOM } from "../form/ElementsInput";
+import { Field } from "../form/Field";
 import { FameLineTable } from "../table/ElementsTable";
 import { FrameElement } from "./FrameElement";
 import { FrameEvent } from "./FrameEvent";
@@ -11,9 +11,9 @@ export class FrameElementLine extends FrameElement{
     
     public fameLineTable:FameLineTable
 
-    constructor(managmentObject:ManagmentObject, fieldDOM:FieldDOM, frameEvent:FrameEvent) {
-        super(managmentObject,fieldDOM,frameEvent );
-        this.fameLineTable = new FameLineTable(managmentObject,fieldDOM,this,frameEvent,this.setValuesDefined)
+    constructor(managmentObject:ManagmentObject, field:Field, frameEvent:FrameEvent) {
+        super(managmentObject, field, frameEvent);
+        this.fameLineTable = new FameLineTable(managmentObject,field,this,frameEvent,this.setValuesDefined)
     }    
 
     private createTDActions(identity:string){

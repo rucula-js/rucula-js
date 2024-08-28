@@ -1,5 +1,5 @@
 import { button } from '../entities/form/button';
-import { FieldDOM } from '../elements/form/ElementsInput';
+import { Field } from '../elements/form/Field';
 import { windowBaseDOM } from '../elements/window-base/WindowBase';
 import { constIdBaseWindow } from '../const';
 import { URLRucula } from '../URL/urlManagment';
@@ -7,11 +7,11 @@ import { ManagmentObject } from '../object/ObjectManagment';
 
 export class EventButton {
 
-    fieldDOM:FieldDOM
+    field:Field
     managmentObject: ManagmentObject
 
-    constructor(fieldDOM:FieldDOM, managmentObject: ManagmentObject) {
-        this.fieldDOM = fieldDOM
+    constructor(field:Field, managmentObject: ManagmentObject) {
+        this.field = field
         this.managmentObject = managmentObject
     }
     eventButton(pathController:string, buttons:button[]){
@@ -43,7 +43,7 @@ export class EventButton {
                 let dependencyCount = this.managmentObject.tableDependency.dependenciesCount()
                 
                 if( dependencyCount > 0){
-                    this.fieldDOM.focusFieldsWithDependency()
+                    this.field.focusFieldsWithDependency()
                     rucula.dispatchEvent(eventButtonDependency)
                     return;
                 }''

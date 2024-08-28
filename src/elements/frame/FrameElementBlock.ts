@@ -1,15 +1,15 @@
 import { buttonsDOM } from "../../buttons/Button";
 import { frame } from "../../entities/form/frame";
 import { ManagmentObject } from "../../object/ObjectManagment";
-import { FieldDOM } from "../form/ElementsInput";
+import { Field } from "../form/Field";
 import { fieldMenuContext } from "../form/Field/fieldMenuContext";
 import { FrameElement } from "./FrameElement";
 import { FrameEvent } from "./FrameEvent";
     
 export class FrameElementBlock extends FrameElement{
     
-    constructor(managmentObject:ManagmentObject,fieldDOM:FieldDOM, frameEvent:FrameEvent) {
-        super(managmentObject,fieldDOM,frameEvent);
+    constructor(managmentObject:ManagmentObject,field:Field, frameEvent:FrameEvent) {
+        super(managmentObject,field,frameEvent);
     }
     create(frame:frame){
     
@@ -28,13 +28,13 @@ export class FrameElementBlock extends FrameElement{
                     
             if(field?.button){
                 let buttonElement = buttonsDOM.createButtonOrLink(field.button)
-                let groupElement = this.fieldDOM.createGroupOfButton(buttonElement as HTMLButtonElement|HTMLAnchorElement) as HTMLDivElement
+                let groupElement = this.field.createGroupOfButton(buttonElement as HTMLButtonElement|HTMLAnchorElement) as HTMLDivElement
                 div.appendChild(groupElement)
                 return
             }
             
-            let fieldElement = this.fieldDOM.create(field)
-            let groupElement = this.fieldDOM.createGroupOfInput(field, fieldElement) as HTMLDivElement
+            let fieldElement = this.field.create(field)
+            let groupElement = this.field.createGroupOfInput(field, fieldElement) as HTMLDivElement
             div.appendChild(groupElement)
     
             fieldMenuContext.info.set({
