@@ -1,46 +1,55 @@
 # Rucula
 
-## Instancia (globalConfig, windowConfig, TargetElement)
+## Instancia ({global:object, window:object, TargetElement:string})
 
 - [globalConfig]()
 - [windowConfig](./janelas.md)
 - TargetElement
-
-### Exemplo
     
 ```js
-<div id="targetElement">
+<div id="js">
 </div>
-let rucula = new Rucula(globalConfig,windowConfig, 'targetElement');
+let rucula = new Rucula({
+    global:global,
+    window: window,
+    id:'js'
+});
 ```
 
 ## Propriedades
-
-### [loader](./popup.md)
-#### Exemplo
-```js
-rucula.loader
-```
-
 ### [popup](./popup.md)
-#### Exemplo
-```js
-rucula.popup
-```
 ### [event]()
-#### Exemplo
 ```js
 rucula.event.on
 ```
-
 ### [buttons]()
 #### Exemplo
 ```js
 rucula.buttons
 ```
-
-### [object]()
-#### Exemplo
-rucula.object
+## Métodos
+### create
 ```js
+rucula.create();
 ```
+### setValue
+```js
+rucula.setValue('aliasObject.propert', 'value')
+```
+### getValue
+```js
+getValue ('aliasObject.propert')
+```
+### objectUnique
+```js
+rucula.objectUnique('aliasObject');
+```
+### getFullObject
+```js
+rucula.objgetFullObjectectUnique();
+```
+### getSepareteObject
+```js
+rucula.getSepareteObject();
+```
+

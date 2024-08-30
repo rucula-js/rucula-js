@@ -161,42 +161,45 @@ export class Rucula{
     public buttons = buttonsDOM
     
     public url = (URL?: { absolute: string; relative: string; params: string; }) => new URLRucula(this.managmentObject, URL);
-    
-    public object = (() => {
-        
-        return {
             
-            objectUnique: (alias:string) => this.managmentObject.objectUnique(alias),
-            getFullObject:() => this.managmentObject.objectFull(),
-            getSepareteObject:() => this.managmentObject.objectSeparate(),
+    objectUnique (alias:string) {
+        return this.managmentObject.objectUnique(alias)
+    } 
 
-            setValue: (targetPath:string, value: any) => {
+    getFullObject(){
+        return this.managmentObject.objectFull()
+    } 
         
-                const ATTR_DISABLED = 'disabled'
-                let identity = this.managmentObject.convertAliasToIdenty(targetPath);
+    getSepareteObject(){
+        return this.managmentObject.objectSeparate()
+    } 
+
+    setValue (targetPath:string, value: any)  {
         
-                let input = document.querySelector('[identity='+identity+']') as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
-        
-                let disabled = input.getAttribute(ATTR_DISABLED) == null ?  null : ATTR_DISABLED
+        const ATTR_DISABLED = 'disabled'
+        let identity = this.managmentObject.convertAliasToIdenty(targetPath);
 
-                if(disabled){
-                    input.removeAttribute(ATTR_DISABLED)
-                }
+        let input = document.querySelector('[identity='+identity+']') as HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
 
-                input.value = value
-                input.focus({preventScroll: true}) //! This command forces the objectmanagment and tableDependecy processes to run
-                input.blur()
-                
-                if(disabled){
-                    input.setAttribute(ATTR_DISABLED,'')
-                }
+        let disabled = input.getAttribute(ATTR_DISABLED) == null ?  null : ATTR_DISABLED
 
-            },
-            getValue:(config:string):any => {
-                return this.managmentObject.getPropert(config)
-            }
+        if(disabled){
+            input.removeAttribute(ATTR_DISABLED)
         }
-    })()
+
+        input.value = value
+        input.focus({preventScroll: true}) //! This command forces the objectmanagment and tableDependecy processes to run
+        input.click()
+        input.blur()
+        
+        if(disabled){
+            input.setAttribute(ATTR_DISABLED,'')
+        }
+    }
+    
+    getValue (config:string):any {
+        return this.managmentObject.getPropert(config)
+    }
 }
 
 

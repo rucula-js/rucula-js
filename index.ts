@@ -21,11 +21,11 @@ import { callbackYesNo } from "./src/popup/callback";
         let path_valorUnitario = _this.targetPathWithRow('itensServico.valorUnitario')
         let path_subTotal = _this.targetPathWithRow('itensServico.subtotal')
         
-        let value_valorUnitario = rucula.object.getValue(path_valorUnitario)
+        let value_valorUnitario = rucula.getValue(path_valorUnitario)
 
         let value_subTotal = parseFloat(value_valorUnitario) * Number(_this.value)
 
-        rucula.object.setValue(path_subTotal,value_subTotal)
+        rucula.setValue(path_subTotal,value_subTotal)
     })
 
     rucula.event.on('input.itensServico.quantidade',(e:CustomEvent) => {
@@ -100,6 +100,6 @@ import { callbackYesNo } from "./src/popup/callback";
     rucula.event.on('frame.cliente.complete',(e:any) => {
     })
     
-
     rucula.create();
+    rucula.setValue('ordemDeServico.dataConclusao','2024-12-01')
 })()
