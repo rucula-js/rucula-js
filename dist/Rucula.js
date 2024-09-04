@@ -392,12 +392,9 @@ let windowBaseDOM = (() => {
     function createWindowBase(id) {
         const ruculaWindow = document.createElement("div");
         ruculaWindow.classList.add("r-w");
-        const actions = document.createElement("div");
-        actions.className = "r-left-block";
-        actions.innerHTML = componentActions();
+        const actions = componentActions();
         ruculaWindow.appendChild(actions);
-        const contentForm = document.createElement("div");
-        contentForm.innerHTML = createComponentCreateOrEdit();
+        const contentForm = createComponentCreateOrEdit();
         ruculaWindow.appendChild(contentForm.childNodes[0]);
         ruculaWindow.appendChild(contentForm.childNodes[1]);
         const div = document.getElementById(id);
@@ -421,6 +418,8 @@ let windowBaseDOM = (() => {
         window.innerHTML = name;
     }
     function componentActions() {
+        const actions = document.createElement("div");
+        actions.className = "r-left-block";
         const ACTIONS = `<div class="r-act" id="actions">
                 <div class="r-act-opt r-head" id="w-title">
                     <button id="${constIdBaseWindow.NEW}" class="r-a-b r-btn-new-cancel-close"><i class="bi bi-plus-lg"></i></button>
@@ -455,9 +454,11 @@ let windowBaseDOM = (() => {
                     </div>
                 </div>
              </div>`;
-        return ACTIONS;
+        actions.innerHTML = ACTIONS;
+        return actions.cloneNode(true);
     }
     function createComponentCreateOrEdit() {
+        const contentForm = document.createElement("div");
         const CREATE_OR_EDIT = `<div class="container-r-f  js-open-close-container">
             <div class="r-act-opt r-head" id="w-title">
             </div>
@@ -523,7 +524,8 @@ let windowBaseDOM = (() => {
             </div>
         </div>
         `;
-        return CREATE_OR_EDIT;
+        contentForm.innerHTML = CREATE_OR_EDIT;
+        return contentForm.cloneNode(true);
     }
     function prepareEventsButtonsCrud() {
         let rNew = document.getElementById(constIdBaseWindow.NEW);
@@ -958,177 +960,6 @@ let buttonsBase = (function () {
     };
 })();
 
-class ElementBase {
-    element;
-    addDataIdAttribute(button) {
-        this.element.setAttribute("id", button.target);
-    }
-    addColor(color) {
-        if (color)
-            this.element.style.backgroundColor = color;
-    }
-}
-
-function createIcon(button) {
-    let icon = document.createElement('i');
-    if (button.icon === undefined || button.icon.trim() === "")
-        return icon;
-    button.icon?.split(" ").forEach(item => icon.classList.add(item));
-    return icon;
-}
-
-class ElementButton extends ElementBase {
-    createElement(button) {
-        if (button.target == null || button.target == "") {
-            throw new Error("target is requerid!");
-        }
-        this.element = document.createElement('button');
-        this.element.classList.add("r-b-i");
-        this.element.setAttribute('type', 'button');
-        if (button.fullWidth) {
-            this.element.classList.add('r-button-full-width');
-        }
-        let _class = button?.class?.split(' ');
-        _class?.forEach(item => {
-            this.element.classList.add(item);
-        });
-        let icon = createIcon(button);
-        let span = document.createElement('span');
-        span.textContent = button.text ?? "";
-        this.element.appendChild(icon);
-        this.element.appendChild(span);
-        this.addColor(button.color);
-        this.addDataIdAttribute(button);
-        return this.element;
-    }
-}
-
-class ElementLink extends ElementBase {
-    createElement(button) {
-        this.element = document.createElement('a');
-        this.element.textContent = button.text + "";
-        this.element.href = `${button.link}`;
-        this.element.classList.add("btn-link");
-        this.element.setAttribute('target', "_blank");
-        this.element.appendChild(createIcon(button));
-        return this.element;
-    }
-}
-
-let buttonsDOM = (() => {
-    let elementStrategy;
-    function buttonIsNotDefault(target) {
-        return target != constTargetButtonCrudDefault.SAVE &&
-            target != constTargetButtonCrudDefault.ALTER &&
-            target != constTargetButtonCrudDefault.DELETE;
-    }
-    function createButtonOrLink(button) {
-        if (button.type != "button" && button.type != "link") {
-            throw new Error("tipo do botão deve ser button ou link");
-        }
-        if (button.type == "button") {
-            elementStrategy = new ElementButton();
-        }
-        if (button.type == "link") {
-            elementStrategy = new ElementLink();
-        }
-        return elementStrategy.createElement(button);
-    }
-    function getButton(target) {
-        return document.getElementById(target);
-    }
-    function prepareLocalizations() {
-        let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION);
-        let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION);
-        globalization?.addEventListener("click", () => {
-            olliGlobalization?.classList.toggle("r-display-none");
-        });
-        let globalConf = ruculaGlobal.getConfigurationGlobal();
-        globalConf.localizations.forEach(loc => {
-            const li = document.createElement("li");
-            li.textContent = loc.language;
-            olliGlobalization?.appendChild(li);
-            li.addEventListener("click", () => {
-                ruculaGlobal.setLocalization(loc.locales);
-            });
-        });
-    }
-    function prepareEnviroments() {
-        let baseEnvironments = document.getElementById(constIdBaseWindow.ENVIROMENT);
-        let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT);
-        let description = baseEnvironments.querySelector('.description');
-        let icon = baseEnvironments.querySelector('i');
-        let env = cookie.read('enviroment');
-        if (env != "null" && env != null) {
-            ruculaGlobal.setEnviroment(env);
-        }
-        let atualEnvironment = ruculaGlobal.getEnvironment();
-        setDescription(atualEnvironment);
-        baseEnvironments?.addEventListener("click", (e) => {
-            olliEnviroment?.classList.toggle("r-display-none");
-            let target = e.target;
-            let env = target.getAttribute('env');
-            document.cookie = `enviroment=${env}`;
-        });
-        let globalConf = ruculaGlobal.getConfigurationGlobal();
-        globalConf.environments.forEach(enviroment => {
-            const li = document.createElement("li");
-            li.setAttribute('env', enviroment.env);
-            li.textContent = enviroment.description;
-            olliEnviroment?.appendChild(li);
-            li.addEventListener("click", () => {
-                ruculaGlobal.setEnviroment(enviroment.env);
-                setDescription(enviroment);
-            });
-        });
-        function setDescription(enviroment) {
-            description.textContent = enviroment.description;
-            if (enviroment.env.toLocaleLowerCase() == 'production') {
-                icon.style.color = 'red';
-            }
-            if (enviroment.env != 'production') {
-                icon.style.color = '';
-            }
-        }
-    }
-    return {
-        createButtonOrLink: (button) => createButtonOrLink(button),
-        prepareButtonsInLeftBox: (button) => {
-            const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
-            let buttons = button?.filter(c => buttonIsNotDefault(c.target));
-            if (buttons?.length == 0 || buttons == undefined) {
-                document.querySelector('.r-vertical-actions')?.classList.add('r-display-none');
-            }
-            buttons?.forEach(b => {
-                const li = document.createElement("li");
-                li.appendChild(createButtonOrLink(b));
-                ListRightButtons?.appendChild(li);
-            });
-            prepareLocalizations();
-            prepareEnviroments();
-        },
-        buttonIsNotDefault: (target) => buttonIsNotDefault(target),
-        disable: (target) => {
-            let button = getButton(target);
-            button?.classList.remove('r-display-none');
-            button?.setAttribute('disabled', '');
-        },
-        enable: (target) => {
-            let button = getButton(target);
-            button?.classList.remove('r-display-none');
-            button?.removeAttribute('disabled');
-        },
-        hide: (target) => {
-            let button = getButton(target);
-            button?.classList.add('r-display-none');
-        },
-        destroy: (target) => {
-            let button = getButton(target);
-            button?.remove();
-        }
-    };
-})();
-
 let loaderManagment = (() => {
     let loaderBkp = document.createElement('div');
     let loaderElement = document.createElement('div');
@@ -1254,10 +1085,12 @@ class FrameElement {
     managmentObject;
     field;
     frameEvent;
-    constructor(managmentObject, field, frameEvent) {
+    button;
+    constructor(managmentObject, field, frameEvent, button) {
         this.managmentObject = managmentObject;
         this.field = field;
         this.frameEvent = frameEvent;
+        this.button = button;
     }
     createbase(frame) {
         const div = document.createElement('div');
@@ -1293,8 +1126,8 @@ class FrameElement {
 }
 
 class FrameElementBlock extends FrameElement {
-    constructor(managmentObject, field, frameEvent) {
-        super(managmentObject, field, frameEvent);
+    constructor(managmentObject, field, frameEvent, button) {
+        super(managmentObject, field, frameEvent, button);
     }
     create(frame) {
         this.managmentObject.configFieldBlock(frame);
@@ -1306,7 +1139,7 @@ class FrameElementBlock extends FrameElement {
         }
         frame.fields?.forEach(field => {
             if (field?.button) {
-                let buttonElement = buttonsDOM.createButtonOrLink(field.button);
+                let buttonElement = this.button.createButtonOrLink(field.button);
                 let groupElement = this.field.createGroupOfButton(buttonElement);
                 div.appendChild(groupElement);
                 return;
@@ -1519,8 +1352,8 @@ class FameLineTable {
 
 class FrameElementLine extends FrameElement {
     fameLineTable;
-    constructor(managmentObject, field, frameEvent) {
-        super(managmentObject, field, frameEvent);
+    constructor(managmentObject, field, frameEvent, button) {
+        super(managmentObject, field, frameEvent, button);
         this.fameLineTable = new FameLineTable(managmentObject, field, this, frameEvent, this.setValuesDefined);
     }
     createTDActions(identity) {
@@ -1812,6 +1645,13 @@ class ManagmentObject {
         }
         this.tableDependency.toApplyOrRemoveDependency(fragmentField, value);
     }
+    getPropert(config) {
+        let entityConfiguration = this.createConfigurationField(config);
+        let fragmentField = this.fragment.fields_getForAliasAndPropert(entityConfiguration);
+        let fragmentObject = this.fragment.objects_getForIdentity(fragmentField.config.fragmentObjectIdentity);
+        let object = fragmentObject.config.object;
+        return fragmentObject.config.getValueInObjectFragment(object, entityConfiguration.propertDto, entityConfiguration.line);
+    }
     createConfigurationField(config) {
         let opt = config.split('.');
         let entityConfiguration = {
@@ -1881,13 +1721,6 @@ class ManagmentObject {
         let objectFragment = this.fragment.objects_getForIdentity(identity);
         var indexOf = objectFragment.config.object.findIndex((c) => c.rucLine == line);
         objectFragment.config.object.splice(indexOf, 1);
-    }
-    getPropert(config) {
-        let entityConfiguration = this.createConfigurationField(config);
-        let fragmentField = this.fragment.fields_getForAliasAndPropert(entityConfiguration);
-        let fragmentObject = this.fragment.objects_getForIdentity(fragmentField.config.fragmentObjectIdentity);
-        let object = fragmentObject.config.object;
-        return fragmentObject.config.getValueInObjectFragment(object, entityConfiguration.propertDto, entityConfiguration.line);
     }
     getFragmentForIdentity(identity) {
         return this.fragment.fields_getForIdentity(identity);
@@ -2702,6 +2535,186 @@ function cleanFrame(blockORLine) {
     });
 }
 
+class ElementBase {
+    element;
+    addDataIdAttribute(button) {
+        this.element.setAttribute("id", button.target);
+    }
+    addColor(color) {
+        if (color)
+            this.element.style.backgroundColor = color;
+    }
+}
+
+function createIcon(button) {
+    let icon = document.createElement('i');
+    if (button.icon === undefined || button.icon.trim() === "")
+        return icon;
+    button.icon?.split(" ").forEach(item => icon.classList.add(item));
+    return icon;
+}
+
+class ElementButton extends ElementBase {
+    createElement(button) {
+        if (button.target == null || button.target == "") {
+            throw new Error("target is requerid!");
+        }
+        this.element = document.createElement('button');
+        this.element.classList.add("r-b-i");
+        this.element.setAttribute('type', 'button');
+        if (button.fullWidth) {
+            this.element.classList.add('r-button-full-width');
+        }
+        let _class = button?.class?.split(' ');
+        _class?.forEach(item => {
+            this.element.classList.add(item);
+        });
+        let icon = createIcon(button);
+        let span = document.createElement('span');
+        span.textContent = button.text ?? "";
+        this.element.appendChild(icon);
+        this.element.appendChild(span);
+        this.addColor(button.color);
+        this.addDataIdAttribute(button);
+        return this.element;
+    }
+}
+
+class ElementLink extends ElementBase {
+    createElement(button) {
+        this.element = document.createElement('a');
+        this.element.textContent = button.text + "";
+        this.element.href = `${button.link}`;
+        this.element.classList.add("btn-link");
+        this.element.setAttribute('target', "_blank");
+        this.element.appendChild(createIcon(button));
+        return this.element;
+    }
+}
+
+class Button {
+    popup = new Popup();
+    callbackReaload;
+    constructor(callbackReaload) {
+        this.callbackReaload = callbackReaload;
+    }
+    elementStrategy;
+    buttonIsNotDefault(target) {
+        return target != constTargetButtonCrudDefault.SAVE &&
+            target != constTargetButtonCrudDefault.ALTER &&
+            target != constTargetButtonCrudDefault.DELETE;
+    }
+    createButtonOrLink(button) {
+        if (button.type != "button" && button.type != "link") {
+            throw new Error("tipo do botão deve ser button ou link");
+        }
+        if (button.type == "button") {
+            this.elementStrategy = new ElementButton();
+        }
+        if (button.type == "link") {
+            this.elementStrategy = new ElementLink();
+        }
+        return this.elementStrategy.createElement(button);
+    }
+    getButton(target) {
+        return document.getElementById(target);
+    }
+    prepareLocalizations() {
+        let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION);
+        let olliGlobalization = document.getElementById(constIdBaseWindow.OLLI_GLOBALIZATION);
+        globalization?.addEventListener("click", () => {
+            olliGlobalization?.classList.toggle("r-display-none");
+        });
+        let globalConf = ruculaGlobal.getConfigurationGlobal();
+        globalConf.localizations.forEach(loc => {
+            const li = document.createElement("li");
+            li.textContent = loc.language;
+            olliGlobalization?.appendChild(li);
+            li.addEventListener("click", () => {
+                ruculaGlobal.setLocalization(loc.locales);
+            });
+        });
+    }
+    prepareEnviroments() {
+        let baseEnvironments = document.getElementById(constIdBaseWindow.ENVIROMENT);
+        let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT);
+        let description = baseEnvironments.querySelector('.description');
+        let icon = baseEnvironments.querySelector('i');
+        let env = cookie.read('enviroment');
+        if (env != "null" && env != null) {
+            ruculaGlobal.setEnviroment(env);
+        }
+        let atualEnvironment = ruculaGlobal.getEnvironment();
+        setDescription(atualEnvironment);
+        baseEnvironments?.addEventListener("click", (e) => {
+            olliEnviroment?.classList.toggle("r-display-none");
+        });
+        let globalConf = ruculaGlobal.getConfigurationGlobal();
+        globalConf.environments.forEach(enviroment => {
+            const li = document.createElement("li");
+            li.setAttribute('env', enviroment.env);
+            li.textContent = enviroment.description;
+            olliEnviroment?.appendChild(li);
+            li.addEventListener("click", (e) => {
+                let reload = (yesNo) => {
+                    if (yesNo) {
+                        ruculaGlobal.setEnviroment(enviroment.env);
+                        setDescription(enviroment);
+                        let target = e.target;
+                        let env = target.getAttribute('env');
+                        document.cookie = `enviroment=${env}`;
+                        this.callbackReaload();
+                    }
+                };
+                this.popup.warning({
+                    text: 'A alteração de ambiente reiniciará a interface. Deseja continuar?'
+                }, reload);
+            });
+        });
+        function setDescription(enviroment) {
+            description.textContent = enviroment.description;
+            if (enviroment.env.toLocaleLowerCase() == 'production') {
+                icon.style.color = 'red';
+            }
+            if (enviroment.env != 'production') {
+                icon.style.color = '';
+            }
+        }
+    }
+    prepareButtonsInLeftBox(button) {
+        const ListRightButtons = document.getElementById("r-a-menu-vertical-list");
+        let buttons = button?.filter(c => this.buttonIsNotDefault(c.target));
+        if (buttons?.length == 0 || buttons == undefined) {
+            document.querySelector('.r-vertical-actions')?.classList.add('r-display-none');
+        }
+        buttons?.forEach(b => {
+            const li = document.createElement("li");
+            li.appendChild(this.createButtonOrLink(b));
+            ListRightButtons?.appendChild(li);
+        });
+        this.prepareLocalizations();
+        this.prepareEnviroments();
+    }
+    disable(target) {
+        let button = this.getButton(target);
+        button?.classList.remove('r-display-none');
+        button?.setAttribute('disabled', '');
+    }
+    enable(target) {
+        let button = this.getButton(target);
+        button?.classList.remove('r-display-none');
+        button?.removeAttribute('disabled');
+    }
+    hide(target) {
+        let button = this.getButton(target);
+        button?.classList.add('r-display-none');
+    }
+    destroy(target) {
+        let button = this.getButton(target);
+        button?.remove();
+    }
+}
+
 class Rucula {
     window;
     elementRucula;
@@ -2710,13 +2723,16 @@ class Rucula {
     event;
     managmentObject;
     tableDependency;
+    button;
     layoutFrame;
     fragment;
     field;
     eventButton;
     frameEvent;
+    config;
     constructor(config) {
         config.id ??= 'rucula-js';
+        this.config = config;
         ruculaGlobal.initGlobalConfiguration(config.global);
         windowBaseDOM.setElementRoot(config.id);
         this.window = config.window;
@@ -2730,8 +2746,14 @@ class Rucula {
         this.field = new Field(this.managmentObject);
         this.eventButton = new EventButton(this.field, this.managmentObject);
         this.frameEvent = new FrameEvent(this.managmentObject);
+        this.button = new Button(() => {
+            let rucula = new Rucula(config);
+            rucula.create();
+            this.config?.reload();
+        });
     }
     create() {
+        this.cleanRucula();
         let eventInit = new Event('rucula.init');
         let eventLoad = new Event('rucula.load');
         let rucula = windowBaseDOM.getElementRoot();
@@ -2769,16 +2791,24 @@ class Rucula {
             title.textContent = this.window.name;
         });
     }
+    reload(callback) {
+        callback();
+    }
+    cleanRucula() {
+        for (let index = 0; index < this.elementRucula.childNodes.length; index++) {
+            this.elementRucula.childNodes[index].remove();
+        }
+    }
     createButtons(type = "CRUD") {
         if (type == "CRUD") {
-            buttonsDOM.prepareButtonsInLeftBox(this.window.button);
+            this.button.prepareButtonsInLeftBox(this.window.button);
         }
         this.eventButton.eventButton(this.window.pathController, this.window.button);
         this.eventButton.openCloseRightListButtons();
     }
     createFrames() {
-        let frameBlock = new FrameElementBlock(this.managmentObject, this.field, this.frameEvent);
-        let frameLine = new FrameElementLine(this.managmentObject, this.field, this.frameEvent);
+        let frameBlock = new FrameElementBlock(this.managmentObject, this.field, this.frameEvent, this.button);
+        let frameLine = new FrameElementLine(this.managmentObject, this.field, this.frameEvent, this.button);
         this.window.frames?.forEach(frame => {
             if (frame.type == constTypeFrame.BLOCK) {
                 const block = frameBlock.create(frame);
@@ -2805,33 +2835,35 @@ class Rucula {
         });
     }
     loader = loaderManagment;
-    buttons = buttonsDOM;
     url = (URL) => new URLRucula(this.managmentObject, URL);
-    object = (() => {
-        return {
-            objectUnique: (alias) => this.managmentObject.objectUnique(alias),
-            getFullObject: () => this.managmentObject.objectFull(),
-            getSepareteObject: () => this.managmentObject.objectSeparate(),
-            setValue: (targetPath, value) => {
-                const ATTR_DISABLED = 'disabled';
-                let identity = this.managmentObject.convertAliasToIdenty(targetPath);
-                let input = document.querySelector('[identity=' + identity + ']');
-                let disabled = input.getAttribute(ATTR_DISABLED) == null ? null : ATTR_DISABLED;
-                if (disabled) {
-                    input.removeAttribute(ATTR_DISABLED);
-                }
-                input.value = value;
-                input.focus({ preventScroll: true });
-                input.blur();
-                if (disabled) {
-                    input.setAttribute(ATTR_DISABLED, '');
-                }
-            },
-            getValue: (config) => {
-                return this.managmentObject.getPropert(config);
-            }
-        };
-    })();
+    objectUnique(alias) {
+        return this.managmentObject.objectUnique(alias);
+    }
+    getFullObject() {
+        return this.managmentObject.objectFull();
+    }
+    getSepareteObject() {
+        return this.managmentObject.objectSeparate();
+    }
+    setValue(targetPath, value) {
+        const ATTR_DISABLED = 'disabled';
+        let identity = this.managmentObject.convertAliasToIdenty(targetPath);
+        let input = document.querySelector('[identity=' + identity + ']');
+        let disabled = input.getAttribute(ATTR_DISABLED) == null ? null : ATTR_DISABLED;
+        if (disabled) {
+            input.removeAttribute(ATTR_DISABLED);
+        }
+        input.value = value;
+        input.focus({ preventScroll: true });
+        input.click();
+        input.blur();
+        if (disabled) {
+            input.setAttribute(ATTR_DISABLED, '');
+        }
+    }
+    getValue(config) {
+        return this.managmentObject.getPropert(config);
+    }
 }
 
 export { Rucula };

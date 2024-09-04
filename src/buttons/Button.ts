@@ -1,4 +1,6 @@
 import { button } from '../entities/form/button';
+import { window } from '../entities/form/window';
+
 import { ElementStrategy } from './ElementEstrategy';
 import { ElementButton } from './ElementButton';
 import { ElementLink } from './ElementLink';
@@ -6,36 +8,48 @@ import { constIdBaseWindow, constTargetButtonCrudDefault } from '../const';
 import { ruculaGlobal } from '../global/GlobalConfig';
 import { enviroment } from '../global/entities/Enviroments';
 import { cookie } from '../common/coockie/coockie';
+import { globalConfiguration } from '../global/entities/GlobalConfiguration';
+import { Rucula } from '../Rucula';
+import { Popup } from '../popup/popup';
+import { callbackYesNo } from "../popup/callback"
 
-export let buttonsDOM = (()=> {
+export class  Button  {
     
-    let elementStrategy!:ElementStrategy;
     
-    function buttonIsNotDefault(target:string){
+    private popup = new Popup();
+    
+    private callbackReaload:() => void
+    
+    constructor(callbackReaload:() => void) {
+        this.callbackReaload = callbackReaload
+    }
+    elementStrategy!:ElementStrategy;
+    
+    buttonIsNotDefault(target:string){
         
         return  target != constTargetButtonCrudDefault.SAVE && 
         target != constTargetButtonCrudDefault.ALTER && 
         target != constTargetButtonCrudDefault.DELETE
     }
 
-    function createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
+    createButtonOrLink (button:button):HTMLButtonElement|HTMLAnchorElement{
         if(button.type != "button" && button.type != "link"){
             throw new Error("tipo do botão deve ser button ou link");
         }
         if(button.type == "button"){
-            elementStrategy = new  ElementButton();
+            this.elementStrategy = new  ElementButton();
         }
         if(button.type == "link"){
-            elementStrategy = new ElementLink();
+            this.elementStrategy = new ElementLink();
         }
-        return elementStrategy.createElement(button);
+        return this.elementStrategy.createElement(button);
     } 
 
-    function getButton(target:string) {
+    getButton(target:string) {
         return document.getElementById(target)
     }
 
-    function prepareLocalizations(){
+    prepareLocalizations(){
      
 
         let globalization = document.getElementById(constIdBaseWindow.GLOBALIZATION)
@@ -61,7 +75,7 @@ export let buttonsDOM = (()=> {
         })
     }
 
-    function prepareEnviroments(){
+    prepareEnviroments(){
      
         let baseEnvironments = document.getElementById(constIdBaseWindow.ENVIROMENT)!
         let olliEnviroment = document.getElementById(constIdBaseWindow.OLLI_ENVIROMENT)
@@ -79,11 +93,7 @@ export let buttonsDOM = (()=> {
         setDescription(atualEnvironment)
 
         baseEnvironments?.addEventListener("click", (e) => {
-            
             olliEnviroment?.classList.toggle("r-display-none")
-            let target = (e.target as HTMLElement)
-            let env = target.getAttribute('env')
-            document.cookie = `enviroment=${env}`  
         })
         
         let globalConf = ruculaGlobal.getConfigurationGlobal()
@@ -97,10 +107,27 @@ export let buttonsDOM = (()=> {
             
             olliEnviroment?.appendChild(li)
             
-            li.addEventListener("click",() => {
+            li.addEventListener("click",(e) => {
 
-                ruculaGlobal.setEnviroment(enviroment.env)
-                setDescription(enviroment)
+                let reload = (yesNo:boolean) => {
+                    if(yesNo){
+
+                        ruculaGlobal.setEnviroment(enviroment.env)
+                        setDescription(enviroment)
+                        
+                        let target = e.target as HTMLElement
+                        let env = target.getAttribute('env')
+                        
+                        document.cookie = `enviroment=${env}`
+                        this.callbackReaload();
+                    }
+                }
+                
+                this.popup.warning({
+                    text:'A alteração desejada reiniciará a interface. Deseja continuar?'
+                },reload as callbackYesNo)
+
+                
             })
         })
 
@@ -115,55 +142,51 @@ export let buttonsDOM = (()=> {
             }
         }
     }
-    return {
-        createButtonOrLink: (button:button) => createButtonOrLink(button),
         
-        prepareButtonsInLeftBox: (button:button[]) => {
+    prepareButtonsInLeftBox (button:button[]) {
             
-            const ListRightButtons = document.getElementById("r-a-menu-vertical-list")
-            
-            let buttons = button?.filter(c=> buttonIsNotDefault(c.target))
-            
-            if(buttons?.length == 0 || buttons == undefined){
-                document.querySelector('.r-vertical-actions')?.classList.add('r-display-none')
-            }
-            
-            buttons?.forEach(b => {
-                    
-                const li = document.createElement("li")
-                li.appendChild(createButtonOrLink(b))
-    
-                ListRightButtons?.appendChild(li)  
-            })
-            
-            prepareLocalizations()
-            prepareEnviroments()
-
-        },
-        buttonIsNotDefault:(target:string) => buttonIsNotDefault(target),
+        const ListRightButtons = document.getElementById("r-a-menu-vertical-list")
         
-        disable:(target:string) => {
-            
-            let button = getButton(target)
-            button?.classList.remove('r-display-none')
-            button?.setAttribute('disabled','')
-        },
-        enable:(target:string) => {
-
-            let button = getButton(target)
-            button?.classList.remove('r-display-none')
-            button?.removeAttribute('disabled')
-        },
-        hide:(target:string) => {
-
-            let button = getButton(target)
-            button?.classList.add('r-display-none')
-        },
-        destroy:(target:string) => {
-
-            let button = getButton(target)
-            button?.remove()
+        let buttons = button?.filter(c=> this.buttonIsNotDefault(c.target))
+        
+        if(buttons?.length == 0 || buttons == undefined){
+            document.querySelector('.r-vertical-actions')?.classList.add('r-display-none')
         }
+        
+        buttons?.forEach(b => {
+                
+            const li = document.createElement("li")
+            li.appendChild(this.createButtonOrLink(b))
+
+            ListRightButtons?.appendChild(li)  
+        })
+        
+        this.prepareLocalizations()
+        this.prepareEnviroments()
+
     }
-})()
+        
+    disable(target:string) {
+            
+        let button = this.getButton(target)
+        button?.classList.remove('r-display-none')
+        button?.setAttribute('disabled','')
+    }
+    enable(target:string) {
+
+        let button = this.getButton(target)
+        button?.classList.remove('r-display-none')
+        button?.removeAttribute('disabled')
+    }
+    hide(target:string) {
+
+        let button = this.getButton(target)
+        button?.classList.add('r-display-none')
+    }
+    destroy (target:string) {
+
+        let button = this.getButton(target)
+        button?.remove()
+    }
+}
 

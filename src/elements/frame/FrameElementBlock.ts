@@ -1,4 +1,4 @@
-import { buttonsDOM } from "../../buttons/Button";
+import { Button } from "../../buttons/Button";
 import { frame } from "../../entities/form/frame";
 import { ManagmentObject } from "../../object/ObjectManagment";
 import { Field } from "../form/Field";
@@ -8,8 +8,8 @@ import { FrameEvent } from "./FrameEvent";
     
 export class FrameElementBlock extends FrameElement{
     
-    constructor(managmentObject:ManagmentObject,field:Field, frameEvent:FrameEvent) {
-        super(managmentObject,field,frameEvent);
+    constructor(managmentObject:ManagmentObject,field:Field, frameEvent:FrameEvent, button:Button) {
+        super(managmentObject,field,frameEvent,button);
     }
     create(frame:frame){
     
@@ -27,7 +27,7 @@ export class FrameElementBlock extends FrameElement{
         frame.fields?.forEach(field => {
                     
             if(field?.button){
-                let buttonElement = buttonsDOM.createButtonOrLink(field.button)
+                let buttonElement = this.button.createButtonOrLink(field.button)
                 let groupElement = this.field.createGroupOfButton(buttonElement as HTMLButtonElement|HTMLAnchorElement) as HTMLDivElement
                 div.appendChild(groupElement)
                 return

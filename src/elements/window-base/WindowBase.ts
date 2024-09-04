@@ -11,14 +11,10 @@ export let windowBaseDOM = (() => {
         const ruculaWindow = document.createElement("div");
         ruculaWindow.classList.add("r-w");
     
-        const actions = document.createElement("div");
-        actions.className = "r-left-block"
-        actions.innerHTML = componentActions();    
+        const actions = componentActions();    
         ruculaWindow.appendChild(actions)
     
-        const contentForm = document.createElement("div");
-
-        contentForm.innerHTML = createComponentCreateOrEdit()
+        const contentForm = createComponentCreateOrEdit()
         
         ruculaWindow.appendChild(contentForm.childNodes[0] as HTMLDivElement)
         ruculaWindow.appendChild(contentForm.childNodes[1] as HTMLDivElement)
@@ -49,6 +45,9 @@ export let windowBaseDOM = (() => {
     }
 
     function componentActions(){
+
+        const actions = document.createElement("div");
+        actions.className = "r-left-block"
 
         const ACTIONS = 
             `<div class="r-act" id="actions">
@@ -86,11 +85,15 @@ export let windowBaseDOM = (() => {
                 </div>
              </div>` 
     
-        return ACTIONS;
+        actions.innerHTML = ACTIONS;    
+
+        return actions.cloneNode(true);
     }
     
     function createComponentCreateOrEdit(){
     
+        const contentForm = document.createElement("div");
+
         const CREATE_OR_EDIT =  
         `<div class="container-r-f  js-open-close-container">
             <div class="r-act-opt r-head" id="w-title">
@@ -158,7 +161,8 @@ export let windowBaseDOM = (() => {
         </div>
         `
     
-        return CREATE_OR_EDIT;
+        contentForm.innerHTML = CREATE_OR_EDIT;
+        return contentForm.cloneNode(true);
     }
     
     function prepareEventsButtonsCrud(){

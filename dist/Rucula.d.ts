@@ -5,6 +5,7 @@ import { EventManagment } from "./Event/event";
 import { URLRucula } from "./URL/urlManagment";
 import { ManagmentObject } from "./object/ObjectManagment";
 import { TableDependency } from "./table-dependency/TableDependency";
+import { Button } from "./buttons/Button";
 export declare class Rucula {
     private window;
     private elementRucula;
@@ -13,43 +14,37 @@ export declare class Rucula {
     event: EventManagment;
     managmentObject: ManagmentObject;
     tableDependency: TableDependency;
+    button: Button;
     private layoutFrame;
     private fragment;
     private field;
     private eventButton;
     private frameEvent;
+    private config;
     constructor(config: {
         global: globalConfiguration;
         window: window;
         id: string | undefined;
+        reload?: () => void;
     });
     create(): void;
     private addHomeWindow;
+    reload(callback: any): void;
+    private cleanRucula;
     private createButtons;
     private createFrames;
     loader: {
         enable: () => void;
         disable: () => void;
     };
-    buttons: {
-        createButtonOrLink: (button: import("./entities/form/button").button) => HTMLAnchorElement | HTMLButtonElement;
-        prepareButtonsInLeftBox: (button: import("./entities/form/button").button[]) => void;
-        buttonIsNotDefault: (target: string) => boolean;
-        disable: (target: string) => void;
-        enable: (target: string) => void;
-        hide: (target: string) => void;
-        destroy: (target: string) => void;
-    };
     url: (URL?: {
         absolute: string;
         relative: string;
         params: string;
     }) => URLRucula;
-    object: {
-        objectUnique: (alias: string) => any;
-        getFullObject: () => any;
-        getSepareteObject: () => any;
-        setValue: (targetPath: string, value: any) => void;
-        getValue: (config: string) => any;
-    };
+    objectUnique(alias: string): any;
+    getFullObject(): any;
+    getSepareteObject(): any;
+    setValue(targetPath: string, value: any): void;
+    getValue(config: string): any;
 }

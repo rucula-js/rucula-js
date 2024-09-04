@@ -1,3 +1,4 @@
+import { Button } from "../../buttons/Button";
 import { constFrameLineActions } from "../../const";
 import { frame } from "../../entities/form/frame";
 import { KeyEventAdd, KeyEventClear, KeyEventGetIndex } from "../../global/KeyEvents";
@@ -11,8 +12,8 @@ export class FrameElementLine extends FrameElement{
     
     public fameLineTable:FameLineTable
 
-    constructor(managmentObject:ManagmentObject, field:Field, frameEvent:FrameEvent) {
-        super(managmentObject, field, frameEvent);
+    constructor(managmentObject:ManagmentObject, field:Field, frameEvent:FrameEvent,button:Button) {
+        super(managmentObject, field, frameEvent, button);
         this.fameLineTable = new FameLineTable(managmentObject,field,this,frameEvent,this.setValuesDefined)
     }    
 

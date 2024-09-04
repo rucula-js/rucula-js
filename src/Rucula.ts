@@ -6,7 +6,6 @@ import { configWindow } from "./window/Window";
 import { defaultValues } from "./elements/Defaults";
 import { LayoutFrame } from "./Layout/layout";
 import { buttonsBase } from "./buttons/buttonsBaseCrud";
-import { buttonsDOM } from "./buttons/Button";
 import { globalConfiguration } from "./global/entities/GlobalConfiguration";
 import { ruculaGlobal } from "./global/GlobalConfig";
 import { loaderManagment } from "./elements/loader/loader";
@@ -22,35 +21,36 @@ import { TableDependency } from "./table-dependency/TableDependency";
 import { Fragment } from "./fragment/fragment";
 import { Field } from "./elements/form/Field";
 import { FrameEvent } from "./elements/frame/FrameEvent";
+import { Button } from "./buttons/Button";
 
 export class Rucula{
     
     private window: window
     private elementRucula: HTMLElement
     private elementFormRucula!: HTMLFormElement
-    
     public popup:Popup
     public event:EventManagment
     public managmentObject:ManagmentObject
     public tableDependency:TableDependency
-    
+    public button:Button
     private layoutFrame:LayoutFrame
     private fragment: Fragment
     private field:Field
     private eventButton:EventButton
     private frameEvent:FrameEvent
- 
+    private config:any
     constructor(config: {
         global:globalConfiguration, 
         window:window, 
-        id:string|undefined 
+        id:string|undefined,
+        reload?:() => void
     }){
         config.id ??= 'rucula-js';
         ruculaGlobal.initGlobalConfiguration(config.global)
         windowBaseDOM.setElementRoot(config.id)
         this.window = config.window
         this.elementRucula = document.getElementById(config.id)!
-        this.popup = new Popup();
+        this.popup = new Popup()
         this.layoutFrame = new LayoutFrame()
         this.fragment = new Fragment();
         this.tableDependency = new TableDependency();
@@ -59,10 +59,16 @@ export class Rucula{
         this.field = new Field(this.managmentObject)
         this.eventButton = new EventButton(this.field, this.managmentObject)
         this.frameEvent = new FrameEvent(this.managmentObject)
+
+        this.button = new Button(() => {
+            let rucula = new Rucula(config)
+            rucula.create()
+            this.config?.reload()
+        })
     }
 
     create(){
-        
+        this.cleanRucula();
         let eventInit = new Event('rucula.init')
         let eventLoad = new Event('rucula.load')
         
@@ -109,10 +115,20 @@ export class Rucula{
         })
     }
     
+    reload(callback:any){
+        callback()
+    }
+
+    private cleanRucula(){
+        for (let index = 0; index < this.elementRucula.childNodes.length; index++) {            
+            this.elementRucula.childNodes[index].remove();
+        }
+    }
+
     private createButtons(type:string="CRUD"){
 
         if(type == "CRUD"){
-            buttonsDOM.prepareButtonsInLeftBox(this.window.button)
+            this.button.prepareButtonsInLeftBox(this.window.button)
         }
         this.eventButton.eventButton(this.window.pathController, this.window.button)
         this.eventButton.openCloseRightListButtons()
@@ -120,8 +136,8 @@ export class Rucula{
 
     private createFrames(){
         
-        let frameBlock = new FrameElementBlock(this.managmentObject,this.field, this.frameEvent);
-        let frameLine = new FrameElementLine(this.managmentObject,this.field,this.frameEvent);
+        let frameBlock = new FrameElementBlock(this.managmentObject,this.field, this.frameEvent, this.button);
+        let frameLine = new FrameElementLine(this.managmentObject,this.field,this.frameEvent, this.button);
 
         this.window.frames?.forEach(frame => {
             
@@ -158,8 +174,7 @@ export class Rucula{
     }
 
     public loader = loaderManagment
-    public buttons = buttonsDOM
-    
+
     public url = (URL?: { absolute: string; relative: string; params: string; }) => new URLRucula(this.managmentObject, URL);
             
     objectUnique (alias:string) {
@@ -201,7 +216,3 @@ export class Rucula{
         return this.managmentObject.getPropert(config)
     }
 }
-
-
-
-

@@ -1,3 +1,4 @@
+import { Button } from "../../buttons/Button";
 import { constTypeFrame } from "../../const";
 import { frame } from "../../entities/form/frame";
 import { ManagmentObject } from "../../object/ObjectManagment";
@@ -9,11 +10,13 @@ export class FrameElement{
     protected managmentObject:ManagmentObject 
     protected field:Field
     protected frameEvent:FrameEvent
+    protected button:Button
     
-    constructor(managmentObject:ManagmentObject,field:Field,frameEvent:FrameEvent) {
+    constructor(managmentObject:ManagmentObject,field:Field,frameEvent:FrameEvent, button:Button) {
         this.managmentObject = managmentObject
         this.field = field
         this.frameEvent = frameEvent
+        this.button =  button
     }
     
     protected createbase(frame:frame){
