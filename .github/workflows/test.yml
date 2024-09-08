@@ -2,9 +2,9 @@ name: Unit Test
 run-name: Unit Test
 on: 
   push:
-  jobs:
-    test:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4.0.0
-        - run: npm rutest
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.0.0
+    - run: npm run test
